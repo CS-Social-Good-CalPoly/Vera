@@ -1,4 +1,5 @@
 import './App.css';
+import { Home } from './components/components'
 
 function App() {
   return (
@@ -6,6 +7,7 @@ function App() {
     Insert Header Here
     <div id="page">
       Insert Page Switching Logic Here
+      <Home />
     </div>
   </div>
   );
