@@ -3,11 +3,11 @@ import './Home.css';
 
 function Home() {
 
-   return (
-      <div>
-         This will be the home page component.
-      </div>
-   );
+    return (
+        <div>
+            This will be the home page component.
+        </div>
+    );
 }
 
 export default Home;
