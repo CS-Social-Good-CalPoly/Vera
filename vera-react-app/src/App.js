@@ -1,11 +1,11 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home } from './components/components'
+import { Home, Banner} from './components/components';
 
 function App() {
     return (
         <div id="app">
-            Insert Nav Bar Here
+            <Banner imageUrl="https://picsum.photos/1200/500"/>
             <Switch>
                <Route exact path='/'
                  component={() => <Home />} />
