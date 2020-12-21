@@ -10,7 +10,6 @@ function Footer() {
             </div>
             <div className="column3">
                 <a href="Recourses.html"> Resources </a> 
-                <br></br>
                 <a href="Stories.html"> Stories </a>
             </div>
         </div>
