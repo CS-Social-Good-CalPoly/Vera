@@ -9,6 +9,19 @@ div#story-banner-img-col, div#story-banner-text-col {
     padding: 0;
 }
 
+@media only screen and (min-width: 768px) {
+    #story-banner-img-col, #story-banner-text-col{
+        height: 500px;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    #story-banner-img-col, #story-banner-text-col{
+        height: 200px;
+    }
+}
+
 img#story-banner-image {
     width: 100%;
     height: 100%;
