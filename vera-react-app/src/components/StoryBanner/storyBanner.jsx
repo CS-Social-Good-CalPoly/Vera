@@ -29,11 +29,4 @@ function StoryBanner(props){
     )
 }
 
-/**
- <img src={props.imageUrl} alt="banner-image" id="story-banner-image"></img>
- */
- /**
-
-  */
-
 export default StoryBanner;
