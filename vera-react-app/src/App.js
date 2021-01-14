@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home, StoryBanner} from './components/components';
+import { Home } from './components/components';
 
 function App() {
     return (
