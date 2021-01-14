@@ -1,9 +1,7 @@
 import React from 'react';
 import './storyBanner.css'
 import { useHistory } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col'
+import { Container, Row, Col } from 'react-bootstrap';
 
 function StoryBanner(props){
     const history = useHistory();
