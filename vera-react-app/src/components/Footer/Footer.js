@@ -5,7 +5,7 @@ function Footer() {
     return (
         <div className="main-footer">
             <div className="column1">
-                <h4>&copy; 2020 VERA</h4>
+                &copy; 2020 VERA
             </div>
             <div className="column3">
                 <a href="Recourses.html"> Resources </a> 
