@@ -9,8 +9,8 @@
 
 .column1 {
     display: flex;
-    align-items: center;
-    height: 100px;
+    align-items: flex-end;
+    height: 80px;
     float: left;
     font-size: 10px;
     padding-left: 50px;
