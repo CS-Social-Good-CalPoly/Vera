@@ -3,9 +3,12 @@
     font-family: poppins;
     width: 100%;
     color: white;
-    height: 100px;
+    height: 180px;
     position: absolute; 
     bottom: 0px;
+    @media only screen and (min-width: 768px) {
+        height: 72px;
+   }
 }
 
 .column1 {
@@ -15,10 +18,8 @@
     float: left;
     font-size: 10px;
     padding-left: 50px;
-}
-
-@media only screen and (min-width: 768px) {
-    .column1 {
+    
+    @media only screen and (min-width: 768px) {
         font-size: 16px;
     }
 }
@@ -33,10 +34,8 @@
     height: 100px;
     text-align: left;
     font-size: 14px;
-}
 
-@media only screen and (min-width: 768px) {
-    .column3 {
+    @media only screen and (min-width: 768px) {
         width: 150px;
         font-size: 20px;
     }
