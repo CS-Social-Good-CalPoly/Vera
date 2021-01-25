@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home} from './components/components';
-import { Footer } from './components/components';
+import { Home, Footer} from './components/components';
 
 function App() {
     return (
