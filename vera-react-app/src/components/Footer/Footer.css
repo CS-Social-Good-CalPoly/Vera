@@ -58,6 +58,13 @@ a:-webkit-any-link{
     color: white;
     cursor: pointer;
     text-decoration: none;
+    padding-bottom: 14px;
+}
+
+@media only screen and (max-width: 768px) {
+    a:-webkit-any-link {
+        padding-bottom: 6px;
+    }
 }
 
 a:hover{
