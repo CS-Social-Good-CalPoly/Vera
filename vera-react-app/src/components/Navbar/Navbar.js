@@ -11,7 +11,7 @@ function Navbar() {
             </div>
             <div className="optionCol">
                 <div id="mobile"> 
-                    <img id="option" src={optionBar} height="20" width="24" ></img>
+                    <img id="option" src={optionBar} height="16" width="16" ></img>
                 </div>
                 <div id="desktop">
                     <a id ="link" href="Recourses.html"> Resources </a> 

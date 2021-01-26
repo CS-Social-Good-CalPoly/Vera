@@ -19,7 +19,6 @@
 
 .optionCol{
     display: flex;
-    flex-direction: column;
     padding-top: 12px;
     padding-right: 16px;
     align-items: center;
@@ -35,10 +34,20 @@
 @media only screen and (max-width: 768px) {
     #mobile{
         display: block;
-   }
-   #desktop{
+    }
+    #desktop{
         display: none;
-   }
+    }
+    .main-navbar{
+        height: 36px;
+    }
+    .optionCol{
+        padding-top: 6px;
+    }
+    #logo {
+        height: 23px;
+        width: 23px;
+    }
 }
 
 @media only screen and (min-width: 768px) {
