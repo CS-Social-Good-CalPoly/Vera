@@ -7,7 +7,7 @@ function Navbar() {
     return (
         <div className="main-navbar">
             <div className="logoCol">
-                <img id="logo" src={logo} height="48" width="48" ></img>
+                <img id="logo" src={logo} height="35" width="35" ></img>
             </div>
             <div className="optionCol">
                 <div id="mobile"> 
