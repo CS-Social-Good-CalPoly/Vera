@@ -1,10 +1,11 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Footer} from './components/components';
+import { Home, Footer, Navbar} from './components/components';
 
 function App() {
     return (
         <div id="app">
+            <Navbar/>
             <Switch>
                <Route exact path='/'
                  component={() => <Home />} />

@@ -1,0 +1,49 @@
+.main-navbar{
+    background-color: color;
+    border-style: solid;
+    border-color: #4A6E82;
+    border-width: 0.5px;
+    font-family: poppins;
+    width: 100%;
+    height: 50px;
+}
+
+.logoCol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px;
+    float: left;
+}
+
+@media only screen and (max-width: 768px) {
+    #mobile{
+        display: block;
+   }
+   #desktop{
+        display: none;
+   }
+}
+
+@media only screen and (min-width: 768px) {
+    #mobile{
+        display: none;
+   }
+   #desktop{
+        display: block;
+   }
+}
+
+.optionCol{
+    display: flex;
+    flex-direction: column;
+    padding-top: 12px;
+    padding-right: 16px;
+    align-items: center;
+    float: right;
+}
+
+#link{
+    color: #4A6E82;
+    padding-right: 40px;
+}
