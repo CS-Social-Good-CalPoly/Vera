@@ -48,6 +48,9 @@ function ResourceTile(props) {
                     <img src={props.imgUrl} alt="An image of the resource" id="resource-tile-expanded-img"/>
                 </Col>
             </Row>
+            <button type="button" id="resource-tile-expanded-close-btn" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </Container>
     )
 

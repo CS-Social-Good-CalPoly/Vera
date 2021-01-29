@@ -6,6 +6,7 @@
     border-radius: 15px;
     width: unset;
     padding:0;
+    position: relative;
 }
 
 #resource-tile-expanded-text{
@@ -140,4 +141,10 @@
         flex-direction: row-reverse;
         padding:0 1rem;
     }
+}
+
+button#resource-tile-expanded-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
