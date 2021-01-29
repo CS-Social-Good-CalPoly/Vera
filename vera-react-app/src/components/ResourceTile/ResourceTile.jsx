@@ -19,7 +19,7 @@ function ResourceTile(props) {
     return (
         <Container id="resource-tile-expanded">
             <Row id="resource-tile-expanded-row">
-                <Col xs={12} md={7} id="resource-tile-expanded-text-col">
+                <Col xs={12} md={9} id="resource-tile-expanded-text-col">
                     <div id="resource-tile-expanded-text">
                         <h1 id="resource-tile-expanded-text-title">{props.title}</h1>
                         <p id="resource-tile-expanded-text-location"><strong>Location: </strong>{props.location}</p>
@@ -44,7 +44,7 @@ function ResourceTile(props) {
                         <a href={props.link} target="_blank" id="resource-tile-expanded-button">Visit Resource Site</a>
                     </div>
                 </Col>
-                <Col xs={12} md={5} id="resource-tile-expanded-img-col">
+                <Col xs={12} md={3} id="resource-tile-expanded-img-col">
                     <img src={props.imgUrl} alt="An image of the resource" id="resource-tile-expanded-img"/>
                 </Col>
             </Row>
