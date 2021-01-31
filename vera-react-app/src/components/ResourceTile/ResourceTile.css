@@ -140,7 +140,7 @@
     #resource-tile-expanded-row{
         display:flex;
         flex-direction: row-reverse;
-        padding:0 1rem;
+        padding: 0 1rem;
     }
 }
 
