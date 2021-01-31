@@ -29,12 +29,11 @@ function ResourceTile(props) {
                                 <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
                                 <p className="resource-tile-expanded-text-hours"><strong>Hours: </strong> {props.hours}</p>
                             </div>
-                            <div className="resource-tile-expanded-text-group-toExpect-phone-hour-separator"/>
                             <div className="resource-tile-expanded-text-group-toExpect">
                             <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>
                                 <ul className="resource-tile-expanded-to-expect">
                                     {props.toExpect.map((item, i) => (
-                                    <li key={"resource-tile-expanded-to-expect-item-" + i.toString()}>
+                                    <li className="resource-tile-expanded-to-expect-item" key={"resource-tile-expanded-to-expect-item-" + i.toString()}>
                                         <div>{item}</div>
                                     </li>
                                     ))}

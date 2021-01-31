@@ -39,18 +39,17 @@
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
-    line-height: 15px;
-    margin-bottom: 0.5rem;
-
-    letter-spacing: 0.05em;
+    line-height: 26px;
+    margin-bottom: 15px;
+    letter-spacing: 0.02em;
     text-transform: lowercase;
     color: #4A6E82;
 }
 
 .resource-tile-expanded-text-hours {
     font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 26px;
 
     letter-spacing: 0.05em;
     text-transform: capitalize;
@@ -60,8 +59,8 @@
 
 .resource-tile-expanded-text-phone {
     font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
+    font-size: 14px;
+    line-height: 26px;
     margin-bottom:0;
 
     letter-spacing: 0.05em;
@@ -69,17 +68,22 @@
     color: #4A6E82;
 }
 
+p.resource-tile-expanded-to-expect{
+    font-size: 14px;
+}
+
 .resource-tile-expanded-to-expect {
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 15px;
-    margin-bottom: 0.5rem;
+    line-height: 20px;
+    /* or 186% */
 
     letter-spacing: 0.05em;
     text-transform: capitalize;
-
-    color: .000000;
+}
+.resource-tile-expanded-to-expect-item{
+    margin-bottom:5px;
 }
 
 #resource-tile-expanded-button{
@@ -133,14 +137,15 @@
         display:flex;
         flex-direction: row-reverse;
         white-space: break-spaces;
-    }
-    div.resource-tile-expanded-text-group-toExpect-phone-hour-separator {
-        width: 3rem;
+        justify-content: space-between;
     }
     .resource-tile-expanded-row{
         display:flex;
         flex-direction: row-reverse;
         padding: 0 1rem;
+    }
+    .resource-tile-expanded-to-expect {
+        max-width: 70%;
     }
 }
 
