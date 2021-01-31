@@ -10,8 +10,8 @@
 }
 
 #resource-tile-expanded-text{
-    display:flex;
-    flex-direction:column;
+    display: flex;
+    flex-direction: column;
     padding: 0 1rem;
 }
 
