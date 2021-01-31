@@ -1,4 +1,4 @@
-#resource-tile-expanded{
+.resource-tile-expanded{
     font-family: 'Poppins', sans-serif;
     font-style: normal;
     background: #FFFFFF;
@@ -9,13 +9,13 @@
     position: relative;
 }
 
-#resource-tile-expanded-text{
+.resource-tile-expanded-text{
     display: flex;
     flex-direction: column;
     padding: 0 1rem;
 }
 
-#resource-tile-expanded-text-title{
+.resource-tile-expanded-text-title{
     margin-top: 0.5rem;
     font-weight: 600;
     font-size: 18px;
@@ -26,7 +26,7 @@
     color: #0D2020;
 }
 
-#resource-tile-expanded-text-location{
+.resource-tile-expanded-text-location{
     font-weight: normal;
     font-size: 12px;
     letter-spacing: 0.05em;
@@ -35,7 +35,7 @@
     margin-bottom: 0.5rem;
 }
 
-#resource-tile-expanded-text-description{
+.resource-tile-expanded-text-description{
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
@@ -47,7 +47,7 @@
     color: #4A6E82;
 }
 
-#resource-tile-expanded-text-hours {
+.resource-tile-expanded-text-hours {
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
@@ -58,7 +58,7 @@
     color: #4A6E82;
 }
 
-#resource-tile-expanded-text-phone {
+.resource-tile-expanded-text-phone {
     font-weight: normal;
     font-size: 12px;
     line-height: 14px;
@@ -79,7 +79,7 @@
     letter-spacing: 0.05em;
     text-transform: capitalize;
 
-    color: #000000;
+    color: .000000;
 }
 
 #resource-tile-expanded-button{
@@ -102,14 +102,14 @@
 
 /* Mobile specific setting */
 @media only screen and (max-width: 768px) {
-    img#resource-tile-expanded-img {
+    img.resource-tile-expanded-img {
         height: 85px;
         object-fit: cover;
         width: inherit;
         border-radius: 15px 15px 0 0;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     }
-    #resource-tile-expanded-row{
+    .resource-tile-expanded-row{
         display:flex;
         flex-direction: column-reverse;
     }
@@ -117,34 +117,34 @@
 
 /* Desktop specific settings */
 @media only screen and (min-width: 768px) {
-    #resource-tile-expanded-img-col {
+    .resource-tile-expanded-img-col {
         padding:0;
         display:flex;
     }
 
-    img#resource-tile-expanded-img {
+    img.resource-tile-expanded-img {
         object-fit: cover;
         width: 100%;
         height: auto;
         border-radius: 15px 0 0 15px;
     }
 
-    #resource-tile-expanded-text-group-toExpect-phone-hour{
+    .resource-tile-expanded-text-group-toExpect-phone-hour{
         display:flex;
         flex-direction: row-reverse;
         white-space: break-spaces;
     }
-    div#resource-tile-expanded-text-group-toExpect-phone-hour-separator {
+    div.resource-tile-expanded-text-group-toExpect-phone-hour-separator {
         width: 3rem;
     }
-    #resource-tile-expanded-row{
+    .resource-tile-expanded-row{
         display:flex;
         flex-direction: row-reverse;
         padding: 0 1rem;
     }
 }
 
-button#resource-tile-expanded-close-btn {
+.resource-tile-expanded-close-btn {
     position: absolute;
     top: 1rem;
     right: 1rem;

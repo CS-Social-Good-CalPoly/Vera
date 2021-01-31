@@ -17,20 +17,20 @@ import { Container, Row, Col } from 'react-bootstrap';
 function ResourceTile(props) {
 
     return (
-        <Container id="resource-tile-expanded">
-            <Row id="resource-tile-expanded-row">
-                <Col xs={12} md={9} id="resource-tile-expanded-text-col">
-                    <div id="resource-tile-expanded-text">
-                        <h1 id="resource-tile-expanded-text-title">{props.title}</h1>
-                        <p id="resource-tile-expanded-text-location"><strong>Location: </strong>{props.location}</p>
-                        <p id="resource-tile-expanded-text-description">{props.description}</p>
-                        <div id="resource-tile-expanded-text-group-toExpect-phone-hour">
-                            <div id="resource-tile-expanded-text-group-phone-hour">
-                                <p id="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
-                                <p id="resource-tile-expanded-text-hours"><strong>Hours: </strong> {props.hours}</p>
+        <Container className="resource-tile-expanded">
+            <Row className="resource-tile-expanded-row">
+                <Col xs={12} md={9} className="resource-tile-expanded-text-col">
+                    <div className="resource-tile-expanded-text">
+                        <h1 className="resource-tile-expanded-text-title">{props.title}</h1>
+                        <p className="resource-tile-expanded-text-location"><strong>Location: </strong>{props.location}</p>
+                        <p className="resource-tile-expanded-text-description">{props.description}</p>
+                        <div className="resource-tile-expanded-text-group-toExpect-phone-hour">
+                            <div className="resource-tile-expanded-text-group-phone-hour">
+                                <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
+                                <p className="resource-tile-expanded-text-hours"><strong>Hours: </strong> {props.hours}</p>
                             </div>
-                            <div id="resource-tile-expanded-text-group-toExpect-phone-hour-separator"/>
-                            <div id="resource-tile-expanded-text-group-toExpect">
+                            <div className="resource-tile-expanded-text-group-toExpect-phone-hour-separator"/>
+                            <div className="resource-tile-expanded-text-group-toExpect">
                             <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>
                                 <ul className="resource-tile-expanded-to-expect">
                                     {props.toExpect.map((item, i) => (
@@ -41,19 +41,18 @@ function ResourceTile(props) {
                                 </ul>
                             </div>
                         </div>
-                        <a href={props.link} target="_blank" id="resource-tile-expanded-button">Visit Resource Site</a>
+                        <a href={props.link} target="_blank" className="resource-tile-expanded-button">Visit Resource Site</a>
                     </div>
                 </Col>
-                <Col xs={12} md={3} id="resource-tile-expanded-img-col">
-                    <img src={props.imgUrl} alt="An image of the resource" id="resource-tile-expanded-img"/>
+                <Col xs={12} md={3} className="resource-tile-expanded-img-col">
+                    <img src={props.imgUrl} alt="An image of the resource" className="resource-tile-expanded-img"/>
                 </Col>
             </Row>
-            <button type="button" id="resource-tile-expanded-close-btn" class="close" aria-label="Close">
+            <button type="button" className="close resource-tile-expanded-close-btn" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </Container>
     )
 
 }
-
 export default ResourceTile;
