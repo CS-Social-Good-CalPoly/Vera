@@ -1,164 +1,164 @@
-.resource-tile-expanded{
-    font-family: 'Poppins', sans-serif;
-    font-style: normal;
-    background: #FFFFFF;
-    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-    border-radius: 15px;
-    width: unset;
-    padding:0;
-    position: relative;
-    margin:1rem;
+.resource-tile-expanded {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  background: #ffffff;
+  box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+  border-radius: 15px;
+  width: unset;
+  padding: 0;
+  position: relative;
+  margin: 1rem;
 }
 
-.resource-tile-expanded-text{
-    display: flex;
-    flex-direction: column;
-    padding: 0 1rem;
+.resource-tile-expanded-text {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
 }
 
-.resource-tile-expanded-text-title{
-    margin-top: 0.5rem;
-    font-weight: 600;
-    font-size: 18px;
+.resource-tile-expanded-text-title {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  font-size: 18px;
 
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 
-    color: #0D2020;
+  color: #0d2020;
 }
 
-.resource-tile-expanded-text-location{
-    font-weight: normal;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    text-transform: capitalize;
-    color: #0D2020;
-    margin-bottom: 0.5rem;
+.resource-tile-expanded-text-location {
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  color: #0d2020;
+  margin-bottom: 0.5rem;
 }
 
-.resource-tile-expanded-text-description{
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 26px;
-    margin-bottom: 15px;
-    letter-spacing: 0.02em;
-    text-transform: lowercase;
-    color: #4A6E82;
+.resource-tile-expanded-text-description {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 26px;
+  margin-bottom: 15px;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: #4a6e82;
 }
 
 .resource-tile-expanded-text-hours {
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 26px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 26px;
 
-    letter-spacing: 0.05em;
-    text-transform: capitalize;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
 
-    color: #4A6E82;
+  color: #4a6e82;
 }
 
 .resource-tile-expanded-text-phone {
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 26px;
-    margin-bottom:0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 26px;
+  margin-bottom: 0;
 
-    letter-spacing: 0.05em;
-    text-transform: capitalize;
-    color: #4A6E82;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  color: #4a6e82;
 }
 
-p.resource-tile-expanded-to-expect{
-    font-size: 14px;
+p.resource-tile-expanded-to-expect {
+  font-size: 14px;
 }
 
 .resource-tile-expanded-to-expect {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 20px;
-    /* or 186% */
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  /* or 186% */
 
-    letter-spacing: 0.05em;
-    text-transform: capitalize;
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
 }
-.resource-tile-expanded-to-expect-item{
-    margin-bottom:5px;
+.resource-tile-expanded-to-expect-item {
+  margin-bottom: 5px;
 }
 
-.resource-tile-expanded-button{
-    border: none;
-    border-radius: 5px;
-    background: rgba(65, 128, 137, 0.9);
-    font-weight: bold;
-    font-size: 10px;
-    line-height: 15px;
-    margin: 0.5rem 0 1rem 0;
+.resource-tile-expanded-button {
+  border: none;
+  border-radius: 5px;
+  background: rgba(65, 128, 137, 0.9);
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 15px;
+  margin: 0.5rem 0 1rem 0;
 
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: white;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: white;
 
-    width: fit-content;
-    align-self: center;
+  width: fit-content;
+  align-self: center;
 }
 
 /* Mobile specific setting */
 @media only screen and (max-width: 768px) {
-    img.resource-tile-expanded-img {
-        height: 85px;
-        object-fit: cover;
-        width: inherit;
-        border-radius: 15px 15px 0 0;
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    }
-    .resource-tile-expanded-row{
-        display:flex;
-        flex-direction: column-reverse;
-    }
-
-    .resource-tile-expanded-button {
-        padding: 0.5rem;
-    }
+  img.resource-tile-expanded-img {
+    height: 85px;
+    object-fit: cover;
+    width: inherit;
+    border-radius: 15px 15px 0 0;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+  .resource-tile-expanded-row {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 /* Desktop specific settings */
 @media only screen and (min-width: 768px) {
-    .resource-tile-expanded-img-col {
-        padding:0;
-        display:flex;
-    }
+  .resource-tile-expanded-img-col {
+    padding: 0;
+    display: flex;
+  }
 
-    img.resource-tile-expanded-img {
-        object-fit: cover;
-        width: 100%;
-        height: auto;
-        border-radius: 15px 0 0 15px;
-    }
+  img.resource-tile-expanded-img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 15px 0 0 15px;
+  }
 
-    .resource-tile-expanded-text-group-toExpect-phone-hour{
-        display:flex;
-        flex-direction: row-reverse;
-        white-space: break-spaces;
-        justify-content: space-between;
-    }
-    .resource-tile-expanded-row{
-        display:flex;
-        flex-direction: row-reverse;
-        padding: 0 1rem;
-    }
-    .resource-tile-expanded-to-expect {
-        max-width: 70%;
-    }
+  .resource-tile-expanded-text-group-toExpect-phone-hour {
+    display: flex;
+    flex-direction: row-reverse;
+    white-space: break-spaces;
+    justify-content: flex-end;
+  }
 
-    .resource-tile-expanded-button {
-        padding: 1rem;
-    }
+  .resource-tile-expanded-text-group-toExpect {
+    min-width: 300px;
+  }
+
+  .resource-tile-expanded-row {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0 1rem;
+  }
+  .resource-tile-expanded-to-expect {
+    max-width: 70%;
+  }
 }
 
 .resource-tile-expanded-close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+a.resource-tile-expanded-button {
+  padding: 9px 19px;
 }
