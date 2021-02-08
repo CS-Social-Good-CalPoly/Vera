@@ -8,6 +8,7 @@
 
 .CategoryButton:hover {
     text-decoration: underline;
+    text-decoration-color: #728D95;
 }
 
 .button-text {
