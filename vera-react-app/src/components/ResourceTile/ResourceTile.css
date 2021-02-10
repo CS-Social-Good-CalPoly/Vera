@@ -29,11 +29,16 @@
 
 .resource-tile-expanded-text-location {
   font-weight: normal;
-  font-size: 12px;
   letter-spacing: 0.05em;
   text-transform: capitalize;
   color: #0d2020;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.resource-tile-expanded-text-location p{
+  font-size: 12px;
+  margin-bottom: 6px;
 }
 
 .resource-tile-expanded-text-description {
@@ -56,6 +61,12 @@
   text-transform: capitalize;
 
   color: #4a6e82;
+}
+
+.resource-tile-expanded-text-hours-item{
+  font-size: 14px;
+  line-height: 26px;
+  margin-bottom:0;
 }
 
 .resource-tile-expanded-text-phone {

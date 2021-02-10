@@ -5,11 +5,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 /**
  * This component takes the following property
  * title: STRING = The resource's title
- * location: STRING = The resource's location
+ * buildingName: STRING = The resource's building name
+ * address: STRING = The resource's address
  * description: STRING = it's description
  * toExpect: LIST OF STRING = A list of string of what to expect
  * phone: STRING = Phone number
- * hours: STRING = resource's open hours
+ * hours: LIST of string = resource's open hours
  * link: STRING = Link to the resource
  * imgUrl: STRING = Image source
  */
@@ -22,12 +23,18 @@ function ResourceTile(props) {
                 <Col xs={12} md={9} className="resource-tile-expanded-text-col">
                     <div className="resource-tile-expanded-text">
                         <h1 className="resource-tile-expanded-text-title">{props.title}</h1>
-                        <p className="resource-tile-expanded-text-location"><strong>Location: </strong>{props.location}</p>
+                        <div className="resource-tile-expanded-text-location">
+                            <p><strong>Location: </strong>{props.buildingName}</p>
+                            <p>{props.address}</p>
+                        </div>
                         <p className="resource-tile-expanded-text-description">{props.description}</p>
                         <div className="resource-tile-expanded-text-group-toExpect-phone-hour">
                             <div className="resource-tile-expanded-text-group-phone-hour">
                                 <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
-                                <p className="resource-tile-expanded-text-hours"><strong>Hours: </strong> {props.hours}</p>
+                                <p className="resource-tile-expanded-text-hours"><strong>Hours: </strong> 
+                                    {props.hours.map((item, i) => (
+                                        <p className="resource-tile-expanded-text-hours-item">{item}</p>
+                                    ))}</p>
                             </div>
                             <div className="resource-tile-expanded-text-group-toExpect">
                             <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>
