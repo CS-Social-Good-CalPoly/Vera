@@ -4,6 +4,7 @@
     border-color: #4A6E82;
     border-width: 0.5px;
     font-family: poppins;
+    font-weight: 600;
     width: 100%;
     height: 50px;
 }
@@ -18,9 +19,9 @@
 }
 
 .optionCol{
-    display: flex;
+    display:flex;
+    flex-wrap: wrap;
     padding-top: 12px;
-    padding-right: 16px;
     align-items: center;
     float: right;
 }
@@ -32,21 +33,33 @@
 
 
 @media only screen and (max-width: 768px) {
-    #mobile{
-        display: block;
-    }
-    #desktop{
-        display: none;
-    }
     .main-navbar{
         height: 36px;
     }
     .optionCol{
         padding-top: 6px;
+        width: 100px;
+    }
+    #mobile{
+        display: block;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        float: right;
+    }
+    #desktop{
+        display: none;
     }
     #logo {
         height: 23px;
         width: 23px;
+    }
+    #desktop.show{
+        display:flex;
+        flex-direction: column;
+        padding-right: 0px;
+        padding-left: 0px;
+        width: 100%;
     }
 }
 
@@ -62,5 +75,8 @@
    }
    .optionCol{
         padding-right: 56px;
+        
    }
 }
+
+

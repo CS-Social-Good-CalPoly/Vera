@@ -4,6 +4,7 @@
     width: 100%;
     color: white;
     height: 180px;
+    font-weight: 600;
     position: absolute; 
     bottom: 0px;
 }
