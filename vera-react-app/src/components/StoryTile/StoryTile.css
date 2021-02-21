@@ -1,0 +1,97 @@
+.StoryTile {
+    width: 280px;
+    height: 280px;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner {
+    width: 280px;
+    height: 106px;
+    object-fit: cover;
+}
+
+.title {
+    position: absolute;
+    top: 113px;
+    padding: 0 14px;
+    /* font-family: Poppins; */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    text-transform: uppercase;
+    color: #4A6E82;
+}
+
+.info {
+    position: absolute;
+    left: 23px;
+    top: 205px;
+}
+
+.info-text {
+    margin: 0;
+    /* font-family: Poppins; */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #0D2020;
+}
+
+.icon {
+    position: absolute;
+    bottom: 17.5px;
+    right: 17.5px;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .StoryTile {
+        width: 150px;
+        height: 127px;
+        border-radius: 10px;
+    }
+
+    .banner {
+        width: 150px;
+        height: 57px;
+    }
+    
+    .title {
+        top: 60px;
+        padding: 0 6px;
+    
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 12px;
+        letter-spacing: 0.05em;
+        color: #0D2020
+    }
+    
+    .info {
+        position: absolute;
+        left: 10px;
+        top: 97px;
+    }
+    
+    .info-text {
+        font-weight: normal;
+        font-size: 8px;
+        line-height: 10px;
+        color: #0D2020;
+    }
+    
+    .icon {
+        margin: 0;
+        width: 12px;
+        height: 12px;
+        right: 5px;
+        bottom: 5px;
+    }
+  }
