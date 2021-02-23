@@ -1,6 +1,7 @@
 import React from 'react';
 import './ResourceTile.css'
 import { Container, Row, Col } from 'react-bootstrap';
+import CloseIcon from '@material-ui/icons/Close';
 
 /**
  * This component takes the following property
@@ -54,6 +55,7 @@ function ResourceTile(props) {
                     <img src={props.imgUrl} alt="An image of the resource" className="resource-tile-expanded-img"/>
                 </Col>
             </Row>
+            {/* <CloseIcon className="resource-tile-expanded-close-btn" color="error"/> */}
             <button type="button" className="close resource-tile-expanded-close-btn" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
