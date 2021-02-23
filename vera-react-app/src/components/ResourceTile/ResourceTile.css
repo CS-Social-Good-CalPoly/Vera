@@ -158,17 +158,10 @@ p.resource-tile-expanded-to-expect {
     justify-content: flex-end;
   }
 
-  .resource-tile-expanded-text-group-toExpect {
-    min-width: 300px;
-  }
-
   .resource-tile-expanded-row {
     display: flex;
     flex-direction: row-reverse;
     padding: 0 1rem;
-  }
-  .resource-tile-expanded-to-expect {
-    max-width: 70%;
   }
 }
 

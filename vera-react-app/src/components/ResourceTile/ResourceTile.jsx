@@ -29,16 +29,16 @@ function ResourceTile(props) {
                             <p>{props.address}</p>
                         </div>
                         <p className="resource-tile-expanded-text-description">{props.description}</p>
-                        <div className="resource-tile-expanded-text-group-toExpect-phone-hour">
-                            <div className="resource-tile-expanded-text-group-phone-hour">
+                        <Row className="resource-tile-expanded-text-group-toExpect-phone-hour">
+                            <Col xs={12} md={5} className="resource-tile-expanded-text-group-phone-hour">
                                 <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
-                                <p className="resource-tile-expanded-text-hours"><strong>Hours: </strong> 
+                                <div className="resource-tile-expanded-text-hours"><strong>Hours: </strong> 
                                     {props.hours.map((item, i) => (
                                         <p className="resource-tile-expanded-text-hours-item">{item}</p>
-                                    ))}</p>
-                            </div>
-                            <div className="resource-tile-expanded-text-group-toExpect">
-                            <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>
+                                    ))}</div>
+                            </Col>
+                            <Col xs={12} md={7} className="resource-tile-expanded-text-group-toExpect">
+                                <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>
                                 <ul className="resource-tile-expanded-to-expect">
                                     {props.toExpect.map((item, i) => (
                                     <li className="resource-tile-expanded-to-expect-item" key={"resource-tile-expanded-to-expect-item-" + i.toString()}>
@@ -46,8 +46,8 @@ function ResourceTile(props) {
                                     </li>
                                     ))}
                                 </ul>
-                            </div>
-                        </div>
+                            </Col>
+                        </Row>
                         <a href={props.link} target="_blank" className="resource-tile-expanded-button">Visit Resource Site</a>
                     </div>
                 </Col>
