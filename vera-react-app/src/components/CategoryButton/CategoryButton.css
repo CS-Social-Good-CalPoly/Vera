@@ -4,6 +4,12 @@
     border-radius: 15px;
     border: none;
     height: 55px;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 40px;
+    margin-left: 40px;
+    justify-content: center;
 }
 
 .CategoryButton:hover {
@@ -26,6 +32,8 @@
         border-radius: 5px;
         box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
         height: 31px;
+        
+        margin: 12px;
     }
 
     .button-text {
