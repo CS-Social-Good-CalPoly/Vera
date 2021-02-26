@@ -10,13 +10,13 @@
 
 .banner {
     width: 280px;
-    height: 106px;
+    height: 118px;
     object-fit: cover;
 }
 
 .title {
     position: absolute;
-    top: 113px;
+    top: 127px;
     padding: 0 14px;
     /* font-family: Poppins; */
     font-style: normal;
@@ -24,24 +24,26 @@
     font-size: 20px;
     line-height: 30px;
     text-transform: uppercase;
-    color: #4A6E82;
+    color: black;
 }
 
 .info {
     position: absolute;
-    left: 23px;
-    top: 205px;
+    padding-right: 10px;
+    width: 237px;
+    height:99px;
+    left: 22px;
+    top: 158px;
 }
 
 .info-text {
     margin: 0;
     /* font-family: Poppins; */
     font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    text-transform: uppercase;
-    color: #0D2020;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 26px;
+    color: #728D95;
 }
 
 .icon {
@@ -54,7 +56,7 @@
 
     .ResourcePageTile {
         width: 150px;
-        height: 127px;
+        height: 125px;
         border-radius: 10px;
     }
 
@@ -66,32 +68,22 @@
     .title {
         top: 60px;
         padding: 0 6px;
-
         font-weight: 600;
-        font-size: 10px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 21px;
         letter-spacing: 0.05em;
         color: #0D2020
     }
 
     .info {
-        position: absolute;
-        left: 10px;
-        top: 97px;
-    }
-
-    .info-text {
-        font-weight: normal;
-        font-size: 8px;
-        line-height: 10px;
-        color: #0D2020;
+        display:none;
     }
 
     .icon {
         margin: 0;
         width: 12px;
         height: 12px;
-        right: 5px;
-        bottom: 5px;
+        right: 6px;
+        bottom: 6px;
     }
   }

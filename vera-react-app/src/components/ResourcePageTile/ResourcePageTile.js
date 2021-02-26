@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 function ResourcePageTile(props) {
 
     return (
-        <Link to="{props.resourcePageLink}">
+        <Link to={props.resourcePageLink}>
             <div className="ResourcePageTile" >
                 <img className="banner" src={bannerPic} alt={bannerPic}/>
                 <h1 className="title">{props.title} </h1>
