@@ -1,26 +1,30 @@
 import React from 'react';
+import { Navbar, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import './Navbar.css';
-import optionBar from './OptionBar.jpg'
 import logo from './VeraLogo.jpg'
 
-function Navbar() {
+function NavBar() {
     return (
-        <div className="main-navbar">
+      <Navbar className="nav-main" bg="light" expand="lg" >
+        <Link to="/" >
             <div className="logoCol">
-                <img id="logo" src={logo} height="35" width="35" ></img>
-            </div>
-            <div className="optionCol">
-                <button class="mobile" id= "mobile" onClick={() =>
-                         {document.getElementById('desktop').classList.toggle('show')}  }> 
-                    <img id="option" src={optionBar} height="16" width="16" ></img>
-                </button>
-                <div id="desktop">
-                    <a id ="link" href="Recourses.html"> Resources </a> 
-                    <a id ="link" href="Stories.html"> Stories </a>
-                </div>
-            </div>
-        </div>
+                 <img id="logo" src={logo} height="35" width="35" ></img>
+             </div>
+        </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Link className="navbar-links" to ="/Resources">
+              Resources
+            </Link>
+            <Link className="navbar-links" to="/Stories">
+              Stories
+            </Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
 }
 
-export default Navbar;
+export default NavBar;

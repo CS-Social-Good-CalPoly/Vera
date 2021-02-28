@@ -1,82 +1,69 @@
-.main-navbar{
-    background-color: color;
-    border-style: solid;
-    border-color: #4A6E82;
-    border-width: 0.5px;
-    font-family: poppins;
-    font-weight: 600;
-    width: 100%;
+.nav-main{
     height: 50px;
 }
 
 .logoCol{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 6px;
-    padding-left: 20px;
-    float: left;
+    padding-top: 10px;
 }
 
-.optionCol{
-    display:flex;
-    flex-wrap: wrap;
-    padding-top: 12px;
-    align-items: center;
-    float: right;
-}
-
-#link{
+.navbar-links{
     color: #4A6E82;
-    padding-right: 40px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height:27px;
+    padding-right:50px;
+    padding-top:10px;
 }
 
+.navbar-light .navbar-toggler {
+    border-color: transparent!important;
+}
+
+.navbar-toggler-icon {
+    height: 25px;
+    padding-bottom: 15px;
+}
+
+
+.bg-light {
+    background-color: white!important;
+    box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
+}
+
+.navbar-toggler{
+    padding-top:0px;
+}
+
+button:focus{
+    outline:transparent;
+}
 
 @media only screen and (max-width: 768px) {
-    .main-navbar{
-        height: 36px;
+    .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{
+        padding-top: 0px;
     }
-    .optionCol{
-        padding-top: 6px;
-        width: 100px;
-    }
-    #mobile{
-        display: block;
-        outline: none;
-        border: none;
-        background-color: transparent;
-        float: right;
-    }
-    #desktop{
-        display: none;
-    }
-    #logo {
-        height: 23px;
-        width: 23px;
-    }
-    #desktop.show{
-        display:flex;
-        flex-direction: column;
-        padding-right: 0px;
-        padding-left: 0px;
-        width: 100%;
-    }
-}
 
-@media only screen and (min-width: 768px) {
-    #mobile{
-        display: none;
-   }
-   #desktop{
-        display: block;
-   }
-   .logoCol{
-       padding-left: 57px;
-   }
-   .optionCol{
-        padding-right: 56px;
+    .button.navbar-toggler.collapsed{
+        padding-top:0px;
+    }
         
-   }
+    .nav-main{
+        height: 34px;
+    }
+
+    #logo{
+        position: relative;
+        padding-bottom: 10px;
+        height:30px;
+        width:20px;
+    }
+
+   .navbar-links{
+        color: #4A6E82;
+        font-weight: 600;
+        font-size: 12px;
+        line-height:10px;
+        padding-left: 20px;
+        padding-top:5px;
+    }
 }
-
-
