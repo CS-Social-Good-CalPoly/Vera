@@ -13,6 +13,7 @@
     line-height:27px;
     padding-right:50px;
     padding-top:10px;
+    background-color: white;
 }
 
 .navbar-light .navbar-toggler {
@@ -41,22 +42,29 @@ button:focus{
 @media only screen and (max-width: 768px) {
     .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{
         padding-top: 0px;
+        padding-bottom: 0px;
     }
 
-    .button.navbar-toggler.collapsed{
-        padding-top:0px;
+    .navbar-toggler{
+        padding-top: 5px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
         
     .nav-main{
-        height: 34px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        padding-right:20px;
     }
 
+
     #logo{
-        position: relative;
-        padding-bottom: 10px;
-        height:30px;
-        width:20px;
+        vertical-align: baseline;
+        height:27px;
+        width:27px;
     }
+    
 
    .navbar-links{
         color: #4A6E82;
