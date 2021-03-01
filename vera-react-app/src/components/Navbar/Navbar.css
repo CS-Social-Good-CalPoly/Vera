@@ -10,9 +10,9 @@
     color: #4A6E82;
     font-weight: 600;
     font-size: 18px;
-    line-height:27px;
-    padding-right:50px;
-    padding-top:10px;
+    line-height: 27px;
+    padding-right: 50px;
+    padding-top: 10px;
     background-color: white;
 }
 
@@ -55,23 +55,21 @@ button:focus{
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 20px;
-        padding-right:20px;
+        padding-right: 20px;
     }
-
 
     #logo{
         vertical-align: baseline;
-        height:27px;
-        width:27px;
+        height: 27px;
+        width: 27px;
     }
     
-
    .navbar-links{
         color: #4A6E82;
         font-weight: 600;
         font-size: 12px;
-        line-height:10px;
+        line-height: 10px;
         padding-left: 20px;
-        padding-top:5px;
+        padding-top: 5px;
     }
 }
