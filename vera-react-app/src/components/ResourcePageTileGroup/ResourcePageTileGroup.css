@@ -1,0 +1,52 @@
+
+.ResourcePageTileGroup {
+    padding-left: 25px;
+}
+
+.ResourcePageTileGroup h1 {
+    border-bottom: 5px solid #728D95;
+    max-width: 20%;
+}
+
+.tile-group {
+    display : flex;
+    flex-wrap: wrap;
+    max-width: 1220px;
+}
+
+.tiles {
+    border: 1px solid #4A6E82;
+    width: 280px;
+    height: 280px;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 30px;
+    margin: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .ResourcePageTileGroup h1 {
+        border-bottom: 5px solid #728D95;
+        max-width: 50%;
+    }
+
+    .tile-group {
+        display : flex;
+        flex-wrap: wrap;
+        max-width: 400px;
+    }
+
+    .tiles {
+        border: 1px solid #4A6E82;
+        width: 150px;
+        height: 125px;
+        background: #FFFFFF;
+        box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+        border-radius: 10px;
+    }
+
+    .tiles p {
+        margin-bottom: 2px;
+    }
+}
+
