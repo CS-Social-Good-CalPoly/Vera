@@ -1,7 +1,6 @@
 import React from 'react';
 import './ResourceTile.css'
 import { Container, Row, Col } from 'react-bootstrap';
-import CloseIcon from '@material-ui/icons/Close';
 
 /**
  * This component takes the following property
