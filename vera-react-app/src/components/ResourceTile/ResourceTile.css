@@ -36,7 +36,7 @@
   margin-top: 0.5rem;
 }
 
-.resource-tile-expanded-text-location p{
+.resource-tile-expanded-text-location p {
   font-size: 12px;
   margin-bottom: 6px;
 }
@@ -46,7 +46,6 @@
   font-weight: 300;
   font-size: 14px;
   line-height: 26px;
-  margin-bottom: 15px;
   letter-spacing: 0.02em;
   text-transform: lowercase;
   color: #4a6e82;
@@ -63,16 +62,17 @@
   color: #4a6e82;
 }
 
-.resource-tile-expanded-text-hours-item{
+.resource-tile-expanded-text-hours-item {
   font-size: 14px;
   line-height: 26px;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 
 .resource-tile-expanded-text-phone {
   font-weight: normal;
   font-size: 14px;
   line-height: 26px;
+  margin-top: 1rem;
   margin-bottom: 0;
 
   letter-spacing: 0.05em;
@@ -82,6 +82,8 @@
 
 p.resource-tile-expanded-to-expect {
   font-size: 14px;
+  margin-top: 1rem;
+  margin-bottom: 5px;
 }
 
 .resource-tile-expanded-to-expect {

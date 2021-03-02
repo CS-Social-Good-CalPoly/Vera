@@ -12,28 +12,8 @@ function App() {
                <Route exact path='/'
                  component={() => <Home />} />
             </Switch>
-            <ResourceTile title="Campus Pantry" 		
-                buildingName="Campus Health & Wellbeing"
-                address="Building 27, Room 10, Lower Level" 		      		
-                description="The Food Pantry is a part of the Cal Poly Hunger Program which ensures that all students have access to nutritious meals every day in order to stay focused on their success at Cal Poly. "				
-                toExpect={toExpect}				
-                phone="(805)-756-6181"				
-                hours={openHours}		      		
-                link="https://www.google.com"				
-                imgUrl="https://picsum.photos/300"		      		
-                />
-            <ResourceTile title="Campus Pantry" 		
-                buildingName="Campus Health & Wellbeing"
-                address="Building 27, Room 10, Lower Level" 		      		
-                description="The Food Pantry is a part of the Cal Poly Hunger Program which ensures that all students have access to nutritious meals every day in order to stay focused on their success at Cal Poly. "				
-                toExpect={toExpect1}				
-                phone="(805)-756-6181"				
-                hours={openHours}		      		
-                link="https://www.google.com"				
-                imgUrl="https://picsum.photos/300"		      		
-                />
 
-            {/* <Footer/> */}
+            <Footer/>
         </div>
     );
 }
