@@ -4,16 +4,22 @@
 }
 
 .ResourcePageTileGroup h1 {
-    border-bottom: 5px solid #728D95;
+    border-bottom: 5px solid black;
     max-width: 20%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 54px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
 .tile-group {
-    display : flex;
+    display: flex;
     flex-wrap: wrap;
-    max-width: 1220px;
 }
 
+/* dummy css */
 .tiles {
     border: 1px solid #4A6E82;
     width: 280px;
@@ -28,14 +34,21 @@
     .ResourcePageTileGroup h1 {
         border-bottom: 5px solid #728D95;
         max-width: 50%;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
     }
 
     .tile-group {
-        display : flex;
+        display: flex;
         flex-wrap: wrap;
-        max-width: 400px;
     }
 
+    /* dummy css */
     .tiles {
         border: 1px solid #4A6E82;
         width: 150px;
@@ -45,8 +58,8 @@
         border-radius: 10px;
     }
 
+    /* dummy css */
     .tiles p {
         margin-bottom: 2px;
     }
 }
-

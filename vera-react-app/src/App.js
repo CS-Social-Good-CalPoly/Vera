@@ -10,14 +10,68 @@ function App() {
                 <Route exact path='/'
                        component={() => <Home/>}/>
             </Switch>
+
             <ResourcePageTileGroup
-                    sectionTitle=" Support"
-                    id="Stress"
-                    imageUrls={["url one", "url two", "url 3", "url 3", "url 3", "url 3", "url 3", "url 3"]}
-                    titles={["Stress1", "Stress2", "stress 3", "stress 3", "stress 3", "stress 3", "stress 3"]}
-                    bodyText={["Stress body1", "Stress body2", "body 3", "body 3", "body 3", "body 3", "body 3"]}
-                    links={["Stress Link1", "Stress Link2", "link 3", "link 3", "link 3", "link 3", "link 3"]}
-                />
+                id="Stress"
+                title="Support"
+                resources={
+                    [
+                        {
+                            id: 'general-stress',
+                            title: 'General Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                    ]
+                }
+            />
+            <ResourcePageTileGroup
+                id="finance"
+                title="Financial Support"
+                resources={
+                    [
+                        {
+                            id: 'general-stress',
+                            title: 'General Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        },
+                        {
+                            id: 'chronic-stress',
+                            title: 'Chronic Stress',
+                            imageUrl: '----------insert an image url here -----------'
+                        }
+                    ]
+                }
+            />
             <Footer/>
         </div>
     );
