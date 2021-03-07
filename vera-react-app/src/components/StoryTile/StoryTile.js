@@ -13,13 +13,14 @@ function StoryTile(props) {
     return (
         <div className="StoryTile">
             <img className="banner" src={props.imageUrl} alt=""/>
-            <h1 className="title">{props.title}</h1>
-            <div className="info">
-                <h2 className="info-text">{props.studentYear} Year</h2>
-                <h2 className="info-text">{props.studentMajor} Major</h2>
+            <div className="tile-text">
+                <h1 className="title">{props.title}</h1>
+                <div className="info">
+                    <h2 className="info-text">{props.studentYear} Year</h2>
+                    <h2 className="info-text">{props.studentMajor} Major</h2>
+                </div>
+                <img className="icon" src={icon} alt="" />
             </div>
-            <img className="icon" src={icon} alt="" />
-
         </div>
     )
 }

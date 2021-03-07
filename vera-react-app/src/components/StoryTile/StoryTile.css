@@ -6,6 +6,7 @@
     border-radius: 30px;
     overflow: hidden;
     position: relative;
+    margin-right: 20px;
 }
 
 .banner {
@@ -15,33 +16,36 @@
 }
 
 .title {
-    position: absolute;
-    top: 113px;
+    position: relative;
+    bottom: 1.4px;
     padding: 0 14px;
     /* font-family: Poppins; */
     font-style: normal;
-    font-weight: 600;
+    font-weight: 630;
     font-size: 20px;
     line-height: 30px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: #4A6E82;
+    color: #0D2020;
 }
 
 .info {
-    position: absolute;
-    left: 23px;
-    top: 205px;
+    padding-left: 23px;
+    padding-right: 50px;
+    position: relative;
+    bottom: 5px;
 }
 
 .info-text {
     margin: 0;
     /* font-family: Poppins; */
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 16px;
     line-height: 24px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: #0D2020;
+    color: #4A6E82;
 }
 
 .icon {
@@ -64,27 +68,23 @@
     }
     
     .title {
-        top: 60px;
         padding: 0 6px;
-    
         font-weight: 600;
         font-size: 10px;
         line-height: 12px;
-        letter-spacing: 0.05em;
-        color: #0D2020
     }
     
     .info {
-        position: absolute;
-        left: 10px;
-        top: 97px;
+        padding-left: 10px;
+        padding-right: 15px;
+        position: relative;
+        bottom: 4px;
     }
     
     .info-text {
         font-weight: normal;
         font-size: 8px;
         line-height: 10px;
-        color: #0D2020;
     }
     
     .icon {
@@ -95,3 +95,4 @@
         bottom: 5px;
     }
   }
+  
