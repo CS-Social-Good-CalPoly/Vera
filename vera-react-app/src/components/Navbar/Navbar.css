@@ -4,6 +4,7 @@
 
 .logoCol{
     padding-top: 10px;
+    padding-left: 50px;
 }
 
 .navbar-links{
@@ -25,7 +26,6 @@
     padding-bottom: 15px;
 }
 
-
 .bg-light {
     background-color: white!important;
     box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
@@ -40,6 +40,7 @@ button:focus{
 }
 
 @media only screen and (max-width: 768px) {
+
     .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{
         padding-top: 0px;
         padding-bottom: 0px;
@@ -63,13 +64,29 @@ button:focus{
         height: 27px;
         width: 27px;
     }
+
+    .logoCol{
+        padding-top: 10px;
+        padding-left: 0px;
+    }
     
    .navbar-links{
         color: #4A6E82;
         font-weight: 600;
         font-size: 12px;
-        line-height: 10px;
+        line-height: 14px;
         padding-left: 20px;
         padding-top: 5px;
     }
+
+    .ml-auto.navbar-nav {
+        width: 33%;
+        box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
+    
+    }
+
+    .navbar-collapse{
+        width: 33%;
+    }
+    
 }
