@@ -4,6 +4,8 @@
     justify-content: center;
 
     flex-wrap: wrap;
+
+    padding: 0px 60px;
 }
 
 .cat-button-group-title {
@@ -29,5 +31,8 @@
         text-transform: uppercase;
 
         margin-top: 12px;
+    }
+    .cat-button-group {
+        padding: 0px 0px;
     }
 }
