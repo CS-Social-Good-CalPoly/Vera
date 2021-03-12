@@ -1,0 +1,10 @@
+.home-wrapper {
+  min-height: calc(100vh - 180px);
+  position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  .home-wrapper {
+    min-height: calc(100vh - 72px);
+  }
+}
