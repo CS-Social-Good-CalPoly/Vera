@@ -1,6 +1,4 @@
-.nav-main{
-    height: 50px;
-}
+
 
 .logoCol{
     padding-top: 10px;
@@ -82,7 +80,6 @@ button:focus{
     .ml-auto.navbar-nav {
         width: 33%;
         box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
-    
     }
 
     .navbar-collapse{
