@@ -32,9 +32,12 @@ function ResourceTile(props) {
                             <Col xs={12} md={5} className="resource-tile-expanded-text-group-phone-hour">
                                 <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
                                 <div className="resource-tile-expanded-text-hours"><strong>Hours: </strong> 
-                                    {props.hours.map((item, i) => (
-                                        <p className="resource-tile-expanded-text-hours-item">{item}</p>
-                                    ))}</div>
+                                    <div className="resource-tile-expanded-text-hours-item-container">
+                                        {props.hours.map((item, i) => (
+                                            <p className="resource-tile-expanded-text-hours-item">{item}</p>
+                                        ))}
+                                    </div>
+                                </div>
                             </Col>
                             <Col xs={12} md={7} className="resource-tile-expanded-text-group-toExpect">
                                 <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>

@@ -49,6 +49,7 @@
   letter-spacing: 0.02em;
   text-transform: lowercase;
   color: #4a6e82;
+  margin-bottom:0;
 }
 
 .resource-tile-expanded-text-hours {
@@ -58,8 +59,15 @@
 
   letter-spacing: 0.05em;
   text-transform: capitalize;
+  display: flex;
 
   color: #4a6e82;
+}
+
+.resource-tile-expanded-text-hours-item-container{
+  display:flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
 .resource-tile-expanded-text-hours-item {
