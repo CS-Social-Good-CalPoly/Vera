@@ -1,5 +1,4 @@
 
-
 .logoCol{
     padding-top: 10px;
     padding-left: 50px;
@@ -37,25 +36,9 @@ button:focus{
     outline:transparent;
 }
 
+
+
 @media only screen and (max-width: 768px) {
-
-    .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{
-        padding-top: 0px;
-        padding-bottom: 0px;
-    }
-
-    .navbar-toggler{
-        padding-top: 5px;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-        
-    .nav-main{
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
 
     #logo{
         vertical-align: baseline;
@@ -69,6 +52,7 @@ button:focus{
     }
     
    .navbar-links{
+        float: right;
         color: #4A6E82;
         font-weight: 600;
         font-size: 12px;
@@ -77,13 +61,6 @@ button:focus{
         padding-top: 5px;
     }
 
-    .ml-auto.navbar-nav {
-        width: 33%;
-        box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
-    }
 
-    .navbar-collapse{
-        width: 33%;
-    }
     
 }
