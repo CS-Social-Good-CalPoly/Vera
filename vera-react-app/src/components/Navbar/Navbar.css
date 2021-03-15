@@ -1,19 +1,4 @@
 
-.logoCol{
-    padding-top: 10px;
-    padding-left: 50px;
-}
-
-.navbar-links{
-    color: #4A6E82;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 27px;
-    padding-right: 50px;
-    padding-top: 10px;
-    background-color: white;
-}
-
 .navbar-light .navbar-toggler {
     border-color: transparent!important;
 }
@@ -30,37 +15,60 @@
 
 .navbar-toggler{
     padding-top:0px;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 button:focus{
     outline:transparent;
 }
 
+#logo{
+    vertical-align: baseline;
+    height: 27px;
+    width: 27px;
+}
 
+.logoCol{
+    padding-top: 10px;
+    padding-left: 0px;
+}
 
-@media only screen and (max-width: 768px) {
+.navbar-links{
+    text-align: right;
+    color: #4A6E82;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    padding-left: 50px;
+    padding-top: 5px;
+    border-top: #c6d5de solid 2px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 
     #logo{
         vertical-align: baseline;
-        height: 27px;
-        width: 27px;
-    }
-
-    .logoCol{
-        padding-top: 10px;
-        padding-left: 0px;
+        height: 35px;
+        width: 35px;
     }
     
    .navbar-links{
-        float: right;
         color: #4A6E82;
         font-weight: 600;
-        font-size: 12px;
-        line-height: 14px;
-        padding-left: 20px;
-        padding-top: 5px;
-    }
+        font-size: 18px;
+        line-height: 27px;
+        padding-top: 10px;
+        background-color: white;
+        border-top:none;
+    } 
 
 
-    
+
+
 }
