@@ -5,10 +5,7 @@
     border: none;
     height: 55px;
 
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
+    margin: 15px 20px;
     justify-content: center;
 }
 
@@ -33,10 +30,7 @@
         box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
         height: 31px;
         
-        margin-top: 6px;
-        margin-bottom: 6px;
-        margin-left: 12px;
-        margin-right: 12px;
+        margin: 6px 12px;
     }
 
     .button-text {
