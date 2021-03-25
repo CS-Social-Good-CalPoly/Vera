@@ -1,0 +1,38 @@
+.cat-button-group {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    padding: 0px 60px;
+}
+
+.cat-button-group-title {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 72px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 768px) {
+    .cat-button-group-title {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+
+        margin-top: 12px;
+    }
+    .cat-button-group {
+        padding: 0px 0px;
+    }
+}
