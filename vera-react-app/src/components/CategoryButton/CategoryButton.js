@@ -1,4 +1,5 @@
 import React from 'react'
+import './../../StandardText.css'
 import './CategoryButton.css'
 
 function CategoryButton(props) {
