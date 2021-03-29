@@ -10,7 +10,7 @@ function CategoryButton(props) {
 
     return (
         <button className="CategoryButton" onClick={scrollToElement}>
-        <span className="button-text">{props.category}</span>
+            <span className="button-text">{props.category}</span>
         </button>
     )
 

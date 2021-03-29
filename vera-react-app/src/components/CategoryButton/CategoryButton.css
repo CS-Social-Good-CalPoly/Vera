@@ -4,10 +4,14 @@
     border-radius: 15px;
     border: none;
     height: 55px;
+
+    margin: 15px 20px;
+    justify-content: center;
 }
 
 .CategoryButton:hover {
     text-decoration: underline;
+    text-decoration-color: #728D95;
 }
 
 .button-text {
@@ -25,6 +29,8 @@
         border-radius: 5px;
         box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
         height: 31px;
+        
+        margin: 6px 12px;
     }
 
     .button-text {
