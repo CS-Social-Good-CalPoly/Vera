@@ -4,3 +4,4 @@ export {default as StoryBanner} from './StoryBanner/storyBanner';
 export {default as Banner} from './Banner/Banner';
 export {default as CategoryButton} from './CategoryButton/CategoryButton';
 export {default as CategoryButtonGroup} from './CategoryButtonGroup/CategoryButtonGroup';
+export {default as StoryTile} from './StoryTile/StoryTile'
