@@ -23,9 +23,9 @@ function ResourcePageTileGroup({id, title, resources}) {
                     resources.map(
                         (resource, index) => (
                             <div className="tiles" key={index}>
-                                {/* <p>{resource.id}</p>
+                                <p>{resource.id}</p>
                                 <p>{resource.title}</p>
-                                <p>{resource.imageUrl}</p> */}
+                                <p>{resource.imageUrl}</p>
                             </div>
                         )
                     )
