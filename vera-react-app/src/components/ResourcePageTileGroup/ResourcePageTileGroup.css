@@ -5,7 +5,7 @@
 
 .ResourcePageTileGroup h1 {
     border-bottom: 5px solid black;
-    max-width: 20%;
+    min-width: 400px;
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
@@ -17,9 +17,9 @@
 .tile-group {
     display: flex;
     flex-wrap: wrap;
+    margin-left: -40px;
 }
 
-/* dummy css */
 .tiles {
     border: 1px solid #4A6E82;
     width: 280px;
@@ -27,18 +27,17 @@
     background: #FFFFFF;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
-    margin: 10px;
+    margin: 40px;
 }
 
 @media only screen and (max-width: 768px) {
     .ResourcePageTileGroup h1 {
-        border-bottom: 5px solid #728D95;
-        max-width: 50%;
+        border-bottom: 5px solid black;
+        min-width: 200px;
         font-style: normal;
         font-weight: 600;
         font-size: 20px;
         line-height: 30px;
-        text-align: center;
         letter-spacing: 0.05em;
         text-transform: uppercase;
     }
@@ -46,9 +45,9 @@
     .tile-group {
         display: flex;
         flex-wrap: wrap;
+        margin-left: -10px;
     }
 
-    /* dummy css */
     .tiles {
         border: 1px solid #4A6E82;
         width: 150px;
@@ -56,9 +55,9 @@
         background: #FFFFFF;
         box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
         border-radius: 10px;
+        margin: 10px;
     }
 
-    /* dummy css */
     .tiles p {
         margin-bottom: 2px;
     }
