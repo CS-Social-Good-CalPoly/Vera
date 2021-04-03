@@ -7,7 +7,7 @@ function App() {
         <div id="app">
             <Switch>
                <Route exact path='/'
-                 component={() => <Home />} />
+                    component={() => <Home />} />
             </Switch>
             <Footer/>
         </div>
