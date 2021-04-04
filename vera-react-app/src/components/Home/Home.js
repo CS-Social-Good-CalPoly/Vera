@@ -6,6 +6,7 @@ function Home() {
         <div className="home-wrapper">
             This will be the home page component.
         </div>
+        
     );
 }
 

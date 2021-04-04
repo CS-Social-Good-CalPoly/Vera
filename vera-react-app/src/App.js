@@ -5,10 +5,12 @@ import { Home, Footer} from './components/components';
 function App() {
     return (
         <div id="app">
-            <Switch>
-               <Route exact path='/'
-                    component={() => <Home />} />
-            </Switch>
+            <div id="page">
+                <Switch>
+                <Route exact path='/'
+                        component={() => <Home />} />
+                </Switch>
+            </div>
             <Footer/>
         </div>
     );
