@@ -11,6 +11,7 @@
 .bg-light {
     background-color: white!important;
     box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
+    padding-bottom: 0px;
 }
 
 .navbar-toggler{
@@ -39,10 +40,11 @@ button:focus{
     color: #4A6E82;
     font-weight: 600;
     font-size: 12px;
-    line-height: 14px;
+    line-height: 28px;
     padding-left: 50px;
-    padding-top: 5px;
-    border-top: #c6d5de solid 2px;
+    padding-top: 10px;
+    padding-bottom: 10px!important;
+    border-top: #F1F4F7 solid 2px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -50,6 +52,7 @@ button:focus{
     .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{
         padding-left: 50px;
         padding-right: 50px;
+        padding-top: 0px;
     }
 
     #logo{
@@ -57,12 +60,17 @@ button:focus{
         height: 35px;
         width: 35px;
     }
+
+    .logoCol{
+        padding-top: 14px;
+    }
     
    .navbar-links{
         color: #4A6E82;
         font-weight: 600;
         font-size: 18px;
         line-height: 27px;
+        padding-top: 10px;
         padding-top: 10px;
         background-color: white;
         border-top:none;
