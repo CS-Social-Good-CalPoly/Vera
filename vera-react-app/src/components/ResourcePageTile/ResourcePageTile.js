@@ -29,4 +29,4 @@ function ResourcePageTile(props) {
     )
 }
 
-export default ResourcePageTile; 
+export default ResourcePageTile;
