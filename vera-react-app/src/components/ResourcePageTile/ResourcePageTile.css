@@ -1,4 +1,4 @@
-.ResourcePageTile, .ResourcePageTileWrapper {
+.ResourcePageTile{
   background: #FFFFFF;
   border-radius: 30px;
   box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
@@ -44,6 +44,10 @@
   font-weight: 400;
   line-height: 26px;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95%;
+  max-height: 100%;
 }
 
 .icon {
@@ -85,12 +89,4 @@
       right: 6px;
       width: 12px;
     }
-  }
-
-/* Borders for debugging */
-/* .ResourcePageTileWrapper {
-  border: solid blue 2px;
 }
-.ResourcePageTile {
-  border: solid pink 2px;
-} */
