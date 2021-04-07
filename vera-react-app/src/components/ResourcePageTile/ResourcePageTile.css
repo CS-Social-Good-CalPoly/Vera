@@ -22,21 +22,18 @@
   font-weight: 600;
   line-height: 30px;
   padding: 0 14px;
-  position: absolute;
   text-transform: uppercase;
-  top: 127px;
 }
 
-.info {
-  height:99px;
-  left: 22px;
-  padding-right: 10px;
-  position: absolute;
-  top: 158px;
-  width: 237px;
+.content-box{
+  height:130px;
+  overflow:hidden;
+  width: 246px;
 }
 
 .info-text {
+  padding-right: 10px;
+  width: 237px;
   color: #728D95;
   font-family: Poppins;
   font-style: normal;
@@ -46,8 +43,8 @@
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 95%;
-  max-height: 100%;
+  left: 22px;
+  padding: 0 10px 0 22px;
 }
 
 .icon {

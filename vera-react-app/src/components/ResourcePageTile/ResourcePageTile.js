@@ -19,9 +19,9 @@ function ResourcePageTile(props) {
             <div className="ResourcePageTile" >
               <img className="banner" src={bannerPic} alt={bannerPic}/>
               <h1 className="title">{props.title} </h1>
-              <div className="info">
+              
                 <h2 className="info-text">{props.info}</h2>
-              </div>
+              
               <img className="icon" src={arrowPic} height="20px" width="20px" alt="" />
             </div>
           </Link>
