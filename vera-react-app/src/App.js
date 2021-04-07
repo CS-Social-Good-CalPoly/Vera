@@ -10,7 +10,7 @@ function App() {
                  component={() => <Home />} />
             </Switch>
             <Footer/>
-            <ResourcePageTile resourcePageLink="/Resources" title="General Stress General Stress General Stress" info="Stress is a feeling of emotional or physical tension. It can come from any event or thought that makes you you feel frustrated, angry. Stress is a feeling of emotional or physical tension. It can come from any event or thought that makes you you feel frustrated, angry..." />
+            <ResourcePageTile resourcePageLink="/Resources" title="General Stress" info="Stress is a feeling of emotional or physical tension. It can come from any event or thought that makes you you feel frustrated, angry. Stress is a feeling of emotional or physical tension. It can come from any event or thought that makes you you feel frustrated, angry..." />
         </div>
     );
 }
