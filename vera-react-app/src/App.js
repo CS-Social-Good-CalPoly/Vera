@@ -6,8 +6,7 @@ function App() {
     return (
         <div id="app">
             <Switch>
-               <Route exact path='/'
-                 component={() => <Home />} />
+                <Route exact path='/' component={() => <Home/>}/>
             </Switch>
             <Footer/>
         </div>

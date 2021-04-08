@@ -6,3 +6,4 @@ export {default as Banner} from './Banner/Banner';
 export {default as CategoryButton} from './CategoryButton/CategoryButton';
 export {default as CategoryButtonGroup} from './CategoryButtonGroup/CategoryButtonGroup';
 export {default as StoryTile} from './StoryTile/StoryTile'
+export {default as ResourcePageTileGroup} from './ResourcePageTileGroup/ResourcePageTileGroup'
