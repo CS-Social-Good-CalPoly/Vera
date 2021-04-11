@@ -1,0 +1,31 @@
+.category-description {
+    height: auto;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 30px;
+    padding: 53px 70px;
+}
+
+p {
+    color: #4A6E82;
+    font-family: poppins;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .category-description {
+        padding: 13px;
+    }
+
+    p {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+}
