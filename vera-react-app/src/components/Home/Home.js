@@ -3,7 +3,7 @@ import './Home.css';
 
 function Home() {
     return (
-        <div className="home-wrapper">
+        <div>
             This will be the home page component.
         </div>
         
