@@ -1,6 +1,5 @@
 import React from 'react';
 import { CategoryButton } from '../components';
-import './../../StandardText.css'
 import './CategoryButtonGroup.css';
 
 /** This component received the following props:
