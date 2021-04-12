@@ -1,0 +1,33 @@
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.desktop {
+    visibility: visible;
+}
+
+.mobile {
+    visibility: hidden;
+}
+
+.story-body {
+    border: 1px solid #4A6E82;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 30px;
+    padding: 25px;
+}
+@media only screen and (max-width: 768px) {
+    .desktop {
+        visibility: hidden;
+    }
+
+    .mobile {
+        visibility: visible;
+    }
+
+    .story-title {
+        visibility: hidden;
+    }
+}
