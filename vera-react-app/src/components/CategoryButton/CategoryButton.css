@@ -1,0 +1,40 @@
+.CategoryButton {
+    background: white;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
+    border-radius: 15px;
+    border: none;
+    height: 55px;
+
+    margin: 15px 20px;
+    justify-content: center;
+}
+
+.CategoryButton:hover {
+    text-decoration: underline;
+    text-decoration-color: #728D95;
+}
+
+.button-text {
+    color: #728D95;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0 17px;
+}
+
+@media only screen and (max-width: 768px) {
+    .CategoryButton {
+        border-radius: 5px;
+        box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
+        height: 31px;
+        
+        margin: 6px 12px;
+    }
+
+    .button-text {
+        font-size: 14px;
+        padding: 0 7px;
+    }
+}
