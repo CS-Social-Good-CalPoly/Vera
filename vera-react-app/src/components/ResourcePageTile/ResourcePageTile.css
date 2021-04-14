@@ -29,6 +29,7 @@
   height:130px;
   width: 246px;
   overflow:hidden;
+  text-overflow: ellipsis;
   padding-bottom: 0px;
 }
 
@@ -59,6 +60,14 @@
       width: 150px;
     }
 
+    .content-box{
+      height:70px;
+      width: 150px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      padding-bottom: 0px;
+    }
+
     .banner {
       height: 57px;
       width: 150px;
@@ -70,7 +79,7 @@
       font-weight: 600;
       letter-spacing: 0.05em;
       line-height: 21px;
-      padding: 0 6px;
+      padding: 6px 6px;
       top: 60px;
     }
 
