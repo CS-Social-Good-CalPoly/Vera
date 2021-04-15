@@ -4,9 +4,9 @@
     width: 100%;
     color: white;
     height: 180px;
+    font-weight: 600;
     position: absolute; 
     bottom: 0px;
-
 }
 
 @media only screen and (max-width: 768px) {
@@ -54,7 +54,7 @@
     }
 }
 
-a:-webkit-any-link{
+a{
     color: white;
     cursor: pointer;
     text-decoration: none;
