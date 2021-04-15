@@ -28,8 +28,6 @@
 .content-box{
   height:130px;
   width: 246px;
-  overflow:hidden;
-  text-overflow: ellipsis;
   padding-bottom: 0px;
 }
 
@@ -63,8 +61,6 @@
     .content-box{
       height:70px;
       width: 150px;
-      overflow:hidden;
-      text-overflow: ellipsis;
       padding-bottom: 0px;
     }
 
