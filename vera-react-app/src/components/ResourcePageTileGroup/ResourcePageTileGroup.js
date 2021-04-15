@@ -1,39 +1,28 @@
 import React from 'react'
-import './ResourcePageTileGroup.css'
+import { ResourcePageTileGroupDiv, TitleContainer, Heading, TileGroup, Tiles } from '../Shared/ResourcePageTileGroup'
 
 function ResourcePageTileGroup({id, title, resources}) {
 
-    /*
-    * id: String - section header id
-    * title: String - section title
-    * resources: Array of objects
-    *   -> objects defined as
-    *       {
-    *        id title imageURL
-    *       }
-     */
-
     return (
-        <div className="ResourcePageTileGroup">
-            <div className="title-container">
-                <h1 id={id}>{title}</h1>
-            </div>
-            <div className="tile-group">
+        <ResourcePageTileGroupDiv>
+            <TitleContainer>
+                <Heading id={id}>{title}</Heading>
+            </TitleContainer>
+            <TileGroup>
                 {
                     resources.map(
                         (resource, index) => (
-                            <div className="tiles" key={index}>
+                            <Tiles key={index}>
                                 <p>{resource.id}</p>
                                 <p>{resource.title}</p>
                                 <p>{resource.imageUrl}</p>
-                            </div>
+                            </Tiles>
                         )
                     )
                 }
-            </div>
-        </div>
+            </TileGroup>
+        </ResourcePageTileGroupDiv>
     )
-
 }
 
 export default ResourcePageTileGroup;
