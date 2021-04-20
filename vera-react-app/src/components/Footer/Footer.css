@@ -55,7 +55,6 @@
 }
 
 a:-webkit-any-link{
-    color: white;
     cursor: pointer;
     padding-bottom: 6px;
     text-decoration: none;
