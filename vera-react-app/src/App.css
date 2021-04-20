@@ -13,3 +13,8 @@
     margin-top: 4px;
 }
 
+@media only screen and (max-width: 768px) {
+    #page {
+        min-height: calc(100vh - 72px);
+    }
+}
