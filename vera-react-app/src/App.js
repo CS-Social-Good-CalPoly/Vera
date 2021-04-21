@@ -6,9 +6,12 @@ function App() {
     return (
         <div id="app">
             <NavBar/>
-            <Switch>
-                <Route exact path='/' component={() => <Home/>}/>
-            </Switch>
+            <div id="page">
+                <Switch>
+                <Route exact path='/'
+                        component={() => <Home />} />
+                </Switch>
+            </div>
             <Footer/>
         </div>
     );
