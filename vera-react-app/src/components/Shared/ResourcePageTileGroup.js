@@ -1,18 +1,25 @@
 import styled from 'styled-components'
 
 export const ResourcePageTileGroupDiv = styled.div`
-    margin-top: 25px;
-    padding-left: 25px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 `;
 
 export const TitleContainer = styled.div`
     border-bottom: 5px solid black;
     display: inline-block;
     min-width: 430px;
+    align-self: flex-start;
 
     @media only screen and (max-width: 768px) {
         border-bottom: 2px solid black;
         min-width: 100px;
+    }
+
+    @media only screen and (max-width: 360px) {
+        text-align: center;
+        align-self: center;
     }
 `;
 
@@ -25,6 +32,10 @@ export const TileGroup = styled.div`
         display: flex;
         flex-wrap: wrap;
         margin: 0 0 20px -8px;
+    }
+
+    @media only screen and (max-width: 360px) {
+        justify-content: center;
     }
 `;
 
