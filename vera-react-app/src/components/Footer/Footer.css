@@ -54,7 +54,7 @@
     }
 }
 
-a:-webkit-any-link{
+a{
     color: white;
     cursor: pointer;
     padding-bottom: 6px;
