@@ -6,15 +6,15 @@
     padding: 53px 70px;
 }
 
-p {
-    color: #4A6E82;
-    font-family: poppins;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 33px;
-    letter-spacing: 0.05em;
-    margin: 0;
-}
+/*p {*/
+/*    color: #4A6E82;*/
+/*    font-family: poppins;*/
+/*    font-weight: 600;*/
+/*    font-size: 22px;*/
+/*    line-height: 33px;*/
+/*    letter-spacing: 0.05em;*/
+/*    margin: 0;*/
+/*}*/
 
 @media only screen and (max-width: 768px) {
 

@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import './StoryPopUp.css'
-import { Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {Card} from 'react-bootstrap';
 
 function StoryPopUp(props) {
 
@@ -9,34 +8,40 @@ function StoryPopUp(props) {
 
      */
 
-    useEffect(() => {
-        console.log(window.innerWidth)
-    }, [window.innerWidth])
+    {/*{(window.innerWidth < 768) ? <Card.Title className='title'>Family</Card.Title> : <Card.Title className='title'> How My Dog Helps me Through College</Card.Title>}*/
+    }
 
     return (
-        <Card style={{ maxWidth: '30rem' }}>
-            <Card.Img variant="top" src={props.image} />
+        <Card style={{
+            maxWidth: '70%',
+            margin: 'auto',
+            marginTop: '10vh',
+            fontFamily: 'Poppins',
+            color: '#4A6E82'
+        }}>
+            {/*<Card.Img variant="top" src={props.image}/>*/}
+            <Card.Img style={{maxHeight: '250px'}} variant="top" src="https://i.pinimg.com/originals/b1/d6/b4/b1d6b4715bdb30d7b7f3253f2423e327.jpg"/>
             <Card.Body>
                 <div className='header'>
-                    <div className='info'> 
-                    {(window.innerWidth < 768) ? <Card.Title className='title'>Family</Card.Title> : <Card.Title className='title'> How My Dog Helps me Through College</Card.Title>}
-                    {/* <Card.Title className='desktop'>Family</Card.Title>
-                    <Card.Title className='mobile'> How My Dog Helps me Through College</Card.Title> */}
-                    <Card.Text id='date'>Dec 11, 2020</Card.Text>
+                    <div className='info'>
+                        <div>
+                            <Card.Title className='desktop' style={{fontWeight: '600'}}>Family</Card.Title>
+                            <Card.Subtitle id='year'>4th Year</Card.Subtitle>
+                            <Card.Subtitle id='major'>Chemistry Major</Card.Subtitle>
+                        </div>
+                        <Card.Title className='mobile'> How My Dog Helps me Through College</Card.Title>
+                        <Card.Text id='date'>Dec 11, 2020</Card.Text>
                     </div>
-                    <Card.Text id='year'>4th Year</Card.Text>
-                    <Card.Text id='major'>Chemistry Major</Card.Text>
                 </div>
-                <div className='story-body' style={{border: '1px solid #4A6E82' }}>
+                <div className='story-body' style={{border: '1px solid #4A6E82'}}>
                     <Card.Title className='story-title'>
-                        How My Dog Helps me Through College 
+                        How My Dog Helps me Through College
                     </Card.Title>
                     <Card.Text>
                         Some quick example text to build on the card title and make up the bulk of
                         the card's content.
                     </Card.Text>
                 </div>
-                {/* <Button variant="primary">Go somewhere</Button> */}
             </Card.Body>
         </Card>
     )

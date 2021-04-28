@@ -9,7 +9,7 @@
 }
 
 .mobile {
-    visibility: hidden;
+    display: none
 }
 
 .story-body {
@@ -18,9 +18,10 @@
     border-radius: 30px;
     padding: 25px;
 }
+
 @media only screen and (max-width: 768px) {
     .desktop {
-        visibility: hidden;
+        display: none;
     }
 
     .mobile {
@@ -28,6 +29,6 @@
     }
 
     .story-title {
-        visibility: hidden;
+        display: none;
     }
 }
