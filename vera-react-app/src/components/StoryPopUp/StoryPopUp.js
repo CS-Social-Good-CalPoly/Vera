@@ -13,7 +13,7 @@ function StoryPopUp(props) {
 
     return (
         <Card style={{
-            maxWidth: '70%',
+            maxWidth: '60%',
             margin: 'auto',
             marginTop: '10vh',
             fontFamily: 'Poppins',
