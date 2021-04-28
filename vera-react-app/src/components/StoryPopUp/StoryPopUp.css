@@ -1,8 +1,3 @@
-.info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
 
 .desktop {
     visibility: visible;
@@ -12,6 +7,20 @@
     display: none
 }
 
+.width-wrapper {
+    font-family: 'Poppins';
+    max-width: 60%;
+    margin: 10vh auto auto;
+    color: #4A6E82;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
 .story-body {
     border: 1px solid #4A6E82;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
@@ -19,16 +28,23 @@
     padding: 25px;
 }
 
+
 @media only screen and (max-width: 768px) {
     .desktop {
         display: none;
     }
 
     .mobile {
-        visibility: visible;
+        display: revert;
+        padding-bottom: 5px;
     }
 
     .story-title {
         display: none;
+    }
+
+    .width-wrapper {
+        max-width: 80%;
+        margin: 5vh auto auto;
     }
 }
