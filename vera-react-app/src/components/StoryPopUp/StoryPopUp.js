@@ -7,10 +7,13 @@ function StoryPopUp(props) {
     return (
         <Card className='width-wrapper'>
             {/*<Card.Img variant="top" src={props.image}/>*/}
-            <Card.Img style={{maxHeight: '250px'}} variant="top" src="https://i.pinimg.com/originals/b1/d6/b4/b1d6b4715bdb30d7b7f3253f2423e327.jpg"/>
+            <Card.Img style={{maxHeight: '250px'}} variant="top"
+                      src="https://i.pinimg.com/originals/b1/d6/b4/b1d6b4715bdb30d7b7f3253f2423e327.jpg"/>
             <Card.Body>
                 <div className='header'>
-                    <Card.Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'> How My Dog Helps me Through College</Card.Title>
+                    <Card.Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
+                        How My Dog Helps me Through College
+                    </Card.Title>
                     <div className='info'>
                         <div>
                             <Card.Title className='desktop' style={{fontWeight: '600'}}>Family</Card.Title>
