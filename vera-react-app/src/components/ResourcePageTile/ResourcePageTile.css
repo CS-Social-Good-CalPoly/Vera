@@ -29,6 +29,7 @@
   height:130px;
   width: 246px;
   padding-bottom: 0px;
+  overflow: hidden;
 }
 
 .info-text {
