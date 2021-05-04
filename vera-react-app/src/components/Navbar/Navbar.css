@@ -1,4 +1,8 @@
 
+.nav-main {
+    z-index: 1;
+}
+
 .navbar-light .navbar-toggler {
     border-color: transparent!important;
 }
