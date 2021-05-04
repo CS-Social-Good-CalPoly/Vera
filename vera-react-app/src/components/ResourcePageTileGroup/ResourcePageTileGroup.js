@@ -15,7 +15,9 @@ function ResourcePageTileGroup({id, title, resources}) {
 
     return (
         <div className="ResourcePageTileGroup">
-            <h1 id={id}>{title}</h1>
+            <div className="title-container">
+                <h1 id={id}>{title}</h1>
+            </div>
             <div className="tile-group">
                 {
                     resources.map(

@@ -1,15 +1,15 @@
 import './App.css';
-import {Route, Switch} from 'react-router-dom';
-import {Footer, Home, NavBar} from './components/components';
+import { Route, Switch } from 'react-router-dom';
+import { Home, Footer, NavBar } from './components/components';
 
 function App() {
     return (
         <div id="app">
             <NavBar/>
-            <div id="content">
+            <div id="page">
                 <Switch>
                     <Route exact path='/'
-                           component={() => <Home/>}/>
+                           component={() => <Home />} />
                 </Switch>
             </div>
             <Footer/>

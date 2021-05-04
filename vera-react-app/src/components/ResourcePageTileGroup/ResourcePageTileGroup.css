@@ -1,11 +1,8 @@
-
 .ResourcePageTileGroup {
     padding-left: 25px;
 }
 
 .ResourcePageTileGroup h1 {
-    border-bottom: 5px solid black;
-    min-width: 400px;
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
@@ -14,12 +11,19 @@
     text-transform: uppercase;
 }
 
+.title-container {
+    border-bottom: 5px solid black;
+    display: inline-block;
+    min-width: 430px;
+}
+
 .tile-group {
     display: flex;
     flex-wrap: wrap;
-    margin-left: -40px;
+    margin: 0 0 56px -20px;
 }
 
+/* dummy css */
 .tiles {
     border: 1px solid #4A6E82;
     width: 280px;
@@ -27,13 +31,11 @@
     background: #FFFFFF;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
-    margin: 40px;
+    margin: 20px;
 }
 
 @media only screen and (max-width: 768px) {
     .ResourcePageTileGroup h1 {
-        border-bottom: 5px solid black;
-        min-width: 200px;
         font-style: normal;
         font-weight: 600;
         font-size: 20px;
@@ -42,12 +44,18 @@
         text-transform: uppercase;
     }
 
+    .title-container {
+        border-bottom: 2px solid black;
+        min-width: 100px;
+    }
+    
     .tile-group {
         display: flex;
         flex-wrap: wrap;
-        margin-left: -10px;
+        margin: 0 0 20px -8px;
     }
 
+    /* dummy css */
     .tiles {
         border: 1px solid #4A6E82;
         width: 150px;
@@ -55,10 +63,6 @@
         background: #FFFFFF;
         box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
         border-radius: 10px;
-        margin: 10px;
-    }
-
-    .tiles p {
-        margin-bottom: 2px;
+        margin: 8px;
     }
 }

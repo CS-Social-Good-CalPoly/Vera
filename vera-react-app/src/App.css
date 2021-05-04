@@ -3,11 +3,17 @@
     min-height: 100vh;
 }
 
-#content {
+#page {
     background-color: #F9F9F9;
-    min-height: 100vh;
     max-width: 90%;
     margin-right: auto;
     margin-left: auto;
+    min-height: calc(100vh - 180px);
+    position: relative;
 }
 
+@media only screen and (max-width: 768px) {
+    #page {
+        min-height: calc(100vh - 72px);
+    }
+}
