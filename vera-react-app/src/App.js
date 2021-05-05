@@ -1,14 +1,17 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Footer} from './components/components';
+import { Home, Footer, NavBar } from './components/components';
 
 function App() {
     return (
         <div id="app">
-            <Switch>
-               <Route exact path='/'
-                 component={() => <Home />} />
-            </Switch>
+            <NavBar/>
+            <div id="page">
+                <Switch>
+                <Route exact path='/'
+                        component={() => <Home />} />
+                </Switch>
+            </div>
             <Footer/>
         </div>
     );
