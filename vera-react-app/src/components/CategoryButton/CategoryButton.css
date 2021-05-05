@@ -2,13 +2,15 @@
     background: white;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
     border-radius: 15px;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     height: 55px;
 }
 
 .CategoryButton:hover {
     text-decoration: underline;
     text-decoration-color: #728D95;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .button-text {
