@@ -47,6 +47,15 @@ button:focus{
     border-top: #F1F4F7 solid 2px;
 }
 
+.navbar-links:hover{
+    text-decoration: underline;
+    color: #4A6E82;
+}
+
+.navbar-links:after{
+    color: #4A6E82;
+}
+
 @media only screen and (min-width: 768px) {
 
     .nav-main.navbar.navbar-expand-lg.navbar-light.bg-light{

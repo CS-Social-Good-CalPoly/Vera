@@ -54,7 +54,7 @@
     }
 }
 
-a{
+.footer-links{
     color: white;
     cursor: pointer;
     padding-bottom: 6px;
@@ -67,6 +67,11 @@ a{
     }
 }
 
-a:hover{
+.footer-links:hover{
     text-decoration: underline;
+    color: white;
+}
+
+.footer-links:after{
+    color:white;
 }
