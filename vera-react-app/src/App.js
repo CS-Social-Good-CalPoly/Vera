@@ -2,6 +2,7 @@ import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import { Home, Footer, NavBar } from './components/components';
 import StoryBanner from './components/StoryBanner/storyBanner';
+import photo from "./components/StoryBanner/photo.jpg";
 
 function App() {
     return (
@@ -13,7 +14,9 @@ function App() {
                         component={() => <Home />} />
                 </Switch>
     
-                <StoryBanner/>
+                <StoryBanner
+                    imageUrl = {photo} 
+                />
                 
             </div>
             <Footer/>

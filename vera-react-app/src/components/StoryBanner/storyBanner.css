@@ -46,7 +46,8 @@ div#story-banner-text {
     letter-spacing: 0.7px;
     display: flex;
     flex-direction: column;
-    height: fit-content;    /* fix height problem */
+    height: fit-content;  /* fix height problem */
+    min-height: 100%;  /* fix height problem */
     justify-content: center;
     font-family: 'Poppins', sans-serif;
 }
