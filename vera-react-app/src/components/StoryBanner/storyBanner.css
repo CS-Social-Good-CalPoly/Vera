@@ -37,7 +37,7 @@ p#story-banner-text-paragraph {
 }
 
 div#page {
-   overflow-x: hidden;  /* hide overflow */
+   overflow-x: hidden; 
 }
 
 div#story-banner-text {
@@ -46,13 +46,14 @@ div#story-banner-text {
     letter-spacing: 0.7px;
     display: flex;
     flex-direction: column;
-    height: fit-content;  /* fix height problem */
-    min-height: 100%;  /* fix height problem */
+    height: fit-content;  
+    min-height: 100%;  
     justify-content: center;
     font-family: 'Poppins', sans-serif;
 }
 
 button#story-banner-button {
+    margin-top: 17px;
     padding: 17px 12px;
     text-transform: uppercase;
     color: #728D95;
