@@ -83,7 +83,7 @@ const Storybody = styled.div`
     padding: 25px;
 
     @media only screen and (max-width: 768px) {
-        margin: -15px 0 0 0;
+        margin: -15px 0 15px 0;
     }
 `
 
@@ -101,7 +101,8 @@ const PopupResources = styled.div`
     margin-left: 55px;
 
     @media only screen and (max-width: 768px) {
-        display: none;
+        margin-left: 10px;
+        max-width: 100%;
     }
 `
 
