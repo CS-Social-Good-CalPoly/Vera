@@ -13,8 +13,11 @@ function CategoryButtonGroup(props){
             <h1 className="cat-button-group-title">{props.title}</h1>
             <div className="cat-button-group">
                 {
-                    props.names.map((name, index) => 
-                    <CategoryButton location={props.locations[index]} category={props.names[index]}/>
+
+                    props.names.map((name, index) => (
+                            // console.log(name, index);
+                            <CategoryButton location={props.locations[index]} category={props.names[index]}/>
+                    )
                     )
                 }
             </div>
