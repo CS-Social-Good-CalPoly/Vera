@@ -1,4 +1,4 @@
-.ResourcePageTile{
+.ResourcePageTile { 
   background: #FFFFFF;
   border-radius: 30px;
   box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
@@ -59,7 +59,7 @@
       width: 150px;
     }
 
-    .content-box{
+    .content-box {
       height:70px;
       width: 150px;
       padding-bottom: 0px;

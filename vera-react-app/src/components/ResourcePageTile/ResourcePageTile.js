@@ -1,15 +1,14 @@
 import React from 'react';
 import './ResourcePageTile.css';
 import arrowPic from './images/Arrow.jpg';
-import bannerPic from "./images/TesterImage.jpg"
 import { Link } from "react-router-dom";
 import Dotdotdot from 'react-clamp';
 
 /* Component Props
  * imageUrl
  * title
- * student year
- * student major
+ * info 
+ * resourcePageLink
  */
 
 function ResourcePageTile(props) {
@@ -18,7 +17,7 @@ function ResourcePageTile(props) {
         <div className="ResourcePageTileWrapper">
           <Link to={props.resourcePageLink}>
             <div className="ResourcePageTile" >
-              <img className="banner" src={bannerPic} alt={bannerPic}/>
+              <img className="banner" src={props.imageUrl} alt={props.title}/>
               <div className="content-box">
                   <h1 className="title">{props.title} </h1>
                   <h2 className="info-text">{props.info}</h2>
