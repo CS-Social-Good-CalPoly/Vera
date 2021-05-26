@@ -1,6 +1,8 @@
 import React from 'react'
+import { Tile, TileBanner, TileIcon, TileTitle } from '../Shared/Tile'
+import arrowIcon from '../Shared/arrow-icon.svg'
+import '../../StandardText.css'
 import './StoryTile.css'
-import icon from './arrow-icon.svg'
 
 /* Component Props
  * imageUrl
@@ -11,19 +13,16 @@ import icon from './arrow-icon.svg'
 
 function StoryTile(props) {
     return (
-        <div className="StoryTile">
-            <img className="banner" src={props.imageUrl} alt=""/>
-            <div className="tile-text">
-                <h1 className="title">{props.title}</h1>
-                <div className="info">
-                    <h2 className="info-text">{props.studentYear} Year</h2>
-                    <h2 className="info-text">{props.studentMajor} Major</h2>
-                </div>
-                <img className="icon" src={icon} alt="" />
+        <Tile>
+            <TileBanner src={props.imageUrl} alt="" />
+            <TileTitle className="tile-title">{props.title}</TileTitle>
+            <div className="info">
+                <h2 className="info-text">{props.studentYear}</h2>
+                <h2 className="info-text">{props.studentMajor} Major</h2>
             </div>
-        </div>
+            <TileIcon src={arrowIcon} />
+        </Tile>
     )
 }
 
 export default StoryTile;
-

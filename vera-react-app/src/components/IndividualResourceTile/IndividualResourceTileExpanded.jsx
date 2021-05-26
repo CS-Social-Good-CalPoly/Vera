@@ -1,5 +1,5 @@
 import React from 'react';
-import './ResourceTile.css'
+import './IndividualResourceTileExpanded.css'
 import { Container, Row, Col } from 'react-bootstrap';
 
 /**
@@ -35,14 +35,14 @@ function ResourceTile(props) {
                             </Col>
                             <WhatToExpect toExpect={props.toExpect} />
                         </Row>
-                        <a href={props.link} target="_blank" className="resource-tile-expanded-button">Visit Resource Site</a>
+                        <a href={props.link} target="_blank" rel="noreferrer" className="resource-tile-expanded-button">Visit Resource Site</a>
                     </div>
                 </Col>
                 <Col xs={12} md={3} className="resource-tile-expanded-img-col">
-                    <img src={props.imgUrl} alt="An image of the resource" className="resource-tile-expanded-img"/>
+                    <img src={props.imgUrl} alt="" className="resource-tile-expanded-img"/>
                 </Col>
             </Row>
-            <button type="button" className="close resource-tile-expanded-close-btn" aria-label="Close">
+            <button type="button" onClick={props.handleChange} className="close resource-tile-expanded-close-btn" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </Container>
