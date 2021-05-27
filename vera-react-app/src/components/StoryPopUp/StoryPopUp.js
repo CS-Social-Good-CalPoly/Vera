@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-// import './StoryPopUp.css'
 import {Card} from 'react-bootstrap';
 import {ResourcePageTileGroup} from '../components.js'
 import styled from 'styled-components'
-import { css } from 'jquery';
 
 const Image = styled(Card.Img)`
         max-height: 450px;
@@ -133,15 +131,6 @@ const Title = styled(Card.Title)`
     }
 `
 
-const PopupTileGroup = styled(ResourcePageTileGroup)`
-    .tile-group {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 0 20px -18px;
-        justify-content: space-between;
-    }
-`
-
 function StoryPopUp(props) {
     const [size, setSize] = useState(false);
 
@@ -149,7 +138,11 @@ function StoryPopUp(props) {
         setSize(true);
     }
 
-    console.log(size);
+    const resources = [
+        {id: "", title: "", imageUrl: ""},
+        {id: "", title: "", imageUrl: ""},
+        {id: "", title: "", imageUrl: ""},
+    ]
 
     return (
         <CardWrapper hidden={size}>
@@ -161,8 +154,8 @@ function StoryPopUp(props) {
                 </Title>
                 <Header>
                     <div id='category'>
-                            <DesktopHeader>Family</DesktopHeader>
-                            <Date>Dec 11, 2020</Date>
+                        <DesktopHeader>Family</DesktopHeader>
+                        <Date>Dec 11, 2020</Date>
                     </div>
                     <div>
                         <Year id='year'>4th Year</Year>
@@ -182,16 +175,10 @@ function StoryPopUp(props) {
                 </Storybody>
             </Cardstory>
             <PopupResources>
-                {/* <PopupTileGroup */}
                 <ResourcePageTileGroup
                     id="Stress"
                     title="Stress"
-                    resources={[
-                            {id: "", title: "", imageUrl: ""},
-                            {id: "", title: "", imageUrl: ""}, 
-                            {id: "", title: "", imageUrl: ""},
-                            // {id: "", title: "", imageUrl: ""},
-                        ]}
+                    resources={resources}
                 />
             </PopupResources>
         </CardWrapper>
