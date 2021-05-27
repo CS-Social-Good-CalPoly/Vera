@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Footer, NavBar } from './components/components';
+import { Home, Footer, NavBar, ResourcePageTile} from './components/components';
 
 function App() {
     return (
