@@ -15,8 +15,7 @@ function CategoryButtonGroup(props){
                 {
 
                     props.names.map((name, index) => (
-                            // console.log(name, index);
-                            <CategoryButton location={props.locations[index]} category={props.names[index]}/>
+                            <CategoryButton key={index} location={props.locations[index]} category={props.names[index]}/>
                     )
                     )
                 }
