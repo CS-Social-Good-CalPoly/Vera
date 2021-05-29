@@ -1,4 +1,8 @@
 
+.nav-main {
+    z-index: 1;
+}
+
 .navbar-light .navbar-toggler {
     border-color: transparent!important;
 }
@@ -45,6 +49,15 @@ button:focus{
     padding-top: 10px;
     padding-bottom: 10px!important;
     border-top: #F1F4F7 solid 2px;
+}
+
+.navbar-links:hover{
+    text-decoration: underline;
+    color: #4A6E82;
+}
+
+.navbar-links:after{
+    color: #4A6E82;
 }
 
 @media only screen and (min-width: 768px) {
