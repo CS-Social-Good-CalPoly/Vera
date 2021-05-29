@@ -18,7 +18,7 @@ export const Tile = styled.div`
 
 export const TileBanner = styled.img`
     width: 280px;
-    height: 106px;
+    height: 120px;
     object-fit: cover;
     margin-bottom: 8px;
 
@@ -48,6 +48,14 @@ export const TileTitle = styled.h1`
     position: relative;
     bottom: 1.4px;
     padding: 0 14px;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 30px;
+    text-align: left;
+    text-transform: uppercase;
 
     @media only screen and (max-width: 768px) {
         padding: 0 6px;

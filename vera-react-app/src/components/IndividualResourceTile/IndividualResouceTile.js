@@ -12,22 +12,22 @@ function IndividualResourceTile(props) {
     // else, return the collapsed tile
     return expanded ? (
         <IndividualResourceTileExpanded
-            title={props.resource.title}
-            buildingName={props.resource.buildingName}
-            address={props.resource.address}
-            description={props.resource.description}
-            toExpect={props.resource.toExpect}
-            phone={props.resource.phone}
-            hours={props.resource.hours}
-            link={props.resource.link}
-            imgUrl={props.resource.imgUrl}
+            title={props.title}
+            buildingName={props.buildingName}
+            address={props.address}
+            description={props.description}
+            toExpect={props.toExpect}
+            phone={props.phone}
+            hours={props.hours}
+            link={props.link}
+            imgUrl={props.imgUrl}
             handleChange={handleChange}
         />
     ) : (
         <IndividualResourceTileCollapsed
-            title={props.resource.title}
-            infoText={props.resource.description}
-            imageUrl={props.resource.imgUrl}
+            title={props.title}
+            infoText={props.description}
+            imageUrl={props.imgUrl}
             handleChange={handleChange}
         />
     );
