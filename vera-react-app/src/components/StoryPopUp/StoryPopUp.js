@@ -145,7 +145,7 @@ function StoryPopUp(props) {
 
     return (
         <CardWrapper hidden={size}>
-            <Size id='close-card' onClick={change}>X</Size>
+            <Size id='close-card' onClick={change}>&times;</Size>
             <Image variant="top" src="https://i.pinimg.com/originals/b1/d6/b4/b1d6b4715bdb30d7b7f3253f2423e327.jpg"/>
             <Card.Body>
                 <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
