@@ -6,7 +6,7 @@
     padding: 53px 70px;
 }
 
-p {
+.category-p {
     color: #4A6E82;
     font-family: poppins;
     font-weight: 600;
@@ -22,7 +22,7 @@ p {
         padding: 13px;
     }
 
-    p {
+    category-p {
         font-weight: 300;
         font-size: 16px;
         line-height: 24px;

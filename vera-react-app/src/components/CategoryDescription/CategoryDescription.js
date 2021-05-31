@@ -6,7 +6,7 @@ import './CategoryDescription.css';
 function CategoryDescription(props) {
     return (
         <div className="category-description">
-            <p>{props.text}</p>
+            <p className="category-p">{props.text}</p>
         </div>
     )
 }
