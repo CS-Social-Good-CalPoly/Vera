@@ -1,5 +1,6 @@
 const {model, Schema} = require('mongoose')
 
+// complete
 const GenResSchema = new Schema({
     Name: String,
     Title: String,

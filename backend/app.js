@@ -12,9 +12,10 @@ const resourceRoutes = require('./routes/resources')
 // Middleware || routes
 app.use(bodyparser.json())
 
+// a link to seperated routes
 app.use('/resources', resourceRoutes)
 
-// add our routes here
+// home page route
 app.get('/', (req, res) => {
     res.send('This is our home url!')
 })
