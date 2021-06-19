@@ -4,8 +4,13 @@ const router = express.Router()
 
 const genResources = require('../models/GenResources')
 
-router.get('/generalrsrcs', (req, res) => {
-    res.send('General Resources here')
+router.get('/generalrsrcs', async (req, res) => {
+    try {
+        const genResources = await genResources.find()
+        res.json(genResources)
+    } catch (err) {
+        res.json({message: err})
+    }
 })
 
 router.get('/subrsrcs', (req, res) => {

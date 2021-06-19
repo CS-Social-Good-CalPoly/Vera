@@ -6,9 +6,9 @@ const GenResSchema = new Schema({
     SubCategoryIDList: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'SubResources'
+            ref: 'resource-sub-category'
         }
     ]
 })
 
-module.exports = model('GenResources', GenResSchema)
+module.exports = model('general-resource-category', GenResSchema)

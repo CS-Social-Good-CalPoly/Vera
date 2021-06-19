@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const bodyparser = require('body-parser')
 require('dotenv').config()
 
 const app = express()
@@ -9,6 +10,8 @@ const DB_CONNECTION = process.env.DB_CONNECTION
 const resourceRoutes = require('./routes/resources')
 
 // Middleware || routes
+app.use(bodyparser.json())
+
 app.use('/resources', resourceRoutes)
 
 // add our routes here
