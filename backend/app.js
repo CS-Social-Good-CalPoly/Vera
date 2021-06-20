@@ -11,7 +11,7 @@ const resourceRoutes = require('./routes/resources')
 
 // Middleware || routes
 app.use(bodyparser.json())
-
+app.use(express.json())
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
 
@@ -30,4 +30,4 @@ mongoose.connect(DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true
 )
 
 // start the server via npm start
-app.listen(PORT)
+app.listen(PORT, () => console.log('Server started'))

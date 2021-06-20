@@ -1,6 +1,5 @@
 const {model, Schema} = require('mongoose')
 
-// complete
 const GenResSchema = new Schema({
     Name: String,
     Title: String,
@@ -12,4 +11,4 @@ const GenResSchema = new Schema({
     ]
 })
 
-module.exports = model('general-resource-category', GenResSchema)
+module.exports = model('general-resource-category', GenResSchema, 'general-resource-category')
