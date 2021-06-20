@@ -4,6 +4,7 @@ const router = express.Router()
 
 const GenResources = require('../models/GenResources')
 const SubResources = require('../models/SubResources')
+const IndResources = require('../models/IndividualResources')
 
 // GET route for all general resource categories
 router.get('/generalrsrcscat', async (req, res) => {
@@ -26,5 +27,17 @@ router.get('/subrsrcs', async (req, res) => {
 })
 
 // GET route for all individual resources
+router.get('/:category', async (req, res) => {
+    // res.send(req.params.category)
+    try {
+        const categorizedResources = await IndResources.find({Category: req.params.category})
+        // const categorizedResources = await IndResources.find()
+        res.json(categorizedResources)
+    } catch (err) {
+        res.status(404).json({
+            message: err.message
+        })
+    }
+})
 
 module.exports = router

@@ -15,4 +15,4 @@ const IndResSchema = new Schema({
     ListOfHours: [String]
 })
 
-module.exports = model('individual-resources ', IndResSchema, 'individual-resources ')
+module.exports = model('individual-resources', IndResSchema, 'individual-resources')
