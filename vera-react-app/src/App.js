@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Footer, NavBar } from './components/components';
+import { Home, Footer, NavBar, ResourcePageTile } from './components/components';
 import StoryBanner from './components/StoryBanner/storyBanner';
 import photo from "./components/StoryBanner/photo.jpg";
 
@@ -10,8 +10,8 @@ function App() {
             <NavBar/>
             <div id="page">
                 <Switch>
-                <Route exact path='/'
-                        component={() => <Home />} />
+                    <Route exact path='/'
+                           component={() => <Home />} />
                 </Switch>
     
                 <StoryBanner
