@@ -1,6 +1,14 @@
 import React from 'react'
-import './StoryTile.css'
-import icon from './arrow-icon.svg'
+import arrow from './arrow-icon.svg'
+import {
+    StoryTileDiv,
+    Banner,
+    TitleText,
+    Title,
+    Info,
+    InfoText,
+    Icon
+} from '../Shared/StoryTile'
 
 /* Component Props
  * imageUrl
@@ -11,17 +19,17 @@ import icon from './arrow-icon.svg'
 
 function StoryTile(props) {
     return (
-        <div className="StoryTile">
-            <img className="banner" src={props.imageUrl} alt=""/>
-            <div className="tile-text">
-                <h1 className="title">{props.title}</h1>
-                <div className="info">
-                    <h2 className="info-text">{props.studentYear} Year</h2>
-                    <h2 className="info-text">{props.studentMajor} Major</h2>
-                </div>
-                <img className="icon" src={icon} alt="" />
-            </div>
-        </div>
+        <StoryTileDiv>
+            <Banner src={props.imageUrl} alt=""/>
+            <TitleText>
+                <Title>{props.title}</Title>
+                <Info>
+                    <InfoText>{props.studentYear} Year</InfoText>
+                    <InfoText>{props.studentMajor} Major</InfoText>
+                </Info>
+                <Icon src={arrow} alt="" />
+            </TitleText>
+        </StoryTileDiv>
     )
 }
 
