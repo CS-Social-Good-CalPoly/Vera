@@ -186,13 +186,13 @@ function StoryPopUp({imageUrl, category, image_alt_text, studentYear,
                     </Card.Text>
                 </Storybody>
             </Cardstory>
-            {/* <PopupResources>
+            <PopupResources>
                 <ResourcePageTileGroup
                     id="RelevantResources"
                     title="Relevant Resources"
                     resources={resources}
                 />
-            </PopupResources> */}
+            </PopupResources>
         </CardWrapper>
     )
 

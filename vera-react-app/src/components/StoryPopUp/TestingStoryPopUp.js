@@ -2,13 +2,17 @@ import React from 'react';
 import { StoryPopUp} from '../components'
 
 function TestingStoryPopUp() {
-    const categorNames = ['Support', 'Stress']
-    const categorLocs = ['Support', 'Stress']
-    const resourceSupport = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
-    const resourceStress = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
+    const relevantResourcesBlank = [ { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
     
+
+    const resourcePageTile = {imageUrl:"https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg",
+     title: 'Suicide Prevention',  info: 'Mock info for an example resource', resourcePageLink: "example.com"}
+
+    const relevantResources = [{resourcePageTile }, {resourcePageTile }, {resourcePageTile }]
+
     const imageUrl = 'https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg'
     const altText = "image for story"
+    const category = "Family"
     const studentYear = "4th Year"
     const studentMajor = "Chemistry Major"
     const studentCollege = "College of Math & Science"
@@ -18,8 +22,8 @@ function TestingStoryPopUp() {
     
     return (
         <div>
-            <StoryPopUp imageUrl={imageUrl} altText={altText} studentYear = {studentYear}
-            studentMajor = {studentMajor} studentCollege={studentCollege} date = {date} title={title} storyText={storyText} resources={resourceStress} />
+            <StoryPopUp imageUrl={imageUrl} category={category} altText={altText} studentYear = {studentYear}
+            studentMajor = {studentMajor} studentCollege={studentCollege} date = {date} title={title} storyText={storyText} resources={relevantResourcesBlank} />
         </div>
     );
 }
