@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import { Home, Footer, NavBar, ResourcePageTile} from './components/components';
+import { Home, Footer, NavBar, ResourcePageTile, StoryPopUp} from './components/components';
 
 function App() {
     return (
@@ -9,7 +9,7 @@ function App() {
             <div id="page">
                 <Switch>
                     <Route exact path='/'
-                           component={() => <Home />} />
+                           component={() => <StoryPopUp />} />
                 </Switch>
             </div>
             <Footer/>

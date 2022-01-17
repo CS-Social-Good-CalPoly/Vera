@@ -10,3 +10,4 @@ export {default as CategoryButtonGroup} from './CategoryButtonGroup/CategoryButt
 export {default as StoryTile} from './StoryTile/StoryTile';
 export {default as ResourcePageTileGroup} from './ResourcePageTileGroup/ResourcePageTileGroup';
 export {default as CategoryDescription} from './CategoryDescription/CategoryDescription';
+export {default as StoryPopUp} from './StoryPopUp/StoryPopUp';
