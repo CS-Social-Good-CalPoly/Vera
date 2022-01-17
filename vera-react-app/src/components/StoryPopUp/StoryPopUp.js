@@ -44,6 +44,13 @@ const Major = styled(Card.Subtitle)`
         font-size: 14px
     }
 `
+const College = styled(Card.Subtitle)`
+    font-size: 32px;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 14px
+    }
+`
 
 const Date = styled(Card.Text)`
     text-align: center;
@@ -130,56 +137,62 @@ const Title = styled(Card.Title)`
     }
 `
 
-function StoryPopUp(props) {
+// Image URL for banner
+// Image alt text
+// Student's year
+// Student's general college
+// Student's major (may not be provided)
+// Date
+// Title
+// Story Text
+// A list of objects of the relevant resources.
+
+function StoryPopUp({imageUrl, category, image_alt_text, studentYear, 
+    studentCollege, studentMajor, date, title, storyText,
+    resources}) {
     const [size, setSize] = useState(false);
 
     function change() {
         setSize(true);
     }
 
-    const resources = [
-        {id: "", title: "", imageUrl: ""},
-        {id: "", title: "", imageUrl: ""},
-        {id: "", title: "", imageUrl: ""},
-    ]
-
     return (
         <CardWrapper hidden={size}>
             <Size id='close-card' onClick={change}>&times;</Size>
-            <Image variant="top" src="https://i.pinimg.com/originals/b1/d6/b4/b1d6b4715bdb30d7b7f3253f2423e327.jpg"/>
+            <Image variant="top" src={imageUrl}/>
             <Card.Body>
                 <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
-                    How My Dog Helps me Through College
+                    {title}
                 </Title>
                 <Header>
                     <div id='category'>
-                        <DesktopHeader>Family</DesktopHeader>
-                        <Date>Dec 11, 2020</Date>
+                        <DesktopHeader>{category}</DesktopHeader>
+                        <Date>{date}</Date>
                     </div>
                     <div>
-                        <Year id='year'>4th Year</Year>
-                        <Major id='major'>Chemistry Major</Major>
+                        <Year id='year'>{studentYear}</Year>
+                        <Major id='major'>{studentMajor}</Major>
+                        <College id='college'>{studentCollege}</College>
                     </div>
                 </Header>
             </Card.Body>
             <Cardstory>
                 <Storybody style={{border: 'none'}}>
                     <Storytitle>
-                        How My Dog Helps me Through College
+                        {title}
                     </Storytitle>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
+                        {storyText}
                     </Card.Text>
                 </Storybody>
             </Cardstory>
-            <PopupResources>
+            {/* <PopupResources>
                 <ResourcePageTileGroup
-                    id="Stress"
-                    title="Stress"
+                    id="RelevantResources"
+                    title="Relevant Resources"
                     resources={resources}
                 />
-            </PopupResources>
+            </PopupResources> */}
         </CardWrapper>
     )
 
