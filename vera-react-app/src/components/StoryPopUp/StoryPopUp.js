@@ -4,7 +4,7 @@ import {ResourcePageTileGroup} from '../components.js'
 import styled from 'styled-components'
 
 const Image = styled(Card.Img)`
-    max-height: 450px;
+    max-height: 500px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;  
 `
