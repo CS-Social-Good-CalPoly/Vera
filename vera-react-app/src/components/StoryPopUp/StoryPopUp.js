@@ -5,8 +5,12 @@ import styled from 'styled-components'
 
 const Image = styled(Card.Img)`
     max-height: 450px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;  
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;  
+    
+    @media only screen and (max-width: 768px) {
+        max-height: 150px;
+    }
 `
 
 const Header = styled.div`
@@ -32,58 +36,69 @@ const Year = styled(Card.Subtitle)`
     margin-bottom: 7px;
     font-size: 32px;
     color:#728D95;
-    padding-left:80px;
+    padding-left:8%;
 
     @media only screen and (max-width: 768px) {
-        font-size: 14px
+        font-size: 10px;
+        padding:0;
     }
 `
 
 const Major = styled(Card.Subtitle)`
     font-size: 32px;
-    padding-left:80px;
+    padding-left:8%;
     margin-bottom: 7px;
     color:#728D95;
 
     @media only screen and (max-width: 768px) {
-        font-size: 14px
+        font-size: 10px;
+        padding:0;
     }
 `
 const College = styled(Card.Subtitle)`
     font-size: 32px;
-    padding-left:80px;
     color:#728D95;
+    padding-left:8%;
 
     @media only screen and (max-width: 768px) {
-        font-size: 14px
+        font-size: 10px;
+        padding:0;
+        
     }
 `
 
 const Date = styled(Card.Text)`
     text-align: center;
     font-size: 32px;
-    padding-right:80px;
+    padding-right:8%;
     color:#728D95;
 
     @media only screen and (max-width: 768px) {
-        font-size: 14px;
+        font-size: 10px;
         margin-top: -10px;
+        padding:0;
     }
 `
 
 const Size = styled(Card.Text)`
     font-family: 'Poppins';
-    font-size: 32px;
+    font-size: 48px;
     position: absolute;
     margin: 10px 0px 0px 20px;
     color: black;
     cursor: pointer;
+    
+    @media only screen and (max-width: 768px) {
+        font-size: 32px;
+    }
 `
 
 const Cardstory = styled(Card.Body)`
     padding: 0;
     margin-top: 15px;
     margin-bottom: 17px;
+    
+    
 
     @media only screen and (max-width: 768px) {
         margin-bottom: 0;
@@ -92,17 +107,57 @@ const Cardstory = styled(Card.Body)`
 
 const Storybody = styled.div`
     border: 1px solid #4A6E82;
-    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-    border-radius: 30px;
-    padding: 25px;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.5);
+    border-radius: 12px;
+    padding-left:8%;
+    padding-right:8%;
+    
+    font-family: Poppins;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 35px;
+	/* or 219% */
+	padding-bottom:5%;
+
+	letter-spacing: 0.05em;
+
+	color: #4A6E82;
 
     @media only screen and (max-width: 768px) {
         margin: -15px 0 15px 0;
+        padding-top:5%;
+        
+        
+        ont-family: Poppins;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 14px;
+		line-height: 15px;
+		/* or 107% */
+
+		letter-spacing: 0.05em;
+		text-transform: capitalize;
+
+		color: #4A6E82;
     }
 `
 
 const Storytitle = styled(Card.Title)`
     display: revert;
+    
+    font-family: Poppins;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 36px;
+	line-height: 54px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	padding-top:5%;
+	
+	
+
+color: #4A6E82;
 
     @media only screen and (max-width: 768px) {
         display: none;
@@ -113,6 +168,7 @@ const PopupResources = styled.div`
     color: black;
     max-width: 90%;
     margin-left: 55px;
+    padding-left:8%;
 
     @media only screen and (max-width: 768px) {
         margin-left: 10px;
@@ -123,9 +179,11 @@ const PopupResources = styled.div`
 const CardWrapper = styled(Card)`
     font-family: 'Poppins';
     color: #4A6E82;
-    border-radius: 30px;
+    border-radius: 12px;
     max-width: 80%;
     margin: 10vh auto auto;
+    filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.55));
+    overflow-x:hidden;
 `
 
 const DesktopHeader = styled(Card.Title)`
@@ -138,15 +196,17 @@ const DesktopHeader = styled(Card.Title)`
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	
-	padding-left:80px;
+	padding-left:8%;
 	
 	
 	
 
-color: #4A6E82;
+	color: #4A6E82;
 
     @media only screen and (max-width: 768px) {
         display: none;
+        padding-left:22px;
+        font-size: 20px;
     }
 `
 
@@ -156,6 +216,9 @@ const Title = styled(Card.Title)`
     @media only screen and (max-width: 768px) {    
         display: revert;
         font-size: 20px;
+        text-transform: uppercase;
+        color:black;
+        
     }
 `
 

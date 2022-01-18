@@ -18,7 +18,7 @@ function TestingStoryPopUp() {
     const studentCollege = "College of Math & Science"
     const date = "Dec 11, 2020"
     const title = "How My Dog Helps me Through College"
-    const storyText = "Some quick example text to build on the card title and make up the bulk ofthe card's content."
+    const storyText = "Some quick example text to build on the card title and make up the bulk ofthe card's content.Some quick example text to build on the card title and make up the bulk ofthe card's content.Some quick example text to build on the card title and make up the bulk ofthe card's content.Some quick example text to build on the card title and make up the bulk ofthe card's content.Some quick example text to build on the card title and make up the bulk ofthe card's content.Some quick example text to build on the card title and make up the bulk ofthe card's content."
     
     return (
         <div>
