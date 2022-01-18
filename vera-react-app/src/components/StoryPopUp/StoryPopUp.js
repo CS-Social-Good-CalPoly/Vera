@@ -31,6 +31,8 @@ const Header = styled.div`
 const Year = styled(Card.Subtitle)`
     margin-bottom: 7px;
     font-size: 32px;
+    color:#728D95;
+    padding-left:80px;
 
     @media only screen and (max-width: 768px) {
         font-size: 14px
@@ -39,6 +41,9 @@ const Year = styled(Card.Subtitle)`
 
 const Major = styled(Card.Subtitle)`
     font-size: 32px;
+    padding-left:80px;
+    margin-bottom: 7px;
+    color:#728D95;
 
     @media only screen and (max-width: 768px) {
         font-size: 14px
@@ -46,6 +51,8 @@ const Major = styled(Card.Subtitle)`
 `
 const College = styled(Card.Subtitle)`
     font-size: 32px;
+    padding-left:80px;
+    color:#728D95;
 
     @media only screen and (max-width: 768px) {
         font-size: 14px
@@ -55,6 +62,8 @@ const College = styled(Card.Subtitle)`
 const Date = styled(Card.Text)`
     text-align: center;
     font-size: 32px;
+    padding-right:80px;
+    color:#728D95;
 
     @media only screen and (max-width: 768px) {
         font-size: 14px;
@@ -64,9 +73,10 @@ const Date = styled(Card.Text)`
 
 const Size = styled(Card.Text)`
     font-family: 'Poppins';
+    font-size: 32px;
     position: absolute;
     margin: 10px 0px 0px 20px;
-    color: white;
+    color: black;
     cursor: pointer;
 `
 
@@ -120,8 +130,20 @@ const CardWrapper = styled(Card)`
 
 const DesktopHeader = styled(Card.Title)`
     visibility: visible;
-    font-size: 32px;
-    font-weight: 600;
+    font-family: Poppins;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 48px;
+	line-height: 72px;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	
+	padding-left:80px;
+	
+	
+	
+
+color: #4A6E82;
 
     @media only screen and (max-width: 768px) {
         display: none;
