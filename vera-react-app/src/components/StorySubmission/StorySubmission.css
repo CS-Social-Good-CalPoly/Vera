@@ -1,0 +1,70 @@
+.container#story-submission {
+    margin: 0;
+    width: -webkit-fill-available;
+    padding: 0;
+    max-width:100%;
+}
+
+div#story-banner-img-col, div#story-banner-text-col {
+    padding: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    #story-banner-img-col, #story-banner-text-col{
+        height: 500px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #story-banner-img-col{
+        height: 200px;
+    }
+}
+
+img#story-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+h1#story-banner-text-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+p#story-banner-text-paragraph {
+    font-size: 0.8rem;
+}
+
+div#page {
+   overflow-x: hidden; 
+}
+
+div#story-banner-text {
+    background-color: #DCE3E7;
+    padding: 25px;
+    letter-spacing: 0.7px;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;  
+    min-height: 100%;  
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+button#story-banner-button {
+    margin-top: 17px;
+    padding: 17px 12px;
+    text-transform: uppercase;
+    color: #728D95;
+    border: none;
+    border-radius: 15px;
+    letter-spacing: 0.2px;
+    font-size: 0.6rem;
+    font-weight: 550;
+    width: -moz-fit-content;
+    width: fit-content;
+    align-self: center;
+    background: white;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
+}
