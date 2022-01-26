@@ -8,12 +8,15 @@ const PORT = 5000
 const DB_CONNECTION = process.env.DB_CONNECTION
 
 const resourceRoutes = require('./routes/resources')
+const storyRoutes = require('./routes/stories')
 
 // Middleware || routes
 app.use(bodyparser.json())
 app.use(express.json())
+
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
+app.use('/stories', storyRoutes)
 
 // home page route
 app.get('/', (req, res) => {
