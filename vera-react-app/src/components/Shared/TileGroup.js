@@ -23,6 +23,8 @@ export const TitleContainer = styled.div`
     }
 `;
 
+// TODO: Change TileGroup div to use grid instead of flexbox
+
 export const TileGroup = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -46,7 +48,6 @@ export const Tiles = styled.div`
     background: #FFFFFF;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
-    margin: 20px;
     
     @media only screen and (max-width: 768px) {
         border: 1px solid #4A6E82;
@@ -55,7 +56,6 @@ export const Tiles = styled.div`
         background: #FFFFFF;
         box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
         border-radius: 10px;
-        margin: 8px;
     }
 `;
 
