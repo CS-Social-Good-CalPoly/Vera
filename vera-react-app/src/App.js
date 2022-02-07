@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 // import { Home, Footer, NavBar, ResourcePageTile} from './components/components';
-import { StoryPage, Footer, NavBar, ResourcePageTile} from './components/components';
+import { IndividualResourcePage, Footer, NavBar, ResourcePageTile} from './components/components';
 
 function App() {
     return (
@@ -10,7 +10,7 @@ function App() {
             <div id="page">
                 <Switch>
                     <Route exact path='/'
-                           component={() => <StoryPage />} />
+                           component={() => <IndividualResourcePage />} />
                 </Switch>
             </div>
             <Footer/>
