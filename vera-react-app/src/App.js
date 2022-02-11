@@ -10,11 +10,10 @@ function App() {
                 <Switch>
                     {/* <Route exact path='/'
                            component={() => <Home />} /> */}
-                    <Route exact path="/Home" component={Home} />
+                    <Route exact path="/StorySubmission" component={() => <StorySubmission/>} />
                     <Route exact path='/'> 
-                        <Redirect to="/Home"/>
+                        <Redirect to="/StorySubmission"/>
                     </Route>
-                    <Route exact path="/StorySubmission" component={StorySubmission} />
                 </Switch>
             </div>
             <Footer/>
