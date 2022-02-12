@@ -47,6 +47,7 @@ export const Tiles = styled.div`
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
     margin: 20px;
+    overflow: hidden;
     
     @media only screen and (max-width: 768px) {
         border: 1px solid #4A6E82;

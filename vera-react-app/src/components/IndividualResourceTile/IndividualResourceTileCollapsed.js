@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Tiles, Banner } from '../Shared/TileGroup';
-import { TileIcon, TileTitle } from '../Shared/Tile';
+import { Tiles } from '../Shared/TileGroup';
+import { TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import arrowIcon from '../Shared/arrow-icon.svg';
 
 const InfoText = styled.p`
@@ -26,7 +26,7 @@ const InfoText = styled.p`
 function IndividualResourceTileCollapsed(props) {
   return (
     <Tiles onClick={props.handleChange}>
-      <Banner src={props.imageUrl} alt={props.title} />
+      <TileBanner src={props.imageUrl} alt={props.title} />
       <TileTitle>{props.title}</TileTitle>
       <InfoText>{props.infoText}</InfoText>
       <TileIcon src={arrowIcon} />
