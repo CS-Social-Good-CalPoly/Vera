@@ -1,7 +1,6 @@
 import React from 'react'
 import arrow from './arrow-icon.svg'
 import {
-    StoryTileDiv,
     Banner,
     TitleText,
     Title,
@@ -9,6 +8,7 @@ import {
     InfoText,
     Icon
 } from '../Shared/StoryTile'
+import { Tiles } from '../Shared/TileGroup';
 
 /* Component Props
  * imageUrl
@@ -19,7 +19,7 @@ import {
 
 function StoryTile(props) {
     return (
-        <StoryTileDiv>
+        <Tiles>
             <Banner src={props.imageUrl} alt=""/>
             <TitleText>
                 <Title>{props.title}</Title>
@@ -29,7 +29,7 @@ function StoryTile(props) {
                 </Info>
                 <Icon src={arrow} alt="" />
             </TitleText>
-        </StoryTileDiv>
+        </Tiles>
     )
 }
 
