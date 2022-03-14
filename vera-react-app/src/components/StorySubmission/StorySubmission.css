@@ -2,3 +2,49 @@
   height: 375px;
   padding: 5px;
 }
+
+.story-submission-box {
+  justify-content: center;
+  width:  90%;
+  height: 968px;
+  background-color: #4A6E82;
+  border-radius: 20px;
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.25));
+}
+
+.background{
+  display:flex;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+  padding:7%;
+}
+
+div.ql-container.ql-snow {
+  min-height: 400px;
+}
+
+div.ql-editor {
+  min-height: 400px;
+}
+
+.title-text{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #4A6E82;
+  padding: 2%;
+}
+
+.description-box{
+  justify-content: center;
+  width: 80%;
+  background-color: white;
+  padding:7%;
+  border-radius: 20px;
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.25));
+}
