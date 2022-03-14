@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { StoryBanner, DropDownForm } from '../components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -19,8 +19,10 @@ function StorySubmission() {
           <div className="background">
             <div className="story-submission-box">
               <DropDownForm fieldTitle="Year"/>
-              <DropDownForm fieldTitle="College"/>
-              <DropDownForm fieldTitle="Major"/>
+              
+                <DropDownForm fieldTitle="College"/>
+                <DropDownForm fieldTitle="Major"/>
+              
               <div className="description-box"> 
                 <div className="title-text">
                   Short Description

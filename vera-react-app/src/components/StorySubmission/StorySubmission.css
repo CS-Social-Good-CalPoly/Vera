@@ -4,7 +4,8 @@
 }
 
 .story-submission-box {
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   width:  90%;
   height: 968px;
   background-color: #4A6E82;
@@ -37,11 +38,11 @@ div.ql-editor {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #4A6E82;
-  padding: 2%;
+  padding-bottom: 2%;
 }
 
 .description-box{
-  justify-content: center;
+  align-self: center;
   width: 80%;
   background-color: white;
   padding:7%;
