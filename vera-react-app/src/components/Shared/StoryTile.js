@@ -1,5 +1,21 @@
 import styled from 'styled-components'
 
+export const StoryTileDiv = styled.div `
+    width: 280px;
+    height: 280px;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+
+    @media only screen and (max-width: 768px) {
+        width: 150px;
+        height: 127px;
+        border-radius: 10px;
+    }
+`;
+
 export const Banner = styled.img`
     width: 280px;
     height: 106px;
