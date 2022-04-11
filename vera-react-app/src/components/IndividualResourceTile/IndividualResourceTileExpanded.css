@@ -8,6 +8,7 @@
   padding: 0;
   position: relative;
   margin: 1rem;
+  cursor:pointer;
 }
 
 .resource-tile-expanded-text {
