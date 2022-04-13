@@ -1,26 +1,51 @@
 #editor-container {
   height: 375px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 5px;
 }
 
-.text-editor{
-  padding-top: 20px;
-  padding-bottom: 20px;
+.story-submission-box {
+  display: flex;
+  flex-direction: column;
+  width:  90%;
+  height: 968px;
+  background-color: #4A6E82;
+  border-radius: 20px;
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.25));
 }
 
-.form{
-  padding-top: 20px;
+.background{
+  display:flex;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+  padding:7%;
 }
 
-.submit-button {
-	padding: 16px 32px;
-	border-radius: 50px;
-	color: #B7CAD4;
-	display: inline-block;
-	font-weight: 700;
-	font-size: 18px;
-	margin-top: 16px;
-	position:center;
-	cursor: pointer;
+div.ql-container.ql-snow {
+  min-height: 400px;
+}
+
+div.ql-editor {
+  min-height: 400px;
+}
+
+.title-text{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #4A6E82;
+  padding-bottom: 2%;
+}
+
+.description-box{
+  align-self: center;
+  width: 80%;
+  background-color: white;
+  padding:7%;
+  border-radius: 20px;
+  filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.25));
 }

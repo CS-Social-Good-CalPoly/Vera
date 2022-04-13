@@ -18,8 +18,8 @@ class DropDownForm extends Component {
 
   render() {
     return (
-          <div>
-            <select className="dropdown" onChange={this.handleDropdownChange}>
+          <div className="wrapper-drop-down">
+            <select id="dropdown" onChange={this.handleDropdownChange}>
               <option value="N/A">{this.props.fieldTitle}</option>
               <option value="1">1st Year</option>
               <option value="2">2nd Year</option>
