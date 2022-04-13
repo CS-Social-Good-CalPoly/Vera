@@ -1,4 +1,26 @@
 #editor-container {
   height: 375px;
-  padding: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.text-editor{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.form{
+  padding-top: 20px;
+}
+
+.submit-button {
+	padding: 16px 32px;
+	border-radius: 50px;
+	color: #B7CAD4;
+	display: inline-block;
+	font-weight: 700;
+	font-size: 18px;
+	margin-top: 16px;
+	position:center;
+	cursor: pointer;
 }
