@@ -18,11 +18,17 @@ function StorySubmission() {
           <StoryBanner bodyText={body_text} imageUrl={image_url}/>
           <div className="background">
             <div className="story-submission-box">
-              <DropDownForm fieldTitle="Year"/>
-              
-                <DropDownForm fieldTitle="College"/>
-                <DropDownForm fieldTitle="Major"/>
-              
+              <div className="row1">
+                <DropDownForm fieldTitle="Year"/>
+              </div>
+              <div className="row2">
+                <div className="college-box"> 
+                  <DropDownForm fieldTitle="College"/>
+                </div>
+                <div className="major-box"> 
+                  <DropDownForm fieldTitle="Major"/>
+                </div> 
+              </div>
               <div className="description-box"> 
                 <div className="title-text">
                   Short Description
