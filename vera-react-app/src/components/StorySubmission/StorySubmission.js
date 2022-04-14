@@ -12,6 +12,17 @@ function StorySubmission() {
   const image_url = "https://res.cloudinary.com/stealthman22/image/upload/v1586308024/new-portfolio/hero/time-lapse-photography-of-waterfalls-during-sunset-210186.jpg"
   const [quillValue, setQuillValue] = useState('');
 
+  const collegeList = ["Agriculture, Food and Environmental Sciences", 
+    "Architecture and Environmental Design",
+    "Engineering",
+    "Liberal Arts",
+    "Science and Mathematics",
+    "Business"]
+  
+  const yearList = ["1st Year", "2nd Year","3rd Year", "4th Year", "5th+ Year"]
+
+  const majorList = ["CSC" ,"SE", "Other"]
+
   function clickMe() {
     alert("You clicked me!");
   }
@@ -22,14 +33,14 @@ function StorySubmission() {
           <div className="background">
             <div className="story-submission-box">
               <div className="row1">
-                <DropDownForm fieldTitle="Year"/>
+                <DropDownForm fieldTitle="Year" myoptions={yearList} />
               </div>
               <div className="row2">
                 <div className="college-box"> 
-                  <DropDownForm fieldTitle="College"/>
+                  <DropDownForm fieldTitle="College" myoptions={collegeList}/>
                 </div>
                 <div className="major-box"> 
-                  <DropDownForm fieldTitle="Major"/>
+                  <DropDownForm fieldTitle="Major" myoptions={majorList}/>
                 </div> 
               </div>
               <div className="description-box"> 
