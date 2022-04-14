@@ -48,6 +48,9 @@ function StorySubmission() {
                   Short Description
                 </div>
                 <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
+                <div className="button-wrapper">
+                  <div className="button" onClick={clickMe}>Submit</div>
+                </div>
               </div> 
             </div>        
           </div>

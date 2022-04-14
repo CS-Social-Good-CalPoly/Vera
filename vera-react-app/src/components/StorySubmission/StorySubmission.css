@@ -63,3 +63,25 @@ div.ql-editor {
   border-radius: 20px;
   filter: drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.25));
 }
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+	padding: 16px 32px;
+	border-radius: 600px;
+	width: 204px;
+  height: 64px;
+  color: white;
+	background-color: #B7CAD4;
+	display: inline-block;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 20px;
+	margin-top: 16px;
+	text-align: center;
+	cursor: pointer;
+  align-self: center;
+}
