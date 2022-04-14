@@ -2,15 +2,6 @@ import React from 'react';
 import { Component } from "react";
 import './DropDownForm.css';
 
-// function DropDownForm(props) {
-
-//     return (
-//         <div>
-//             <p>DropDownForm</p>
-//         </div>
-//     );
-// }
-
 class DropDownForm extends Component {
   constructor(props) {
     super(props);
@@ -27,8 +18,6 @@ class DropDownForm extends Component {
 
   render() {
     return (
-      <div>
-        <div>
           <div className="wrapper-drop-down">
             <select id="dropdown" onChange={this.handleDropdownChange}>
               <option value="N/A">{this.props.fieldTitle}</option>
@@ -40,9 +29,6 @@ class DropDownForm extends Component {
             </select>
           </div>
 
-          {/* <div>Selected value is : {this.state.selectValue}</div> */}
-        </div>
-      </div>
     );
   }
 }
