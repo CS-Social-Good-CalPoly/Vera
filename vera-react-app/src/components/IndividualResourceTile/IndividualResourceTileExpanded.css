@@ -8,7 +8,6 @@
   padding: 0;
   position: relative;
   margin: 1rem;
-  cursor:pointer;
 }
 
 .resource-tile-expanded-text {
@@ -179,6 +178,7 @@ p.resource-tile-expanded-to-expect {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  cursor:pointer;
 }
 
 a.resource-tile-expanded-button {
