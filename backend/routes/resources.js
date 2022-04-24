@@ -8,6 +8,7 @@ const IndResources = require('../models/IndividualResources')
 
 // GET route for all general resource categories
 router.get('/generalrsrcscat', async (req, res) => {
+    console.log("GET /generalrsrcscat")
     try {
         const rsrc = await GenResources.find()
         res.json(rsrc)
@@ -18,6 +19,7 @@ router.get('/generalrsrcscat', async (req, res) => {
 
 // GET route for all sub resource categories
 router.get('/subrsrcs', async (req, res) => {
+        console.log('GET /subrsrcs');
     try {
         const rsrc = await SubResources.find()
         res.json(rsrc)

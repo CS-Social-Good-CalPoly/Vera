@@ -1,20 +1,69 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import './Home.css';
-import { Banner, CategoryButtonGroup, ResourcePageTileGroup} from '../components'
+import {
+  Banner,
+  CategoryButtonGroup,
+  ResourcePageTileGroup,
+} from '../components';
+import IndividualResourceTileGroup from '../IndividualResourceTileGroup/IndividualResourceTileGroup'
+
+const getSubcategories = (categoryObj, subResourceList) => {
+  console.log('im here');
+  const list = [];
+    categoryObj.SubCategoryIDList.forEach((id) =>
+      list.push(
+        subResourceList.find((element) => {
+          return element._id === id;
+        })
+      )
+    );
+  return list;
+};
 
 function Home() {
-    const categorNames = ['Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.', 'Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.']
-    const categorLocs = ['Support', 'Stress']
-    const resourceSupport = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
-    const resourceStress = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
-    return (
-        <div>
-            <Banner imageUrl='https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg' />
-            <CategoryButtonGroup title='Categories' names={categorNames} locations={categorLocs}/>
-            <ResourcePageTileGroup id="Support" title="Support" resources={resourceSupport} />
-            <ResourcePageTileGroup id="Stress" title="Stress" resources={resourceStress} />
-        </div>
-    );
+  const [categories, setCategories] = useState([]);
+  const [subResources, setSubResources] = useState([]);
+  const [idList, setIdList] = useState([]);
+
+  useEffect(() => {
+    console.log('in useeffect');
+    fetch('http://localhost:5000/resources/generalrsrcscat')
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
+      .then(() => fetch('http://localhost:5000/resources/subrsrcs'))
+      .then((response) => response.json())
+      .then((data) => setSubResources(data))
+      .then(() => {
+          console.log('in the last then')
+          console.log('categories' + categories)
+        categories.forEach((category) => {
+          const newList = getSubcategories(category, subResources);
+          console.log(newList);
+        //   setIdList(idList.push(newList))
+          setIdList((idList) => [...idList, newList]);
+          console.log("idList: " + idList)
+        });
+      });
+  }, []);
+
+  return (
+    <div>
+      <Banner imageUrl="https://images.unsplash.com/photo-1595869653737-3c3fcf087954?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80" />
+      <CategoryButtonGroup
+        title="Categories"
+        names={categories.map((c) => c.Name)}
+        locations={categories.map((c) => c.Name)}
+      />
+      {idList.length !== 0 &&
+        categories.map((category, index) => (
+          <IndividualResourceTileGroup
+            id={category.name}
+            title={category.Title}
+            resources={idList[index]}
+          />
+        ))}
+    </div>
+  );
 }
 
 export default Home;
