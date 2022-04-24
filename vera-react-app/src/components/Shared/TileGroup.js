@@ -48,6 +48,7 @@ export const Tiles = styled.div`
     border-radius: 30px;
     margin: 20px;
     overflow: hidden;
+    cursor:pointer;
     
     @media only screen and (max-width: 768px) {
         border: 1px solid #4A6E82;
