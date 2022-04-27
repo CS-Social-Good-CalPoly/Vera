@@ -7,12 +7,9 @@ export const TileGroupDiv = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-    
     border-bottom: 5px solid black;
     display: inline-block;
     min-width: 430px;
-    
-    
 
     @media only screen and (max-width: 768px) {
         border-bottom: 2px solid black;
