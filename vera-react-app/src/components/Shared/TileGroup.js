@@ -28,17 +28,46 @@ export const TitleContainer = styled.div`
 export const TileGroup = styled.div`
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 0 0 56px -20px;
+    padding: 20px;
+
+
+    @media only screen and (max-width: 1420px) {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 0 0 56px -20px;
+        padding: 20px;
+    }
+
+    @media only screen and (max-width: 1070px) {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr;
+        margin: 0 0 56px -20px;
+        padding: 20px;
+    }
 
     @media only screen and (max-width: 768px) {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 0 0 20px -8px;
+    }
+
+    @media only screen and (max-width: 520px) {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr;
         margin: 0 0 20px -8px;
     }
 
     @media only screen and (max-width: 360px) {
-        justify-content: center;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+        margin: 0 0 20px -8px;
     }
 `;
 
