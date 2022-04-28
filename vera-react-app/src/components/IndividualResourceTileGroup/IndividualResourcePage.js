@@ -61,8 +61,8 @@ function IndividualResourcePage() {
       <StoryTileGroup 
         id="test ID"
         title="test Title"
-        stories={[{...resources[0], studentYear:'1', studentMajor:"EE" }, //make two test stories
-                   {...resources[1], studentYear:'3', studentMajor:"ME"}]}
+        stories={[{...resources[0], studentYear:'1st', studentMajor:"EE" }, //make two test stories
+                   {...resources[1], studentYear:'3rd', studentMajor:"ME"}]}
       />
     </div>
 
