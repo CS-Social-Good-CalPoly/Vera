@@ -22,7 +22,7 @@ function IndividualResourceTileGroup({ id, title, resources }) {
             buildingName={resource.building}
             address={resource.address}
             toExpect={resource.whatToExpectList}
-            phone={resource.phoneNumber}
+            phone={resource.phone}
             hours={resource.hourList}
             link={resource.resourceLink}
           />
