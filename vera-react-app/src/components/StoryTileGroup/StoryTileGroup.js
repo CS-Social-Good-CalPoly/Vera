@@ -3,10 +3,10 @@ import {
     TileGroupDiv,
     TitleContainer,
     Heading,
-    TileGroup,
-    Tiles,
+    TileGroup
 } from '../Shared/TileGroup'
 
+import {Tile} from '../Shared/Tile'
 function StoryTileGroup({ id, title, stories }) {
     return (
         <TileGroupDiv>
@@ -15,13 +15,13 @@ function StoryTileGroup({ id, title, stories }) {
             </TitleContainer>
             <TileGroup>
                 {stories.map((story, index) => (
-                    <Tiles key={index}>
+                    <Tile key={index}>
                         <p>{story.id}</p>
                         <p>{story.title}</p>
                         <p>{story.imageUrl}</p>
                         <p>{story.studentYear}</p>
                         <p>{story.studentMajor}</p>
-                    </Tiles>
+                    </Tile>
                 ))}
             </TileGroup>
         </TileGroupDiv>

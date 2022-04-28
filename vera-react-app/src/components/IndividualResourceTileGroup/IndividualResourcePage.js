@@ -1,6 +1,9 @@
 import React from 'react';
 import { Banner, IndividualResourceTileGroup } from '../components';
 
+/*TEST CODE*/
+import { StoryTileGroup } from '../components';
+
 function IndividualResourcePage() {
   const resources = [
     {
@@ -53,7 +56,16 @@ function IndividualResourcePage() {
         title="Comunity"
         resources={resources}
       />
+
+      {/*TEST CODE - DELETE BEFORE MERGE*/}
+      <StoryTileGroup 
+        id="test ID"
+        title="test Title"
+        stories={[{...resources[0], studentYear:'1', studentMajor:"EE" }, //make two test stories
+                   {...resources[1], studentYear:'3', studentMajor:"ME"}]}
+      />
     </div>
+
   );
 }
 

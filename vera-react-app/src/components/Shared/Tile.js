@@ -1,6 +1,29 @@
 import styled from 'styled-components';
 
 export const Tile = styled.div`
+    border: 1px solid #4A6E82;
+    width: 280px;
+    height: 280px;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 30px;
+    margin: 20px;
+    overflow: hidden;
+    cursor:pointer;
+    
+    @media only screen and (max-width: 768px) {
+        border: 1px solid #4A6E82;
+        width: 150px;
+        height: 125px;
+        background: #FFFFFF;
+        box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+        border-radius: 10px;
+        margin: 8px;
+    }
+`;
+
+//To delete
+/*export const Tile = styled.div`
   width: 280px;
   height: 280px;
   background: #ffffff;
@@ -14,7 +37,7 @@ export const Tile = styled.div`
     height: 127px;
     border-radius: 10px;
   }
-`;
+`; */
 
 export const TileBanner = styled.img`
   width: 280px;
