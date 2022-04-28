@@ -23,6 +23,17 @@
   padding: 3%;
 }
 
+@media only screen and (max-width: 1267px) {
+  .row2 {
+    flex-direction: column;
+  }
+  .major-box{
+    padding-top: 20px;
+  }
+}
+
+
+
 .college-box{
   padding-right: 3%;
 }
