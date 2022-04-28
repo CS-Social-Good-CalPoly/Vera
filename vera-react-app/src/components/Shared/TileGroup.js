@@ -1,9 +1,7 @@
 import styled from 'styled-components'
 
 export const TileGroupDiv = styled.div`
-    
     margin-top: 10px;
-    
 `;
 
 export const TitleContainer = styled.div`
@@ -26,45 +24,28 @@ export const TileGroup = styled.div`
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin: 0 0 56px -20px;
+    margin: 0 0 56px 0px;
     padding: 20px;
 
 
     @media only screen and (max-width: 1420px) {
-        display: grid;
-        grid-template-rows: auto;
-        grid-template-columns: 1fr 1fr 1fr;
-        margin: 0 0 56px -20px;
-        padding: 20px;
+        grid-template-columns: 1fr 1fr 1fr;  
     }
 
     @media only screen and (max-width: 1070px) {
-        display: grid;
-        grid-template-rows: auto;
         grid-template-columns: 1fr 1fr;
-        margin: 0 0 56px -20px;
-        padding: 20px;
     }
 
     @media only screen and (max-width: 768px) {
-        display: grid;
-        grid-template-rows: auto;
         grid-template-columns: 1fr 1fr 1fr;
-        margin: 0 0 20px -8px;
     }
 
     @media only screen and (max-width: 520px) {
-        display: grid;
-        grid-template-rows: auto;
         grid-template-columns: 1fr 1fr;
-        margin: 0 0 20px -8px;
     }
 
     @media only screen and (max-width: 360px) {
-        display: grid;
-        grid-template-rows: auto;
         grid-template-columns: 1fr;
-        margin: 0 0 20px -8px;
     }
 `;
 
@@ -78,6 +59,7 @@ export const Tiles = styled.div`
     margin: 20px;
     overflow: hidden;
     cursor:pointer;
+    justify-self: center;
     
     @media only screen and (max-width: 768px) {
         border: 1px solid #4A6E82;
