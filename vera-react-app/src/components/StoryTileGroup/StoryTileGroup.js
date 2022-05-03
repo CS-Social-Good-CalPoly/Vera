@@ -6,7 +6,6 @@ import {
     TileGroup
 } from '../Shared/TileGroup'
 
-import {Tile} from '../Shared/Tile'
 import { StoryTile } from '../components';
 function StoryTileGroup({ id, title, stories }) {
     return (
@@ -16,13 +15,6 @@ function StoryTileGroup({ id, title, stories }) {
             </TitleContainer>
             <TileGroup>
                 {stories.map((story, index) => (
-                    /*<Tile key={index}>
-                        <p>{story.id}</p>
-                        <p>{story.title}</p>
-                        <p>{story.imageUrl}</p>
-                        <p>{story.studentYear}</p>
-                        <p>{story.studentMajor}</p>
-                    </Tile>*/
                     <StoryTile 
                         id = {story.id}
                         title = {story.title}
@@ -34,7 +26,6 @@ function StoryTileGroup({ id, title, stories }) {
                         phone={story.phone}
                         hours={story.hourList}
                         link={story.resourceLink}
-                        
                         studentYear={story.studentYear}
                         studentMajor={story.studentMajor}
                     />

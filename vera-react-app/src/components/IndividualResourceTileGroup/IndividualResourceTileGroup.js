@@ -24,7 +24,7 @@ function IndividualResourceTileGroup({ id, title, resources }) {
             toExpect={resource.whatToExpectList}
             phone={resource.phone}
             hours={resource.hourList}
-            link={resource.resourceLink}
+            link={resource.link}
           />
         ))}
       </TileGroup>
