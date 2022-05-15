@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   TileGroupDiv,
   TitleContainer,
   Heading,
   TileGroup,
 } from '../Shared/TileGroup';
-import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile';
 import ResourcePageTile from '../ResourcePageTile/ResourcePageTile';
 
 function IndividualResourceTileGroup({ id, title, resources }) {
@@ -18,19 +17,8 @@ function IndividualResourceTileGroup({ id, title, resources }) {
         <Heading id={id}>{title}</Heading>
       </TitleContainer>
       <TileGroup>
-        {resources &&
-          resources.map((resource, index) => (
-            // <IndividualResourceTile
-            //   imgUrl={resource.imageUrl}
-            //   title={resource.title}
-            //   description={resource.description}
-            //   buildingName={resource.building}
-            //   address={resource.address}
-            //   toExpect={resource.whatToExpectList}
-            //   phone={resource.phoneNumber}
-            //   hours={resource.hourList}
-            //   link={resource.resourceLink}
-            // />
+        {resources != null &&
+          resources.map((resource) => (
             <ResourcePageTile
               imageUrl={resource.ImageUrl}
               title={resource.Title}

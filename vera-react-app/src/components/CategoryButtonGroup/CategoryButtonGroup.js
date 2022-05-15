@@ -4,24 +4,20 @@ import './CategoryButtonGroup.css';
 
 /** This component received the following props:
  * title: Title
- * locations: Array of [location id's] (for CategoryButtons)
- * names: Array of [category names] (for CategoryButtons)
+ * categories: Array of category Titles to be displayed on button
  */
-function CategoryButtonGroup(props){
-    return (
-        <div className="cat-button">
-            <h1 className="cat-button-group-title">{props.title}</h1>
-            <div className="cat-button-group">
-                {
-
-                    props.names.map((name, index) => (
-                        <CategoryButton key={index} location={props.locations[index]} category={props.names[index]}/>
-                    )
-                    )
-                }
-            </div>
-        </div>
-    )
+function CategoryButtonGroup(props) {
+  return (
+    <div className="cat-button">
+      <h1 className="cat-button-group-title">{props.title}</h1>
+      <div className="cat-button-group">
+        {props.categories &&
+          props.categories.map((c, index) => (
+            <CategoryButton key={index} title={c.Title} locationId={c.Name} />
+          ))}
+      </div>
+    </div>
+  );
 }
 
 export default CategoryButtonGroup;
