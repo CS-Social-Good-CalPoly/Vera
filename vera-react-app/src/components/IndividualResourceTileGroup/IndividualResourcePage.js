@@ -2,7 +2,7 @@ import React from 'react';
 import { Banner, IndividualResourceTileGroup } from '../components';
 
 /*TEST CODE*/
-import { StoryTileGroup } from '../components';
+import { StoryTileGroup, ResourcePageTileGroup } from '../components';
 
 function IndividualResourcePage() {
   const resources = [
@@ -60,10 +60,17 @@ function IndividualResourcePage() {
       {/*TEST CODE - DELETE BEFORE MERGE*/}
       <StoryTileGroup 
         id="test ID"
-        title="test Title"
+        title="Test Story Tile Group"
         stories={[{...resources[0], studentYear:'1st', studentMajor:"EE" }, //make two test stories
                    {...resources[1], studentYear:'3rd', studentMajor:"ME"}]}
       />
+
+      <ResourcePageTileGroup
+        id="testResourcePage"
+        title="Stress (Test)"
+        resources={resources}
+      />
+      {/*END TEST CODE */}
     </div>
 
   );

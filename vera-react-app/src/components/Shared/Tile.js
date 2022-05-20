@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Tile = styled.div`
+    position:relative;
     border: 1px solid #4A6E82;
     width: 280px;
     height: 280px;
@@ -55,8 +56,8 @@ export const TileIcon = styled.img`
   position: absolute;
   bottom: 17.5px;
   right: 17.5px;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 
   @media only screen and (max-width: 768px) {
     margin: 0;
