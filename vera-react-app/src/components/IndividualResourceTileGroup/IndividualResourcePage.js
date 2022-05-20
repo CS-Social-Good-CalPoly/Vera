@@ -68,7 +68,18 @@ function IndividualResourcePage() {
       <ResourcePageTileGroup
         id="testResourcePage"
         title="Stress (Test)"
-        resources={resources}
+        resources={[
+          {
+            imageUrl: 'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
+            title: 'General Stress',
+            description: 'This is test description of this component.'
+          },
+          {
+            imageUrl: 'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
+            title: 'School Stress',
+            description: 'This is test description of this component.'           
+          }
+          ]}
       />
       {/*END TEST CODE */}
     </div>
