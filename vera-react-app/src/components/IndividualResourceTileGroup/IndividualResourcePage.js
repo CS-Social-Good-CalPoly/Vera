@@ -1,9 +1,6 @@
 import React from 'react';
 import { Banner, IndividualResourceTileGroup } from '../components';
 
-/*TEST CODE*/
-import { StoryTileGroup, ResourcePageTileGroup } from '../components';
-
 function IndividualResourcePage() {
   const resources = [
     {
@@ -56,32 +53,6 @@ function IndividualResourcePage() {
         title="Comunity"
         resources={resources}
       />
-
-      {/*TEST CODE - DELETE BEFORE MERGE*/}
-      <StoryTileGroup 
-        id="test ID"
-        title="Test Story Tile Group"
-        stories={[{...resources[0], studentYear:'1st', studentMajor:"EE" }, //make two test stories
-                   {...resources[1], studentYear:'3rd', studentMajor:"ME"}]}
-      />
-
-      <ResourcePageTileGroup
-        id="testResourcePage"
-        title="Stress (Test)"
-        resources={[
-          {
-            imageUrl: 'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
-            title: 'General Stress',
-            description: 'This is test description of this component.'
-          },
-          {
-            imageUrl: 'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
-            title: 'School Stress',
-            description: 'This is test description of this component.'           
-          }
-          ]}
-      />
-      {/*END TEST CODE */}
     </div>
 
   );

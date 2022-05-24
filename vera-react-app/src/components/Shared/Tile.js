@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Tile = styled.div`
-    position:relative;
+    position: relative;
     border: 1px solid #4A6E82;
     width: 280px;
     height: 280px;
@@ -10,7 +10,7 @@ export const Tile = styled.div`
     border-radius: 30px;
     margin: 20px;
     overflow: hidden;
-    cursor:pointer;
+    cursor: pointer;
     
     @media only screen and (max-width: 768px) {
         border: 1px solid #4A6E82;
@@ -22,23 +22,6 @@ export const Tile = styled.div`
         margin: 8px;
     }
 `;
-
-//To delete
-/*export const Tile = styled.div`
-  width: 280px;
-  height: 280px;
-  background: #ffffff;
-  box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-  border-radius: 30px;
-  overflow: hidden;
-  position: relative;
-
-  @media only screen and (max-width: 768px) {
-    width: 150px;
-    height: 127px;
-    border-radius: 10px;
-  }
-`; */
 
 export const TileBanner = styled.img`
   width: 280px;
@@ -56,13 +39,13 @@ export const TileIcon = styled.img`
   position: absolute;
   bottom: 17.5px;
   right: 17.5px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 
   @media only screen and (max-width: 768px) {
     margin: 0;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     right: 5px;
     bottom: 5px;
   }

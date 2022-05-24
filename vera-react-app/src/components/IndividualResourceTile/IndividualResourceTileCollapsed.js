@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-//Delete 
-//import { Tiles } from '../Shared/TileGroup';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
-import arrowIcon from '../Shared/arrow-icon.svg';
+import arrow from './right-arrow.svg';
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -30,7 +28,7 @@ function IndividualResourceTileCollapsed(props) {
       <TileBanner src={props.imageUrl} alt={props.title} />
       <TileTitle>{props.title}</TileTitle>
       <InfoText>{props.infoText}</InfoText>
-      <TileIcon src={arrowIcon} />
+      <TileIcon src={arrow} />
     </Tile>
   );
 }

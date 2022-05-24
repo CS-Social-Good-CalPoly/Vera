@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import './ResourcePageTile.css';
 import arrowIcon from '../Shared/arrow-icon.svg';
 import Dotdotdot from 'react-clamp';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
@@ -31,7 +30,6 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
-
     return (
       <Tile onClick={props.handleChange}>
         <TileBanner src={props.imageUrl} alt={props.title} />
