@@ -25,6 +25,7 @@ export const TileGroup = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 5%;
     column-gap: 20px;
+    padding: 3%;
 
     @media only screen and (max-width: 1520px) {
         grid-template-columns: 1fr 1fr 1fr;  
