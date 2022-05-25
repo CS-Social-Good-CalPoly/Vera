@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const TileGroupDiv = styled.div`
-    margin-top: 10px;
+    margin: 5%;
 `;
 
 export const TitleContainer = styled.div`
@@ -22,17 +22,15 @@ export const TitleContainer = styled.div`
 
 export const TileGroup = styled.div`
     display: grid;
-    grid-template-rows: auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin: 0 0 56px 0px;
-    padding: 20px;
+    row-gap: 5%;
+    column-gap: 20px;
 
-
-    @media only screen and (max-width: 1420px) {
+    @media only screen and (max-width: 1520px) {
         grid-template-columns: 1fr 1fr 1fr;  
     }
 
-    @media only screen and (max-width: 1070px) {
+    @media only screen and (max-width: 1140px) {
         grid-template-columns: 1fr 1fr;
     }
 
@@ -40,11 +38,11 @@ export const TileGroup = styled.div`
         grid-template-columns: 1fr 1fr 1fr;
     }
 
-    @media only screen and (max-width: 520px) {
+    @media only screen and (max-width: 620px) {
         grid-template-columns: 1fr 1fr;
     }
 
-    @media only screen and (max-width: 360px) {
+    @media only screen and (max-width: 410px) {
         grid-template-columns: 1fr;
     }
 `;
@@ -56,7 +54,6 @@ export const Tiles = styled.div`
     background: #FFFFFF;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
-    margin: 20px;
     overflow: hidden;
     cursor:pointer;
     justify-self: center;
@@ -68,7 +65,6 @@ export const Tiles = styled.div`
         background: #FFFFFF;
         box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
         border-radius: 10px;
-        margin: 8px;
     }
 `;
 
