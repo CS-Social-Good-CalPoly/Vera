@@ -14,3 +14,4 @@ export {default as StoryTileGroup} from './StoryTileGroup/StoryTileGroup';
 export {default as StoryPage} from './StoryPage/StoryPage';
 export {default as IndividualResourceTileGroup} from './IndividualResourceTileGroup/IndividualResourceTileGroup';
 export {default as IndividualResourcePage} from './IndividualResourceTileGroup/IndividualResourcePage';
+export {default as StoryDisplayPage} from './StoryDisplayPage/StoryDisplayPage';
