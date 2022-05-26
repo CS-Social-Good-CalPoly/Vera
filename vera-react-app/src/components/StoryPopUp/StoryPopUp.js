@@ -109,6 +109,7 @@ const CardWrapper = styled(Card)`
     border-radius: 30px;
     max-width: 80%;
     margin: 10vh auto auto;
+    background-color: red;
 `
 
 const DesktopHeader = styled(Card.Title)`
