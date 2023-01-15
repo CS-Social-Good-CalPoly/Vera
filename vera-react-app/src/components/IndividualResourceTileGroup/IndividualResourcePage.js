@@ -45,12 +45,12 @@ function IndividualResourcePage() {
       <Banner imageUrl="https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg" />
       <IndividualResourceTileGroup
         id="School"
-        title="School"
+        title="Spaghetti"
         resources={resources}
       />
       <IndividualResourceTileGroup
         id="Community"
-        title="Comunity"
+        title="More Spaghetti"
         resources={resources}
       />
     </div>
