@@ -1,5 +1,5 @@
 import React from 'react';
-import { Banner, IndividualResourceTileGroup } from '../components';
+import { Banner, IndividualResourceTileGroup } from '../../components/components';
 
 function IndividualResourcePage() {
 

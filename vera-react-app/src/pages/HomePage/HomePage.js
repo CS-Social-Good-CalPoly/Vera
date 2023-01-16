@@ -1,9 +1,9 @@
 import React from 'react';
-import './Home.css';
-import { Banner, CategoryButtonGroup, ResourcePageTileGroup} from '../components'
+import './HomePage.css';
+import { Banner, CategoryButtonGroup, ResourcePageTileGroup} from '../../components/components'
 
-function Home() {
-    const categorNames = ['Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.', 'Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.Very long name to test whether or not the text can actually fit inside this box or not.']
+function HomePage() {
+    const categorNames = ['Support', 'Stress']
     const categorLocs = ['Support', 'Stress']
     const resourceSupport = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
     const resourceStress = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
@@ -17,4 +17,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default HomePage;

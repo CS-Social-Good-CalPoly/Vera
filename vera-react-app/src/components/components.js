@@ -1,4 +1,3 @@
-export {default as Home} from './Home/Home';
 export {default as Footer} from './Footer/Footer';
 export {default as StoryBanner} from './StoryBanner/storyBanner';
 export {default as NavBar} from './Navbar/Navbar';
@@ -11,6 +10,5 @@ export {default as StoryTile} from './StoryTile/StoryTile';
 export {default as ResourcePageTileGroup} from './ResourcePageTileGroup/ResourcePageTileGroup';
 export {default as CategoryDescription} from './CategoryDescription/CategoryDescription';
 export {default as StoryTileGroup} from './StoryTileGroup/StoryTileGroup';
-export {default as StoryPage} from './StoryPage/StoryPage';
 export {default as IndividualResourceTileGroup} from './IndividualResourceTileGroup/IndividualResourceTileGroup';
-export {default as IndividualResourcePage} from './IndividualResourceTileGroup/IndividualResourcePage';
+export {default as StoryPopUp} from './StoryPopUp/StoryPopUp';
