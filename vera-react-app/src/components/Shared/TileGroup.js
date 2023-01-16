@@ -48,6 +48,7 @@ export const TileGroup = styled.div`
     }
 `;
 
+
 export const Tiles = styled.div`
     border: 1px solid #4A6E82;
     width: 280px;
