@@ -35,6 +35,7 @@ function IndividualResourcePage() {
         resources={[resource, resource, resource, resource, resource]}
       />
     </div>
+
   );
 }
 
