@@ -7,7 +7,7 @@ function IndividualResourcePage() {
       imageUrl:
         'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
       title: 'title',
-      descriton: 'description',
+      description: 'This is test description of this component. Click to expand!',
       buildingName: 'buildingName',
       address: 'address',
       whatToExpectList: ['thing1', 'thing2'],
@@ -19,7 +19,7 @@ function IndividualResourcePage() {
       imageUrl:
         'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
       title: 'title',
-      descriton: 'description',
+      description: 'description',
       buildingName: 'buildingName',
       address: 'address',
       whatToExpectList: ['thing1', 'thing2'],
@@ -31,7 +31,7 @@ function IndividualResourcePage() {
       imageUrl:
         'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
       title: 'title',
-      descriton: 'description',
+      description: 'description',
       buildingName: 'buildingName',
       address: 'address',
       whatToExpectList: ['thing1', 'thing2'],
@@ -54,6 +54,7 @@ function IndividualResourcePage() {
         resources={resources}
       />
     </div>
+
   );
 }
 
