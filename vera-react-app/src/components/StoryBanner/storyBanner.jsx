@@ -21,7 +21,7 @@ function StoryBanner(props){
                     <div id="story-banner-text">
                         <h1 id="story-banner-text-title">Stories</h1>
                         <p id="story-banner-text-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet aliquam justo. Morbi suscipit, massa quis tempus aliquam, tellus lectus consectetur lacus, ut iaculis mi ex posuere lorem. In vitae bibendum eratLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet aliquam justo. Morbi suscipit, massa quis tempus aliquam, tellus lectus consectetur lacus, ut iaculis mi ex posuere lorem. In vitae bibendum eratLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet aliquam justo. Morbi suscipit, massa quis tempus aliquam, tellus lectus consectetur lacus, ut iaculis mi ex posuere lorem. In vitae bibendum erat.</p>
-                        <button id="story-banner-button" onClick={redirectToStory}>Share Your Story</button>
+                        { props.displayButton == 'true' && <button id="story-banner-button" onClick={redirectToStory}>Share Your Story</button> }
                     </div>
                 </Col>
             </Row>
