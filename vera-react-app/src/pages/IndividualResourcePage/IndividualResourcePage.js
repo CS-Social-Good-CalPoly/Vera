@@ -7,7 +7,7 @@ function IndividualResourcePage() {
       imageUrl:
         'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
       title: 'title',
-      descriton: 'description',
+      description: 'description',
       buildingName: 'buildingName',
       address: 'address',
       whatToExpectList: ['thing1', 'thing2'],
