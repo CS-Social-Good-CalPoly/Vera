@@ -12,6 +12,7 @@ div#story-banner-img-col, div#story-banner-text-col {
 @media only screen and (min-width: 768px) {
     #story-banner-img-col, #story-banner-text-col{
         height: 500px;
+        overflow-y: scroll;
     }
 }
 
@@ -35,6 +36,7 @@ h1#story-banner-text-title {
 
 p#story-banner-text-paragraph {
     font-size: 0.8rem;
+    overflow-y: scroll;
 }
 
 div#story-banner-text {
