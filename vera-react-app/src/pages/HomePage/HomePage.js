@@ -1,6 +1,7 @@
 import React from 'react';
 import './HomePage.css';
 import bg from '../../components/Banner/bannerBackground.jpg';
+import veraLogo from '../../components/Banner/draftLogoTransparent.png';
 import { Banner, CategoryButtonGroup, ResourcePageTileGroup} from '../../components/components'
 
 function HomePage() {
@@ -10,7 +11,8 @@ function HomePage() {
     const resourceStress = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
     return (
         <div>
-            <Banner imageUrl= {bg} words = "bruh"/>
+            <Banner imageUrl= {bg} bigWords = "Resources" smallWords="Created by Calpoly students,      
+for Calpoly students" logo={veraLogo}/>
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorLocs}/>
             <ResourcePageTileGroup id="Support" title="Support" resources={resourceSupport} />
             <ResourcePageTileGroup id="Stress" title="Stress" resources={resourceStress} />
