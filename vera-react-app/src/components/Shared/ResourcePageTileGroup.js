@@ -73,3 +73,17 @@ export const Heading = styled.h1`
     }
 `;
 
+export const Description = styled.h2`
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 2px;
+        line-height: 10px;
+    }
+`;
+

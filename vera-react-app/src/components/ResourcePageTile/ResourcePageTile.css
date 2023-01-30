@@ -46,10 +46,10 @@
   padding: 0 10px 0 22px;
 }
 
-.icon {
-  bottom: 17.5px;
-  position: absolute;
-  right: 17.5px;
+img.icon {
+  bottom: 0px;
+  position: relative;
+  right: 0px;
 }
 
 @media only screen and (max-width: 768px) {

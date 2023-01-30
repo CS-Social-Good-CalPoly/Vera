@@ -29,18 +29,25 @@ export const TileBanner = styled.img`
 `;
 
 export const TileIcon = styled.img`
-  position: absolute;
-  bottom: 17.5px;
-  right: 17.5px;
+  position: relative;
+  margin: 0;
+  left: 85%;
+  // bottom: 17.5px;
+  // right: -100px;
+  z-index: 100;
   width: 24px;
   height: 24px;
 
   @media only screen and (max-width: 768px) {
+    position: relative;
     margin: 0;
     width: 12px;
     height: 12px;
-    right: 5px;
-    bottom: 5px;
+    
+    top: 70%;
+    left: 85%;
+    // right: 40px;
+    // bottom: 5px;
   }
 `;
 
