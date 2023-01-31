@@ -11,7 +11,7 @@
   width: 50%;
   font-size: 60px;
   color: black;
-  text-align: left;
+  text-align: center;
   font-family: Poppins;
   font-style: italic;
 }
@@ -20,12 +20,21 @@
   font-size: 30px;
   width: 50%;
   color: black;
-  text-align: left;
+  text-align: center;
   font-family: Poppins;
   font-style: italic;
 }
 
 .logo {
+  /* margin: auto 20px; */
+  /* top: -50px; */
+  /* display: block; */
+  margin-left: 900px;
+  margin-right: auto 500px;
+  position: absolute;
+  top: 2%;
+  width: -20%;
+  height: 10%;
   float: right;
 
 }
