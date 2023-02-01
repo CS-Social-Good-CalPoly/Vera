@@ -16,7 +16,10 @@ function CategoryButton(props) {
 
     return (
         <button className="CategoryButton" onClick={scrollToElement}>
-            <span className="button-text">{props.category}</span>
+            {/* <span className="button-text">{props.category}</span> */}
+            <Anchor targetOffset='45'>
+                <Link href={'#' + props.className} title={props.category} />
+            </Anchor>
         </button>
 
         // Notes about using Anchor:
