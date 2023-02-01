@@ -12,7 +12,7 @@ function CategoryButton(props) {
     // safari. It still works, but it is not
     // as smooth as chrome.
     function scrollToElement() {
-        const element =  document.getElementById(props.location);
+        const element =  document.getElementById(props.location); 
         element.scrollIntoView({ behavior: 'smooth'})
     }
 
