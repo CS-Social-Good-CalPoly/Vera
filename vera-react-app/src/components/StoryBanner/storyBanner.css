@@ -31,10 +31,12 @@ img#story-banner-image {
 h1#story-banner-text-title {
     font-size: 1.5rem;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 p#story-banner-text-paragraph {
     font-size: 0.8rem;
+    margin: 2%;
 }
 
 div#story-banner-text {
