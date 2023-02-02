@@ -121,6 +121,12 @@ p.resource-tile-expanded-to-expect {
 
   width: fit-content;
   align-self: center;
+
+}
+
+.resource-tile-expanded-button:hover{
+  text-decoration: underline;
+  color: white;
 }
 
 /* Mobile specific setting */
