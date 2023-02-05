@@ -1,7 +1,7 @@
 import React from 'react';
 import './HomePage.css';
 import bg from '../../components/Banner/bannerBackground.jpg';
-import veraLogo from '../../components/Banner/draftLogoTransparent.png';
+import veraLogo from '../../components/Banner/draftLogo.png';
 import { Banner, CategoryButtonGroup, ResourcePageTileGroup} from '../../components/components'
 
 function HomePage() {
