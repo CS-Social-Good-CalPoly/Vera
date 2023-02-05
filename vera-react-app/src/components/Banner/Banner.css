@@ -37,19 +37,26 @@
   font-family: Poppins;
   font-style: italic;
 }
+.header3 {
+  margin-left: 10%;
+  margin-bottom: -250px;
+  font-size: 1.8vw;
+  width: 50%;
+  color: black;
+  text-align: left;
+  font-family: Poppins;
+  font-style: italic;
+}
 
 .logo {
-  /* margin: auto 20px; */
-  /* top: -50px; */
-  /* display: block; */
-  margin-left: 900px;
-  margin-right: auto 500px;
-  position: auto;
-  top: 2%;
-  width: -20%;
+  /* margin: auto 20px;
+  top: -50px;
+  display: block; 
+  position: relative;*/
+  margin-right: 5vw;
   height: 0vw;
   float: right;
-
+  
 }
 
 @media only screen and (max-width: 768px) {
