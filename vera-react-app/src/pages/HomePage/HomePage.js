@@ -11,8 +11,7 @@ function HomePage() {
     const resourceStress = [ { id: 'general-stress', title: 'General Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, { id: 'chronic-stress', title: 'Chronic Stress', imageUrl: '----------insert an image url here -----------' }, ]
     return (
         <div>
-            <Banner imageUrl= {bg} bigWords = "Resources" smallWords="Created by Calpoly students,      
-for Calpoly students" logo={veraLogo}/>
+            <Banner imageUrl= {bg} pageTitle = "Resources" tagline1="Created by Calpoly students," tagline2="for Calpoly students" logo={veraLogo}/>
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorLocs}/>
             <ResourcePageTileGroup id="Support" title="Support" resources={resourceSupport} />
             <ResourcePageTileGroup id="Stress" title="Stress" resources={resourceStress} />

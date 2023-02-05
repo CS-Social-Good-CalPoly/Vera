@@ -11,7 +11,7 @@
   width: 50%;
   font-size: 60px;
   color: black;
-  text-align: center;
+  text-align: left;
   font-family: Poppins;
   font-style: italic;
 }
@@ -20,7 +20,7 @@
   font-size: 30px;
   width: 50%;
   color: black;
-  text-align: center;
+  text-align: left;
   font-family: Poppins;
   font-style: italic;
 }
@@ -31,7 +31,7 @@
   /* display: block; */
   margin-left: 900px;
   margin-right: auto 500px;
-  position: absolute;
+  position: auto;
   top: 2%;
   width: -20%;
   height: 10%;
