@@ -49,6 +49,8 @@ export const Tiles = styled.div`
     margin: 20px;
     
     @media only screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: wrap;
         border: 1px solid #4A6E82;
         width: 150px;
         height: 125px;

@@ -15,15 +15,19 @@ const InfoText = styled.p`
   padding: 0 22px 22px;
   position: relative;
   bottom: 10px;
+  align-items: center;
 
   @media only screen and (max-width: 768px) {
     position: relative;
+    margin: 0px;
     width: 90%;
     height: 30%;
     font-size: 12px;
     line-height: 15px;
     padding: 0 6px 0px;
-    overflow: scroll;
+    overflow: hidden;
+    align-self: center;
+    flex-grow: 2;
   }
 `;
 

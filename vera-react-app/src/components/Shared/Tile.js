@@ -13,6 +13,7 @@ export const Tile = styled.div`
     width: 150px;
     height: 127px;
     border-radius: 10px;
+    
   }
 `;
 
@@ -25,27 +26,28 @@ export const TileBanner = styled.img`
   @media only screen and (max-width: 768px) {
     width: 150px;
     height: 57px;
+    flex-grow: 1;
   }
 `;
 
 export const TileIcon = styled.img`
   position: relative;
-  margin: 0;
-  left: 85%;
+  margin: 0px;
+  left: 90%;
   // bottom: 17.5px;
   // right: -100px;
-  z-index: 100;
   width: 24px;
   height: 24px;
 
   @media only screen and (max-width: 768px) {
     position: relative;
-    margin: 0;
+    
+    margin: 0px 0px 3px 0px;
     width: 12px;
     height: 12px;
     
-    top: 70%;
-    left: 85%;
+    // top: -4%;
+    // left: 85%;
     // right: 40px;
     // bottom: 5px;
   }
@@ -69,5 +71,6 @@ export const TileTitle = styled.h1`
     font-weight: 600;
     font-size: 10px;
     line-height: 12px;
+    flex-grow: 1;
   }
 `;

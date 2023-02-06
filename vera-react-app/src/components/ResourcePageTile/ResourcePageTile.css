@@ -81,7 +81,7 @@ img.icon {
     }
 
     .info-text {
-      display:none;
+      align-items: center;
     }
 
     .icon {
