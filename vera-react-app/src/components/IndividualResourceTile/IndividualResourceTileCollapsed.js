@@ -11,11 +11,14 @@ const InfoText = styled.p`
   font-size: 12px;
   line-height: 26px;
   letter-spacing: 0.05em;
+  width: 90%;
+  height: 30%;
   color: #4a6e82;
   padding: 0 22px 22px;
   position: relative;
-  bottom: 10px;
-  align-items: center;
+  margin: 0px;
+  // bottom: 10px;
+  align-self: center;
 
   @media only screen and (max-width: 768px) {
     position: relative;
@@ -27,7 +30,6 @@ const InfoText = styled.p`
     padding: 0 6px 0px;
     overflow: hidden;
     align-self: center;
-    flex-grow: 2;
   }
 `;
 
