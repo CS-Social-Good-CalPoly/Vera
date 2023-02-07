@@ -12,6 +12,10 @@ function IndividualResourceTile(props) {
     // else, return the collapsed tile
     return expanded ? (
         <IndividualResourceTileExpanded
+        style={{
+          width: 50,
+          height: 50,
+        }}
             title={props.title}
             buildingName={props.buildingName}
             address={props.address}

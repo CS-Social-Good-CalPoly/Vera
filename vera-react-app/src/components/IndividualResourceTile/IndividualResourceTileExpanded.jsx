@@ -18,35 +18,67 @@ import { Container, Row, Col } from 'react-bootstrap';
 function ResourceTile(props) {
 
     return (
-        <Container className="resource-tile-expanded">
-            <Row className="resource-tile-expanded-row">
-                <Col xs={12} md={9} className="resource-tile-expanded-text-col">
-                    <div className="resource-tile-expanded-text">
-                        <h1 className="resource-tile-expanded-text-title">{props.title}</h1>
-                        <div className="resource-tile-expanded-text-location">
-                            <p><strong>Location: </strong>{props.buildingName}</p>
-                            <p>{props.address}</p>
-                        </div>
-                        <p className="resource-tile-expanded-text-description">{props.description}</p>
-                        <Row className="resource-tile-expanded-text-group-toExpect-phone-hour">
-                            <Col xs={12} md={5} className="resource-tile-expanded-text-group-phone-hour">
-                                <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
-                                <Hours hours={props.hours} />
-                            </Col>
-                            <WhatToExpect toExpect={props.toExpect} />
-                        </Row>
-                        <a href={props.link} target="_blank" rel="noreferrer" className="resource-tile-expanded-button">Visit Resource Site</a>
-                    </div>
+      <Container
+        
+        className="resource-tile-expanded"
+      >
+        <Row className="resource-tile-expanded-row">
+          <Col xs={12} md={9} className="resource-tile-expanded-text-col">
+            <div className="resource-tile-expanded-text">
+              <h1 className="resource-tile-expanded-text-title">
+                {props.title}
+              </h1>
+              <div className="resource-tile-expanded-text-location">
+                <p>
+                  <strong>Location: </strong>
+                  {props.buildingName}
+                </p>
+                <p>{props.address}</p>
+              </div>
+              <p className="resource-tile-expanded-text-description">
+                {props.description}
+              </p>
+              <Row className="resource-tile-expanded-text-group-toExpect-phone-hour">
+                <Col
+                  xs={12}
+                  md={5}
+                  className="resource-tile-expanded-text-group-phone-hour"
+                >
+                  <p className="resource-tile-expanded-text-phone">
+                    <strong>Phone: </strong> {props.phone}
+                  </p>
+                  <Hours hours={props.hours} />
                 </Col>
-                <Col xs={12} md={3} className="resource-tile-expanded-img-col">
-                    <img src={props.imgUrl} alt="" className="resource-tile-expanded-img"/>
-                </Col>
-            </Row>
-            <button type="button" onClick={props.handleChange} className="close resource-tile-expanded-close-btn" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </Container>
-    )
+                <WhatToExpect toExpect={props.toExpect} />
+              </Row>
+              <a
+                href={props.link}
+                target="_blank"
+                rel="noreferrer"
+                className="resource-tile-expanded-button"
+              >
+                Visit Resource Site
+              </a>
+            </div>
+          </Col>
+          <Col xs={12} md={3} className="resource-tile-expanded-img-col">
+            <img
+              src={props.imgUrl}
+              alt=""
+              className="resource-tile-expanded-img"
+            />
+          </Col>
+        </Row>
+        <button
+          type="button"
+          onClick={props.handleChange}
+          className="close resource-tile-expanded-close-btn"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </Container>
+    );
 
 }
 
