@@ -3,12 +3,6 @@ import {Card} from 'react-bootstrap';
 import {ResourcePageTileGroup} from '../components.js'
 import styled from 'styled-components'
 
-const Image = styled(Card.Img)`
-    max-height: 450px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;  
-`
-
 const Header = styled.div`
     letter-spacing: 0.05em;
     font-size: 32px;
@@ -53,14 +47,6 @@ const Date = styled(Card.Text)`
         font-size: 14px;
         margin-top: -10px;
     }
-`
-
-const Size = styled(Card.Text)`
-    font-family: 'Poppins';
-    position: absolute;
-    margin: 10px 0px 0px 20px;
-    color: white;
-    cursor: pointer;
 `
 
 const Cardstory = styled(Card.Body)`
@@ -146,8 +132,6 @@ function StoryPopUp(props) {
 
     return (
         <CardWrapper hidden={size}>
-            <Size id='close-card' onClick={change}>&times;</Size>
-            <Image variant="top" src="https://i.pinimg.com/originals/b1/d6/b4/b1d6b4715bdb30d7b7f3253f2423e327.jpg"/>
             <Card.Body>
                 <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
                     How My Dog Helps me Through College
@@ -176,8 +160,8 @@ function StoryPopUp(props) {
             </Cardstory>
             <PopupResources>
                 <ResourcePageTileGroup
-                    id="Stress"
-                    title="Stress"
+                    id="RelevantResources"
+                    title="Relevant Resources"
                     resources={resources}
                 />
             </PopupResources>

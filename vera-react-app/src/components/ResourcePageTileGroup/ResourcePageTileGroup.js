@@ -1,28 +1,30 @@
 import React from 'react'
+
 import {
-    ResourcePageTileGroupDiv,
+    TileGroupDiv,
     TitleContainer,
     Heading,
-    TileGroup,
-    Tiles,
-} from '../Shared/ResourcePageTileGroup'
+    TileGroup
+} from '../Shared/TileGroup'
+
+import {ResourcePageTile} from '../components'
 
 function ResourcePageTileGroup({ id, title, resources }) {
     return (
-        <ResourcePageTileGroupDiv>
+        <TileGroupDiv>
             <TitleContainer>
                 <Heading id={id}>{title}</Heading>
             </TitleContainer>
             <TileGroup>
                 {resources.map((resource, index) => (
-                    <Tiles key={index}>
-                        <p>{resource.id}</p>
-                        <p>{resource.title}</p>
-                        <p>{resource.imageUrl}</p>
-                    </Tiles>
+                    <ResourcePageTile key={index}
+                        infoText={resource.description}
+                        title={resource.title}
+                        imageUrl={resource.imageUrl}
+                    />
                 ))}
             </TileGroup>
-        </ResourcePageTileGroupDiv>
+        </TileGroupDiv>
     );
 }
 
