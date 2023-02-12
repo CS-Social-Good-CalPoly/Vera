@@ -107,45 +107,43 @@ function StoryDisplayCard(props) {
 
     return (
         <div>
-                <StoryInfoBox>
-                    <Card.Body>
-                        <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
+            <StoryInfoBox>
+                <Card.Body>
+                    <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
+                        How My Dog Helps me Through College
+                    </Title>
+                    <Header>
+                        <div id='category'>
+                            <DesktopHeader>Family</DesktopHeader>
+                            <Date>Dec 11, 2020</Date>
+                        </div>
+                        <div>
+                            <Year id='year'>4th Year</Year>
+                            <Major id='major'>Chemistry Major</Major>
+                        </div>
+                    </Header>
+                </Card.Body>
+                <Cardstory>
+                    <Storybody style={{border: 'none'}}>
+                        <Storytitle>
                             How My Dog Helps me Through College
-                        </Title>
-                        <Header>
-                            <div id='category'>
-                                <DesktopHeader>Family</DesktopHeader>
-                                <Date>Dec 11, 2020</Date>
-                            </div>
-                            <div>
-                                <Year id='year'>4th Year</Year>
-                                <Major id='major'>Chemistry Major</Major>
-                            </div>
-                        </Header>
-                    </Card.Body>
-                    <Cardstory>
-                        <Storybody style={{border: 'none'}}>
-                            <Storytitle>
-                                How My Dog Helps me Through College
-                            </Storytitle>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                        </Storybody>
-                    </Cardstory>
-                </StoryInfoBox>
-                <PopupResources>
-                    <ResourcePageTileGroup
-                        id="Relevant Resources"
-                        title="Relevant Resources"
-                        resources={resources}
-                    />
-                </PopupResources>
-            </div>
-             
+                        </Storytitle>
+                        <Card.Text>
+                            Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                        </Card.Text>
+                    </Storybody>
+                </Cardstory>
+            </StoryInfoBox>
+            <PopupResources>
+                <ResourcePageTileGroup
+                    id="Relevant Resources"
+                    title="Relevant Resources"
+                    resources={resources}
+                />
+            </PopupResources>
+        </div>
     )
-
 }
 
 export default StoryDisplayCard;
