@@ -12,3 +12,4 @@ export {default as CategoryDescription} from './CategoryDescription/CategoryDesc
 export {default as StoryTileGroup} from './StoryTileGroup/StoryTileGroup';
 export {default as IndividualResourceTileGroup} from './IndividualResourceTileGroup/IndividualResourceTileGroup';
 export {default as StoryPopUp} from './StoryPopUp/StoryPopUp';
+export {default as StoryDisplayCard} from './StoryDisplayCard/StoryDisplayCard';
