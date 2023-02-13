@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import arrowIcon from '../Shared/arrow-icon.svg';
-import Dotdotdot from 'react-clamp';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
+import arrow from './right-arrow.svg';
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -23,21 +22,15 @@ const InfoText = styled.p`
   }
 `;
 
-/* Component Props
- * imageUrl
- * title
- * infoText
- */
-
-function ResourcePageTile(props) {
-    return (
-      <Tile onClick={props.handleChange}>
-        <TileBanner src={props.imageUrl} alt={props.title} />
-        <TileTitle>{props.title}</TileTitle>
-        <InfoText>{props.infoText}</InfoText>
-        <TileIcon src={arrowIcon} />
-      </Tile>
-    )
+function IndividualResourceTileCollapsed(props) {
+  return (
+    <Tile onClick={props.handleChange}>
+      <TileBanner src={props.imageUrl} alt={props.title} />
+      <TileTitle>{props.title}</TileTitle>
+      <InfoText>{props.infoText}</InfoText>
+      <TileIcon src={arrow} />
+    </Tile>
+  );
 }
 
-export default ResourcePageTile;
+export default IndividualResourceTileCollapsed;

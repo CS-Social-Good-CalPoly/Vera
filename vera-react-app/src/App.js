@@ -1,6 +1,7 @@
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { Home, StorySubmission, Footer, NavBar, ResourcePageTile} from './components/components';
+import { Route, Switch } from 'react-router-dom';
+import { Footer, NavBar } from './components/components';
+import { HomePage, IndividualResourcePage, StoriesPage, StorySubmissionPage, IndividualStoryPage } from './pages/pages';
 
 function App() {
     return (
@@ -8,12 +9,18 @@ function App() {
             <NavBar/>
             <div id="page">
                 <Switch>
-                    {/* <Route exact path='/'
-                           component={() => <Home />} /> */}
-                    <Route exact path="/StorySubmission" component={() => <StorySubmission/>} />
-                    <Route exact path='/'> 
-                        <Redirect to="/StorySubmission"/>
-                    </Route>
+                    <Route exact path='/'
+                           component={() => <HomePage />} />
+                     <Route exact path='/resources'
+                           component={() => <HomePage />} />
+                    <Route exact path='/individualResource'
+                           component={() => <IndividualResourcePage />} />
+                    <Route exact path='/stories'
+                           component={() => <StoriesPage />} />
+                    <Route exact path='/individualStory'
+                           component={() => <IndividualStoryPage />} />
+                    <Route exact path='/storySubmission'
+                           component={() => <StorySubmissionPage />} />
                 </Switch>
             </div>
             <Footer/>
