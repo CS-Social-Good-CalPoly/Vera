@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import arrowIcon from '../Shared/arrow-icon.svg';
 import Dotdotdot from 'react-clamp';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
+import { Link } from "react-router-dom";
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -31,11 +32,12 @@ const InfoText = styled.p`
 
 function ResourcePageTile(props) {
     return (
-      <Tile onClick={props.handleChange}>
+      <Tile onClick={props.handleClick}>
         <TileBanner src={props.imageUrl} alt={props.title} />
         <TileTitle>{props.title}</TileTitle>
         <InfoText>{props.infoText}</InfoText>
         <TileIcon src={arrowIcon} />
+        <Link to="/individualresource">Click Here</Link>
       </Tile>
     )
 }
