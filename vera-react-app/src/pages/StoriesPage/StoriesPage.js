@@ -1,15 +1,11 @@
 import React from 'react';
 import { StoryBanner, CategoryButtonGroup, StoryTileGroup} from '../../components/components'
+import mockStoryFamily from './mockStoryFamily.json';
 
 function StoriesPage() {
     const categorNames = ['Family', 'School']
     const categorLocs = ['Family', 'School']
-    const storyFamily = [ { id: 'dog-help', title: 'How My Dog Helps Me Through College', imageUrl: '----------insert an image url here -----------' , studentYear: '4th Year', studentMajor: 'Chemistry Major'}, 
-                        { id: 'dog-help', title: 'How My Dog Helps Me Through College', imageUrl: '----------insert an image url here -----------' , studentYear: '4th Year', studentMajor: 'Chemistry Major'},
-                        { id: 'dog-help', title: 'How My Dog Helps Me Through College', imageUrl: '----------insert an image url here -----------' , studentYear: '4th Year', studentMajor: 'Chemistry Major'},
-                        { id: 'dog-help', title: 'How My Dog Helps Me Through College', imageUrl: '----------insert an image url here -----------' , studentYear: '4th Year', studentMajor: 'Chemistry Major'},
-                        { id: 'dog-help', title: 'How My Dog Helps Me Through College', imageUrl: '----------insert an image url here -----------' , studentYear: '4th Year', studentMajor: 'Chemistry Major'},
-                        { id: 'dog-help', title: 'How My Dog Helps Me Through College', imageUrl: '----------insert an image url here -----------' , studentYear: '4th Year', studentMajor: 'Chemistry Major'} ]
+    const storyFamily = mockStoryFamily
     const resourceStress = [{ id: '', title: '', imageUrl: '', studentYeaer: '', studentMajor: ''}, { id: '', title: '', imageUrl: '', studentYeaer: '', studentMajor: ''},
     { id: '', title: '', imageUrl: '', studentYeaer: '', studentMajor: ''}]
     

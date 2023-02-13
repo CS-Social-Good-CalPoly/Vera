@@ -1,0 +1,30 @@
+[
+    {
+        "id": "general-stress",
+        "title": "General Streses",
+        "imageUrl": "https://images.unsplash.com/photo-1503551723145-6c040742065b-v2",
+        "studentYear": "4th Year",
+        "studentMajor": "Chemistry"
+    },
+    {
+        "id": "school-stress",
+        "title": "School Stress",
+        "imageUrl": "https://humanities.wustl.edu/files/humanities/SWR21%20-%20freddie-marriage-vSchPA-YA_A-unsplash.jpg",
+        "studentYear": "2nd Year",
+        "studentMajor": "Civil Engineering"
+    },
+    {
+        "id": "chronic-stress",
+        "title": "Chronic Stress",
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/5e94dd33a1d96d58ed4e38c6/1612715079625-2Y3M4YW6QF452D050EBJ/fabrizio-verrecchia-BXwbfuM0cdk-unsplash.jpg",
+        "studentYear": "3rd Year",
+        "studentMajor": "Computer Science"
+    },
+    {
+        "id": "career-planning",
+        "title": "Career Planning",
+        "imageUrl": "https://www.hoganassessments.com/wp-content/uploads/2021/04/hunters-race-MYbhN8KaaEc-unsplash-scaled.jpg",
+        "studentYear": "2nd Year",
+        "studentMajor": "Animal Science"
+    }
+]
