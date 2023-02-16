@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "title": "General Resources",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...",
+        "imageUrl": "https://images.unsplash.com/photo-1520923642038-b4259acecbd7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=819&q=80"
+    }, 
+    {
+        "id": "2",
+        "title": "Crisis Text Line",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...",
+        "imageUrl": "https://images.unsplash.com/photo-1593733925160-6f78dc0be8b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+    },
+    {
+        "id": "3",
+        "title": "LGBTQ+",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...",
+        "imageUrl": "https://images.unsplash.com/photo-1561057160-ce83b1bd72f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+    }
+]
