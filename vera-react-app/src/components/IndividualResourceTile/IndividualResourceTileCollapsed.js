@@ -17,7 +17,6 @@ const InfoText = styled.p`
   padding: 0 22px 22px;
   position: relative;
   margin: 0px;
-  // bottom: 10px;
   align-self: center;
 
   @media only screen and (max-width: 768px) {

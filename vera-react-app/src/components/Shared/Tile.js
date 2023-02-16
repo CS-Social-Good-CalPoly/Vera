@@ -34,8 +34,6 @@ export const TileIcon = styled.img`
   position: relative;
   margin: 0px;
   left: 87%;
-  // bottom: 17.5px;
-  // right: -100px;
   width: 24px;
   height: 24px;
 
@@ -45,11 +43,6 @@ export const TileIcon = styled.img`
     margin: 0px 0px 3px 0px;
     width: 12px;
     height: 12px;
-    
-    // top: -4%;
-    // left: 85%;
-    // right: 40px;
-    // bottom: 5px;
   }
 `;
 
