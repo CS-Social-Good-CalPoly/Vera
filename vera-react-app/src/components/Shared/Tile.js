@@ -12,6 +12,9 @@ export const Tile = styled.div`
   cursor: pointer;
   margin: 20px;
 
+  display: flex;
+  flex-direction: column;
+
   @media only screen and (max-width: 768px) {
     border: 1px solid #4A6E82;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
@@ -38,10 +41,10 @@ export const TileBanner = styled.img`
 
 export const TileIcon = styled.img`
   position: relative;
-  margin: 0px;
   left: 87%;
   width: 24px;
   height: 24px;
+  margin: 45px 0px 10px 0px;
 
   @media only screen and (max-width: 768px) {
     position: relative;
