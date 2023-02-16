@@ -3,9 +3,10 @@ import {
     TileGroupDiv,
     TitleContainer,
     Heading,
-    TileGroup,
-    Tiles,
+    TileGroup
 } from '../Shared/TileGroup'
+
+import { StoryTile } from '../components';
 
 function StoryTileGroup({ id, title, stories }) {
     return (
@@ -15,13 +16,20 @@ function StoryTileGroup({ id, title, stories }) {
             </TitleContainer>
             <TileGroup>
                 {stories.map((story, index) => (
-                    <Tiles key={index}>
-                        <p>{story.id}</p>
-                        <p>{story.title}</p>
-                        <p>{story.imageUrl}</p>
-                        <p>{story.studentYear}</p>
-                        <p>{story.studentMajor}</p>
-                    </Tiles>
+                    <StoryTile 
+                        id = {story.id}
+                        title = {story.title}
+                        imgUrl={story.imageUrl}
+                        description={story.description}
+                        buildingName={story.building}
+                        address={story.address}
+                        toExpect={story.whatToExpectList}
+                        phone={story.phone}
+                        hours={story.hourList}
+                        link={story.resourceLink}
+                        studentYear={story.studentYear}
+                        studentMajor={story.studentMajor}
+                    />
                 ))}
             </TileGroup>
         </TileGroupDiv>

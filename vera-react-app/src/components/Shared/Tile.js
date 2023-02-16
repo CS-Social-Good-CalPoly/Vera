@@ -5,14 +5,20 @@ export const Tile = styled.div`
   height: 280px;
   background: #ffffff;
   box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+  border: 1px solid #4A6E82;
   border-radius: 30px;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
+  margin: 20px;
 
   @media only screen and (max-width: 768px) {
+    border: 1px solid #4A6E82;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     width: 150px;
-    height: 127px;
+    height: 125px;
     border-radius: 10px;
+    margin: 8px;
     
   }
 `;
