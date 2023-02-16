@@ -5,7 +5,7 @@ import mockStorySchool from './mockStorySchool.json';
 
 function StoriesPage() {
     const categorNames = ['Family', 'School', 'Food', 'Clubs']
-    const categorLocs = ['Family', 'School']
+    const categorLocs = ['Family', 'School', 'Food', 'Clubs']
     const storyFamily = mockStoryFamily
     const resourceStress = mockStorySchool
     
@@ -15,6 +15,8 @@ function StoriesPage() {
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorLocs}/>
             <StoryTileGroup id="Family" title="Family" stories={storyFamily} />
             <StoryTileGroup id="School" title="School" stories={resourceStress} />
+            <StoryTileGroup id="Food" title="Food" stories={storyFamily} />
+            <StoryTileGroup id="Clubs" title="Clubs" stories={resourceStress} />
         </div>
     );
 }
