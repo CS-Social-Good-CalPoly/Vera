@@ -19,7 +19,7 @@ function StoryBanner(props){
     }
 
     return (
-        <Container id="story-banner">
+        <Container id="story-banner-container">
             <Row>
                 <Col xs={12} md={6} id="story-banner-img-col">
                     <img src={props.imageUrl} alt="banner-image" id="story-banner-image"/>

@@ -1,8 +1,15 @@
+#story-banner-container {
+    margin-left: calc(50% - 50vw);
+    max-width: none;
+    width: 99.58vw;
+  }
+
 .container#story-banner {
     margin: 0;
     width: -webkit-fill-available;
     padding: 0;
     max-width:100%;
+    
 }
 
 div#story-banner-img-col, div#story-banner-text-col {
