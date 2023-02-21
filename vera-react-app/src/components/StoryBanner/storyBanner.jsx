@@ -7,7 +7,7 @@ function StoryBanner(props){
     const history = useHistory();
 
     const redirectToStory = () => {
-        let path = '/shareStory';
+        let path = '/StorySubmission';
         history.push(path);
     }
 
