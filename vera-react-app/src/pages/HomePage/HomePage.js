@@ -10,7 +10,7 @@ import mockStressData from './mockStressData.json';
 function HomePage() {
     const categorNames = ['Stress', 'Financial Support', 'Suicide Prevention']
     const categorLocs = ['Stress', 'Financial Support', 'Suicide Prevention']
-    const resourceSupport = mockFinSupportData;
+    const resourceFinSupport = mockFinSupportData;
     const resourceSuicidePrevention = mockPreventionData;
     const resourceStress = mockStressData;
 
@@ -19,7 +19,7 @@ function HomePage() {
             <Banner imageUrl= {bg} pageTitle = "Resources" tagline1="Created by Calpoly students," tagline2="for Calpoly students" logo={veraLogo}/>
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorLocs}/>
             <ResourcePageTileGroup id="Stress" title="Stress" resources={resourceStress} />
-            <ResourcePageTileGroup id="Financial Support" title="Financial Support" resources={resourceSupport} />
+            <ResourcePageTileGroup id="Financial Support" title="Financial Support" resources={resourceFinSupport} />
             <ResourcePageTileGroup id="Suicide Prevention" title="Suicide Prevention" resources={resourceSuicidePrevention} />
         </div>
     );
