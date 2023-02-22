@@ -8,8 +8,8 @@ import mockPreventionData from './mockPreventionData.json';
 import mockStressData from './mockStressData.json';
 
 function HomePage() {
-    const categorNames = ['Support', 'Stress']
-    const categorLocs = ['Support', 'Stress']
+    const categorNames = ['Support', 'Stress', 'Suicide Prevention']
+    const categorLocs = ['Support', 'Stress', 'Suicide Prevention']
     const resourceSupport = mockFinSupportData;
     const resourceSuicidePrevention = mockPreventionData;
     const resourceStress = mockStressData;
@@ -20,7 +20,7 @@ function HomePage() {
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorLocs}/>
             <ResourcePageTileGroup id="Support" title="Support" resources={resourceSupport} />
             <ResourcePageTileGroup id="Stress" title="Stress" resources={resourceStress} />
-            <ResourcePageTileGroup id="SuicidePrevention" title="Stress Prevention" resources={resourceSuicidePrevention} />
+            <ResourcePageTileGroup id="SuicidePrevention" title="Suicide Prevention" resources={resourceSuicidePrevention} />
         </div>
     );
 }
