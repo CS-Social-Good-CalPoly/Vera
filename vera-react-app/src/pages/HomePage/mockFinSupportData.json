@@ -2,25 +2,25 @@
     {
         "id": "1",
         "title": "General Resources",
-        "description": "College often comes with additional expenses depending on a student's living situation. If students choose to...",
+        "description": "College often comes with additional expenses depending on a student's living situation.",
         "imageUrl": "https://images.unsplash.com/photo-1459257831348-f0cdd359235f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
     }, 
     {
         "id": "2",
         "title": "Food Insecurity",
-        "description": "College is an exciting time while some of these experiences can be thrilling, others may simply leave you feeling....",
+        "description": "College is an exciting time while some of these experiences can be thrilling, others may simply leave you feeling unsatisfied.",
         "imageUrl": "https://media.istockphoto.com/id/840320076/photo/veggie-market.jpg?b=1&s=170667a&w=0&k=20&c=yfve-28VcJYUauCHaqLXaj99SwH_y9leZaRVobFOR6Q="
     },
     {
         "id": "3",
         "title": "Housing Concerns",
-        "description": "More than 30% of college students said they did not have enough money to pay for housing, while another 35% said the same...",
+        "description": "More than 30% of college students said they did not have enough money to pay for housing, while another 35% said the same.",
         "imageUrl": "https://images.unsplash.com/photo-1524813686514-a57563d77965?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80"
     },
     {
         "id": "4",
         "title": "School Costs",
-        "description": "College tuition prices are a lot higher today compared with two decades ago. For instance, the average cost for tuition...",
+        "description": "College tuition prices are a lot higher today compared with two decades ago. For instance, the average cost for tuition is more than it should be.",
         "imageUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"
     }
 ]
