@@ -1,11 +1,10 @@
 .img {
   display: flex;
   align-items: center;
-  place-items: center;
-  width: 100vw; 
   margin-left: calc(50% - 50vw);
+  max-width: none;
+  width: 100vw;
   height: 33vw;
-  object-fit: cover;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -19,35 +18,22 @@
 }
 
 .header {
-  font-size: 5.5vw;
+  font-size: 6vw;
   color: black;
   text-align: left;
   font-family: Poppins;
 }
 
 .header2 {
-  font-size: 1.8vw;
+  font-size: 2vw;
 
 }
 .header3 {
-  font-size: 1.8vw;
+  font-size: 2vw;
 }
 
 .logo {
+  width: 28vw;
   margin-right: 5vw;
   float: right;
-}
-
-.logo2 {
-  width: 28vw;
-}
-
-@media only screen and (max-width: 768px) {
-  .img {
-    height: 190px;
-    width: 100%;
-  }
-  .logo2 {
-    width: 23.5vw;
-  }
 }
