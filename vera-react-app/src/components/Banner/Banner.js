@@ -6,7 +6,9 @@ function Banner(props) {
     return (
       <div
         className="img"
-        style={{ backgroundImage: `url(${props.imageUrl})` }}
+        style={{ backgroundImage: `url(${props.imageUrl})`,
+                 backgroundSize: "cover",
+                 backgroundRepeat: "no-repeat"}}
       >
         <div className="textCol">
           <h1 className="header">{props.pageTitle}</h1>
