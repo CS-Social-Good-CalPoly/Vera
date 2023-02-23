@@ -9,6 +9,8 @@ export {default as CategoryButtonGroup} from './CategoryButtonGroup/CategoryButt
 export {default as StoryTile} from './StoryTile/StoryTile';
 export {default as ResourcePageTileGroup} from './ResourcePageTileGroup/ResourcePageTileGroup';
 export {default as CategoryDescription} from './CategoryDescription/CategoryDescription';
+export {default as StorySubmission} from './StorySubmission/StorySubmission';
+export {default as DropDownForm} from './DropDownForm/DropDownForm';
 export {default as StoryTileGroup} from './StoryTileGroup/StoryTileGroup';
 export {default as IndividualResourceTileGroup} from './IndividualResourceTileGroup/IndividualResourceTileGroup';
 export {default as StoryPopUp} from './StoryPopUp/StoryPopUp';

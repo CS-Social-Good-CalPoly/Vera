@@ -3,8 +3,8 @@
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px 3px;
     
-
     margin: 15px 20px;
     justify-content: center;
 }

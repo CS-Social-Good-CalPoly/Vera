@@ -1,7 +1,14 @@
 import React from 'react';
-import { Banner, IndividualResourceTileGroup } from '../../components/components';
+import {Banner,
+  IndividualResourceTileGroup,
+  CategoryButtonGroup,
+} from "../../components/components";
 
 function IndividualResourcePage() {
+
+
+   const categorNames = ["School", "Community", "National"];
+   const categorLocs = ["School", "Community", "National"];
 
   const resource = {
       imageUrl:
@@ -18,7 +25,14 @@ function IndividualResourcePage() {
 
   return (
     <div>
-      <Banner imageUrl="https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg" />
+      <Banner imageUrl="https://cdn.pixabay.com/photo/2017/03/25/03/29/cherry-tomatoes-2172700_1280.jpg" />
+
+      <CategoryButtonGroup
+        title="FOOD INSECURITY RESOURCES"
+        names={categorNames}
+        locations={categorLocs}
+      />
+
       <IndividualResourceTileGroup
         id="School"
         title="School"
@@ -35,7 +49,6 @@ function IndividualResourcePage() {
         resources={[resource, resource, resource, resource, resource]}
       />
     </div>
-
   );
 }
 
