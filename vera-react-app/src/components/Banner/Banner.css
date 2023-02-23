@@ -1,7 +1,7 @@
 .img {
   display: block;
   place-items: center;
-  width: 99.58vw; 
+  width: 100vw; 
   margin-left: calc(50% - 50vw);
   height: 33vw;
   object-fit: cover;
