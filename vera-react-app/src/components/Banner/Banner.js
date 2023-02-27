@@ -6,14 +6,16 @@ function Banner(props) {
     return (
       <div
         className="img"
-        style={{ backgroundImage: `url(${props.imageUrl})` }}
+        style={{ backgroundImage: `url(${props.imageUrl})`,
+                 backgroundSize: "cover",
+                 backgroundRepeat: "no-repeat"}}
       >
-        <h1 className="header">{props.bigWords}</h1>
-        <h2 className="header2">{props.smallWords}</h2>
-        <picture className="logo">
-        <source media="(min-width: 0px)" srcSet={props.logo} />
-        <img src={props.logo} alt="vera logo" />
-      </picture>
+        <div className="textCol">
+          <h1 className="header">{props.pageTitle}</h1>
+          <h2 className="header2">{props.tagline1}</h2>
+          <h2 className="header3">{props.tagline2}</h2>
+        </div>
+        <img className="logo" src={props.logo} alt="vera logo" />
       </div>
     );
 }

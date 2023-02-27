@@ -13,13 +13,13 @@ function App() {
                            component={() => <HomePage />} />
                      <Route exact path='/resources'
                            component={() => <HomePage />} />
-                    <Route exact path='/individualresource'
+                    <Route exact path='/individualResource'
                            component={() => <IndividualResourcePage />} />
                     <Route exact path='/stories'
                            component={() => <StoriesPage />} />
-                    <Route exact path='/individualstory'
+                    <Route exact path='/individualStory'
                            component={() => <IndividualStoryPage />} />
-                    <Route exact path='/shareStory'
+                    <Route exact path='/storySubmission'
                            component={() => <StorySubmissionPage />} />
                 </Switch>
             </div>

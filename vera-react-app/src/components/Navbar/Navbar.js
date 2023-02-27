@@ -21,6 +21,9 @@ function NavBar() {
             <Link className="navbar-links" to="/Stories">
               Stories
             </Link>
+            <Link className="navbar-links" to="/StorySubmission">
+              Share Your Story
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

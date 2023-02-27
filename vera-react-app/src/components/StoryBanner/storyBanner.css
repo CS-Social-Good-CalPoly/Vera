@@ -1,8 +1,15 @@
+#story-banner-container {
+    margin-left: calc(50% - 50vw);
+    max-width: none;
+    width: 100vw;
+  }
+
 .container#story-banner {
     margin: 0;
     width: -webkit-fill-available;
     padding: 0;
     max-width:100%;
+    
 }
 
 div#story-banner-img-col, div#story-banner-text-col {
@@ -11,7 +18,7 @@ div#story-banner-img-col, div#story-banner-text-col {
 
 @media only screen and (min-width: 768px) {
     #story-banner-img-col, #story-banner-text-col{
-        height: 500px;
+        height: 500px; 
     }
 }
 
@@ -31,10 +38,12 @@ img#story-banner-image {
 h1#story-banner-text-title {
     font-size: 1.5rem;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 p#story-banner-text-paragraph {
     font-size: 0.8rem;
+    margin: 2%;
 }
 
 div#story-banner-text {
