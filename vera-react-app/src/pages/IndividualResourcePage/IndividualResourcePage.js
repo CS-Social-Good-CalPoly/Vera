@@ -23,6 +23,19 @@ function IndividualResourcePage() {
       link: 'link',
   };
 
+  const resource2 = {
+    imageUrl:
+      "https://bestlifeonline.com/wp-content/uploads/sites/3/2019/04/weird-dog-lizard-hybrid.jpg?quality=82&strip=1&resize=640%2C360",
+    title: "title",
+    description: "description",
+    buildingName: "buildingName",
+    address: "address",
+    whatToExpectList: ["thing1", "thing2"],
+    phone: "123456789",
+    hourList: ["hour1", "hour2"],
+    link: "link",
+  };
+
   return (
     <div>
       <Banner imageUrl="https://cdn.pixabay.com/photo/2017/03/25/03/29/cherry-tomatoes-2172700_1280.jpg" />
@@ -39,12 +52,12 @@ function IndividualResourcePage() {
       <IndividualResourceTileGroup
         id="School"
         title="School"
-        resources={[resource, resource, resource]}
+        resources={[resource2, resource, resource]}
       />
       <IndividualResourceTileGroup
         id="Community"
         title="Community"
-        resources={[resource, resource, resource, resource]}
+        resources={[resource, resource, resource2, resource]}
       />
       <IndividualResourceTileGroup
         id="National"
