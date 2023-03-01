@@ -10,25 +10,26 @@
 }
 
 .Text {
-    color: #477e9c;
+    color: #4A6E82;
     font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
+    font-weight: 600;
+    font-size: 22px;
     letter-spacing: 0.05em;
+    line-height: 33px;
     padding: 0 17px;
+    margin: 0 0;
 }
 
 @media only screen and (max-width: 768px) {
     .TextBox {
         border-radius: 5px;
         box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
-        
-        
-        margin: 6px 12px;
+        margin: 8px 24px;
     }
 
     .Text {
-        font-size: 14px;
+        font-size: 16px;
+        line-height: 26px;
         padding: 0 7px;
     }
 }

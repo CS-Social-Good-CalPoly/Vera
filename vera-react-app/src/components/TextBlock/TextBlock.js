@@ -5,11 +5,10 @@ function TextBlock(props) {
 
 
     return <div className="TextBox">  
-    <p className="Text">
-       {props.text}
+        <p className="Text">
+            {props.text}
         </p>
-
-        </div>
+    </div>
 
  }
 
