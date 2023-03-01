@@ -1,0 +1,34 @@
+.TextBox {
+    background: white;
+    box-shadow: 2px 2px 10px rgba(114, 141, 149, 0.3);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    padding: 30px 30px;
+    
+    margin: 40px 120px;
+    justify-content: center;
+}
+
+.Text {
+    color: #477e9c;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    padding: 0 17px;
+}
+
+@media only screen and (max-width: 768px) {
+    .TextBox {
+        border-radius: 5px;
+        box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
+        
+        
+        margin: 6px 12px;
+    }
+
+    .Text {
+        font-size: 14px;
+        padding: 0 7px;
+    }
+}
