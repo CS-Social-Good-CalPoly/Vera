@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Tile = styled.div`
     position: relative;
-    border: 1px solid #4A6E82;
     width: 280px;
     height: 280px;
     background: #FFFFFF;
