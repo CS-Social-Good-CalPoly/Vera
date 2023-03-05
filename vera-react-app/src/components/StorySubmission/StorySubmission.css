@@ -36,7 +36,7 @@
   padding-top: 20px;
 }
 
-@media only screen and (min-width: 704px) and (max-width: 1267px){
+@media only screen and (min-width: 654px){
   .row2 {
     flex-direction: column;
   }
@@ -44,15 +44,38 @@
     padding-top: 0px;
     padding-bottom: 20px;
   }
+  .title-text{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #4A6E82;
+  padding-bottom: 2%;
+}
 }
 
-@media only screen and (max-width: 703px) {
+@media only screen and (max-width: 654px) {
   .row1{
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
     width: 100%;
   }
+  .title-text{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 37px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #4A6E82;
+  padding-bottom: 2%;
+}
+
   .row2 {
     flex-direction: column;
   }
@@ -87,17 +110,7 @@ div.ql-editor {
   min-height: 400px;
 }
 
-.title-text{
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 54px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #4A6E82;
-  padding-bottom: 2%;
-}
+
 
 .description-box{
   align-self: center;

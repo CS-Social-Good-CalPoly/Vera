@@ -23,7 +23,7 @@ function StorySubmission() {
   }
 
   return (
-      <div>
+      <div> 
           <div className="background">
             <div className="story-submission-box">
               <div className="row1">
