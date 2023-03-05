@@ -3,25 +3,15 @@ import {Banner,
   IndividualResourceTileGroup,
   CategoryButtonGroup,
 } from "../../components/components";
+import mockSchoolResources from './mockSchoolResources.json';
+import mockCommunityResources from './mockCommunityResources.json';
+import mockNationalResources from './mockNationalResources.json';
 
 function IndividualResourcePage() {
 
 
    const categorNames = ["School", "Community", "National"];
    const categorLocs = ["School", "Community", "National"];
-
-  const resource = {
-      imageUrl:
-        'https://www.onceuponachef.com/images/2019/09/Spaghetti-and-Meatballs.jpg',
-      title: 'title',
-      description: 'description',
-      buildingName: 'buildingName',
-      address: 'address',
-      whatToExpectList: ['thing1', 'thing2'],
-      phone: '123456789',
-      hourList: ['hour1', 'hour2'],
-      link: 'link',
-  };
 
   return (
     <div>
@@ -43,17 +33,17 @@ function IndividualResourcePage() {
       <IndividualResourceTileGroup
         id="School"
         title="School"
-        resources={[resource, resource, resource]}
+        resources={mockSchoolResources}
       />
       <IndividualResourceTileGroup
         id="Community"
         title="Community"
-        resources={[resource, resource, resource, resource]}
+        resources={mockCommunityResources}
       />
       <IndividualResourceTileGroup
         id="National"
         title="National"
-        resources={[resource, resource, resource, resource, resource]}
+        resources={mockNationalResources}
       />
     </div>
   );

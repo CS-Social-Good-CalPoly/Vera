@@ -1,0 +1,13 @@
+[
+    {
+        "imageUrl": "Logo-for-Dark-BG 1.png",
+        "title": "Swipe Out Hunger",
+        "description": "Founded by a group of friends at University of California Los Angeles in 2010, Swipe Out Hunger is a leading nonprofit addressing...",
+        "buildingName": "buildingName",
+        "address": "address",
+        "whatToExpectList": ["thing1", "thing2"],
+        "phone": "123456789",
+        "hourList": ["hour1", "hour2"],
+        "link": "link"
+    }
+]
