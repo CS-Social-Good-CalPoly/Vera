@@ -22,9 +22,7 @@ function IndividualResourcePage() {
         names={categorNames}
         locations={categorLocs}
       />
-
       <TextBlock text = {"For many students today, food insecurity is just a few missed paychecks away. A 2018 study by found that 36% of college students are experienceing hunger and lack of stable housing. Add in the fact that tuition rates are going up while financial aid is going down, and it’s obvious that most college students and their families are feeling a very tight financial squeeze. But there is help out there. Students struggling to avoid hunger can find several resources to put food on the table while still completing their education."}/>
-
       <IndividualResourceTileGroup
         id="School"
         title="School"
