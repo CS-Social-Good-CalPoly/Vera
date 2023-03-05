@@ -29,7 +29,6 @@ function IndividualResourcePage() {
         </div>
       </div>
 
-
       <IndividualResourceTileGroup
         id="School"
         title="School"
