@@ -1,0 +1,24 @@
+[
+    {
+        "imageUrl": "Food Pantry Image (1).png",
+        "title": "CalPoly Food Pantry",
+        "description": "The Food Pantry is a part of the Cal Poly Hunger Program which ensures that all students have access to nutritious meals...",
+        "buildingName": "buildingName",
+        "address": "address",
+        "whatToExpectList": ["thing1", "thing2"],
+        "phone": "123456789",
+        "hourList": ["hour1", "hour2"],
+        "link": "link"
+    },
+    {
+        "imageUrl": "mvp 1.png",
+        "title": "Meal Voucher",
+        "description": "Meal Vouchers are available to students experiencing financial need. Students can receive up to $20/week to assist...",
+        "buildingName": "buildingName",
+        "address": "address",
+        "whatToExpectList": ["thing1", "thing2"],
+        "phone": "123456789",
+        "hourList": ["hour1", "hour2"],
+        "link": "link"
+    }
+]

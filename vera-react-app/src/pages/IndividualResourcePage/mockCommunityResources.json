@@ -1,0 +1,35 @@
+[
+    {
+        "imageUrl": "SLO Food Bank Image.png",
+        "title": "SLO Food Bank",
+        "description": "The SLO Food Bank believes everyone has the right to nutritious food. With reliable access to wholesome food...",
+        "buildingName": "buildingName",
+        "address": "address",
+        "whatToExpectList": ["thing1", "thing2"],
+        "phone": "123456789",
+        "hourList": ["hour1", "hour2"],
+        "link": "link"
+    },
+    {
+        "imageUrl": "RFC Image.png",
+        "title": "Real Food Collaborative",
+        "description": "we strive to increase access to real, local, sustainable, and ethically sourced food for both the cal poly and surrounding...",
+        "buildingName": "buildingName",
+        "address": "address",
+        "whatToExpectList": ["thing1", "thing2"],
+        "phone": "123456789",
+        "hourList": ["hour1", "hour2"],
+        "link": "link"
+    },
+    {
+        "imageUrl": "Cal+Fresh",
+        "title": "CalFresh",
+        "description": "CalFresh helps connects eligible students with up to $204 per month to spend on groceries.  CalFresh is California's Supplemental...",
+        "buildingName": "buildingName",
+        "address": "address",
+        "whatToExpectList": ["thing1", "thing2"],
+        "phone": "123456789",
+        "hourList": ["hour1", "hour2"],
+        "link": "link"
+    }
+]

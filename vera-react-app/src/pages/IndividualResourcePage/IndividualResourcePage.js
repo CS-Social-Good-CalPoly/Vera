@@ -3,6 +3,9 @@ import {Banner,
   IndividualResourceTileGroup,
   CategoryButtonGroup, TextBlock,
 } from "../../components/components";
+import mockSchoolResources from './mockSchoolResources.json';
+import mockCommunityResources from './mockCommunityResources.json';
+import mockNationalResources from './mockNationalResources.json';
 
 function IndividualResourcePage() {
 
@@ -52,17 +55,17 @@ function IndividualResourcePage() {
       <IndividualResourceTileGroup
         id="School"
         title="School"
-        resources={[resource2, resource, resource]}
+        resources={[resource, resource, resource]}
       />
       <IndividualResourceTileGroup
         id="Community"
         title="Community"
-        resources={[resource, resource, resource2, resource]}
+        resources={[resource, resource, resource, resource]}
       />
       <IndividualResourceTileGroup
         id="National"
         title="National"
-        resources={[resource, resource, resource, resource, resource]}
+        resources={mockNationalResources}
       />
     </div>
   );
