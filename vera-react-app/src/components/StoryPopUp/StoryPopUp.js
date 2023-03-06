@@ -71,7 +71,10 @@ const Storybody = styled.div`
 `
 
 const Storytitle = styled(Card.Title)`
-    display: revert;
+    visibility: visible;
+    font-size: 36px;
+    font-weight: 600;
+    text-transform: uppercase;
 
     @media only screen and (max-width: 768px) {
         display: none;
@@ -99,8 +102,9 @@ const CardWrapper = styled(Card)`
 
 const DesktopHeader = styled(Card.Title)`
     visibility: visible;
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 600;
+    text-transform: uppercase;
 
     @media only screen and (max-width: 768px) {
         display: none;
@@ -132,9 +136,9 @@ function StoryPopUp(props) {
     return (
         <CardWrapper hidden={size}>
             <Card.Body>
-                <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
+                {/* <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
                     How My Dog Helps me Through College
-                </Title>
+                </Title> */}
                 <Header>
                     <div id='category'>
                         <DesktopHeader>Family</DesktopHeader>
@@ -149,11 +153,11 @@ function StoryPopUp(props) {
             <Cardstory>
                 <Storybody style={{border: 'none'}}>
                     <Storytitle>
-                        How My Dog Helps me Through College
+                    How My Dog Helps me Through College
                     </Storytitle>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
+                    I first began experiencing anxiety and depression at the age of 14 after being bullied at school for years. While at first it would come and go, anxiety and depression eventually became a constant presence in my life. It was like a perpetual cough that eventually starts to get better, only to come back worse than before. Only unlike a cough, where usually I am still able to function, anxiety and depression hits like a ton of bricks and even the idea of getting out of bed seems to be a goal that gets to be less and less attainable. As time passed, more and more of my days started to be spent paralyzed by endless thoughts of regrets of the past and worries for the future.
+I was so intent on finding the solution to overcoming my anxiety and depression that I studied mental health in school, from college to grad school for 7 years, and yet still felt I hadn't even come close to grasping how to manage my own anxiety and depression. I felt very confident about helping others; yet, horribly useless at helping myself. Something was missing; a piece to my puzzle that I had yet to discover.
                     </Card.Text>
                 </Storybody>
             </Cardstory>
