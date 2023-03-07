@@ -4,7 +4,7 @@ const bodyparser = require('body-parser')
 require('dotenv').config()
 
 const app = express()
-const PORT = 5000
+const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
 const resourceRoutes = require('./routes/resources')
