@@ -112,11 +112,12 @@ div.ql-editor {
 .button-wrapper {
   display: flex;
   justify-content: center;
+  
 }
 
 .button {
 	padding: 16px 32px;
-	border-radius: 600px;
+	border-radius: 15px;
 	width: 204px;
   height: 64px;
   color: white;
