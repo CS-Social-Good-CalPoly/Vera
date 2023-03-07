@@ -5,16 +5,11 @@ import 'react-quill/dist/quill.snow.css';
 import './StorySubmission.css';
 
 function StorySubmission() {
-  values = []
 
-  const [answers, setAnswers] = useState(values)
 
-  const handleAddAnswers = (input, answer) => {
-    setAnswers((prevAnswers) => {
-      ...prevAnswers,
+  // const [answers, setAnswers] = useState(values)
 
-    })
-  }
+
 
 
   const [quillValue, setQuillValue] = useState('');
@@ -51,14 +46,14 @@ function StorySubmission() {
             <form className="story-submission-box">
               {/* <div className="story-submission-box"> */}
                 <div className="row1">
-                  <DropDownForm fieldTitle="Year" myoptions={yearList} vals={values}/>
+                  <DropDownForm fieldTitle="Year" myoptions={yearList} />
                 </div>
                 <div className="row2">
                   <div className="college-box"> 
-                    <DropDownForm fieldTitle="College" myoptions={collegeList} vals={values}/>
+                    <DropDownForm fieldTitle="College" myoptions={collegeList} />
                   </div>
                   <div className="major-box"> 
-                    <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} vals={values}/>
+                    <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} />
                   </div> 
                 </div>
                 <div className="description-box"> 
