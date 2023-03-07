@@ -1,10 +1,17 @@
 import React, { useState} from 'react';
-import { DropDownForm } from '../components';
+import { DropDownForm, DropDownOptionalForm } from '../components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './StorySubmission.css';
 
 function StorySubmission() {
+
+
+  // const [answers, setAnswers] = useState(values)
+
+
+
+
   const [quillValue, setQuillValue] = useState('');
 
   const collegeList = ["Agriculture, Food and Environmental Sciences", 
@@ -18,35 +25,49 @@ function StorySubmission() {
 
   const majorList = ["CSC" ,"SE", "Other"]
 
+
+  
   function clickMe() {
     alert("You clicked me!");
   }
 
+
+  function verifySubmission() {
+    // if year != "Year"
+    // and if college != "College" -> alert , else deny submission
+    alert("Thank you for your submission!");
+
+    
+    // alert("Your missing some fields");
+  }
   return (
       <div>
           <div className="background">
-            <div className="story-submission-box">
-              <div className="row1">
-                <DropDownForm fieldTitle="Year" myoptions={yearList} />
-              </div>
-              <div className="row2">
-                <div className="college-box"> 
-                  <DropDownForm fieldTitle="College" myoptions={collegeList}/>
+            <form className="story-submission-box">
+              {/* <div className="story-submission-box"> */}
+                <div className="row1">
+                  <DropDownForm fieldTitle="Year" myoptions={yearList} />
                 </div>
-                <div className="major-box"> 
-                  <DropDownForm fieldTitle="Major" myoptions={majorList}/>
+                <div className="row2">
+                  <div className="college-box"> 
+                    <DropDownForm fieldTitle="College" myoptions={collegeList} />
+                  </div>
+                  <div className="major-box"> 
+                    <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} />
+                  </div> 
+                </div>
+                <div className="description-box"> 
+                  <div className="title-text">
+                    Short Description
+                  </div>
+                  <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
+                  <div className="button-wrapper">
+                    {/* <div className="button" onClick={clickMe}>Submit</div> */}
+                    <input className="button" type="submit" onClick={verifySubmission} value="Submit"/>
+                  </div>
                 </div> 
-              </div>
-              <div className="description-box"> 
-                <div className="title-text">
-                  Short Description
-                </div>
-                <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
-                <div className="button-wrapper">
-                  <div className="button" onClick={clickMe}>Submit</div>
-                </div>
-              </div> 
-            </div>        
+              {/* </div>   */}
+            </form>      
           </div>
       </div>
   );

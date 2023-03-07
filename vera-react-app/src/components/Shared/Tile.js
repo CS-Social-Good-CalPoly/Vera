@@ -18,10 +18,12 @@ export const Tile = styled.div`
   @media only screen and (max-width: 768px) {
     border: 1px solid #4A6E82;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-    width: 150px;
-    height: 125px;
-    border-radius: 10px;
-    margin: 8px;
+    border-radius: 30px;
+    margin: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
     
   }
 `;
@@ -41,17 +43,16 @@ export const TileBanner = styled.img`
 
 export const TileIcon = styled.img`
   position: relative;
-  left: 87%;
-  width: 24px;
-  height: 24px;
-  margin: 45px 0px 10px 0px;
+  // margin: 0px 0px 0px 0px;
+  left: 43%;
+  top: -3%;
+  width: 15px;
+  height: 15px;
+  align-self: center;
 
   @media only screen and (max-width: 768px) {
-    position: relative;
-    
-    margin: 0px 0px 3px 0px;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
   }
 `;
 

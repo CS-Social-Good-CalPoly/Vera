@@ -112,15 +112,17 @@ div.ql-editor {
 .button-wrapper {
   display: flex;
   justify-content: center;
+  
 }
 
 .button {
 	padding: 16px 32px;
-	border-radius: 600px;
+	border-radius: 15px;
 	width: 204px;
   height: 64px;
   color: white;
-	background-color: #B7CAD4;
+	/* background-color: #B7CAD4; */
+	background-color: #7fb1cc;
 	display: inline-block;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -130,4 +132,9 @@ div.ql-editor {
 	text-align: center;
 	cursor: pointer;
   align-self: center;
+  border: none;
+}
+
+.button:hover {
+	background-color: #B7CAD4;
 }

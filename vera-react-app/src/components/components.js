@@ -11,6 +11,8 @@ export {default as ResourcePageTileGroup} from './ResourcePageTileGroup/Resource
 export {default as CategoryDescription} from './CategoryDescription/CategoryDescription';
 export {default as StorySubmission} from './StorySubmission/StorySubmission';
 export {default as DropDownForm} from './DropDownForm/DropDownForm';
+export {default as DropDownOptionalForm} from './DropDownOptionalForm/DropDownOptionalForm';
 export {default as StoryTileGroup} from './StoryTileGroup/StoryTileGroup';
 export {default as IndividualResourceTileGroup} from './IndividualResourceTileGroup/IndividualResourceTileGroup';
 export {default as StoryPopUp} from './StoryPopUp/StoryPopUp';
+export {default as TextBlock} from './TextBlock/TextBlock'
