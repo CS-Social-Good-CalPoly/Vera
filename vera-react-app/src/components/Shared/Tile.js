@@ -11,6 +11,8 @@ export const Tile = styled.div`
     margin: 20px;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
     
     @media only screen and (max-width: 768px) {
         border: 1px solid #4A6E82;
@@ -36,18 +38,17 @@ export const TileBanner = styled.img`
 `;
 
 export const TileIcon = styled.img`
-  position: absolute;
-  bottom: 17.5px;
-  right: 17.5px;
+  position: relative;
+  // margin: 0px 0px 0px 0px;
+  left: 43%;
+  top: -3%;
   width: 15px;
   height: 15px;
+  align-self: center;
 
   @media only screen and (max-width: 768px) {
-    margin: 0;
     width: 10px;
     height: 10px;
-    right: 5px;
-    bottom: 5px;
   }
 `;
 

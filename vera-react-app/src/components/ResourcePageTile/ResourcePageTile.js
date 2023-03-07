@@ -12,12 +12,18 @@ const InfoText = styled.p`
   line-height: 26px;
   letter-spacing: 0.05em;
   color: #4a6e82;
-  padding: 0 22px 22px;
+  padding: 0 20px 0px;
   position: relative;
   bottom: 10px;
+  margin: 0px;
+  width: 100%;
+  height: 37%;
+  overflow: hidden;
+  
 
   @media only screen and (max-width: 768px) {
-    font-size: 12px;
+    height: 30%;
+    font-size: 11px;
     line-height: 12px;
     padding: 0 6px 12px;
   }
