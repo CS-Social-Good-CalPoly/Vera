@@ -17,7 +17,6 @@ function IndividualResourcePage() {
     <div>
       <Banner imageUrl="https://cdn.pixabay.com/photo/2017/03/25/03/29/cherry-tomatoes-2172700_1280.jpg" />
 
-
       <CategoryButtonGroup
         title="FOOD INSECURITY RESOURCES"
         names={categorNames}
