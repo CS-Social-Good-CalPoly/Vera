@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const TileGroupDiv = styled.div`
-    margin: 3%;
+    margin: 3% 3% 0% 3%;
     display: flex;
     flex-direction: column;
 `;
