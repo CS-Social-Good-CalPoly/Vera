@@ -9,7 +9,7 @@ const InfoText = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  line-height: 26px;
+  line-height: 24px;
   letter-spacing: 0.05em;
   color: #4a6e82;
   padding: 0 20px 0px;
@@ -27,6 +27,7 @@ const InfoText = styled.p`
     line-height: 12px;
     padding: 0 6px 12px;
   }
+  
 `;
 
 /* Component Props

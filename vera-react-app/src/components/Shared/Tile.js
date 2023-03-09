@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Tile = styled.div`
     position: relative;
-    border: 1px solid #4A6E82;
     width: 280px;
     height: 280px;
     background: #FFFFFF;
@@ -15,7 +14,6 @@ export const Tile = styled.div`
     flex-direction: column;
     
     @media only screen and (max-width: 768px) {
-        border: 1px solid #4A6E82;
         width: 150px;
         height: 125px;
         background: #FFFFFF;
