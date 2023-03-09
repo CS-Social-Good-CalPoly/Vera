@@ -19,13 +19,15 @@ const InfoText = styled.p`
   width: 100%;
   height: 37%;
   overflow: hidden;
+
   
 
   @media only screen and (max-width: 768px) {
-    height: 30%;
-    font-size: 11px;
+    
+    height: 35%;
+    font-size: 10.5px;
     line-height: 12px;
-    padding: 0 6px 12px;
+    padding: 0 6px 0px;
   }
   
 `;

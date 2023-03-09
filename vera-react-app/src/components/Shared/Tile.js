@@ -13,6 +13,7 @@ export const Tile = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 
   @media only screen and (max-width: 768px) {
     border: 1px solid #4A6E82;
@@ -33,6 +34,7 @@ export const TileBanner = styled.img`
   margin-bottom: 8px;
 
   @media only screen and (max-width: 768px) {
+    margin-bottom: 5px;
     width: 150px;
     height: 57px;
   }
@@ -48,6 +50,7 @@ export const TileIcon = styled.img`
   align-self: center;
 
   @media only screen and (max-width: 768px) {
+    margin: -3.9% 0px 0px 0px;
     width: 10px;
     height: 10px;
   }
