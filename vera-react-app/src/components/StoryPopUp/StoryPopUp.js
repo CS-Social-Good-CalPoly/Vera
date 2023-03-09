@@ -39,6 +39,17 @@ const Major = styled(Card.Subtitle)`
     }
 `
 
+const Body = styled(Card.Body)`
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: 32px;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 14px
+    }
+`
+
 const Date = styled(Card.Text)`
     text-align: center;
     font-size: 32px;
@@ -51,8 +62,8 @@ const Date = styled(Card.Text)`
 
 const Cardstory = styled(Card.Body)`
     padding: 0;
-    margin-top: 15px;
-    margin-bottom: 17px;
+    margin-top: 15%;
+    // margin-bottom: 17px;
 
     @media only screen and (max-width: 768px) {
         margin-bottom: 0;
@@ -97,17 +108,49 @@ const CardWrapper = styled(Card)`
     color: #4A6E82;
     border-radius: 30px;
     max-width: 80%;
-    margin: 10vh auto auto;
+    margin: 5vh auto auto;
 `
 
 const DesktopHeader = styled(Card.Title)`
     visibility: visible;
-    font-size: 48px;
+    font-family: 'Poppins';
+    font-style: normal;
     font-weight: 600;
+    font-size: 48px;
+    line-height: 72px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    
 
     @media only screen and (max-width: 768px) {
         display: none;
+    }
+
+
+
+    
+    
+`
+
+
+const Text = styled(Card.Text)`
+    // position: absolute;
+    // width: 926px;
+    // height: 429px;
+    // left: 87px;
+    // top: 111.59px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 35px;
+    /* or 219% */
+    letter-spacing: 0.05em;
+
+    @media only screen and (max-width: 768px) {    
+        display: revert;
+        font-size: 20px;
     }
 `
 
@@ -134,8 +177,9 @@ function StoryPopUp(props) {
     ]
 
     return (
+        <test>
         <CardWrapper hidden={size}>
-            <Card.Body>
+            <Body>
                 {/* <Title style={{fontWeight: '600', paddingLeft: '10px'}} className='mobile'>
                     How My Dog Helps me Through College
                 </Title> */}
@@ -149,18 +193,22 @@ function StoryPopUp(props) {
                         <Major id='major'>Chemistry Major</Major>
                     </div>
                 </Header>
-            </Card.Body>
-            <Cardstory>
-                <Storybody style={{border: 'none'}}>
-                    <Storytitle>
-                    How My Dog Helps me Through College
-                    </Storytitle>
-                    <Card.Text>
-                    I first began experiencing anxiety and depression at the age of 14 after being bullied at school for years. While at first it would come and go, anxiety and depression eventually became a constant presence in my life. It was like a perpetual cough that eventually starts to get better, only to come back worse than before. Only unlike a cough, where usually I am still able to function, anxiety and depression hits like a ton of bricks and even the idea of getting out of bed seems to be a goal that gets to be less and less attainable. As time passed, more and more of my days started to be spent paralyzed by endless thoughts of regrets of the past and worries for the future.
-I was so intent on finding the solution to overcoming my anxiety and depression that I studied mental health in school, from college to grad school for 7 years, and yet still felt I hadn't even come close to grasping how to manage my own anxiety and depression. I felt very confident about helping others; yet, horribly useless at helping myself. Something was missing; a piece to my puzzle that I had yet to discover.
-                    </Card.Text>
-                </Storybody>
-            </Cardstory>
+                <Cardstory>
+                    {/* <Storybody style={{border: 'none'}}> */}
+                        <Storytitle>
+                        How My Dog Helps me Through College
+                        </Storytitle>
+                        <Text>
+                        I first began experiencing anxiety and depression at the age of 14 after being bullied at school for years. While at first it would come and go, anxiety and depression eventually became a constant presence in my life. It was like a perpetual cough that eventually starts to get better, only to come back worse than before. Only unlike a cough, where usually I am still able to function, anxiety and depression hits like a ton of bricks and even the idea of getting out of bed seems to be a goal that gets to be less and less attainable. As time passed, more and more of my days started to be spent paralyzed by endless thoughts of regrets of the past and worries for the future.
+    I was so intent on finding the solution to overcoming my anxiety and depression that I studied mental health in school, from college to grad school for 7 years, and yet still felt I hadn't even come close to grasping how to manage my own anxiety and depression. I felt very confident about helping others; yet, horribly useless at helping myself. Something was missing; a piece to my puzzle that I had yet to discover.
+                        </Text>
+                    {/* </Storybody> */}
+                </Cardstory>
+            </Body>
+
+        </CardWrapper>
+        
+
             <PopupResources>
                 <ResourcePageTileGroup
                     id="RelevantResources"
@@ -168,7 +216,7 @@ I was so intent on finding the solution to overcoming my anxiety and depression 
                     resources={resources}
                 />
             </PopupResources>
-        </CardWrapper>
+        </test>
     )
 
 }
