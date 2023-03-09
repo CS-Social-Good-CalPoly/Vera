@@ -121,8 +121,7 @@ div.ql-editor {
 	width: 204px;
   height: 64px;
   color: white;
-	/* background-color: #B7CAD4; */
-	background-color: #7fb1cc;
+	background-color: #B7CAD4;
 	display: inline-block;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -132,9 +131,4 @@ div.ql-editor {
 	text-align: center;
 	cursor: pointer;
   align-self: center;
-  border: none;
-}
-
-.button:hover {
-	background-color: #B7CAD4;
 }
