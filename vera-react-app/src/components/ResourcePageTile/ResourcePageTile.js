@@ -17,9 +17,10 @@ const InfoText = styled.p`
   bottom: 10px;
 
   @media only screen and (max-width: 768px){
-    font-size: 8px;
-    line-height: 12px;
-    padding: 0 6px 12px;
+    font-size: 10px;
+    line-height: 15px;
+    padding-left: 6px;
+    padding-top: 3px;
   }
   
 `;
