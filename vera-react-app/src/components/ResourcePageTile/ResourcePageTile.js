@@ -9,18 +9,27 @@ const InfoText = styled.p`
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  line-height: 26px;
+  line-height: 24px;
   letter-spacing: 0.05em;
   color: #4a6e82;
-  padding: 0 22px 22px;
+  padding: 0 20px 0px;
   position: relative;
   bottom: 10px;
+  margin: 0px;
+  width: 100%;
+  height: 37%;
+  overflow: hidden;
+
+  
 
   @media only screen and (max-width: 768px) {
-    font-size: 12px;
+    
+    height: 35%;
+    font-size: 10.5px;
     line-height: 12px;
-    padding: 0 6px 12px;
+    padding: 0 6px 0px;
   }
+  
 `;
 
 /* Component Props

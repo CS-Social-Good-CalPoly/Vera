@@ -1,7 +1,7 @@
 import React from 'react';
 import {Banner,
   IndividualResourceTileGroup,
-  CategoryButtonGroup,
+  CategoryButtonGroup, TextBlock,
 } from "../../components/components";
 import mockSchoolResources from './mockSchoolResources.json';
 import mockCommunityResources from './mockCommunityResources.json';
