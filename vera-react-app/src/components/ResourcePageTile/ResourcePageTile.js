@@ -13,23 +13,21 @@ const InfoText = styled.p`
   letter-spacing: 0.05em;
   color: #4a6e82;
   padding: 0 20px 0px;
+
   position: relative;
   bottom: 10px;
   margin: 0px;
   width: 100%;
   height: 37%;
   overflow: hidden;
-
   
-
   @media only screen and (max-width: 768px) {
-    
     height: 35%;
-    font-size: 10.5px;
-    line-height: 12px;
-    padding: 0 6px 0px;
+    font-size: 10px;
+    line-height: 15px;
+    padding-left: 6px;
+    padding-top: 3px;
   }
-  
 `;
 
 /* Component Props
