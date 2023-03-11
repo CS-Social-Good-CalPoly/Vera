@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "title": "General Stress",
+        "description": "Stress is a feeling of emotional or physical tension. It can come from any event or thought that makes you feel frustrated, angry.",
+        "imageUrl": "https://images.unsplash.com/photo-1503551723145-6c040742065b-v2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+    }, 
+    {
+        "id": "2",
+        "title": "School Stress",
+        "description": "College is an exciting time while some of these experiences can be thrilling, others may simply leave you feeling unsatisfied.",
+        "imageUrl": "https://images.unsplash.com/photo-1495465798138-718f86d1a4bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+    },
+    {
+        "id": "3",
+        "title": "Chronic Stress",
+        "description": "Chronic stress is a prolonged and constant feeling of stress that can negatively affect your health if it goes untreated.",
+        "imageUrl": "https://www.repsandtherest.com/wp-content/uploads/2020/08/fabrizio-verrecchia-BXwbfuM0cdk-unsplash-1024x872.jpg"
+    }
+]

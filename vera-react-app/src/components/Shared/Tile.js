@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 export const Tile = styled.div`
   position: relative;
+<<<<<<< HEAD
   border: 1px solid #4A6E82;
+=======
+>>>>>>> b8236a25bb7be8eaebf8f74349a7427bebdd3e6c
   width: 280px;
   height: 280px;
   background: #FFFFFF;
@@ -16,7 +19,10 @@ export const Tile = styled.div`
   justify-content: flex-start;
 
   @media only screen and (max-width: 768px) {
+<<<<<<< HEAD
     border: 1px solid #4A6E82;
+=======
+>>>>>>> b8236a25bb7be8eaebf8f74349a7427bebdd3e6c
     width: 150px;
     height: 125px;
     background: #FFFFFF;
