@@ -14,6 +14,7 @@ class DropDownForm extends Component {
 
   handleDropdownChange(e) {
     this.setState({ selectValue: e.target.value });
+    this.props.handleChange(e.target.value);
   }
 
   render() {
@@ -21,8 +22,8 @@ class DropDownForm extends Component {
           <div className="wrapper-drop-down">
             <select id="dropdown" onChange={this.handleDropdownChange}>
               <option value="N/A">{this.props.fieldTitle}</option>
-              {this.props.myoptions.map((optionTitle) => (
-                 <option value="1">{optionTitle}</option>
+              {this.props.myoptions.map((optionTitle, index) => (
+                 <option value="1" index={index}>{optionTitle}</option>
               ))}
             </select>
           </div>
