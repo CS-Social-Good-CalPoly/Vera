@@ -10,15 +10,24 @@ const InfoText = styled.p`
   font-size: 12px;
   line-height: 26px;
   letter-spacing: 0.05em;
+  width: 90%;
+  height: 30%;
   color: #4a6e82;
   padding: 0 22px 22px;
   position: relative;
-  bottom: 10px;
+  margin: 0px;
+  align-self: center;
 
   @media only screen and (max-width: 768px) {
+    position: relative;
+    margin: 0px;
+    width: 90%;
+    height: 30%;
     font-size: 12px;
-    line-height: 12px;
-    padding: 0 6px 12px;
+    line-height: 15px;
+    padding: 0 6px 0px;
+    overflow: hidden;
+    align-self: center;
   }
 `;
 

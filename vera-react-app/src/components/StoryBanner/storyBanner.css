@@ -22,8 +22,7 @@ div#story-banner-img-col, div#story-banner-text-col {
     }
 }
 
-
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     #story-banner-img-col{
         height: 200px;
     }
@@ -36,14 +35,20 @@ img#story-banner-image {
 }
 
 h1#story-banner-text-title {
-    font-size: 1.5rem;
     font-weight: 600;
+    font-size: 30px;
+    line-height: 45px;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
 p#story-banner-text-paragraph {
-    font-size: 0.8rem;
-    margin: 2%;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.2em; 
+    letter-spacing: 0.05em;
+    margin: 0.5%;
+    display: block;
 }
 
 div#story-banner-text {
@@ -58,17 +63,19 @@ div#story-banner-text {
 }
 
 button#story-banner-button {
-    padding: 17px 12px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
+    padding: 17px 12px;
     color: #728D95;
     border: none;
     border-radius: 15px;
-    letter-spacing: 0.2px;
-    font-size: 0.6rem;
-    font-weight: 550;
     width: -moz-fit-content;
     width: fit-content;
     align-self: center;
     background: white;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
+    margin-top: 5%;
 }

@@ -5,7 +5,7 @@ function IndividualStoryPage() {
 
   return (
     <div>
-      <Banner imageUrl="https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg" />
+      <Banner imageUrl="https://cdn.pixabay.com/photo/2017/03/25/03/29/cherry-tomatoes-2172700_1280.jpg" />
       <StoryPopUp/>
     </div>
 

@@ -20,14 +20,13 @@ const InfoText = styled.p`
   height: 37%;
   overflow: hidden;
   
-
   @media only screen and (max-width: 768px) {
-    height: 30%;
-    font-size: 11px;
-    line-height: 12px;
-    padding: 0 6px 12px;
+    height: 35%;
+    font-size: 10px;
+    line-height: 15px;
+    padding-left: 6px;
+    padding-top: 3px;
   }
-  
 `;
 
 /* Component Props
