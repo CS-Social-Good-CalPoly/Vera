@@ -64,16 +64,14 @@ function StorySubmission() {
           <div className="background">
             <form className="story-submission-box" onSubmit={verifySubmission}>
               {/* <div className="story-submission-box"> */}
-                <div className="row1">
-                  <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange}/>
-                </div>
-                <div className="row2">
-                  <div className="college-box"> 
-                    <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange}/>
+                <div className='inputs'>
+                  <div className="row1">
+                      <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange}/> 
+                      <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange}/>
                   </div>
-                  <div className="major-box"> 
-                    <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} handleChange={handleMajorChange}/>
-                  </div> 
+                  <div className="row1" id="option">
+                      <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} handleChange={handleMajorChange}/>
+                  </div>
                 </div>
                 <div className="description-box"> 
                   <div className="title-text">
