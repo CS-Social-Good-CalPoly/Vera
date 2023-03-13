@@ -45,28 +45,19 @@ function StorySubmission() {
   const majorList = ["CSC" ,"SE", "Other"]
 
 
-  
-  function clickMe() {
-    alert("You clicked me!");
-  }
 
 
   function verifySubmission(e) {
-    // if year != "Year"
-    // and if college != "College" -> alert , else deny submission
     if(year == '' || college == '' || quillValue == ''){
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
-      // return false;
     }
     else {
       alert("Thank you for your submission!");
-      // return true;
+
     }
 
-    
-    // alert("You're missing some fields");
   }
   return (
       <div>
