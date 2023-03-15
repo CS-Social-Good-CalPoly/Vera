@@ -66,6 +66,7 @@ export const TileTitle = styled.h1`
   line-height: 30px;
   text-align: left;
   text-transform: uppercase;
+  color: black;
 
   @media only screen and (max-width: 768px) {
     padding: 0 6px;
