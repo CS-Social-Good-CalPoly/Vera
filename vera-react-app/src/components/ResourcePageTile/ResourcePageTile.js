@@ -1,4 +1,3 @@
-// import React from 'react';
 import styled from 'styled-components';
 import arrowIcon from '../Shared/arrow-icon.svg';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
