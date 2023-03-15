@@ -22,10 +22,12 @@ function StorySubmission() {
     console.log(e);
     setYear(e);
   }
+  
   const handleCollegeChange = (e) => {
     console.log(e);
     setCollege(e);
   }
+  
   const handleMajorChange = (e) => {
     setMajor(e);
   }
@@ -47,13 +49,12 @@ function StorySubmission() {
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
-    }
-    else {
+    } else {
       alert("Thank you for your submission!");
-      console.log(year, college)
     }
 
   }
+  
   return (
       <div>
           <div className="background">
@@ -74,7 +75,6 @@ function StorySubmission() {
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">
-                    {/* <div className="button" onClick={clickMe}>Submit</div> */}
                     <input className="button" type="submit" value="Submit"/>
                   </div>
                 </div> 
