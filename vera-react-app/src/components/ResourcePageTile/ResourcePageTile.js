@@ -32,8 +32,6 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
-    // const [expanded, setExpanded] = useState(false);
-    // const handleChange = () => setExpanded(!expanded);
     return (
       <Tile onClick={props.handleClick} className='tile'>
         <Link to="/individualResource" className='tile-link'>
