@@ -13,7 +13,6 @@ function StorySubmission() {
   const [quillValue, setQuillValue] = useState('');
 
 
-
   const values = {
     "Year" : year,
     "College" : college,
@@ -25,10 +24,12 @@ function StorySubmission() {
     console.log(e);
     setYear(e);
   }
+  
   const handleCollegeChange = (e) => {
     console.log(e);
     setCollege(e);
   }
+  
   const handleMajorChange = (e) => {
     setMajor(e);
   }
@@ -45,20 +46,17 @@ function StorySubmission() {
   const majorList = ["CSC" ,"SE", "Other"]
 
 
-
-
   function verifySubmission(e) {
     if(year == '' || college == '' || quillValue == ''){
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
-    }
-    else {
+    } else {
       alert("Thank you for your submission!");
-
     }
 
   }
+  
   return (
       <div>
           <div className="background">
