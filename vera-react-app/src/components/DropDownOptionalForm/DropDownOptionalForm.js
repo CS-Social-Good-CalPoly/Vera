@@ -1,8 +1,8 @@
 import React from 'react';
 import { Component } from "react";
-import './DropDownForm.css';
+import './DropDownOptionalForm.css';
 
-class DropDownForm extends Component {
+class DropDownOptionalForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,16 +14,15 @@ class DropDownForm extends Component {
 
   handleDropdownChange(e) {
     this.setState({ selectValue: e.target.value });
-    this.props.handleChange(e.target.value);
   }
 
   render() {
     return (
           <div className="wrapper-drop-down">
-            <select id="dropdown" onChange={this.handleDropdownChange}>
-              <option value="N/A">{this.props.fieldTitle}</option>
-              {this.props.myoptions.map((optionTitle, index) => (
-                 <option value="1" index={index}>{optionTitle}</option>
+            <select id="dropdown-optional" onChange={this.handleDropdownChange}>
+              <option value="N/A" id="options">{this.props.fieldTitle}</option>
+              {this.props.myoptions.map((optionTitle) => (
+                 <option value="1" id="options">{optionTitle}</option>
               ))}
             </select>
           </div>
@@ -33,4 +32,4 @@ class DropDownForm extends Component {
 
 
 
-export default DropDownForm;
+export default DropDownOptionalForm;

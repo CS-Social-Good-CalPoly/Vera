@@ -13,7 +13,6 @@ const InfoText = styled.p`
   letter-spacing: 0.05em;
   color: #4a6e82;
   padding: 0 20px 0px;
-
   position: relative;
   bottom: 10px;
   margin: 0px;
