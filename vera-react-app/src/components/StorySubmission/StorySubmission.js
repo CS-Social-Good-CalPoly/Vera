@@ -6,13 +6,10 @@ import './StorySubmission.css';
 
 function StorySubmission() {
 
-
   const [year, setYear] = useState("")
   const [college, setCollege] = useState("")
   const [major, setMajor] = useState("")
   const [quillValue, setQuillValue] = useState('');
-
-
 
   const values = {
     "Year" : year,
@@ -44,18 +41,16 @@ function StorySubmission() {
 
   const majorList = ["CSC" ,"SE", "Other"]
 
-
-
-
   function verifySubmission(e) {
-    if(year == '' || college == '' || quillValue == ''){
+    // if an option is selected, the value is stored as 1 at the moment
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue == ''){
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
     }
     else {
       alert("Thank you for your submission!");
-
+      console.log(year, college)
     }
 
   }
