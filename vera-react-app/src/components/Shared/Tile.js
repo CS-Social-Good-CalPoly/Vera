@@ -39,16 +39,14 @@ export const TileBanner = styled.img`
 `;
 
 export const TileIcon = styled.img`
-  position: relative;
-  // margin: 0px 0px 0px 0px;
-  left: 43%;
-  top: -3%;
+  position: absolute;
+  left: 88%;
+  top: 88%;
   width: 15px;
   height: 15px;
-  align-self: center;
+  align: right;
 
   @media only screen and (max-width: 768px) {
-    margin: -3.9% 0px 0px 0px;
     width: 10px;
     height: 10px;
   }
@@ -66,6 +64,7 @@ export const TileTitle = styled.h1`
   line-height: 30px;
   text-align: left;
   text-transform: uppercase;
+  color: black;
 
   @media only screen and (max-width: 768px) {
     padding: 0 6px;
