@@ -24,9 +24,9 @@ const InfoText = styled.p`
   @media only screen and (max-width: 768px) {
     height: 35%;
     font-size: 10px;
-    line-height: 15px;
+    line-height: 12px;
     padding-left: 6px;
-    padding-top: 3px;
+    padding-top: 4px;
   }
 `;
 
