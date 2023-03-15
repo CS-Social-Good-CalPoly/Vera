@@ -1,10 +1,10 @@
 // import React from 'react';
 import styled from 'styled-components';
 import arrowIcon from '../Shared/arrow-icon.svg';
-import Dotdotdot from 'react-clamp';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import '../Shared/Tile.css';
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -35,9 +35,8 @@ function ResourcePageTile(props) {
     // const [expanded, setExpanded] = useState(false);
     // const handleChange = () => setExpanded(!expanded);
     return (
-      <Tile onClick={props.handleClick}>
-
-        <Link to="/individualResource">
+      <Tile onClick={props.handleClick} className='tile'>
+        <Link to="/individualResource" className='tile-link'>
           <TileBanner src={props.imageUrl} alt={props.title} />
           <TileTitle>{props.title}</TileTitle>
           <InfoText>{props.infoText}</InfoText>

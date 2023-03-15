@@ -7,7 +7,6 @@ import {
     TileGroup
 } from '../Shared/TileGroup'
 
-
 import {ResourcePageTile} from '../components'
 
 function ResourcePageTileGroup({ id, title, resources }) {
@@ -22,10 +21,8 @@ function ResourcePageTileGroup({ id, title, resources }) {
                         infoText={resource.description}
                         title={resource.title}
                         imageUrl={resource.imageUrl}
-                        
                     />
                 ))}
-                
             </TileGroup>
         </TileGroupDiv>
     );
