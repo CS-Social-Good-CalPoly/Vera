@@ -6,3 +6,31 @@
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
 }
+
+.overflowed {
+    position: relative;
+    /* border: 3px dotted red; */
+  }
+  
+  .overflowed::after {
+    content: "...";
+    position: absolute;
+    bottom: 3%;
+    right: 10%;
+    font-size: 16px;
+    background-color: transparent;
+  }
+  /* .overflowed::after {
+    content: "Read More";
+    position: absolute;
+    bottom: 3%;
+    right: 10%;
+    font-size: 6px;
+    background-color: transparent;
+    font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  color: #4a6e82;
+  overflow: hidden;
+  } */
