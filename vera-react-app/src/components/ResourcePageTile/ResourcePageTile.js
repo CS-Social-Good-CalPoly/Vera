@@ -43,7 +43,7 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
-    const infoRef = useRef(null);
+    const infoTextRef = useRef(null);
   
     // useEffect(() => {
     //   const infoElement = infoRef.current;
@@ -53,9 +53,9 @@ function ResourcePageTile(props) {
     // }, []);
     useEffect(() => {
         setTimeout(() => {
-          const infoElement = infoRef.current;
-          if (infoElement.scrollHeight > infoElement.clientHeight) {
-            infoElement.classList.add('overflowed');
+          const infoTextElement = infoTextRef.current;
+          if (infoTextElement.scrollHeight > infoTextElement.clientHeight) {
+            infoTextElement.classList.add('fade-out-container');
           }
         }, 1000);
       }, []);
@@ -65,7 +65,9 @@ function ResourcePageTile(props) {
         <Link to="/individualResource" className='tile-link'>
           <TileBanner src={props.imageUrl} alt={props.title} />
           <TileTitle>{props.title}</TileTitle>
-          <InfoText ref={infoRef}>{props.infoText}</InfoText>
+
+          <InfoText ref={infoTextRef}>{props.infoText}</InfoText>
+
           <TileIcon src={arrowIcon} />
         </Link>
       </Tile>

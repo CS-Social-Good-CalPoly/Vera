@@ -7,30 +7,30 @@
     transform: scale(1.05);
 }
 
-.overflowed {
+  .fade-out-container {
     position: relative;
-    /* border: 3px dotted red; */
+    display: inline-block;
   }
   
-  .overflowed::after {
-    content: "...";
+  .fade-out-container::after {
+    content: "";
     position: absolute;
-    bottom: 3%;
-    right: 10%;
-    font-size: 16px;
-    background-color: transparent;
+    bottom: 9%;
+    right: 15%;
+    width: 50%; 
+    height: 1.5em; 
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    /* background-image: linear-gradient(to left, rgb(255, 0, 0), rgb(0, 0, 0)); */
+    pointer-events: none; /* Allows the user to select text behind the gradient */
   }
-  /* .overflowed::after {
-    content: "Read More";
-    position: absolute;
-    bottom: 3%;
-    right: 10%;
-    font-size: 6px;
-    background-color: transparent;
-    font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
-  letter-spacing: 0.05em;
-  color: #4a6e82;
-  overflow: hidden;
-  } */
+
+  @media screen and (max-width: 770px) {
+    .fade-out-container::after {
+        /* background-image: linear-gradient(to left, rgb(255, 0, 0), rgb(0, 0, 0)); */
+        height: 1.3em; 
+        bottom: 0%;
+        right: 0%;
+        width: 100%;
+    }
+  }
+  
