@@ -1,10 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
+const cors = require("cors");
 require('dotenv').config()
 
 const app = express()
-const PORT = 5000
+const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
 const resourceRoutes = require('./routes/resources')
@@ -13,6 +14,7 @@ const storyRoutes = require('./routes/stories')
 // Middleware || routes
 app.use(bodyparser.json())
 app.use(express.json())
+app.use(cors());
 
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
