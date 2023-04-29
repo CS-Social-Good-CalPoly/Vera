@@ -33,6 +33,33 @@ const InfoText = styled.p`
     height: 40px;
   }
 `;
+// const TitleText = styled.p`
+//   font-family: Poppins;
+//   font-style: normal;
+//   font-weight: normal;
+//   font-size: 12px;
+//   line-height: 24px;
+//   letter-spacing: 0.05em;
+//   color: #4a6e82;
+//   padding-left: 20px;
+//   padding-right: 40px;
+//   position: relative;
+//   bottom: 10px;
+//   margin: 0px;
+//   width: 100%;
+//   overflow: hidden;
+//   height: 100px;
+  
+  
+//   @media only screen and (max-width: 768px) {
+//     font-size: 10px;
+//     line-height: 12px;
+//     padding-left: 6px;
+//     padding-right: 14px;
+//     padding-top: 4px;
+//     height: 40px;
+//   }
+// `;
 
 
 
@@ -43,6 +70,7 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
+    const titleRef = useRef(null);
     const infoTextRef = useRef(null);
   
     // useEffect(() => {
@@ -55,17 +83,30 @@ function ResourcePageTile(props) {
         setTimeout(() => {
           const infoTextElement = infoTextRef.current;
           if (infoTextElement.scrollHeight > infoTextElement.clientHeight) {
-            infoTextElement.classList.add('fade-out-container');
+            infoTextElement.classList.add('fade-out-container-text');
           }
         }, 1000);
       }, []);
-  
+
+    useEffect(() => {
+        setTimeout(() => {
+          const titleElement = titleRef.current;
+          if (titleElement.scrollHeight > titleElement.clientHeight) {
+            titleElement.classList.add('fade-out-container-title');
+          }
+          console.log("the scroll height is " + titleElement.scrollHeight)
+          console.log("the client height is " + titleElement.clientHeight)
+
+        }, 1000);
+      }, []);
+    //   const titleElement = titleRef.current;
+          
+    // titleElement.classList.add('fade-out-container');
     return (
       <Tile onClick={props.handleClick} className='tile'>
         <Link to="/individualResource" className='tile-link'>
           <TileBanner src={props.imageUrl} alt={props.title} />
-          <TileTitle>{props.title}</TileTitle>
-
+          <TileTitle ref={titleRef}>{props.title}</TileTitle>
           <InfoText ref={infoTextRef}>{props.infoText}</InfoText>
 
           <TileIcon src={arrowIcon} />

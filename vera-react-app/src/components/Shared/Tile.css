@@ -7,12 +7,12 @@
     transform: scale(1.05);
 }
 
-  .fade-out-container {
+  .fade-out-container-text {
     position: relative;
     display: inline-block;
   }
   
-  .fade-out-container::after {
+  .fade-out-container-text::after {
     content: "";
     position: absolute;
     bottom: 9%;
@@ -21,11 +21,39 @@
     height: 1.5em; 
     background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
     /* background-image: linear-gradient(to left, rgb(255, 0, 0), rgb(0, 0, 0)); */
-    pointer-events: none; /* Allows the user to select text behind the gradient */
+    pointer-events: none; 
   }
 
   @media screen and (max-width: 770px) {
-    .fade-out-container::after {
+    .fade-out-container-text::after {
+        /* background-image: linear-gradient(to left, rgb(255, 0, 0), rgb(0, 0, 0)); */
+        height: 1.3em; 
+        bottom: 0%;
+        right: 0%;
+        width: 100%;
+    }
+  }
+
+  .fade-out-container-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2px;
+  }
+  
+  .fade-out-container-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0%;
+    right: 15%;
+    width: 75%; 
+    height: 1.5em; 
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    /* background-image: linear-gradient(to left, rgb(255, 0, 0), rgb(0, 0, 0)); */
+    pointer-events: none; 
+  }
+
+  @media screen and (max-width: 770px) {
+    .fade-out-container-title::after {
         /* background-image: linear-gradient(to left, rgb(255, 0, 0), rgb(0, 0, 0)); */
         height: 1.3em; 
         bottom: 0%;
