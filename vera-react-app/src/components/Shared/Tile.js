@@ -52,23 +52,6 @@ export const TileIcon = styled.img`
 `;
 
 export const TileTitle = styled.h1`
-//   position: relative;
-//   bottom: 1.4px;
-//   padding: 0 14px;
-//   font-family: Poppins;
-//   font-size: 20px;
-//   font-style: normal;
-//   font-weight: 600;
-//   letter-spacing: 0.05em;
-//   line-height: 30px;
-//   text-align: left;
-//   text-transform: uppercase;
-//   color: black;
-// //   height: 30px;
-//   overflow: hidden;
-//   width: 100%;
-
-
     position: relative;
     bottom: 1.4px;
     padding: 0 14px;
@@ -83,7 +66,6 @@ export const TileTitle = styled.h1`
     color: black;
     overflow: hidden;
     height: 30px;
-
 
   @media only screen and (max-width: 768px) {
     padding: 0 6px;
