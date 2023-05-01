@@ -4,6 +4,29 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './StorySubmission.css';
 
+
+
+const button = document.getElementById("submitButton");
+
+ button.addEventListener("click", async () => {
+   const data = {
+     Title: "My Story Title",
+     ImageUrl: "https://example.com/image.jpg",
+     ImageAltText: "Alternative text for the image",
+     RelevantCategoryList: ["category-id-1", "category-id-2"],
+     ParagraphText: "The main text content of my story",
+     Date: new Date(),
+     StudentMajor: "Computer Science",
+     StudentCollege: "Engineering",
+     StudentYear: "Junior",
+     GeneralCategory: "Technology",
+   };
+
+   console.log("button was clicked");
+ });
+
+
+
 function StorySubmission() {
 
   const [year, setYear] = useState("")
@@ -75,7 +98,7 @@ function StorySubmission() {
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">
-                    <input className="button" type="submit" value="Submit"/>
+                    <button id = "submitButton">Sumbit</button>
                   </div>
                 </div> 
               {/* </div>   */}

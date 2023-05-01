@@ -27,4 +27,20 @@ router.get('/:category', async (req, res) => {
     }
 })
 
+// POST route for story submissions
+router.post('/storySubmission', async (req, res) => {
+   try {
+       console.log(req.body);
+       console.log("abby");
+
+
+   } catch (err) {
+       res.status(404).json({
+           message: err.message
+       })
+   }
+  
+})
+
+
 module.exports = router
