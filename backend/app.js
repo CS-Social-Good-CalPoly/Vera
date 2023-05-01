@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
+const cors = require("cors");
 require('dotenv').config()
 
 const app = express()
@@ -16,6 +17,7 @@ const storyRoutes = require('./routes/stories')
 // Middleware || routes
 app.use(bodyparser.json())
 app.use(express.json())
+app.use(cors());
 
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
