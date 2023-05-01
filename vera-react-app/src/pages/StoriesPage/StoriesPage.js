@@ -12,17 +12,15 @@ function StoriesPage() {
           .catch(error => console.error(error));
       }, []);
 
-    const categoryNames = ['Family', 'School', 'Food', 'Clubs'];
-    const categoryLocs = ['Family', 'School', 'Food', 'Clubs'];
+    const categoryNames = stories.map(stories => stories.Name);
     
     return (
         <div>
             <StoryBanner imageUrl='https://images.unsplash.com/photo-1506962240359-bd03fbba0e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2065&q=80' displayButton='true'/>
-            <CategoryButtonGroup title='Categories' names={categoryNames} locations={categoryLocs}/>
-            <StoryTileGroup id="Family" title="Family" stories={stories} />
-            <StoryTileGroup id="School" title="School" stories={stories} />
-            <StoryTileGroup id="Food" title="Food" stories={stories} />
-            <StoryTileGroup id="Clubs" title="Clubs" stories={stories} />
+            <CategoryButtonGroup title='Categories' names={categoryNames} locations={categoryNames}/>
+            {categoryNames.map((id, value) => (
+                <StoryTileGroup key={id} id={id} title={id} stories={[]}/>
+            ))}
         </div>
     );
 }
