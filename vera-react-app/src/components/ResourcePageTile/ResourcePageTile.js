@@ -1,25 +1,34 @@
-import React from 'react';
+import React from "react";
 import styled from 'styled-components';
 import arrowIcon from '../Shared/arrow-icon.svg';
-import Dotdotdot from 'react-clamp';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
+import { Link } from "react-router-dom";
+import '../Shared/Tile.css';
 
 const InfoText = styled.p`
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  line-height: 26px;
+  line-height: 24px;
   letter-spacing: 0.05em;
   color: #4a6e82;
-  padding: 0 22px 22px;
+  padding-left: 20px;
+  padding-right: 40px;
   position: relative;
   bottom: 10px;
-
+  margin: 0px;
+  width: 100%;
+  overflow: hidden;
+  height: 100px;
+  
   @media only screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 12px;
-    padding: 0 6px 12px;
+    padding-left: 6px;
+    padding-right: 14px;
+    padding-top: 4px;
+    height: 40px;
   }
 `;
 
@@ -31,11 +40,13 @@ const InfoText = styled.p`
 
 function ResourcePageTile(props) {
     return (
-      <Tile onClick={props.handleChange}>
-        <TileBanner src={props.imageUrl} alt={props.title} />
-        <TileTitle>{props.title}</TileTitle>
-        <InfoText>{props.infoText}</InfoText>
-        <TileIcon src={arrowIcon} />
+      <Tile onClick={props.handleClick} className='tile'>
+        <Link to="/individualResource" className='tile-link'>
+          <TileBanner src={props.imageUrl} alt={props.title} />
+          <TileTitle>{props.title}</TileTitle>
+          <InfoText>{props.infoText}</InfoText>
+          <TileIcon src={arrowIcon} />
+        </Link>
       </Tile>
     )
 }

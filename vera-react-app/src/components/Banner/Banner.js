@@ -15,7 +15,7 @@ function Banner(props) {
           <h2 className="header2">{props.tagline1}</h2>
           <h2 className="header3">{props.tagline2}</h2>
         </div>
-        <img className="logo" src={props.logo} alt="vera logo" />
+        <img className="logo" src={props.logo} />
       </div>
     );
 }

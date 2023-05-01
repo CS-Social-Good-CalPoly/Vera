@@ -1,26 +1,28 @@
 import styled from 'styled-components';
 
 export const Tile = styled.div`
-    position: relative;
-    border: 1px solid #4A6E82;
-    width: 280px;
-    height: 280px;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+  border-radius: 30px;
+  margin: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  @media only screen and (max-width: 768px) {
+    width: 150px;
+    height: 125px;
     background: #FFFFFF;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-    border-radius: 30px;
-    margin: 20px;
-    overflow: hidden;
-    cursor: pointer;
+    border-radius: 10px;
+    margin: 8px;
     
-    @media only screen and (max-width: 768px) {
-        border: 1px solid #4A6E82;
-        width: 150px;
-        height: 125px;
-        background: #FFFFFF;
-        box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-        border-radius: 10px;
-        margin: 8px;
-    }
+  }
 `;
 
 export const TileBanner = styled.img`
@@ -30,6 +32,7 @@ export const TileBanner = styled.img`
   margin-bottom: 8px;
 
   @media only screen and (max-width: 768px) {
+    margin-bottom: 5px;
     width: 150px;
     height: 57px;
   }
@@ -37,17 +40,15 @@ export const TileBanner = styled.img`
 
 export const TileIcon = styled.img`
   position: absolute;
-  bottom: 17.5px;
-  right: 17.5px;
+  left: 88%;
+  top: 88%;
   width: 15px;
   height: 15px;
+  align: right;
 
   @media only screen and (max-width: 768px) {
-    margin: 0;
     width: 10px;
     height: 10px;
-    right: 5px;
-    bottom: 5px;
   }
 `;
 
@@ -63,6 +64,7 @@ export const TileTitle = styled.h1`
   line-height: 30px;
   text-align: left;
   text-transform: uppercase;
+  color: black;
 
   @media only screen and (max-width: 768px) {
     padding: 0 6px;
