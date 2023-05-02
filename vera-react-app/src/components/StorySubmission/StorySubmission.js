@@ -90,8 +90,16 @@ function StorySubmission() {
              },
              body: JSON.stringify(data),
            })
-             .then((response) => response.json())
-             .then((json) => console.log(json));
+             .then(function (response) {
+               if (response.ok) {
+                 console.log("click was recorded");
+                 return;
+               }
+               throw new Error("Request failed.");
+             })
+             .catch(function (error) {
+               console.log(error);
+             });
       });
     }
   }, []);
