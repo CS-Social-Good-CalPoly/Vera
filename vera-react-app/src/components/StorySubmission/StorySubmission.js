@@ -8,22 +8,14 @@ import './StorySubmission.css';
 
 const button = document.getElementById("submitButton");
 
- button.addEventListener("click", async () => {
-   const data = {
-     Title: "My Story Title",
-     ImageUrl: "https://example.com/image.jpg",
-     ImageAltText: "Alternative text for the image",
-     RelevantCategoryList: ["category-id-1", "category-id-2"],
-     ParagraphText: "The main text content of my story",
-     Date: new Date(),
-     StudentMajor: "Computer Science",
-     StudentCollege: "Engineering",
-     StudentYear: "Junior",
-     GeneralCategory: "Technology",
-   };
+if (button) {
+  button.addEventListener("click", function (e) {
+    console.log("button was clicked");
 
-   console.log("button was clicked");
- });
+  
+  });
+
+}
 
 
 
@@ -68,7 +60,7 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue == ''){
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === ''){
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
@@ -98,7 +90,7 @@ function StorySubmission() {
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">
-                    <button id = "submitButton">Sumbit</button>
+                    <button id="submitButton">Submit</button>
                   </div>
                 </div> 
               {/* </div>   */}
