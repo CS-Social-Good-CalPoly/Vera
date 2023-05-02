@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { DropDownForm, DropDownOptionalForm } from '../components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -6,20 +6,14 @@ import './StorySubmission.css';
 
 
 
-const button = document.getElementById("submitButton");
-
-if (button) {
-  button.addEventListener("click", function (e) {
-    console.log("button was clicked");
-
-  
-  });
-
-}
 
 
 
 function StorySubmission() {
+
+
+
+  
 
   const [year, setYear] = useState("")
   const [college, setCollege] = useState("")
@@ -69,6 +63,38 @@ function StorySubmission() {
     }
 
   }
+  useEffect(() => {
+    const button = document.getElementById("submitButton");
+
+    if (button) {
+      button.addEventListener("click", function (e) {
+        console.log("button was clicked");
+
+        const data = {
+          Title: "My Story Title",
+          ImageUrl: "https://example.com/image.jpg",
+          ImageAltText: "Alternative text for the image",
+          RelevantCategoryList: ["category-id-1", "category-id-2"],
+          ParagraphText: "The main text content of my story",
+          Date: new Date(),
+          StudentMajor: "Computer Science",
+          StudentCollege: "Engineering",
+          StudentYear: "Junior",
+          GeneralCategory: "Technology",
+        };
+
+           fetch("/stories/StorySubmission", {
+             method: "POST",
+             headers: {
+               "Content-Type": "application/json",
+             },
+             body: JSON.stringify(data),
+           })
+             .then((response) => response.json())
+             .then((json) => console.log(json));
+      });
+    }
+  }, []);
   
   return (
       <div>

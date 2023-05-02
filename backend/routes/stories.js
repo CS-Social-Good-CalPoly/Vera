@@ -28,19 +28,40 @@ router.get('/:category', async (req, res) => {
 })
 
 // POST route for story submissions
-router.post('/storySubmission', async (req, res) => {
-   try {
-       console.log(req.body);
-       console.log("abby");
+router.post("/StorySubmission", async (req, res) => {
+  const {
+    Title,
+    ImageUrl,
+    ImageAltText,
+    RelevantCategoryList,
+    ParagraphText,
+    Date,
+    StudentMajor,
+    StudentCollege,
+    StudentYear,
+    GeneralCategory,
+  } = req.body;
 
+  const newStory = new IndStories({
+    Title,
+    ImageUrl,
+    ImageAltText,
+    RelevantCategoryList,
+    ParagraphText,
+    Date,
+    StudentMajor,
+    StudentCollege,
+    StudentYear,
+    GeneralCategory,
+  });
 
-   } catch (err) {
-       res.status(404).json({
-           message: err.message
-       })
-   }
-  
-})
+  try {
+    const savedStory = await newStory.save();
+    res.status(201).json(savedStory);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 
 module.exports = router
