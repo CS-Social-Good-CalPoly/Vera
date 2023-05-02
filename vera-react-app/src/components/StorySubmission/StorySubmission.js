@@ -10,6 +10,7 @@ function StorySubmission() {
   const [college, setCollege] = useState("")
   const [major, setMajor] = useState("")
   const [quillValue, setQuillValue] = useState('');
+  const [title, setTitleValue] = useState('Enter title')
 
   const values = {
     "Year" : year,
@@ -18,6 +19,23 @@ function StorySubmission() {
     "Description" : quillValue
   }
   
+  const handleTitleClick = (e) => {
+    if (title == 'Enter title') {
+      setTitleValue('');
+    }
+  }
+
+  const handleTitleKey = (e) => {
+    if(e.value == '\t' && title == ''){
+      setTitleValue('Enter title')
+    }
+  }
+
+  const handleTitleClickAway = (e) => {
+    if (title == '') {
+      setTitleValue('Enter title');
+    }
+  }
   const handleYearChange = (e) => {
     console.log(e);
     setYear(e);
@@ -31,6 +49,12 @@ function StorySubmission() {
   const handleMajorChange = (e) => {
     setMajor(e);
   }
+
+  const handleTitleChange = (e) => {
+    
+    setTitleValue(e.value);
+  }
+
 
   const collegeList = ["Agriculture, Food and Environmental Sciences", 
     "Architecture and Environmental Design",
@@ -71,7 +95,19 @@ function StorySubmission() {
                 </div>
                 <div className="description-box"> 
                   <div className="title-text">
-                    Short Description
+                    {/* figure out way to temporary  text when no text typed yet - ie 3 states state 1 'enter text ' once u click text goes away, but state stays, then once starts typing- final state*/}
+                    <input
+                      className='inputBar'
+                      type="text"
+                      value={title}
+                      onClick={handleTitleClick}
+                      onFocus={handleTitleClick}
+                      onKeyPress={handleTitleKey}
+                      // onfocusout={handleTitleClickAway} trying to find a way to make it still say 'enter title' after clicked
+                      onChange={handleTitleChange}
+                      
+                    />
+
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">
