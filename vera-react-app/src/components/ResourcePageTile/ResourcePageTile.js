@@ -1,10 +1,11 @@
-import React, {useEffect, useRef}from "react";
+import React, { useState, useEffect} from "react";
 import styled from 'styled-components';
 import arrowIcon from '../Shared/arrow-icon.svg';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import { Link } from "react-router-dom";
 import '../Shared/Tile.css';
 // import './resourcePageTile.css';
+import TruncateText from "./TruncateText";
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -41,38 +42,43 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
-    const titleRef = useRef(null);
-    const infoTextRef = useRef(null);
-  
-    useEffect(() => {
-        setTimeout(() => {
-          const infoTextElement = infoTextRef.current;
-          if (infoTextElement.scrollHeight > infoTextElement.clientHeight) {
-            infoTextElement.classList.add('fade-out-container-text');
-          }
-        }, 100);
-      }, []);
+    const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
 
     useEffect(() => {
-        setTimeout(() => {
-          const titleElement = titleRef.current;
-          if (titleElement.scrollHeight > titleElement.clientHeight) {
-            titleElement.classList.add('fade-out-container-title');
-          }
-        }, 100);
-      }, []);
-          
+        let width = 0
+        const handleResize = () => {
+            width = window.innerWidth;
+            if (width < 768) {
+                setMaxContainerWidthPx(30);
+            } else if (width >= 0 && width < 768) {
+                setMaxContainerWidthPx(50);
+            } else if (width >= 768 && width < 1024) {
+                setMaxContainerWidthPx(90);
+            } else if (width >= 1024 && width < 2000) {
+                setMaxContainerWidthPx(90);
+            } else {
+                setMaxContainerWidthPx(2000);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    });
+
     return (
-      <Tile onClick={props.handleClick} className='tile'>
-        <Link to="/individualResource" className='tile-link'>
-          <TileBanner src={props.imageUrl} alt={props.title} />
-          <TileTitle ref={titleRef}>{props.title}</TileTitle>
-          <InfoText ref={infoTextRef}>{props.infoText}</InfoText>
-
-          <TileIcon src={arrowIcon} />
-        </Link>
-      </Tile>
+        <Tile onClick={props.handleClick} className='tile'>
+            <Link to="/individualResource" className='tile-link'>
+                <TileBanner src={props.imageUrl} alt={props.title} />
+                <TileTitle>{props.title}</TileTitle>
+                <InfoText >
+                    {/* Larger factor means it shows less text before ellipses is added */}
+                    <TruncateText text={props.infoText} factor={3.1} maxLines={4} containerWidth={maxContainerWidthPx} />
+                </InfoText>
+                <TileIcon src={arrowIcon} />
+            </Link>
+        </Tile>
     );
-  }
+}
 
 export default ResourcePageTile;
