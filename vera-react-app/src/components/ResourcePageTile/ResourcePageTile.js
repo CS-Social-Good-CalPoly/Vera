@@ -48,13 +48,11 @@ function ResourcePageTile(props) {
         let width = 0
         const handleResize = () => {
             width = window.innerWidth;
-            if (width < 768) {
-                setMaxContainerWidthPx(30);
-            } else if (width >= 0 && width < 768) {
-                setMaxContainerWidthPx(50);
-            } else if (width >= 768 && width < 1024) {
-                setMaxContainerWidthPx(90);
-            } else if (width >= 1024 && width < 2000) {
+            if (width < 0) {
+                setMaxContainerWidthPx(0);
+            } else if (width > 0 && width < 769) {
+                setMaxContainerWidthPx(46);
+            } else if (width >= 769 && width < 2000) {
                 setMaxContainerWidthPx(90);
             } else {
                 setMaxContainerWidthPx(2000);
