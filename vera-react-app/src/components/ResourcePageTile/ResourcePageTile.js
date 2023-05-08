@@ -71,7 +71,7 @@ function ResourcePageTile(props) {
                 <TileTitle>{props.title}</TileTitle>
                 <InfoText >
                     {/* Larger factor means it shows less text before ellipses is added */}
-                    <TruncateText text={props.infoText} factor={3.1} maxLines={4} containerWidth={maxContainerWidthPx} />
+                    <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
                 </InfoText>
                 <TileIcon src={arrowIcon} />
             </Link>
