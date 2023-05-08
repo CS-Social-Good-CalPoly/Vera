@@ -13,7 +13,7 @@ export const Tile = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
+  
   @media only screen and (max-width: 768px) {
     width: 150px;
     height: 125px;
@@ -21,7 +21,6 @@ export const Tile = styled.div`
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 10px;
     margin: 8px;
-    
   }
 `;
 
@@ -53,23 +52,26 @@ export const TileIcon = styled.img`
 `;
 
 export const TileTitle = styled.h1`
-  position: relative;
-  bottom: 1.4px;
-  padding: 0 14px;
-  font-family: Poppins;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  line-height: 30px;
-  text-align: left;
-  text-transform: uppercase;
-  color: black;
+    position: relative;
+    bottom: 1.4px;
+    padding: 0 14px;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 30px;
+    text-align: left;
+    text-transform: uppercase;
+    color: black;
+    overflow: hidden;
+    height: 30px;
 
   @media only screen and (max-width: 768px) {
     padding: 0 6px;
     font-weight: 600;
     font-size: 10px;
     line-height: 12px;
+    height: 13px;
   }
 `;
