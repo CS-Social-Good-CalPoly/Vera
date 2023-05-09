@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import styled from 'styled-components';
 import arrowIcon from '../Shared/arrow-icon.svg';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import { Link } from "react-router-dom";
 import '../Shared/Tile.css';
+// import './resourcePageTile.css';
+import TruncateText from "./TruncateText";
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -22,6 +24,7 @@ const InfoText = styled.p`
   overflow: hidden;
   height: 100px;
   
+  
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     line-height: 12px;
@@ -39,16 +42,41 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
+    const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
+
+    useEffect(() => {
+        let width = 0
+        const handleResize = () => {
+            width = window.innerWidth;
+            if (width < 0) {
+                setMaxContainerWidthPx(0);
+            } else if (width > 0 && width < 769) {
+                setMaxContainerWidthPx(46);
+            } else if (width >= 769 && width < 2000) {
+                setMaxContainerWidthPx(90);
+            } else {
+                setMaxContainerWidthPx(2000);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    });
+
     return (
-      <Tile onClick={props.handleClick} className='tile'>
-        <Link to="/individualResource" className='tile-link'>
-          <TileBanner src={props.imageUrl} alt={props.title} />
-          <TileTitle>{props.title}</TileTitle>
-          <InfoText>{props.infoText}</InfoText>
-          <TileIcon src={arrowIcon} />
-        </Link>
-      </Tile>
-    )
+        <Tile onClick={props.handleClick} className='tile'>
+            <Link to="/individualResource" className='tile-link'>
+                <TileBanner src={props.imageUrl} alt={props.title} />
+                <TileTitle>{props.title}</TileTitle>
+                <InfoText >
+                    {/* Larger factor means it shows less text before ellipses is added */}
+                    <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
+                </InfoText>
+                <TileIcon src={arrowIcon} />
+            </Link>
+        </Tile>
+    );
 }
 
 export default ResourcePageTile;
