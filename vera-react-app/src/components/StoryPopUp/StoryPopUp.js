@@ -3,6 +3,7 @@ import {Card} from 'react-bootstrap';
 import {ResourcePageTileGroup, Banner} from '../components.js'
 import styled from 'styled-components'
 import mockRelevantResourceData from './mockRelevantData.json';
+import moment from 'moment';
 
 const Header = styled.div`
     font-size: 32px;
@@ -133,33 +134,37 @@ function StoryPopUp(props) {
     useEffect(() => {
         fetch('http://localhost:3001/stories/individualstory')
           .then(response => response.json())
-          .then(data => {setindividualStory(data);})
+          .then(data => 
+            {setindividualStory(data);})
           .catch(error => console.error(error));
       }, []);
 
     const currentStory = individualStory[0];
 
+    const date = moment(currentStory?.Date);
+    const formattedDate = date.format('MMM DD, YYYY');
+
     return (
         <test>
-        <Banner imageUrl= {currentStory.ImageUrl} />
+        <Banner imageUrl= {currentStory?.ImageUrl} />
         <CardWrapper hidden={size}>
             <Body>
                 <Header>
                     <div id='category'>
-                        <StoryCategory>{currentStory.GeneralCategory}</StoryCategory>
-                        <Date>{currentStory.Date}</Date>
+                        <StoryCategory>{currentStory?.GeneralCategory}</StoryCategory>
+                        <Date>{formattedDate}</Date>
                     </div>
                     <div>
-                        <Year id='year'>{currentStory.StudentYear}</Year>
-                        {currentStory.StudentMajor && <Major id='major'>{currentStory.StudentMajor}</Major>}
+                        <Year id='year'>{currentStory?.StudentYear}</Year>
+                        {currentStory?.StudentMajor && <Major id='major'>{currentStory?.StudentMajor}</Major>}
                     </div>
                 </Header>
                 <Cardstory>
                     <Storytitle>
-                        {currentStory.Title}
+                        {currentStory?.Title}
                     </Storytitle>
                     <Text>
-                        {currentStory.ParagraphText}
+                        {currentStory?.ParagraphText}
                     </Text>
                 </Cardstory>
             </Body>
