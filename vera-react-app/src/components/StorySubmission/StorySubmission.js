@@ -10,7 +10,7 @@ function StorySubmission() {
   const [college, setCollege] = useState("")
   const [major, setMajor] = useState("")
   const [quillValue, setQuillValue] = useState('');
-  const [title, setTitleValue] = useState('Enter title')
+  const [title, setTitleValue] = useState("Enter title");
 
   const values = {
     "Year" : year,
@@ -18,31 +18,29 @@ function StorySubmission() {
     "Major" : major,
     "Description" : quillValue
   }
+
+  const fakeInput = "Enter title"
+
+  const handleTitleKeyPress = (e) => {
+    if(e.key === "\t" && e.value === ""){
+      e.preventDefault()
+      setTitleValue(fakeInput)
+      
+    }
+    setTitleValue(e.value)
+  }
   
   const handleTitleClick = (e) => {
-    if (title == 'Enter title') {
+    if (title === "Enter title") {
       setTitleValue('');
     }
   }
 
-  const handleTitleKey = (e) => {
-    if(e.value == '\t' && title == ''){
-      setTitleValue('Enter title')
-    }
-  }
-
-  const handleTitleClickAway = (e) => {
-    if (title == '') {
-      setTitleValue('Enter title');
-    }
-  }
   const handleYearChange = (e) => {
-    console.log(e);
     setYear(e);
   }
   
   const handleCollegeChange = (e) => {
-    console.log(e);
     setCollege(e);
   }
   
@@ -51,7 +49,6 @@ function StorySubmission() {
   }
 
   const handleTitleChange = (e) => {
-    
     setTitleValue(e.value);
   }
 
@@ -69,7 +66,7 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue == ''){
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === ''){
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
@@ -102,10 +99,8 @@ function StorySubmission() {
                       value={title}
                       onClick={handleTitleClick}
                       onFocus={handleTitleClick}
-                      onKeyPress={handleTitleKey}
-                      // onfocusout={handleTitleClickAway} trying to find a way to make it still say 'enter title' after clicked
+                      onKeyPress={handleTitleKeyPress}
                       onChange={handleTitleChange}
-                      
                     />
 
                   </div>
