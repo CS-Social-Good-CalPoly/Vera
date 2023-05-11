@@ -23,7 +23,7 @@ class DropDownForm extends Component {
             <select id="dropdown" onChange={this.handleDropdownChange}>
               <option value="N/A">{this.props.fieldTitle}</option>
               {this.props.myoptions.map((optionTitle, index) => (
-                 <option value="1" index={index}>{optionTitle}</option>
+                 <option value={optionTitle} index={index}>{optionTitle}</option>
               ))}
             </select>
           </div>

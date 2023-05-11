@@ -28,15 +28,19 @@ function StorySubmission() {
   }
   
   const handleMajorChange = (e) => {
+    console.log(e);
     setMajor(e);
   }
 
-  const collegeList = ["Agriculture, Food and Environmental Sciences", 
-    "Architecture and Environmental Design",
-    "Engineering",
-    "Liberal Arts",
+  const collegeList = [
+   "Agriculture, Food and Environmental Sciences", 
+   "Architecture and Environmental Design",
+   "Engineering", 
+   "Liberal Arts",
     "Science and Mathematics",
-    "Business"]
+    "Liberal Arts",
+    "Business"
+  ]
   
   const yearList = ["1st Year", "2nd Year","3rd Year", "4th Year", "5th+ Year"]
 
@@ -62,11 +66,11 @@ function StorySubmission() {
 
         const data = {
           Title: "My Story Title",
-          ParagraphText: "The main text content of my story",
+          ParagraphText: values.Description,
           Date: new Date(),
-          StudentMajor: "Computer Science",
-          StudentCollege: "Engineering",
-          StudentYear: "Junior"
+          StudentMajor: values.Major,
+          StudentCollege: values.College,
+          StudentYear: values.Year
         };
 
         console.log(data);
@@ -96,7 +100,11 @@ function StorySubmission() {
               {/* <div className="story-submission-box"> */}
                 <div className='inputs'>
                   <div className="row1">
-                      <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange}/> 
+                    <DropDownForm
+                      fieldTitle="Year"
+                      myoptions={yearList}
+                      handleChange={handleYearChange}
+                    /> 
                       <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange}/>
                   </div>
                   <div className="row1" id="option">

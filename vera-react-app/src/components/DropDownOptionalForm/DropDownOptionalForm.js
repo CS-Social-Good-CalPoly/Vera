@@ -14,6 +14,7 @@ class DropDownOptionalForm extends Component {
 
   handleDropdownChange(e) {
     this.setState({ selectValue: e.target.value });
+    this.props.handleChange(e.target.value);
   }
 
   render() {
@@ -22,7 +23,7 @@ class DropDownOptionalForm extends Component {
             <select id="dropdown-optional" onChange={this.handleDropdownChange}>
               <option value="N/A" id="options">{this.props.fieldTitle}</option>
               {this.props.myoptions.map((optionTitle) => (
-                 <option value="1" id="options">{optionTitle}</option>
+                 <option value={optionTitle} id="options">{optionTitle}</option>
               ))}
             </select>
           </div>
