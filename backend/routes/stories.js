@@ -45,7 +45,7 @@ router.post("/storysubmission", async (req, res) => {
     StudentMajor,
     StudentCollege,
     StudentYear
-  });
+  } );
 
   try {
     const savedStory = await newStory.save();
