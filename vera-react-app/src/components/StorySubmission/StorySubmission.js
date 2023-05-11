@@ -1,11 +1,10 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { DropDownForm, DropDownOptionalForm } from '../components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './StorySubmission.css';
 
 function StorySubmission() {
-
   const [year, setYear] = useState("")
   const [college, setCollege] = useState("")
   const [major, setMajor] = useState("")
@@ -45,7 +44,7 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue == ''){
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === ''){
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
@@ -54,6 +53,41 @@ function StorySubmission() {
     }
 
   }
+  useEffect(() => {
+    const button = document.getElementById("submitButton");
+
+    if (button) {
+      button.addEventListener("click", async function (e) {
+        console.log("button was clicked");
+
+        const data = {
+          Title: "My Story Title",
+          ParagraphText: "The main text content of my story",
+          Date: new Date(),
+          StudentMajor: "Computer Science",
+          StudentCollege: "Engineering",
+          StudentYear: "Junior"
+        };
+
+        console.log(data);
+
+        try {
+          const response = await fetch("http://localhost:3001/stories/storysubmission", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+  
+          const responseData = await response.json();
+          console.log("Server response:", responseData);
+        } catch (err) {
+          console.error(err);
+        }
+      });
+    }
+  }, []);
   
   return (
       <div>
@@ -75,7 +109,7 @@ function StorySubmission() {
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">
-                    <input className="button" type="submit" value="Submit"/>
+                    <button id="submitButton">Submit</button>
                   </div>
                 </div> 
               {/* </div>   */}
