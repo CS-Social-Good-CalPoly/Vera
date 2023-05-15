@@ -78,17 +78,20 @@ function StorySubmission() {
   return (
       <div>
           <div className="background">
-            <form className="story-submission-box" onSubmit={verifySubmission}>
-              {/* <div className="story-submission-box"> */}
-                <div className='inputs'>
-                  <div className="row1">
-                      <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange}/> 
-                      <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange}/>
+              <form className="story-submission-box" onSubmit={verifySubmission}>
+                  <div class="input-outer-container">
+                      <div class="inner-container-box">
+                          <div >
+                              <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange} />
+                          </div>
+                          <div >
+                              <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange} />
+                          </div>
+                      </div>
+                      <div class="inner-container-box">
+                          <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} handleChange={handleMajorChange} />
+                      </div>
                   </div>
-                  <div className="row1" id="option">
-                      <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} handleChange={handleMajorChange}/>
-                  </div>
-                </div>
                 <div className="description-box"> 
                   <div className="title-text">
                     {/* figure out way to temporary  text when no text typed yet - ie 3 states state 1 'enter text ' once u click text goes away, but state stays, then once starts typing- final state*/}
