@@ -25,7 +25,6 @@ function StorySubmission() {
     if(e.key === "\t" && e.value === ""){
       e.preventDefault()
       setTitleValue(fakeInput)
-      
     }
     setTitleValue(e.value)
   }
@@ -66,7 +65,7 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === ''){
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === '') {
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
