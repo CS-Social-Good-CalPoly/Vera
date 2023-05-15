@@ -10,6 +10,7 @@ function StorySubmission() {
   const [college, setCollege] = useState("")
   const [major, setMajor] = useState("")
   const [quillValue, setQuillValue] = useState('');
+  const [title, setTitleValue] = useState("Enter title");
 
   const values = {
     "Year" : year,
@@ -17,20 +18,39 @@ function StorySubmission() {
     "Major" : major,
     "Description" : quillValue
   }
+
+  const fakeInput = "Enter title"
+
+  const handleTitleKeyPress = (e) => {
+    if(e.key === "\t" && e.value === ""){
+      e.preventDefault()
+      setTitleValue(fakeInput)
+    }
+    setTitleValue(e.value)
+  }
   
+  const handleTitleClick = (e) => {
+    if (title === "Enter title") {
+      setTitleValue('');
+    }
+  }
+
   const handleYearChange = (e) => {
-    console.log(e);
     setYear(e);
   }
   
   const handleCollegeChange = (e) => {
-    console.log(e);
     setCollege(e);
   }
   
   const handleMajorChange = (e) => {
     setMajor(e);
   }
+
+  const handleTitleChange = (e) => {
+    setTitleValue(e.value);
+  }
+
 
   const collegeList = ["Agriculture, Food and Environmental Sciences", 
     "Architecture and Environmental Design",
@@ -45,7 +65,7 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue == ''){
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === '') {
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
@@ -71,7 +91,17 @@ function StorySubmission() {
                 </div>
                 <div className="description-box"> 
                   <div className="title-text">
-                    Short Description
+                    {/* figure out way to temporary  text when no text typed yet - ie 3 states state 1 'enter text ' once u click text goes away, but state stays, then once starts typing- final state*/}
+                    <input
+                      className='inputBar'
+                      type="text"
+                      value={title}
+                      onClick={handleTitleClick}
+                      onFocus={handleTitleClick}
+                      onKeyPress={handleTitleKeyPress}
+                      onChange={handleTitleChange}
+                    />
+
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">
