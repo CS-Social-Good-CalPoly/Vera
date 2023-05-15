@@ -5,7 +5,7 @@ function StorySubmissionPage() {
     
     return (
         <div>
-            <StoryBanner displayButton='false' imageUrl='https://pyxis.nymag.com/v1/imgs/3d4/0aa/89125115b0e10b94e3378d484712450727-25-thanos.rsquare.w1200.jpg' />
+            <StoryBanner displayButton='false' imageUrl='https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=773&q=80' />
             <StorySubmission/>
         </div>
     );
