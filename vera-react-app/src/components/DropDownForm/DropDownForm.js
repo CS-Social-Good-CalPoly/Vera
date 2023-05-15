@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 import { Component } from "react";
-import './DropDownForm.css';
+import "./DropDownForm.css";
 
 class DropDownForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectValue: ""
+      selectValue: "",
     };
 
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
@@ -19,18 +19,18 @@ class DropDownForm extends Component {
 
   render() {
     return (
-          <div className="wrapper-drop-down">
-            <select id="dropdown" onChange={this.handleDropdownChange}>
-              <option value="N/A">{this.props.fieldTitle}</option>
-              {this.props.myoptions.map((optionTitle, index) => (
-                 <option value="1" index={index}>{optionTitle}</option>
-              ))}
-            </select>
-          </div>
+      <div className="wrapper-drop-down">
+        <select id="dropdown" onChange={this.handleDropdownChange}>
+          <option value="N/A">{this.props.fieldTitle}</option>
+          {this.props.myoptions.map((optionTitle, index) => (
+            <option value={optionTitle} index={index}>
+              {optionTitle}
+            </option>
+          ))}
+        </select>
+      </div>
     );
   }
 }
-
-
 
 export default DropDownForm;
