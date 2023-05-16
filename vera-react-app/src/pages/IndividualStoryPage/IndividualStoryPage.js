@@ -12,3 +12,4 @@ function IndividualStoryPage() {
 }
 
 export default IndividualStoryPage;
+

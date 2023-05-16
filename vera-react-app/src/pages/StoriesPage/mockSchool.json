@@ -1,0 +1,62 @@
+[
+    {
+        "id" : "id",
+        "title": "How my dog helps me through college",
+        "imageUrl":"https://imgix.bustle.com/fatherly/2019/07/obituary.jpg?w=768&h=416&fit=crop&crop=faces&auto=format%2Ccompress&q=50&dpr=2",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"3th year",
+        "studentMajor": "Computer Science Major"
+    
+    },
+
+    {
+        "id" : "id",
+        "title": "How my dog helps me through college",
+        "imageUrl":"https://phspot.org/wp-content/uploads/2020/11/Screen-Shot-2020-11-11-at-9.34.57-PM.jpg",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"2nd year",
+        "studentMajor": "Biology Major"
+    },
+
+    {
+        "id" : "id",
+        "title": "How my dog helps me through college",
+        "imageUrl":"https://images.squarespace-cdn.com/content/v1/5f063a0c8f53b604aed84729/1669293349998-RROFU7Z49R2NCS7D5OFG/unsplash-image-BEEyeib-am8.jpg?format=2500w",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"4th year",
+        "studentMajor": "Chemistry Major"
+    },
+    
+    {
+        "id" : "id",
+        "title": "How my dog helps me through college",
+        "imageUrl":"https://global-uploads.webflow.com/5efcb2de6010ca2c18f0cf59/631085af5df4f54929c3cc7a_things-only-service-desinger-know.jpg",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"1st year",
+        "studentMajor": "Economics Major"
+    }
+]

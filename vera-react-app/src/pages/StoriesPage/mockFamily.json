@@ -1,0 +1,45 @@
+[
+    {
+        "id" : "id",
+        "title": "How my dog helps me through college",
+        "imageUrl": "https://images.squarespace-cdn.com/content/v1/6296d0754a4dfc43d769b645/1670458839143-960YL6I4XEOOHZ47T4WT/unsplash-image-5PVXkqt2s9k.jpg?format=1500w",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"3th year",
+        "studentMajor": "Computer Science Major"
+
+    },
+    {
+        "id" : "id",
+        "title": "Dealing with loss",
+        "imageUrl": "https://lh3.googleusercontent.com/ogtqEJvyLnKrcjktmaRTenqcFDcv4tkJDRrvhzJVMfm0NWzzdirQ36eVnb9tZSLeJCHbJ0or7BFywlP0PNfyjh42GJIXNH9YRg-s194",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"2nd year",
+        "studentMajor": "Biology Major"
+    },
+    {
+        "id" : "id",
+        "title": "Handling other responsibilities",
+        "imgUrl": "https://images.unsplash.com/photo-1593776867017-11d4bd641c60?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80",
+        "description": "description",
+        "buildingName": "buildingName",
+        "address": "address",
+        "toExpect":  ["thing1", "thing2"],
+        "phone":"0123456789",
+        "hours":  ["hour1", "hour2"],
+        "link": "link",
+        "studentYear":"4th year",
+        "studentMajor": "Chemistry Major"
+    }
+]
