@@ -17,14 +17,14 @@ function ResourcePageTileGroup({ id, title, resources }) {
                 <Heading id={id}>{title}</Heading>
             </TitleContainer>
             <TileGroup>
-                {resources.map((resource, index) => 
-                    
-                     <ResourcePageTile key={index}
-                        infoText={resource.LongDescription}
-                        title={resource.Title}
-                        imageUrl={resource.ImageURL}
+                {resources.map((resource, index) => (
+                    <ResourcePageTile
+                        key={index}
+                        infoText={resource?.LongDescription || 'No description available'}
+                        title={resource?.Title || 'Untitled'}
+                        imageUrl={resource?.ImageURL || ''}
                     />
-                )}
+                ))}
             </TileGroup>
         </TileGroupDiv>
     );

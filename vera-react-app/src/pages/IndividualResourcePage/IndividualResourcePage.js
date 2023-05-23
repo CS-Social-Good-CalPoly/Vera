@@ -38,7 +38,10 @@ function IndividualResourcePage() {
         locations={categorLocs}
       />
 
-      <TextBlock text = {currentSubresource?.LongDescription}/>
+      {currentSubresource && currentSubresource.LongDescription ? 
+        (<TextBlock text={currentSubresource.LongDescription} />) : 
+        (<TextBlock text="No description available" />)
+      }
 
       <IndividualResourceTileGroup
         id="School"
