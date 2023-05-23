@@ -54,20 +54,19 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if (
-      year === "" ||
-      college === "" ||
-      quillValue === ""
-    ) {
-      alert("Complete missing fields");
-      console.log("Missing info");
-      e.preventDefault();
-    } else {
-      alert("Thank you for your submission!");
-    }
+    
   }
 
   function handlePost() {
+
+    if (year === "" || college === "" || quillValue === "") {
+      alert("Complete missing fields");
+      console.log("Missing info");
+    } else {
+      alert("Thank you for your submission!");
+    
+
+
     const data = {
       Title: "My Story Title",
       ParagraphText: values.Description,
@@ -96,6 +95,7 @@ function StorySubmission() {
         } catch (err) {
           console.error(err);
         }
+      }
       };
 
   
