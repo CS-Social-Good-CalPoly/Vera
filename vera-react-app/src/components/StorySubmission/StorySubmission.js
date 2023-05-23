@@ -56,9 +56,7 @@ function StorySubmission() {
     // if an option is selected, the value is stored as 1 at the moment
     if (
       year === "" ||
-      year === "1" ||
       college === "" ||
-      college === "1" ||
       quillValue === ""
     ) {
       alert("Complete missing fields");
@@ -68,26 +66,21 @@ function StorySubmission() {
       alert("Thank you for your submission!");
     }
   }
-  useEffect(() => {
-    const button = document.getElementById("submitButton");
 
-    if (button) {
-      button.addEventListener("click", async function (e) {
-        console.log("button was clicked");
+  function handlePost() {
+    const data = {
+      Title: "My Story Title",
+      ParagraphText: values.Description,
+      Date: new Date(),
+      StudentMajor: values.Major,
+      StudentCollege: values.College,
+      StudentYear: values.Year,
+    };
 
-        const data = {
-          Title: "My Story Title",
-          ParagraphText: values.Description,
-          Date: new Date(),
-          StudentMajor: values.Major,
-          StudentCollege: values.College,
-          StudentYear: values.Year,
-        };
+    console.log(data);
 
-        console.log(data);
-
-        try {
-          const response = await fetch(
+      try {
+          const response = fetch(
             "http://localhost:3001/stories/storysubmission",
             {
               method: "POST",
@@ -98,14 +91,16 @@ function StorySubmission() {
             }
           );
 
-          const responseData = await response.json();
+          const responseData = response.json();
           console.log("Server response:", responseData);
         } catch (err) {
           console.error(err);
         }
-      });
-    }
-  }, []);
+      };
+
+  
+
+
 
   return (
     <div>
@@ -141,7 +136,7 @@ function StorySubmission() {
               onChange={setQuillValue}
             />
             <div className="button-wrapper">
-              <button id="submitButton">Submit</button>
+              <button id="submitButton" onClick={handlePost}>Submit</button>
             </div>
           </div>
           {/* </div>   */}
