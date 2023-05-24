@@ -57,10 +57,11 @@ function StorySubmission() {
     
   }
 
-  function handlePost() {
+  function handlePost(e) {
 
     if (year === "" || college === "" || quillValue === "") {
       alert("Complete missing fields");
+      e.preventDefault();
       console.log("Missing info");
     } else {
       alert("Thank you for your submission!");
