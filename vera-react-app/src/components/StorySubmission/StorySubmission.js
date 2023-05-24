@@ -10,6 +10,7 @@ function StorySubmission() {
   const [college, setCollege] = useState("")
   const [major, setMajor] = useState("")
   const [quillValue, setQuillValue] = useState('');
+  const [title, setTitleValue] = useState("");
 
   const values = {
     "Year" : year,
@@ -17,20 +18,27 @@ function StorySubmission() {
     "Major" : major,
     "Description" : quillValue
   }
+
+  const handleTitleKeyPress = (e) => {
+    setTitleValue(e.target.value)
+  }
   
   const handleYearChange = (e) => {
-    console.log(e);
     setYear(e);
   }
   
   const handleCollegeChange = (e) => {
-    console.log(e);
     setCollege(e);
   }
   
   const handleMajorChange = (e) => {
     setMajor(e);
   }
+
+  const handleTitleChange = (e) => {
+    setTitleValue(e.target.value);
+  }
+
 
   const collegeList = ["Agriculture, Food and Environmental Sciences", 
     "Architecture and Environmental Design",
@@ -45,7 +53,7 @@ function StorySubmission() {
 
   function verifySubmission(e) {
     // if an option is selected, the value is stored as 1 at the moment
-    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue == ''){
+    if(year === '' || year !== '1' || college === '' || college !== '1' || quillValue === '') {
       alert("Complete missing fields")
       console.log("Missing info")
       e.preventDefault();
@@ -58,20 +66,32 @@ function StorySubmission() {
   return (
       <div>
           <div className="background">
-            <form className="story-submission-box" onSubmit={verifySubmission}>
-              {/* <div className="story-submission-box"> */}
-                <div className='inputs'>
-                  <div className="row1">
-                      <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange}/> 
-                      <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange}/>
+              <form className="story-submission-box" onSubmit={verifySubmission}>
+                  <div class="input-outer-container">
+                      <div class="inner-container-box">
+                          <div >
+                              <DropDownForm fieldTitle="Year" myoptions={yearList} handleChange={handleYearChange} />
+                          </div>
+                          <div >
+                              <DropDownForm fieldTitle="College" myoptions={collegeList} handleChange={handleCollegeChange} />
+                          </div>
+                      </div>
+                      <div class="inner-container-box">
+                          <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} handleChange={handleMajorChange} />
+                      </div>
                   </div>
-                  <div className="row1" id="option">
-                      <DropDownOptionalForm fieldTitle="Major (optional)" myoptions={majorList} handleChange={handleMajorChange}/>
-                  </div>
-                </div>
                 <div className="description-box"> 
                   <div className="title-text">
-                    Short Description
+                    {/* figure out way to temporary  text when no text typed yet - ie 3 states state 1 'enter text ' once u click text goes away, but state stays, then once starts typing- final state*/}
+                    <input
+                      className='inputBar'
+                      placeholder="Enter title"
+                      type="text"
+                      value={title}
+                      onKeyPress={handleTitleKeyPress}
+                      onChange={handleTitleChange}
+                    />
+
                   </div>
                   <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}/> 
                   <div className="button-wrapper">

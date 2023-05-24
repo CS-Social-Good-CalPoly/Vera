@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import {Card} from 'react-bootstrap';
-import {ResourcePageTileGroup} from '../components.js'
+import {ResourcePageTileGroup, Banner} from '../components.js'
 import styled from 'styled-components'
 import mockRelevantResourceData from './mockRelevantData.json';
+import moment from 'moment';
 
 const Header = styled.div`
     font-size: 32px;
@@ -128,27 +129,42 @@ function StoryPopUp(props) {
         {id: "", title: "", imageUrl: ""},
     ]
 
+    const [individualStory, setindividualStory] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/stories/individualstory')
+          .then(response => response.json())
+          .then(data => 
+            {setindividualStory(data);})
+          .catch(error => console.error(error));
+      }, []);
+
+    const currentStory = individualStory[0];
+
+    const date = moment(currentStory?.Date);
+    const formattedDate = date.format('MMM DD, YYYY');
+
     return (
         <test>
+        <Banner imageUrl= {currentStory?.ImageUrl} />
         <CardWrapper hidden={size}>
             <Body>
                 <Header>
                     <div id='category'>
-                        <StoryCategory>Family</StoryCategory>
-                        <Date>Dec 11, 2020</Date>
+                        <StoryCategory>{currentStory?.GeneralCategory}</StoryCategory>
+                        <Date>{formattedDate}</Date>
                     </div>
                     <div>
-                        <Year id='year'>4th Year</Year>
-                        <Major id='major'>Chemistry Major</Major>
+                        <Year id='year'>{currentStory?.StudentYear}</Year>
+                        {currentStory?.StudentMajor && <Major id='major'>{currentStory?.StudentMajor}</Major>}
                     </div>
                 </Header>
                 <Cardstory>
                     <Storytitle>
-                    How My Dog Helps me Through College
+                        {currentStory?.Title}
                     </Storytitle>
                     <Text>
-                    I first began experiencing anxiety and depression at the age of 14 after being bullied at school for years. While at first it would come and go, anxiety and depression eventually became a constant presence in my life. It was like a perpetual cough that eventually starts to get better, only to come back worse than before. Only unlike a cough, where usually I am still able to function, anxiety and depression hits like a ton of bricks and even the idea of getting out of bed seems to be a goal that gets to be less and less attainable. As time passed, more and more of my days started to be spent paralyzed by endless thoughts of regrets of the past and worries for the future.
-I was so intent on finding the solution to overcoming my anxiety and depression that I studied mental health in school, from college to grad school for 7 years, and yet still felt I hadn't even come close to grasping how to manage my own anxiety and depression. I felt very confident about helping others; yet, horribly useless at helping myself. Something was missing; a piece to my puzzle that I had yet to discover.
+                        {currentStory?.ParagraphText}
                     </Text>
                 </Cardstory>
             </Body>

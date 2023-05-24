@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Tile = styled.div`
   position: relative;
   width: 280px;
-  height: 280px;
+  height: 290px;
   background: #FFFFFF;
   box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
   border-radius: 30px;
@@ -65,13 +65,23 @@ export const TileTitle = styled.h1`
     text-transform: uppercase;
     color: black;
     overflow: hidden;
-    height: 30px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    line-height: 1em;
+    max-height: 3em; 
+    margin-bottom: 15px;
 
   @media only screen and (max-width: 768px) {
     padding: 0 6px;
     font-weight: 600;
     font-size: 10px;
     line-height: 12px;
-    height: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    line-height: 1em;
+    max-height: 2em; 
+    margin-bottom: 10px;
   }
 `;

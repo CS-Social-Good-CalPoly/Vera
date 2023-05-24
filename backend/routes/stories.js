@@ -15,6 +15,15 @@ router.get('/generalstorycat', async (req, res) => {
     }
 })
 
+router.get('/individualstory', async (req, res) => {
+    try {
+        const individual = await IndStories.find({})
+        res.json(individual)
+    } catch (err) {
+        res.status(500).json({message: err.message})
+    }
+})
+
 // GET route for individual stories
 router.get('/:category', async (req, res) => {
     try {

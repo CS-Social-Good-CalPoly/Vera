@@ -38,13 +38,16 @@ const InfoText = styled.div`
 
 function StoryTile(props) {
     return (
-      <Tile onClick={props.handleClick} className='tile'>
-      <Link to="/individualStory" className='tile-link'>
-        <TileBanner src={props.imageUrl} alt={props.title} />
-        <TileTitle>{props.title}</TileTitle>
-        <InfoText>{props.infoText}</InfoText>
-        <TileIcon src={arrowIcon} />
-        </Link>
+        <Tile onClick={props.handleClick} className='tile'>
+          <Link to="/individualStory" className='tile-link'>
+            <TileBanner src={props.imgUrl} alt={props.title}/>
+            <TileTitle>{props.title}</TileTitle>
+            <Info>
+                <InfoText>{props.studentYear}</InfoText>
+                <InfoText>{props.studentMajor} Major</InfoText>
+            </Info>
+            <TileIcon src={arrow} />
+            </Link>
         </Tile>
     )
 }
