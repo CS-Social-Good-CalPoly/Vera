@@ -1,8 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import IndividualResourceTileCollapsed from "./IndividualResourceTileCollapsed";
 import IndividualResourceTileExpanded from "./IndividualResourceTileExpanded";
 
+import TruncateText from "./TruncateText";
+
 function IndividualResourceTile(props) {
+    const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
+
+    useEffect(() => {
+        let width = 0
+        const handleResize = () => {
+            width = window.innerWidth;
+            if (width < 0) {
+                setMaxContainerWidthPx(0);
+            } else if (width > 0 && width < 769) {
+                setMaxContainerWidthPx(46);
+            } else if (width >= 769 && width < 2000) {
+                setMaxContainerWidthPx(90);
+            } else {
+                setMaxContainerWidthPx(2000);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    });
 
     const [expanded, setExpanded] = useState(false);
 
@@ -26,7 +49,8 @@ function IndividualResourceTile(props) {
     ) : (
         <IndividualResourceTileCollapsed
             title={props.title}
-            infoText={props.description}
+            infoText=
+            {<TruncateText text={props.description} factor={3.1} maxLines={4} containerWidth={maxContainerWidthPx} />}
             imageUrl={props.imgUrl}
             handleChange={handleChange}
         />
