@@ -118,6 +118,7 @@ const Text = styled(Card.Text)`
 function StoryPopUp(props) {
     const [size, setSize] = useState(false);
     const relevantResourceData = mockRelevantResourceData;
+    const [subResource, setSubResource] = useState([]);
 
     function change() {
         setSize(true);
@@ -138,6 +139,19 @@ function StoryPopUp(props) {
             {setindividualStory(data);})
           .catch(error => console.error(error));
       }, []);
+
+
+    useEffect(() => {
+        fetch('http://localhost:3001/resources/subrsrcs')
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const subList = data.slice(0, 3)
+                    setSubResource(subList);
+                }
+            })
+            .catch(error => console.error(error));
+    }, []);
 
     const currentStory = individualStory[0];
 
@@ -173,7 +187,7 @@ function StoryPopUp(props) {
                 <ResourcePageTileGroup
                     id="RelevantResources"
                     title="Relevant Resources"
-                    resources={relevantResourceData}
+                    resources={subResource}
                 />
             </PopupResources>
         </test>
