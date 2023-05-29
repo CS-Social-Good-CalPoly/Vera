@@ -4,8 +4,10 @@ import arrowIcon from '../Shared/arrow-icon.svg';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import { Link } from "react-router-dom";
 import '../Shared/Tile.css';
-// import './resourcePageTile.css';
-import TruncateText from "./TruncateText";
+import TruncateText from "../Shared/TruncateText";
+import { useHistory } from "react-router-dom";
+
+
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -42,7 +44,26 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
+
     const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
+    
+    const { individualIDs, title, imageUrl, infoText } = props
+
+    const history = useHistory();
+
+    const handleTileClick = () => {
+
+        // useHistory hook to navigate to individual resource page
+        history.push({
+            pathname: "/individualResource",
+            state: {
+              individualIDs: individualIDs,
+              title: title,
+              description: infoText,
+              imageUrl: imageUrl,
+            },
+          });
+    };
 
     useEffect(() => {
         let width = 0
@@ -65,8 +86,8 @@ function ResourcePageTile(props) {
     });
 
     return (
-        <Tile onClick={props.handleClick} className='tile'>
-            <Link to="/individualResource" className='tile-link'>
+        <Tile onClick={handleTileClick} className='tile'>
+            <Link to="#" className='tile-link' onClick={handleTileClick}>
                 <TileBanner src={props.imageUrl} alt={props.title} />
                 <TileTitle>{props.title}</TileTitle>
                 <InfoText >
@@ -75,8 +96,10 @@ function ResourcePageTile(props) {
                 </InfoText>
                 <TileIcon src={arrowIcon} />
             </Link>
-        </Tile>
+        </Tile> 
     );
 }
 
 export default ResourcePageTile;
+
+

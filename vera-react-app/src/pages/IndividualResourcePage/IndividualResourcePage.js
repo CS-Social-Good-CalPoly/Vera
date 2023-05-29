@@ -1,45 +1,68 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Banner,
   IndividualResourceTileGroup,
   CategoryButtonGroup, TextBlock,
 } from "../../components/components";
-import mockSchoolResources from './mockSchoolResources.json';
-import mockCommunityResources from './mockCommunityResources.json';
-import mockNationalResources from './mockNationalResources.json';
+import { useLocation } from "react-router-dom";
+
 
 function IndividualResourcePage() {
 
+  const location = useLocation();
+  const { individualIDs, title, description, imageUrl } = location.state || {};
 
-   const categorNames = ["School", "Community", "National"];
-   const categorLocs = ["School", "Community", "National"];
+  const individualIDsQueryParam = new URLSearchParams({ listOfResourceIDs: JSON.stringify(individualIDs) }).toString();
+
+  const [resourceMapper, setResourceMapper] = useState({})
+  const [resourceList, setResourceList] = useState([])
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/resources/individualResources?${individualIDsQueryParam}`)
+      .then(response => response.json())
+      .then(json => {
+
+        let tempDict = {}
+        let tempList = []
+        
+        json.forEach(resource => {
+          
+          tempDict[resource.Category] = resource
+          tempList.push(resource)
+          
+        });
+
+        setResourceMapper(tempDict)
+        setResourceList(tempList)
+
+        window.scrollTo(0, 0)
+      })
+      .catch(error => console.error(error))
+  }, [])
 
   return (
     <div>
-      <Banner imageUrl="https://cdn.pixabay.com/photo/2017/03/25/03/29/cherry-tomatoes-2172700_1280.jpg" />
+      <Banner imageUrl={imageUrl} />
 
       <CategoryButtonGroup
-        title="FOOD INSECURITY RESOURCES"
-        names={categorNames}
-        locations={categorLocs}
+        title={title}
+        names={Object.keys(resourceMapper)}
+        locations={Object.keys(resourceMapper)}
       />
 
-      <TextBlock text = {"For many students today, food insecurity is just a few missed paychecks away. A 2018 study by found that 36% of college students are experienceing hunger and lack of stable housing. Add in the fact that tuition rates are going up while financial aid is going down, and it’s obvious that most college students and their families are feeling a very tight financial squeeze. But there is help out there. Students struggling to avoid hunger can find several resources to put food on the table while still completing their education."}/>
+      <TextBlock text = {description}/>
 
-      <IndividualResourceTileGroup
-        id="School"
-        title="School"
-        resources={mockSchoolResources}
-      />
-      <IndividualResourceTileGroup
-        id="Community"
-        title="Community"
-        resources={mockCommunityResources}
-      />
-      <IndividualResourceTileGroup
-        id="National"
-        title="National"
-        resources={mockNationalResources}
-      />
+      {
+        Object.keys(resourceMapper).map( (categoryName) => {
+          let result = resourceList.filter( resource => categoryName === resource.Category)
+          return (
+            <IndividualResourceTileGroup
+              id={categoryName}
+              title={categoryName}
+              resources={result}
+            />
+          )
+        })
+      }
     </div>
   );
 }

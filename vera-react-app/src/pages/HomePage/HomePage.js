@@ -62,10 +62,20 @@ function HomePage() {
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorNames}/>
             {
                 categorNames.map( (name, index) => {
+
+                    // Get an array of the subresource JSON objects
                     let result = nameToID[name].map( (id, index2) => subresourceDict[id])
-                    return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
+                    
+                    // Added this check to prevent render if resource info is not ready yet from request
+                    if (result.length > 0 && result[0] !== undefined) 
+                    {
+                        return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
+                    } 
+                    else 
+                    {
+                        return null
+                    }
                 })
-                  
             }
         </div>
     );

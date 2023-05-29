@@ -8,6 +8,7 @@ import {
 import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile';
 
 function IndividualResourceTileGroup({ id, title, resources }) {
+  
   return (
     <TileGroupDiv>
       <TitleContainer>
@@ -16,15 +17,15 @@ function IndividualResourceTileGroup({ id, title, resources }) {
       <TileGroup>
         {resources.map((resource, index) => (
           <IndividualResourceTile
-            imgUrl={resource.imageUrl}
-            title={resource.title}
-            description={resource.description}
-            buildingName={resource.building}
-            address={resource.address}
-            toExpect={resource.whatToExpectList}
-            phone={resource.phone}
-            hours={resource.hourList}
-            link={resource.link}
+            imgUrl={resource.ImageURL}
+            title={resource.Title}
+            description={resource.ParagraphText}
+            buildingName={resource.Building}
+            address={resource.Address}
+            toExpect={resource.WhatToExpect}
+            phone={resource.PhoneNumber}
+            hours={resource.ListOfHours}
+            link={resource.ResourceURL}
           />
         ))}
       </TileGroup>

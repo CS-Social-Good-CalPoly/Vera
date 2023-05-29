@@ -23,6 +23,7 @@ function ResourcePageTileGroup({ id, title, resources }) {
                         infoText={resource.LongDescription}
                         title={resource.Title}
                         imageUrl={resource.ImageURL}
+                        individualIDs={resource.ResourceIDList}
                     />
                 )}
             </TileGroup>

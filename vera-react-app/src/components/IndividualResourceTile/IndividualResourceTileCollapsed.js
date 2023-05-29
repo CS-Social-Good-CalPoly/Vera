@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
+import TruncateText from "../Shared/TruncateText";
 import arrow from './right-arrow.svg';
 
 const InfoText = styled.p`
@@ -32,11 +33,36 @@ const InfoText = styled.p`
 `;
 
 function IndividualResourceTileCollapsed(props) {
+
+  const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
+
+  useEffect(() => {
+    let width = 0
+    const handleResize = () => {
+        width = window.innerWidth;
+        if (width < 0) {
+            setMaxContainerWidthPx(0);
+        } else if (width > 0 && width < 769) {
+            setMaxContainerWidthPx(46);
+        } else if (width >= 769 && width < 2000) {
+            setMaxContainerWidthPx(90);
+        } else {
+            setMaxContainerWidthPx(2000);
+        }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+});
+
   return (
     <Tile onClick={props.handleChange}>
       <TileBanner src={props.imageUrl} alt={props.title} />
       <TileTitle>{props.title}</TileTitle>
-      <InfoText>{props.infoText}</InfoText>
+      <InfoText >
+          <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
+      </InfoText>
       <TileIcon src={arrow} />
     </Tile>
   );
