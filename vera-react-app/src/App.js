@@ -13,11 +13,8 @@ function App() {
                            component={() => <HomePage />} />
                      <Route exact path='/resources'
                            component={() => <HomePage />} />
-                    <Route
-            exact
-            path="/individualResource"
-            component={IndividualResourcePage}
-          />
+                    <Route exact path="/individualResource"
+                           component={IndividualResourcePage}/>
                     <Route exact path='/stories'
                            component={() => <StoriesPage />} />
                     <Route exact path='/individualStory'
