@@ -9,6 +9,33 @@ function HomePage() {
     // Hook to keep track of the categories to be loaded from the database.
     const [categorNames, setCategorNames] = useState([])
 
+    // Hook to keep track of subresourceDict.
+    // subresourceDict makes a dictionary mapping the IDs of
+    // the subrsrcs objects to the full subrsrcs objects.
+    const [subresourceDict, setSubresourceDict] = useState({})
+
+    // Hook to track nameToID.
+    // nameToID is a dictionary mapping the category names to
+    // the corresponding array of subresource IDs
+    const [nameToID, setNameToID] = useState({})
+
+    // This hook will execute before the other one.
+    // It fetches the subrsrcs data and stores it into subresourceDict for later use.
+    useEffect( () => {
+        fetch('http://localhost:3001/resources/subrsrcs')
+        .then(response => response.json())
+        .then(json => {
+            // Create a dictionary using subresource id as the key
+            // mapping to the full subresource object.
+            let tempDict = {}
+            tempDict = json.reduce((acc, obj) => {
+                acc[obj._id] = obj;
+                return acc;
+            }, {});
+            setSubresourceDict(tempDict)
+        })
+      }, [])
+
     // Hook which executes fetch (GET) to the database and is only
     // run upon the very first render of the website.
     useEffect(() => {
@@ -16,24 +43,29 @@ function HomePage() {
           .then(response => response.json())
           .then(json => {
             let tempArray = []
+            let tempNameToID = {}
             for (let object in json)
             {
-                tempArray.push(json[object]["Title"])
+                let name = json[object]["Title"]
+                tempArray.push(name)
+                tempNameToID[name] = json[object]["SubCategoryIDList"]
             }
+            setNameToID(tempNameToID)
             setCategorNames(tempArray)
           })
           .catch(error => console.error(error))
       }, [])
 
-    // The ResourcePageTileGroup is to be empty for this specific task.
     return (
         <div>
             <Banner imageUrl= {bg} pageTitle = "Resources" tagline1="Created by Calpoly students," tagline2="for Calpoly students" logo={veraLogo}/>
             <CategoryButtonGroup title='Categories' names={categorNames} locations={categorNames}/>
             {
-                categorNames.map( (value, index) => {
-                    return <ResourcePageTileGroup key={value} id={value} title={value} resources={[]} />
+                categorNames.map( (name, index) => {
+                    let result = nameToID[name].map( (id, index2) => subresourceDict[id])
+                    return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
                 })
+                  
             }
         </div>
     );

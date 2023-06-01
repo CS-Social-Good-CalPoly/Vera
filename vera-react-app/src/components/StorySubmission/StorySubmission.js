@@ -5,27 +5,35 @@ import "react-quill/dist/quill.snow.css";
 import "./StorySubmission.css";
 
 function StorySubmission() {
-  const [year, setYear] = useState("");
-  const [college, setCollege] = useState("");
-  const [major, setMajor] = useState("");
-  const [quillValue, setQuillValue] = useState("");
+
+  const [year, setYear] = useState("")
+  const [college, setCollege] = useState("")
+  const [major, setMajor] = useState("")
+  const [quillValue, setQuillValue] = useState('');
+  const [title, setTitleValue] = useState("");
 
   const values = {
-    Year: year,
-    College: college,
-    Major: major,
-    Description: quillValue,
-  };
+    "Year" : year,
+    "College" : college,
+    "Major" : major,
+    "Description" : quillValue
+  }
 
+  const handleTitleKeyPress = (e) => {
+    setTitleValue(e.target.value)
+  }
+  
   const handleYearChange = (e) => {
-    console.log(e);
     setYear(e);
   };
 
   const handleCollegeChange = (e) => {
-    console.log(e);
     setCollege(e);
   };
+
+    const handleTitleChange = (e) => {
+    setTitleValue(e.target.value);
+  }
 
   const handleMajorChange = (e) => {
     console.log(e);
@@ -59,7 +67,7 @@ function StorySubmission() {
 
   function handlePost(e) {
 
-    if (year === "" || college === "" || quillValue === "") {
+    if (year === "" || college === "" || quillValue === "" || title === "") {
       alert("Complete missing fields");
       e.preventDefault();
       console.log("Missing info");
@@ -107,21 +115,24 @@ function StorySubmission() {
     <div>
       <div className="background">
         <form className="story-submission-box" onSubmit={verifySubmission}>
-          {/* <div className="story-submission-box"> */}
-          <div className="inputs">
-            <div className="row1">
-              <DropDownForm
-                fieldTitle="Year"
-                myoptions={yearList}
-                handleChange={handleYearChange}
-              />
-              <DropDownForm
-                fieldTitle="College"
-                myoptions={collegeList}
-                handleChange={handleCollegeChange}
-              />
+          <div class="input-outer-container">
+            <div class="inner-container-box">
+              <div>
+                <DropDownForm
+                  fieldTitle="Year"
+                  myoptions={yearList}
+                  handleChange={handleYearChange}
+                />
+              </div>
+              <div>
+                <DropDownForm
+                  fieldTitle="College"
+                  myoptions={collegeList}
+                  handleChange={handleCollegeChange}
+                />
+              </div>
             </div>
-            <div className="row1" id="option">
+            <div class="inner-container-box">
               <DropDownOptionalForm
                 fieldTitle="Major (optional)"
                 myoptions={majorList}
@@ -130,19 +141,33 @@ function StorySubmission() {
             </div>
           </div>
           <div className="description-box">
-            <div className="title-text">Short Description</div>
+            <div className="title-text">
+              {/* figure out way to temporary  text when no text typed yet - ie 3 states state 1 'enter text ' once u click text goes away, but state stays, then once starts typing- final state*/}
+              <input
+                className="inputBar"
+                placeholder="Enter title"
+                type="text"
+                value={title}
+                onKeyPress={handleTitleKeyPress}
+                onChange={handleTitleChange}
+              />
+            </div>
             <ReactQuill
               theme="snow"
               value={quillValue}
               onChange={setQuillValue}
             />
             <div className="button-wrapper">
-              <button id="submitButton" onClick={handlePost}>Submit</button>
+              <button id="submitButton" onClick={handlePost}>
+                Submit
+              </button>
             </div>
           </div>
           {/* </div>   */}
         </form>
       </div>
+    
+      {/* </div>   */}
     </div>
   );
 }

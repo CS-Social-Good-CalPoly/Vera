@@ -10,6 +10,7 @@ import {
 import {ResourcePageTile} from '../components'
 
 function ResourcePageTileGroup({ id, title, resources }) {
+    
     return (
         <TileGroupDiv>
             <TitleContainer>
@@ -17,10 +18,11 @@ function ResourcePageTileGroup({ id, title, resources }) {
             </TitleContainer>
             <TileGroup>
                 {resources.map((resource, index) => (
-                    <ResourcePageTile key={index}
-                        infoText={resource.description}
-                        title={resource.title}
-                        imageUrl={resource.imageUrl}
+                    <ResourcePageTile
+                        key={index}
+                        infoText={resource?.LongDescription || 'No description available'}
+                        title={resource?.Title || 'Untitled'}
+                        imageUrl={resource?.ImageURL || ''}
                     />
                 ))}
             </TileGroup>
