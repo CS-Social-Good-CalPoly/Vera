@@ -158,7 +158,7 @@ function StorySubmission() {
               onChange={setQuillValue}
             />
             <div className="button-wrapper">
-              <button id="submitButton" onClick={handlePost}>
+              <button id="submitButton" className="button" onClick={handlePost}>
                 Submit
               </button>
             </div>
