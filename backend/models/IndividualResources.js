@@ -1,6 +1,7 @@
 const {model, Schema} = require('mongoose')
 
 const IndResSchema = new Schema({
+    _id: Schema.Types.ObjectId,
     ImageURL: String,
     ImageAltText: String,
     Title: String,
