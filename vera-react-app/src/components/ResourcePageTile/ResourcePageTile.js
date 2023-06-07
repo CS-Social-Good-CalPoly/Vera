@@ -5,9 +5,6 @@ import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import { Link } from "react-router-dom";
 import '../Shared/Tile.css';
 import TruncateText from "../Shared/TruncateText";
-import { useHistory } from "react-router-dom";
-
-
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -49,22 +46,6 @@ function ResourcePageTile(props) {
     
     const { individualIDs, title, imageUrl, infoText } = props
 
-    const history = useHistory();
-
-    const handleTileClick = () => {
-
-        // useHistory hook to navigate to individual resource page
-        history.push({
-            pathname: "/individualResource",
-            state: {
-              individualIDs: individualIDs,
-              title: title,
-              description: infoText,
-              imageUrl: imageUrl,
-            },
-          });
-    };
-
     useEffect(() => {
         let width = 0
         const handleResize = () => {
@@ -84,20 +65,32 @@ function ResourcePageTile(props) {
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
     });
-
+    
     return (
-        <Tile onClick={handleTileClick} className='tile'>
-            <Link to="#" className='tile-link' onClick={handleTileClick}>
-                <TileBanner src={props.imageUrl} alt={props.title} />
-                <TileTitle>{props.title}</TileTitle>
-                <InfoText >
-                    {/* Larger factor means it shows less text before ellipses is added */}
-                    <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
-                </InfoText>
-                <TileIcon src={arrowIcon} />
-            </Link>
-        </Tile> 
-    );
+        <Link
+          to={{
+            pathname: "/individualResource",
+            state: {
+              individualIDs: individualIDs,
+              title: title,
+              description: infoText,
+              imageUrl: imageUrl,
+            },
+          }}
+          className="tile-link"
+        >
+          <Tile className="tile">
+          <TileBanner src={props.imageUrl} alt={props.title} />
+            <TileTitle>{props.title}</TileTitle>
+            <InfoText >
+                {/* Larger factor means it shows less text before ellipses is added */}
+                <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
+            </InfoText>
+            <TileIcon src={arrowIcon} />
+          </Tile>
+        </Link>
+      );
+      
 }
 
 export default ResourcePageTile;
