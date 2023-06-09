@@ -66,7 +66,7 @@ function ResourcePageTile(props) {
         return () => window.removeEventListener('resize', handleResize);
     });
     
-    return (
+    return ( 
         <Link
           to={{
             pathname: "/individualResource",
