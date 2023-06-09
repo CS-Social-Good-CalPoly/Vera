@@ -1,7 +1,9 @@
-import React from 'react'
 import arrow from './arrow-icon.svg'
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
+import '../Shared/Tile.css';
 
 const Info = styled.div`
   padding-left: 23px;
@@ -36,14 +38,16 @@ const InfoText = styled.div`
 
 function StoryTile(props) {
     return (
-        <Tile /*onClick={props.handleChange()}*/>
+        <Tile onClick={props.handleClick} className='tile'>
+          <Link to="/individualStory" className='tile-link'>
             <TileBanner src={props.imgUrl} alt={props.title}/>
             <TileTitle>{props.title}</TileTitle>
             <Info>
-                <InfoText>{props.studentYear} Year</InfoText>
+                <InfoText>{props.studentYear}</InfoText>
                 <InfoText>{props.studentMajor} Major</InfoText>
             </Info>
             <TileIcon src={arrow} />
+            </Link>
         </Tile>
     )
 }
