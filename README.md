@@ -25,11 +25,8 @@ The development workflow for The Vera Project is structured to ensure effective 
      git checkout main
      ```
      FYI: You can see which branch you're currently in by doing `git branch`, and there'll be a asterisk next to the one you're on.
-   - If Git warns about possible work conflicts when switching branches, either commit your changes or stash them to avoid data loss. To stash changes, use:
-     ```
-     git stash save "Your stash message"
-     ```
-     You can later apply your stashed changes when needed.
+   - If Git warns about possible work conflicts when switching branches, either commit your changes or stash them to avoid data loss. To stash changes, use
+     `git stash save "Your stash message"`. You can later apply your stashed changes when needed.
 
 2. **Update from the Remote Main Branch:**
    - Execute `git pull` to ensure your local main branch is up-to-date with the latest changes from the remote main branch (production branch).
@@ -53,10 +50,10 @@ The development workflow for The Vera Project is structured to ensure effective 
 
      - **Add the files with your changes:**
 
-       Make sure you are in the same directory as your file-to-add.
+       Make sure you are in the root directory of the repository (when you do `ls`, it should list directories like backend, vera-react-app, etc).
        This command is to be used for any file you created, modified, or deleted:
        ```
-       git add file-name
+       git add /path_to_file
        ```
        We recommend doing git add for each file, even if it is tedious. We know that `git add .` exists, but this might
        end up adding some files which are not meant to be pushed (package.json would be a good example).
@@ -68,7 +65,7 @@ The development workflow for The Vera Project is structured to ensure effective 
 
      - **Push your changes to the remote branch:**
        ```
-       git push origin your-branch-name
+       git push origin NewBranchName
        ```
        One neat shortcut you can instead do is simply enter `git push`. You will likely be met with a message to set up an upstream that looks something
        like this: `git push --set-upstream origin NewBranchName`. Just copy and paste what it tells you and then do `git push` right after. That way,
@@ -76,12 +73,15 @@ The development workflow for The Vera Project is structured to ensure effective 
    - Make sure to replace "Your commit message" with a meaningful description of your changes, and "your-branch-name" with the actual name of your branch.
 
 6. **Make a Pull Request:**
-   - When you're ready to merge your changes into the main branch, create a pull request (PR) on the project's repository.
-   - Ensure that your PR provides a clear and concise description of the changes you've made.
-   - Your PR will be reviewed by other contributors, and any necessary discussions or adjustments will be made before merging.
+   - When you're ready for us to look at your work, create a pull request (PR) on the project's repository.
+   - Ensure that your PR provides as much detail as possible about the changes you've made.
+   - Link the PR with the issue you worked on.
+   - Your PR will have to be approved by us before merging. If there are changes we request you to make, follow section 7.
 
 7. **Review and Make Edits:**
-   - If feedback or alterations are requested, make the necessary changes in your branch.
+   - If feedback or alterations are requested, make the necessary changes in your branch. Re-push to the same branch as you work.
+     Please do not make new PRs when you make new pushes, the existing PR will automatically get updated when you push changes.
+     See section 8 if you are working on multiple tasks.
 
 8. **Switch Back to the Previous Task Branch:**
    - If you're working on multiple tasks, switch back to the branch where you were working on a previous task and continue your work.
