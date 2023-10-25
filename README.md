@@ -24,6 +24,7 @@ The development workflow for The Vera Project is structured to ensure effective 
      ```
      git checkout main
      ```
+     FYI: You can see which branch you're currently in by doing `git branch`, and there'll be a asterisk next to the one you're on.
    - If Git warns about possible work conflicts when switching branches, either commit your changes or stash them to avoid data loss. To stash changes, use:
      ```
      git stash save "Your stash message"
@@ -32,15 +33,23 @@ The development workflow for The Vera Project is structured to ensure effective 
 
 2. **Update from the Remote Main Branch:**
    - Execute `git pull` to ensure your local main branch is up-to-date with the latest changes from the remote main branch (production branch).
+     ```
+     git pull
+     ```
 
 3. **Create a New Task Branch:**
-   - Create a new branch with a name related to the task you'll be working on. For example, if you're fixing a bug, you might name the branch "fix/bug-description."
+   - Create a new branch with a name related to the task you'll be working on:
+     ```
+     git checkout -b NewBranchName
+     ```
+     For example, if you're fixing a bug, you might name the branch "fix/bug-description."
 
 4. **Work on Your Task:**
-   - Make changes in your local branch related to the task. Use `git push` to push your changes to the remote branch to facilitate collaboration.
+   - Make changes in your local branch related to the task. We recommend committing your progress every now and then so that
+     if you, let's say, deleted all your code and exited your IDE...you would be able to recover your progress using Git.
 
 5. **Commit and Push Your Code:**
-   - Once you've completed your task (including testing), commit your code and push it to the remote repository. Here's how you can do it:
+   - Once you've completed your task (including testing), commit your code and push it to the remote repository. Here's the whole shabang:
 
      - **Add the files with your changes:**
 
@@ -49,7 +58,7 @@ The development workflow for The Vera Project is structured to ensure effective 
        ```
        git add file-name
        ```
-       We recommend doing git add for each file, even if it is tedious. We know that git add . exists, but this might
+       We recommend doing git add for each file, even if it is tedious. We know that `git add .` exists, but this might
        end up adding some files which are not meant to be pushed (package.json would be a good example).
 
      - **Commit your changes:**
@@ -61,6 +70,9 @@ The development workflow for The Vera Project is structured to ensure effective 
        ```
        git push origin your-branch-name
        ```
+       One neat shortcut you can instead do is simply enter `git push`. You will likely be met with a message to set up an upstream that looks something
+       like this: `git push --set-upstream origin NewBranchName`. Just copy and paste what it tells you and then do `git push` right after. That way,
+       any time you need to commit and push code on your new branch, you just need to do `git push` instead of `git push origin NewBranchName`.
    - Make sure to replace "Your commit message" with a meaningful description of your changes, and "your-branch-name" with the actual name of your branch.
 
 6. **Make a Pull Request:**
