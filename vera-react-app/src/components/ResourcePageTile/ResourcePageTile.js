@@ -4,8 +4,7 @@ import arrowIcon from '../Shared/arrow-icon.svg';
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import { Link } from "react-router-dom";
 import '../Shared/Tile.css';
-// import './resourcePageTile.css';
-import TruncateText from "./TruncateText";
+import TruncateText from "../Shared/TruncateText";
 
 const InfoText = styled.p`
   font-family: Poppins;
@@ -42,7 +41,10 @@ const InfoText = styled.p`
  */
 
 function ResourcePageTile(props) {
+
     const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
+    
+    const { individualIDs, title, imageUrl, infoText } = props
 
     useEffect(() => {
         let width = 0
@@ -63,20 +65,34 @@ function ResourcePageTile(props) {
         handleResize();
         return () => window.removeEventListener('resize', handleResize);
     });
-
-    return (
-        <Tile onClick={props.handleClick} className='tile'>
-            <Link to="/individualResource" className='tile-link'>
-                <TileBanner src={props.imageUrl} alt={props.title} />
-                <TileTitle>{props.title}</TileTitle>
-                <InfoText >
-                    {/* Larger factor means it shows less text before ellipses is added */}
-                    <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
-                </InfoText>
-                <TileIcon src={arrowIcon} />
-            </Link>
-        </Tile>
-    );
+    
+    return ( 
+        <Link
+          to={{
+            pathname: "/individualResource",
+            state: {
+              individualIDs: individualIDs,
+              title: title,
+              description: infoText,
+              imageUrl: imageUrl,
+            },
+          }}
+          className="tile-link"
+        >
+          <Tile className="tile">
+          <TileBanner src={props.imageUrl} alt={props.title} />
+            <TileTitle>{props.title}</TileTitle>
+            <InfoText >
+                {/* Larger factor means it shows less text before ellipses is added */}
+                <TruncateText text={props.infoText} factor={3.3} maxLines={4} containerWidth={maxContainerWidthPx} />
+            </InfoText>
+            <TileIcon src={arrowIcon} />
+          </Tile>
+        </Link>
+      );
+      
 }
 
 export default ResourcePageTile;
+
+

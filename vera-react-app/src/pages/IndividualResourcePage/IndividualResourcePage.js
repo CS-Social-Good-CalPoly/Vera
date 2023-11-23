@@ -1,106 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Banner,
   IndividualResourceTileGroup,
   CategoryButtonGroup, TextBlock,
 } from "../../components/components";
-import mockSchoolResources from './mockSchoolResources.json';
-import mockCommunityResources from './mockCommunityResources.json';
-import mockNationalResources from './mockNationalResources.json';
+import { useLocation } from "react-router-dom";
+
 
 function IndividualResourcePage() {
 
-  const [subresources, setSubresources] = useState([]);
-  const [currentSubresource, setCurrentSubresource] = useState({});
-  const [currentSubresourceIDList, setCurrentSubresourceIDList] = useState([]);
+  const location = useLocation();
+  const { individualIDs, title, description, imageUrl } = location.state || {};
+
+  const individualIDsQueryParam = new URLSearchParams({ listOfResourceIDs: JSON.stringify(individualIDs) }).toString();
+
+  const [resourceMapper, setResourceMapper] = useState({})
+  const [resourceList, setResourceList] = useState([])
 
   useEffect(() => {
-      fetch('http://localhost:3001/resources/subrsrcs')
-        .then(response => response.json())
-        .then(data => {
-          setSubresources(data);
-          if (data.length > 0) {
-            setCurrentSubresource(data[1]);
-            setCurrentSubresourceIDList(data[1]?.ResourceIDList || []);
-          }
-        })
-        .catch(error => console.error(error));
-    }, []);
-
-  const [schoolResources, setSchoolResources] = useState([]);
-  const [communityResources, setCommunityResources] = useState([]);
-  const [nationalResources, setNationalResources] = useState([]);
-
-  useEffect(() => {
-      fetch('http://localhost:3001/resources/School')
-        .then(response => response.json())
-        .then(data => {
-          const filteredResources = data.filter(resource => 
-            currentSubresourceIDList.includes(resource._id));
-          setSchoolResources(filteredResources);
-        })
-        .catch(error => console.error(error));
-    }, [currentSubresourceIDList]);
-
-  useEffect(() => {
-    fetch('http://localhost:3001/resources/Community')
+    fetch(`http://localhost:3001/resources/individualResources?${individualIDsQueryParam}`)
       .then(response => response.json())
-      .then(data => {
-        const filteredResources = data.filter(resource => 
-          currentSubresourceIDList.includes(resource._id))
-        setCommunityResources(filteredResources);
+      .then(json => {
+
+        let tempDict = {}
+        let tempList = []
+        
+        json.forEach(resource => {
+          
+          tempDict[resource.Category] = resource
+          tempList.push(resource)
+          
+        });
+
+        setResourceMapper(tempDict)
+        setResourceList(tempList)
+
+        window.scrollTo(0, 0)
       })
-      .catch(error => console.error(error));
-  }, [currentSubresourceIDList]);
+      .catch(error => console.error(error))
+  }, [])
 
-  useEffect(() => {
-    fetch('http://localhost:3001/resources/National')
-      .then(response => response.json())
-      .then(data => {
-        const filteredResources = data.filter(resource => 
-          currentSubresourceIDList.includes(resource._id))
-        setNationalResources(filteredResources);
-      })
-      .catch(error => console.error(error));
-  }, [currentSubresourceIDList]);
-
-  const categorNames = ["School", "Community", "National"];
-  const categorLocs = ["School", "Community", "National"];
-
-  console.log(schoolResources)
-  console.log(communityResources)
-  console.log(nationalResources)
   return (
     <div>
-      <Banner imageUrl={currentSubresource?.ImageURL} />
+      <Banner imageUrl={imageUrl} />
 
       <CategoryButtonGroup
-        title={currentSubresource?.Title}
-        names={categorNames}
-        locations={categorLocs}
+        title={title}
+        names={Object.keys(resourceMapper)}
+        locations={Object.keys(resourceMapper)}
       />
 
-      <TextBlock text={currentSubresource.LongDescription} />
-      {schoolResources.length > 0 && (
-        <IndividualResourceTileGroup
-          id="School"
-          title="School"
-          resources={schoolResources}
-        />
-      )}
-      {communityResources.length > 0 && (
-        <IndividualResourceTileGroup
-          id="Community"
-          title="Community"
-          resources={communityResources}
-        />
-      )}
-      {nationalResources.length > 0 && (
-        <IndividualResourceTileGroup
-          id="National"
-          title="National"
-          resources={nationalResources}
-        />
-      )}
+      <TextBlock text = {description}/>
+
+      {
+        Object.keys(resourceMapper).map( (categoryName) => {
+          let result = resourceList.filter( resource => categoryName === resource.Category)
+          return (
+            <IndividualResourceTileGroup
+              id={categoryName}
+              title={categoryName}
+              resources={result}
+            />
+          )
+        })
+      }
     </div>
   );
 }
