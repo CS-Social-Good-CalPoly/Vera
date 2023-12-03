@@ -8,6 +8,7 @@ const TruncateText = ({ text, factor, maxLines, containerWidth }) => {
     }, [text, factor, maxLines, containerWidth])
 
     const truncateText = (text, factor, maxLines, containerWidth) => {
+
         const maxLineWidth = containerWidth / factor // Factor is kind of like average char width
         const words = text.split(" ")
 

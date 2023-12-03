@@ -60,6 +60,7 @@ function HomePage() {
       }, [])
 
     return (
+
         <div className="everything row">
             <div className="col-lg-12 col-12 main">
                 <div id="home" className="home">
@@ -95,6 +96,7 @@ function HomePage() {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }

@@ -5,6 +5,7 @@ import {ResourcePageTile} from '../components'
 function ResourcePageTileGroup({ id, title, resources }) {
     
     return (
+
         <div className="row">
             {resources.map((resource, index) => (
                 <div className="col-6" style={{paddingLeft: 0, paddingRight: 0}}>
@@ -17,6 +18,7 @@ function ResourcePageTileGroup({ id, title, resources }) {
                 </div>
             ))}
         </div>
+
     );
 }
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+
 //import '../Shared/Tile.css';
 // import './resourcePageTile.css';
 import './ResourcePageTile.css';
+
 
 /* Component Props
  * imageUrl
@@ -11,6 +13,7 @@ import './ResourcePageTile.css';
  */
 
 function ResourcePageTile(props) {
+
     return (
         <div className="veratiles">
             <div style={{width: "100%"}}>
@@ -23,6 +26,9 @@ function ResourcePageTile(props) {
             </div>
         </div>
     );
+
 }
 
 export default ResourcePageTile;
+
+

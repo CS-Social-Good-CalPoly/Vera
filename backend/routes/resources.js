@@ -27,15 +27,15 @@ router.get('/subrsrcs', async (req, res) => {
 })
 
 // GET route for all individual resources
-router.get('/:category', async (req, res) => {
+router.get('/individualResources', async (req, res) => {
     try {
-        const categorizedResources = await IndResources.find({Category: req.params.category})
-        res.json(categorizedResources)
+      const { listOfResourceIDs } = req.query;
+      const resourceIDs = JSON.parse(listOfResourceIDs);
+      const resources = await IndResources.find({ _id: { $in: resourceIDs } });
+      res.json(resources);
     } catch (err) {
-        res.status(404).json({
-            message: err.message
-        })
+      res.status(500).json({ message: err.message });
     }
-})
+  });
 
 module.exports = router
