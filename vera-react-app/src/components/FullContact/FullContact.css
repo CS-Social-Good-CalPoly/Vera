@@ -1,0 +1,12 @@
+.full-contacts {
+	height: 90vh;
+    background-color: #e5e5e5;
+}
+
+.full-contacts h2 {
+	padding-top: 2.5vh;
+	padding-bottom: 2.5vh;
+	border-top: 1px solid #a9a9a9;
+	color: gray;
+	font-family: skinny;
+}

@@ -2,31 +2,31 @@ import React from 'react';
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './Navbar.css';
-import logo from './VeraLogo.jpg'
 
 function NavBar() {
     return (
-      <Navbar className="nav-main" bg="light" expand="lg" >
-        <Link to="/" >
-            <div className="logoCol">
-                 <img id="logo" src={logo} height="35" width="35" ></img>
-             </div>
-        </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-            <Link className="navbar-links" to ="/Resources">
-              Resources
+      <div className="col-12 navsection">
+          <div>
+            <Link to ="/Resources">
+              <a href="index.html">HOME</a>
             </Link>
-            <Link className="navbar-links" to="/Stories">
-              Stories
+          </div>
+          <div>
+            <Link to ="/Resources">
+              <a href="index.html">RESOURCES</a>
             </Link>
-            <Link className="navbar-links" to="/StorySubmission">
-              Share Your Story
+          </div>
+          <div>
+            <Link to ="/Stories">
+              <a href="articles.html">STORIES</a>
             </Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+          </div>
+          <div>
+            <Link to ="/StorySubmission">
+              <a href="contact.html">CONTACT</a>
+            </Link>
+          </div>
+      </div>
     );
 }
 

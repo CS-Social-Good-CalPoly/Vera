@@ -1,0 +1,6 @@
+.top-logo img {
+    margin: 25px;
+    width: 120px;
+    position: fixed;
+    z-index: 10;
+}

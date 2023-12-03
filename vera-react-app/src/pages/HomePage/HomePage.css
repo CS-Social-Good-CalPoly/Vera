@@ -1,0 +1,51 @@
+@font-face {
+    font-family: reg;
+    src: url('../../fonts/manroperegular.otf');
+  }
+  
+  @font-face {
+    font-family: skinny;
+    src: url('../../fonts/manropelight.otf');
+  }
+  
+  @font-face {
+    font-family: fat;
+    src: url('../../fonts/manropebold.otf');
+  }
+
+  body {
+      overflow-x: hidden;
+      font-family: reg;
+  }
+  
+  .home .main-content .number {
+      height: 50vh;
+      background-color: #08376B;
+      color: white;
+      border: 1px solid #a9a9a9;
+      border-top: 0px;
+      border-left: 0px;
+  }
+  
+  .home .main-content .number h1 {
+      font-size: 4.5rem;
+  }
+  
+  .home .main-content .filters {
+      height: 50vh;
+      background-color: #e5e5e5;
+      padding: 1vh;
+      padding-left: 7vh;
+      padding-right: 7vh;
+      color: black;
+      border: 1px solid #a9a9a9;
+      border-top: 0px;
+  }
+  
+  .team {
+      margin: 0px;
+      height: 90vh;
+      background-color: #e5e5e5;
+      overflow-y: scroll;
+      overflow-x: hidden;
+  }

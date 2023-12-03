@@ -1,0 +1,22 @@
+.veratiles {
+    height: 45vh;
+    background-color: #e5e5e5;
+    border: 1px solid #a9a9a9;
+    border-left: 0px;
+    border-top: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.veratiles img {
+    width: 80%;
+    margin-left: 10%;
+    height: 20vh;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.veratiles h2 {
+    width: 85%;
+    margin-left: 7.5%;
+}
