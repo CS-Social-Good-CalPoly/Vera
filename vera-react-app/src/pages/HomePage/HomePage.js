@@ -59,44 +59,68 @@ function HomePage() {
           .catch(error => console.error(error))
       }, [])
 
-    return (
+    // return (
 
-        <div className="everything row">
-            <div className="col-lg-12 col-12 main">
-                <div id="home" className="home">
-                    <Toplogo />
-                    <div className="row main-content">
-                        <div className="col-6">
-                            <div className="row">
-                                <div className="col-8 blurb">
-                                    <Banner pageTitle = "Resources" paragraph="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                        quis nostrud exercitation ullamco laboris nisi ut aliquip"/>
-                                </div>
-                                <div className="col-4 number d-flex justify-content-center align-items-center">
-                                    <Stat number = "124" type = "Mental Health Resources" />
-                                </div>
-                                <div className="col-12 newsletter filters">
-                                    <Filters filterNames={filters} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-6" style={{ padding: 0, margin: 0 }}>
-                            <NavBar />
-                            <div className="row team articles">
-                            {
-                                categorNames.map( (name, index) => {
-                                    let result = nameToID[name].map( (id, index2) => subresourceDict[id])
-                                    return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
-                                })
+    //     <div className="everything row">
+    //         <div className="col-lg-12 col-12 main">
+    //             <div id="home" className="home">
+    //                 <Toplogo />
+    //                 <div className="row main-content">
+    //                     <div className="col-6">
+    //                         <div className="row">
+    //                             <div className="col-8 blurb">
+    //                                 <Banner pageTitle = "Resources" paragraph="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    //                                     tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    //                                     quis nostrud exercitation ullamco laboris nisi ut aliquip"/>
+    //                             </div>
+    //                             <div className="col-4 number d-flex justify-content-center align-items-center">
+    //                                 <Stat number = "124" type = "Mental Health Resources" />
+    //                             </div>
+    //                             <div className="col-12 newsletter filters">
+    //                                 <Filters filterNames={filters} />
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                     <div className="col-6" style={{ padding: 0, margin: 0 }}>
+    //                         <NavBar />
+    //                         <div className="row team articles">
+    //                         {
+    //                             categorNames.map( (name, index) => {
+    //                                 let result = nameToID[name].map( (id, index2) => subresourceDict[id])
+    //                                 return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
+    //                             })
                                 
-                            }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    //                         }
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
 
+    //     </div>
+    // );
+
+    return (
+        <div>
+            <Banner imageUrl= {bg} pageTitle = "Resources" tagline1="Created by Calpoly students," tagline2="for Calpoly students" logo={veraLogo}/>
+            <CategoryButtonGroup title='Categories' names={categorNames} locations={categorNames}/>
+            {
+                categorNames.map( (name, index) => {
+
+                    // Get an array of the subresource JSON objects
+                    let result = nameToID[name].map( (id, index2) => subresourceDict[id])
+                    
+                    // Added this check to prevent render if resource info is not ready yet from request
+                    if (result.length > 0 && result[0] !== undefined) 
+                    {
+                        return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
+                    } 
+                    else 
+                    {
+                        return null
+                    }
+                })
+            }
         </div>
     );
 }
