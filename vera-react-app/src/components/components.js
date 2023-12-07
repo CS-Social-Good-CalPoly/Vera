@@ -15,4 +15,10 @@ export {default as DropDownOptionalForm} from './DropDownOptionalForm/DropDownOp
 export {default as StoryTileGroup} from './StoryTileGroup/StoryTileGroup';
 export {default as IndividualResourceTileGroup} from './IndividualResourceTileGroup/IndividualResourceTileGroup';
 export {default as StoryPopUp} from './StoryPopUp/StoryPopUp';
-export {default as TextBlock} from './TextBlock/TextBlock'
+export {default as TextBlock} from './TextBlock/TextBlock';
+export {default as Toplogo} from './TopLogo/TopLogo';
+export {default as Stat} from './Stat/Stat';
+export {default as Filters} from './Filters/Filters';
+export {default as SocialIcons} from './SocialIcons/SocialIcons';
+export {default as ContactForm} from './ContactForm/ContactForm';
+export {default as FullContact} from './FullContact/FullContact';

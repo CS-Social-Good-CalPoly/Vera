@@ -10,13 +10,9 @@ import { StoryTile } from '../components';
 
 function StoryTileGroup({ id, title, stories }) {
     return (
-        <TileGroupDiv>
-          <TitleContainer>
-            <Heading id={id}>{title}</Heading>
-          </TitleContainer>
-          <TileGroup>
-            {stories.map((story, index) => {
-              return (
+      <div className="row">
+            {stories.map((story, index) => (
+                <div className="col-6" style={{paddingLeft: 0, paddingRight: 0}}>
                 <StoryTile
                   key={index}
                   id={story && story._id ? story._id : ''}
@@ -32,10 +28,9 @@ function StoryTileGroup({ id, title, stories }) {
                   // hours={story.hourList}
                   // link={story.resourceLink}
                 />
-              );
-            })}
-          </TileGroup>
-        </TileGroupDiv>
+                </div>
+            ))}
+        </div>
       );
       
 }

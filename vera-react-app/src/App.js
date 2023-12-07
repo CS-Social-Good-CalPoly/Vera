@@ -6,7 +6,6 @@ import { HomePage, IndividualResourcePage, StoriesPage, StorySubmissionPage, Ind
 function App() {
     return (
         <div id="app">
-            <NavBar/>
             <div id="page">
                 <Switch>
                     <Route exact path='/'
@@ -23,7 +22,6 @@ function App() {
                            component={() => <StorySubmissionPage />} />
                 </Switch>
             </div>
-            <Footer/>
         </div>
     );
 }

@@ -24,7 +24,7 @@ export const TitleContainer = styled.div`
 `;
 
 export const TileGroup = styled.div`
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     margin: 0 0 56px -20px;
     

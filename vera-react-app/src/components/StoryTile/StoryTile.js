@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile';
 import '../Shared/Tile.css';
+import './StoryTile.css';
 
 const Info = styled.div`
   padding-left: 23px;
@@ -38,17 +39,16 @@ const InfoText = styled.div`
 
 function StoryTile(props) {
     return (
-        <Tile onClick={props.handleClick} className='tile'>
-          <Link to="/individualStory" className='tile-link'>
-            <TileBanner src={props.imgUrl} alt={props.title}/>
-            <TileTitle>{props.title}</TileTitle>
-            <Info>
-                <InfoText>{props.studentYear}</InfoText>
-                <InfoText>{props.studentMajor} Major</InfoText>
-            </Info>
-            <TileIcon src={arrow} />
-            </Link>
-        </Tile>
+      <div className="veratiles">
+            <div style={{width: "100%"}}>
+                <img src={props.imgUrl} alt={props.title} />
+                <p></p>
+                <h2 className="text-center" style={{ fontFamily: 'fat', color: '#08376B'}}>
+                    <Link to="/individualResource" style={{color: '#08376B'}}>{props.title}</Link>
+                </h2>
+                <p className="text-center" style={{ color: 'gray' }}>{props.studentYear} | {props.studentMajor}</p>
+            </div>
+        </div>
     )
 }
 

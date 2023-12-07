@@ -1,0 +1,171 @@
+@font-face {
+  font-family: reg;
+  src: url('../../fonts/manroperegular.otf');
+}
+
+@font-face {
+  font-family: skinny;
+  src: url(Fonts/manropelight.otf);
+}
+
+@font-face {
+  font-family: fat;
+  src: url(Fonts/manropebold.otf);
+}
+
+body {
+	overflow-x: hidden;
+	font-family: reg;
+}
+
+.main .home .top-logo img {
+	margin: 10px;
+	width: 50px;
+	position: fixed;
+	z-index: 10;
+}
+
+.home .main-content .blurb {
+	height: 50vh;
+	color: black;
+	background-color: #e5e5e5;
+	display: flex;
+	align-items: flex-end;
+	padding-bottom: 2vh;
+	border: 1px solid #a9a9a9;
+	border-top: 0px;
+}
+
+.home .main-content .blurb p, .home .main-content .blurb h2 {
+	padding: 2vh;
+	padding-left: 5vh;
+	padding-right: 5vh;
+	font-family: skinny;
+}
+
+.home .main-content .number {
+	height: 50vh;
+	background-color: #08376B;
+	color: white;
+	border: 1px solid #a9a9a9;
+	border-top: 0px;
+	border-left: 0px;
+}
+
+.home .main-content .number h1 {
+	font-size: 4.5rem;
+}
+
+.home .main-content .newsletter {
+	height: 50vh;
+	background-color: #e5e5e5;
+	padding: 1vh;
+	padding-left: 7vh;
+	padding-right: 7vh;
+	color: black;
+	border: 1px solid #a9a9a9;
+	border-top: 0px;
+}
+
+.home .main-content .newsletter form label {
+	font-family: reg;
+	color: black;
+}
+
+.home .main-content .navsection {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: #e5e5e5;
+	height: 10vh;
+	border: 1px solid #a9a9a9;
+	border-left: 0px;
+	border-top: 0px;
+}
+
+.home .main-content .navsection a {
+	color: gray;
+	font-family: fat;
+}
+
+.home .main-content .navsection a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.team-member {
+	height: 45vh;
+	background-color: #e5e5e5;
+	border: 1px solid #a9a9a9;
+	border-left: 0px;
+	border-top: 0px;
+	display: flex;
+	align-items: center;
+}
+
+.team {
+	margin: 0px;
+	height: 90vh;
+	overflow-y: scroll;
+}
+
+.team-member img {
+	width: 80%;
+	margin-left: 10%;
+	height: 25vh;
+	object-fit: cover;
+}
+
+.team::-webkit-scrollbar {
+  width: 0px;
+}
+
+.team::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.team::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+.team::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.filters .filter-btn {
+	border-radius: 30px;
+	margin-left: 5px;
+	margin-top: 10px;
+	background-color: #08376B;
+	border: 0px;
+}
+
+.articles .team-member img {
+	margin-left: 10%;
+	width: 80%;
+	height: 25vh;
+	object-fit: cover;
+}
+
+.number i {
+	font-size: 35px;
+	margin-top: 10px;
+	color: #d8d8d8;
+}
+
+.number i:hover {
+	color: white;
+	cursor: pointer;
+}
+
+.full-contacts {
+	height: 90vh;
+}
+
+.full-contacts h2 {
+	padding-top: 2.5vh;
+	padding-bottom: 2.5vh;
+	border-top: 1px solid #a9a9a9;
+	color: gray;
+	font-family: skinny;
+}
