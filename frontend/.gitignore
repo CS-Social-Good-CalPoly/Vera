@@ -24,6 +24,6 @@ yarn-error.log*
 yarn.lock
 
 # don't need this to be on the remote repo
-#/.vs/
+/.vs/
 
-#/.DS_Store
+/.DS_Store
