@@ -27,3 +27,5 @@ yarn.lock
 /.vs/
 
 /.DS_Store
+
+package-lock.json
