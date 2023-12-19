@@ -3,41 +3,54 @@ import {
     TileGroupDiv,
     TitleContainer,
     Heading,
-    TileGroup
+    TileGroup,
 } from '../Shared/TileGroup'
 
-import { StoryTile } from '../components';
+import { StoryTile } from '../components'
 
 function StoryTileGroup({ id, title, stories }) {
     return (
         <TileGroupDiv>
-          <TitleContainer>
-            <Heading id={id}>{title}</Heading>
-          </TitleContainer>
-          <TileGroup>
-            {stories.map((story, index) => {
-              return (
-                <StoryTile
-                  key={index}
-                  id={story && story._id ? story._id : ''}
-                  title={story && story.Title ? story.Title : ''}
-                  imgUrl={story && story.ImageUrl ? story.ImageUrl : ''}
-                  description={story && story.ParagraphText ? story.ParagraphText : ''}
-                  studentYear={story && story.StudentYear ? story.StudentYear : ''}
-                  studentMajor={story && story.StudentMajor ? story.StudentMajor : ''}
-                  // buildingName={story.building}
-                  // address={story.address}
-                  // toExpect={story.whatToExpectList}
-                  // phone={story.phone}
-                  // hours={story.hourList}
-                  // link={story.resourceLink}
-                />
-              );
-            })}
-          </TileGroup>
+            <TitleContainer>
+                <Heading id={id}>{title}</Heading>
+            </TitleContainer>
+            <TileGroup>
+                {stories.map((story, index) => {
+                    return (
+                        <StoryTile
+                            key={index}
+                            id={story && story._id ? story._id : ''}
+                            title={story && story.Title ? story.Title : ''}
+                            imgUrl={
+                                story && story.ImageUrl ? story.ImageUrl : ''
+                            }
+                            description={
+                                story && story.ParagraphText
+                                    ? story.ParagraphText
+                                    : ''
+                            }
+                            studentYear={
+                                story && story.StudentYear
+                                    ? story.StudentYear
+                                    : ''
+                            }
+                            studentMajor={
+                                story && story.StudentMajor
+                                    ? story.StudentMajor
+                                    : ''
+                            }
+                            // buildingName={story.building}
+                            // address={story.address}
+                            // toExpect={story.whatToExpectList}
+                            // phone={story.phone}
+                            // hours={story.hourList}
+                            // link={story.resourceLink}
+                        />
+                    )
+                })}
+            </TileGroup>
         </TileGroupDiv>
-      );
-      
+    )
 }
 
-export default StoryTileGroup;
+export default StoryTileGroup

@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const GenResSchema = new Schema({
     Name: String,
@@ -6,9 +6,13 @@ const GenResSchema = new Schema({
     SubCategoryIDList: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'resource-sub-category'
-        }
-    ]
+            ref: 'resource-sub-category',
+        },
+    ],
 })
 
-module.exports = model('general-resource-category', GenResSchema, 'general-resource-category')
+module.exports = model(
+    'general-resource-category',
+    GenResSchema,
+    'general-resource-category',
+)

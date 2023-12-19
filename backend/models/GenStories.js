@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const IndStories = require('../models/IndividualStories')
 
@@ -8,9 +8,13 @@ const GenStorySchema = new Schema({
     StoryIDList: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'story'
-        }
-    ]
+            ref: 'story',
+        },
+    ],
 })
 
-module.exports = model('general-story-category', GenStorySchema, 'general-story-category')
+module.exports = model(
+    'general-story-category',
+    GenStorySchema,
+    'general-story-category',
+)

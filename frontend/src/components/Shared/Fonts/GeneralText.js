@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const GeneralText = styled.p `
+export const GeneralText = styled.p`
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
@@ -13,4 +13,4 @@ export const GeneralText = styled.p `
         font-size: 14px;
         line-height: 15px;
     }
-`;
+`

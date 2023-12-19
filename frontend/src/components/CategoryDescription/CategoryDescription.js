@@ -1,5 +1,5 @@
-import React from 'react';
-import './CategoryDescription.css';
+import React from 'react'
+import './CategoryDescription.css'
 
 /* prop for paragraph text string */
 
@@ -11,4 +11,4 @@ function CategoryDescription(props) {
     )
 }
 
-export default CategoryDescription;
+export default CategoryDescription

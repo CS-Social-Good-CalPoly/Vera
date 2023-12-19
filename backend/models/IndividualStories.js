@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const StorySchema = new Schema({
     Title: String,
@@ -7,15 +7,15 @@ const StorySchema = new Schema({
     RelevantCategoryList: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'general-story-category'
-        }
+            ref: 'general-story-category',
+        },
     ],
     ParagraphText: String,
     Date: Date,
     StudentMajor: String,
     StudentCollege: String,
     StudentYear: String,
-    GeneralCategory: String
+    GeneralCategory: String,
 })
 
 module.exports = model('story', StorySchema, 'story')

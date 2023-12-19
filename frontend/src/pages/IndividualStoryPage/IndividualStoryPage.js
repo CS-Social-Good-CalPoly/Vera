@@ -1,14 +1,12 @@
-import React from 'react';
-import { StoryPopUp } from '../../components/components';
+import React from 'react'
+import { StoryPopUp } from '../../components/components'
 
 function IndividualStoryPage() {
-
-  return (
-    <div>
-      <StoryPopUp/>
-    </div>
-
-  );
+    return (
+        <div>
+            <StoryPopUp />
+        </div>
+    )
 }
 
-export default IndividualStoryPage;
+export default IndividualStoryPage

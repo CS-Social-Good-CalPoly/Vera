@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const ButtonText = styled.p `
+export const ButtonText = styled.p`
     font-family: Poppins;
     font-size: 20px;
     font-style: normal;
@@ -12,4 +12,4 @@ export const ButtonText = styled.p `
         font-size: 14px;
         line-height: 21px;
     }
-`;
+`
