@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import './HomePage.css';
-import bg from '../../components/Banner/bannerBackground.jpg';
-import veraLogo from '../../components/Banner/draftLogo.png';
-import { Banner, CategoryButtonGroup, ResourcePageTileGroup} from '../../components/components'
+import React, { useState, useEffect } from 'react'
+import './HomePage.css'
+import bg from '../../components/Banner/bannerBackground.jpg'
+import veraLogo from '../../components/Banner/draftLogo.png'
+import {
+    Banner,
+    CategoryButtonGroup,
+    ResourcePageTileGroup,
+} from '../../components/components'
 
 function HomePage() {
-
     // Hook to keep track of the categories to be loaded from the database.
     const [categorNames, setCategorNames] = useState([])
 
@@ -21,64 +24,76 @@ function HomePage() {
 
     // This hook will execute before the other one.
     // It fetches the subrsrcs data and stores it into subresourceDict for later use.
-    useEffect( () => {
+    useEffect(() => {
         fetch('http://localhost:3001/resources/subrsrcs')
-        .then(response => response.json())
-        .then(json => {
-            // Create a dictionary using subresource id as the key
-            // mapping to the full subresource object.
-            let tempDict = {}
-            tempDict = json.reduce((acc, obj) => {
-                acc[obj._id] = obj;
-                return acc;
-            }, {});
-            setSubresourceDict(tempDict)
-        })
-      }, [])
+            .then((response) => response.json())
+            .then((json) => {
+                // Create a dictionary using subresource id as the key
+                // mapping to the full subresource object.
+                let tempDict = {}
+                tempDict = json.reduce((acc, obj) => {
+                    acc[obj._id] = obj
+                    return acc
+                }, {})
+                setSubresourceDict(tempDict)
+            })
+    }, [])
 
     // Hook which executes fetch (GET) to the database and is only
     // run upon the very first render of the website.
     useEffect(() => {
         fetch('http://localhost:3001/resources/generalrsrcscat')
-          .then(response => response.json())
-          .then(json => {
-            let tempArray = []
-            let tempNameToID = {}
-            for (let object in json)
-            {
-                let name = json[object]["Title"]
-                tempArray.push(name)
-                tempNameToID[name] = json[object]["SubCategoryIDList"]
-            }
-            setNameToID(tempNameToID)
-            setCategorNames(tempArray)
-          })
-          .catch(error => console.error(error))
-      }, [])
+            .then((response) => response.json())
+            .then((json) => {
+                let tempArray = []
+                let tempNameToID = {}
+                for (let object in json) {
+                    let name = json[object]['Title']
+                    tempArray.push(name)
+                    tempNameToID[name] = json[object]['SubCategoryIDList']
+                }
+                setNameToID(tempNameToID)
+                setCategorNames(tempArray)
+            })
+            .catch((error) => console.error(error))
+    }, [])
 
     return (
         <div>
-            <Banner imageUrl= {bg} pageTitle = "Resources" tagline1="Created by Calpoly students," tagline2="for Calpoly students" logo={veraLogo}/>
-            <CategoryButtonGroup title='Categories' names={categorNames} locations={categorNames}/>
-            {
-                categorNames.map( (name, index) => {
+            <Banner
+                imageUrl={bg}
+                pageTitle="Resources"
+                tagline1="Created by Calpoly students,"
+                tagline2="for Calpoly students"
+                logo={veraLogo}
+            />
+            <CategoryButtonGroup
+                title="Categories"
+                names={categorNames}
+                locations={categorNames}
+            />
+            {categorNames.map((name, index) => {
+                // Get an array of the subresource JSON objects
+                let result = nameToID[name].map(
+                    (id, index2) => subresourceDict[id],
+                )
 
-                    // Get an array of the subresource JSON objects
-                    let result = nameToID[name].map( (id, index2) => subresourceDict[id])
-                    
-                    // Added this check to prevent render if resource info is not ready yet from request
-                    if (result.length > 0 && result[0] !== undefined) 
-                    {
-                        return <ResourcePageTileGroup key={name} id={name} title={name} resources={result} />
-                    } 
-                    else 
-                    {
-                        return null
-                    }
-                })
-            }
+                // Added this check to prevent render if resource info is not ready yet from request
+                if (result.length > 0 && result[0] !== undefined) {
+                    return (
+                        <ResourcePageTileGroup
+                            key={name}
+                            id={name}
+                            title={name}
+                            resources={result}
+                        />
+                    )
+                } else {
+                    return null
+                }
+            })}
         </div>
-    );
+    )
 }
 
-export default HomePage;
+export default HomePage

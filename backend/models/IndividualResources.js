@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 const IndResSchema = new Schema({
     _id: Schema.Types.ObjectId,
@@ -13,7 +13,11 @@ const IndResSchema = new Schema({
     LastUpdate: Date,
     Category: String,
     WhatToExpect: [String],
-    ListOfHours: [String]
+    ListOfHours: [String],
 })
 
-module.exports = model('individual-resources', IndResSchema, 'individual-resources')
+module.exports = model(
+    'individual-resources',
+    IndResSchema,
+    'individual-resources',
+)

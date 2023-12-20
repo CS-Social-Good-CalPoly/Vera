@@ -2,10 +2,9 @@ import React from 'react'
 import './CategoryButton.css'
 
 function CategoryButton(props) {
-
     function scrollToElement() {
-        const element =  document.getElementById(props.location); 
-        element.scrollIntoView({ behavior: 'smooth'})
+        const element = document.getElementById(props.location)
+        element.scrollIntoView({ behavior: 'smooth' })
     }
 
     return (
@@ -13,7 +12,6 @@ function CategoryButton(props) {
             <span className="button-text">{props.category}</span>
         </button>
     )
-
 }
 
-export default CategoryButton;
+export default CategoryButton

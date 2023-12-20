@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const PageTitle = styled.h1 `
+export const PageTitle = styled.h1`
     font-family: Poppins;
     font-style: normal;
     font-weight: 600;
@@ -13,4 +13,4 @@ export const PageTitle = styled.h1 `
         font-size: 20px;
         text-align: left;
     }
-`;
+`

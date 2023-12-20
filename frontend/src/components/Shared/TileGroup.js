@@ -4,7 +4,7 @@ export const TileGroupDiv = styled.div`
     margin: 3% 3% 0% 3%;
     display: flex;
     flex-direction: column;
-`;
+`
 
 export const TitleContainer = styled.div`
     border-bottom: 5px solid black;
@@ -21,13 +21,13 @@ export const TitleContainer = styled.div`
         text-align: center;
         align-self: center;
     }
-`;
+`
 
 export const TileGroup = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin: 0 0 56px -20px;
-    
+
     @media only screen and (max-width: 768px) {
         display: flex;
         flex-wrap: wrap;
@@ -37,7 +37,7 @@ export const TileGroup = styled.div`
     @media only screen and (max-width: 360px) {
         justify-content: center;
     }
-`;
+`
 
 // export const Tiles = styled.div`
 //     display: flex;
@@ -51,7 +51,7 @@ export const TileGroup = styled.div`
 //     margin: 20px;
 //     overflow: hidden;
 //     cursor:pointer;
-    
+
 //     @media only screen and (max-width: 768px) {
 //         display: flex;
 //         flex-direction: column;
@@ -78,4 +78,4 @@ export const Heading = styled.h1`
         font-size: 20px;
         line-height: 10px;
     }
-`;
+`

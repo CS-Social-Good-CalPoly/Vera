@@ -1,16 +1,12 @@
-import React from "react";
-import "./TextBlock.css";
+import React from 'react'
+import './TextBlock.css'
 
 function TextBlock(props) {
+    return (
+        <div className="TextBox">
+            <p className="Text">{props.text}</p>
+        </div>
+    )
+}
 
-
-    return <div className="TextBox">  
-        <p className="Text">
-            {props.text}
-        </p>
-    </div>
-
- }
-
-
- export default TextBlock;
+export default TextBlock

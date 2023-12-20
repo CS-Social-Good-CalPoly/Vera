@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import IndividualResourceTileCollapsed from "./IndividualResourceTileCollapsed";
-import IndividualResourceTileExpanded from "./IndividualResourceTileExpanded";
+import React, { useState } from 'react'
+import IndividualResourceTileCollapsed from './IndividualResourceTileCollapsed'
+import IndividualResourceTileExpanded from './IndividualResourceTileExpanded'
 
 function IndividualResourceTile(props) {
+    const [expanded, setExpanded] = useState(false)
 
-    const [expanded, setExpanded] = useState(false);
-
-    const handleChange = () => setExpanded(!expanded);
+    const handleChange = () => setExpanded(!expanded)
 
     // if expanded == true, return the expanded tile
     // else, return the collapsed tile
@@ -30,7 +29,7 @@ function IndividualResourceTile(props) {
             imageUrl={props.imgUrl}
             handleChange={handleChange}
         />
-    );
+    )
 }
 
-export default IndividualResourceTile;
+export default IndividualResourceTile

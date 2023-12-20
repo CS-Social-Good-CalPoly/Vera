@@ -4,31 +4,30 @@ import {
     TileGroupDiv,
     TitleContainer,
     Heading,
-    TileGroup
+    TileGroup,
 } from '../Shared/TileGroup'
 
-import {ResourcePageTile} from '../components'
+import { ResourcePageTile } from '../components'
 
 function ResourcePageTileGroup({ id, title, resources }) {
-    
     return (
         <TileGroupDiv>
             <TitleContainer>
                 <Heading id={id}>{title}</Heading>
             </TitleContainer>
             <TileGroup>
-                {resources.map((resource, index) => 
-                    
-                     <ResourcePageTile key={index}
+                {resources.map((resource, index) => (
+                    <ResourcePageTile
+                        key={index}
                         infoText={resource.LongDescription}
                         title={resource.Title}
                         imageUrl={resource.ImageURL}
                         individualIDs={resource.ResourceIDList}
                     />
-                )}
+                ))}
             </TileGroup>
         </TileGroupDiv>
-    );
+    )
 }
 
-export default ResourcePageTileGroup;
+export default ResourcePageTileGroup

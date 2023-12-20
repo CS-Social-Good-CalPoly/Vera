@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {Card} from 'react-bootstrap';
-import {ResourcePageTileGroup, Banner} from '../components.js'
+import { Card } from 'react-bootstrap'
+import { ResourcePageTileGroup, Banner } from '../components.js'
 import styled from 'styled-components'
-import mockRelevantResourceData from './mockRelevantData.json';
-import moment from 'moment';
+import mockRelevantResourceData from './mockRelevantData.json'
+import moment from 'moment'
 
 const Header = styled.div`
     font-size: 32px;
@@ -25,11 +25,11 @@ const StoryCategory = styled(Card.Title)`
     font-size: 48px;
     line-height: 72px;
     text-transform: uppercase;
-    
+
     @media only screen and (max-width: 768px) {
         font-size: 32px;
         line-height: 32px;
-    }    
+    }
 `
 
 const Year = styled(Card.Subtitle)`
@@ -37,7 +37,7 @@ const Year = styled(Card.Subtitle)`
     padding-bottom: 8px;
 
     @media only screen and (max-width: 768px) {
-        font-size: 18px
+        font-size: 18px;
     }
 `
 
@@ -45,7 +45,7 @@ const Major = styled(Card.Subtitle)`
     font-size: 32px;
 
     @media only screen and (max-width: 768px) {
-        font-size: 18px
+        font-size: 18px;
     }
 `
 
@@ -91,7 +91,7 @@ const PopupResources = styled.div`
 
 const CardWrapper = styled(Card)`
     font-family: 'Poppins';
-    color: #4A6E82;
+    color: #4a6e82;
     max-width: 80%;
     margin: 5vh auto auto;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
@@ -116,73 +116,75 @@ const Text = styled(Card.Text)`
 `
 
 function StoryPopUp(props) {
-    const [size, setSize] = useState(false);
-    const relevantResourceData = mockRelevantResourceData;
-    const [subResource, setSubResource] = useState([]);
+    const [size, setSize] = useState(false)
+    const relevantResourceData = mockRelevantResourceData
+    const [subResource, setSubResource] = useState([])
 
     function change() {
-        setSize(true);
+        setSize(true)
     }
 
     const resources = [
-        {id: "", title: "", imageUrl: ""},
-        {id: "", title: "", imageUrl: ""},
-        {id: "", title: "", imageUrl: ""},
+        { id: '', title: '', imageUrl: '' },
+        { id: '', title: '', imageUrl: '' },
+        { id: '', title: '', imageUrl: '' },
     ]
 
-    const [individualStory, setindividualStory] = useState([]);
+    const [individualStory, setindividualStory] = useState([])
 
     useEffect(() => {
         fetch('http://localhost:3001/stories/individualstory')
-          .then(response => response.json())
-          .then(data => 
-            {setindividualStory(data);})
-          .catch(error => console.error(error));
-      }, []);
-
+            .then((response) => response.json())
+            .then((data) => {
+                setindividualStory(data)
+            })
+            .catch((error) => console.error(error))
+    }, [])
 
     useEffect(() => {
         fetch('http://localhost:3001/resources/subrsrcs')
-            .then(response => response.json())
-            .then(data => {
+            .then((response) => response.json())
+            .then((data) => {
                 if (data.length > 0) {
                     const subList = data.slice(0, 3)
-                    setSubResource(subList);
+                    setSubResource(subList)
                 }
             })
-            .catch(error => console.error(error));
-    }, []);
+            .catch((error) => console.error(error))
+    }, [])
 
-    const currentStory = individualStory[0];
+    const currentStory = individualStory[0]
 
-    const date = moment(currentStory?.Date);
-    const formattedDate = date.format('MMM DD, YYYY');
+    const date = moment(currentStory?.Date)
+    const formattedDate = date.format('MMM DD, YYYY')
 
     return (
         <test>
-        <Banner imageUrl= {currentStory?.ImageUrl} />
-        <CardWrapper hidden={size}>
-            <Body>
-                <Header>
-                    <div id='category'>
-                        <StoryCategory>{currentStory?.GeneralCategory}</StoryCategory>
-                        <Date>{formattedDate}</Date>
-                    </div>
-                    <div>
-                        <Year id='year'>{currentStory?.StudentYear}</Year>
-                        {currentStory?.StudentMajor && <Major id='major'>{currentStory?.StudentMajor}</Major>}
-                    </div>
-                </Header>
-                <Cardstory>
-                    <Storytitle>
-                        {currentStory?.Title}
-                    </Storytitle>
-                    <Text>
-                        {currentStory?.ParagraphText}
-                    </Text>
-                </Cardstory>
-            </Body>
-        </CardWrapper>
+            <Banner imageUrl={currentStory?.ImageUrl} />
+            <CardWrapper hidden={size}>
+                <Body>
+                    <Header>
+                        <div id="category">
+                            <StoryCategory>
+                                {currentStory?.GeneralCategory}
+                            </StoryCategory>
+                            <Date>{formattedDate}</Date>
+                        </div>
+                        <div>
+                            <Year id="year">{currentStory?.StudentYear}</Year>
+                            {currentStory?.StudentMajor && (
+                                <Major id="major">
+                                    {currentStory?.StudentMajor}
+                                </Major>
+                            )}
+                        </div>
+                    </Header>
+                    <Cardstory>
+                        <Storytitle>{currentStory?.Title}</Storytitle>
+                        <Text>{currentStory?.ParagraphText}</Text>
+                    </Cardstory>
+                </Body>
+            </CardWrapper>
             <PopupResources>
                 <ResourcePageTileGroup
                     id="RelevantResources"
@@ -192,7 +194,6 @@ function StoryPopUp(props) {
             </PopupResources>
         </test>
     )
-
 }
 
-export default StoryPopUp;
+export default StoryPopUp

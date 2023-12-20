@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const CategoryTitle = styled.h2 `
+export const CategoryTitle = styled.h2`
     font-family: Poppins;
     font-size: 36px;
     font-style: normal;
@@ -11,4 +11,4 @@ export const CategoryTitle = styled.h2 `
     @media only screen and (max-width: 768px) {
         font-size: 20px;
     }
-`;
+`

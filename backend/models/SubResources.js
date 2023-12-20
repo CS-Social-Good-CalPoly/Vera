@@ -1,4 +1,4 @@
-const {model, Schema} = require('mongoose')
+const { model, Schema } = require('mongoose')
 
 // incomplete
 const SubResourceSchema = new Schema({
@@ -11,9 +11,13 @@ const SubResourceSchema = new Schema({
     ResourceIDList: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'individual-resources'
-        }
-    ]
+            ref: 'individual-resources',
+        },
+    ],
 })
 
-module.exports = model('resource-sub-category', SubResourceSchema, 'resource-sub-category')
+module.exports = model(
+    'resource-sub-category',
+    SubResourceSchema,
+    'resource-sub-category',
+)
