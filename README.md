@@ -75,7 +75,7 @@ The development workflow for The Vera Project is structured to ensure effective 
 6. **Make a Pull Request:**
    - When you're ready for us to look at your work, create a pull request (PR) on the project's repository.
    - Ensure that your PR provides as much detail as possible about the changes you've made.
-   - Link the PR with the issue you worked on.
+   - Link the PR with the issue you worked on (look for and click on "Development" on the right side of the screen).
    - Your PR will have to be approved by us before merging. If there are changes we request you to make, follow section 7.
 
 7. **Review and Make Edits:**
