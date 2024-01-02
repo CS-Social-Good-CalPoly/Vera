@@ -43,7 +43,45 @@ The development workflow for The Vera Project is structured to ensure effective 
 
 4. **Work on Your Task:**
    - Make changes in your local branch related to the task. We recommend committing your progress every now and then so that
-     if you, let's say, deleted all your code and exited your IDE...you would be able to recover your progress using Git.
+     if you, let's say, deleted all your code and exited your IDE...you would be able to recover your progress using Git. In case
+     this happens to you, here's some useful commands to know:
+     ```
+     git log
+     ```
+     Outputs the commit history of your branch.
+
+     ```
+     git reset --hard <Commit_Hash_Here>
+     ```
+     Allows you to restore a specific version of your code.
+
+   - **Running the code**
+     - Open two terminals in VSCode. In the first terminal, do the following:
+        ```
+        cd backend
+        ```
+        If your task required changes to anything in the models, routes, or app.js files, you
+        might need to also run the following command if you haven't applied the format-on-save shortcut:
+        ```
+        npm run format
+        ```
+        ```
+        npm start
+        ```
+     - In the second terminal, do the following:
+       ```
+       cd frontend
+       ```
+       ```
+       nvm use 16
+       ```
+       If you don't use format-on-save:
+       ```
+       npm run format
+       ```
+       ```
+       npm start
+       ```
 
 5. **Commit and Push Your Code:**
    - Once you've completed your task (including testing), commit your code and push it to the remote repository. Here's the whole shabang:
@@ -53,7 +91,7 @@ The development workflow for The Vera Project is structured to ensure effective 
        Make sure you are in the root directory of the repository (when you do `ls`, it should list directories like backend, vera-react-app, etc).
        This command is to be used for any file you created, modified, or deleted:
        ```
-       git add /path_to_file
+       git add <path_to_file_here>
        ```
        We recommend doing git add for each file, even if it is tedious. We know that `git add .` exists, but this might
        end up adding some files which are not meant to be pushed (package.json would be a good example).
