@@ -6,7 +6,8 @@
     "scripts": {
         "format": "prettier --write models/**/*.js routes/**/*.js app.js",
         "format:check": "prettier --check models/**/*.js routes/**/*.js app.js",
-        "start": "nodemon app.js"
+        "start": "nodemon app.js",
+        "build": "npm i"
     },
     "author": "",
     "license": "ISC",
