@@ -9,7 +9,11 @@ const app = express()
 const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
-app.use(cors({ origin: 'https://vera-backend.onrender.com' }))
+app.use(
+    cors({
+        origin: 'https://deployattempt3--tangerine-griffin-d9035a.netlify.app',
+    }),
+)
 
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
