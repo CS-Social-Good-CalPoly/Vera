@@ -20,7 +20,7 @@ function IndividualResourcePage() {
 
     useEffect(() => {
         fetch(
-            `http://localhost:3001/resources/individualResources?${individualIDsQueryParam}`,
+            `https://vera-backend.onrender.com/resources/individualResources?${individualIDsQueryParam}`,
         )
             .then((response) => response.json())
             .then((json) => {

@@ -133,7 +133,7 @@ function StoryPopUp(props) {
     const [individualStory, setindividualStory] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/stories/individualstory')
+        fetch('https://vera-backend.onrender.com/stories/individualstory')
             .then((response) => response.json())
             .then((data) => {
                 setindividualStory(data)
@@ -142,7 +142,7 @@ function StoryPopUp(props) {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3001/resources/subrsrcs')
+        fetch('https://vera-backend.onrender.com/resources/subrsrcs')
             .then((response) => response.json())
             .then((data) => {
                 if (data.length > 0) {

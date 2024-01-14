@@ -89,7 +89,7 @@ function StorySubmission() {
 
             try {
                 const response = fetch(
-                    'http://localhost:3001/stories/storysubmission',
+                    'https://vera-backend.onrender.com/stories/storysubmission',
                     {
                         method: 'POST',
                         headers: {
