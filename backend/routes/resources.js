@@ -12,7 +12,6 @@ router.get('/generalrsrcscat', async (req, res) => {
         const rsrc = await GenResources.find()
         res.json(rsrc)
     } catch (err) {
-        console.log('Error in endpoint!')
         res.status(500).json({ message: err.message })
     }
 })
