@@ -7,6 +7,7 @@ require('dotenv').config()
 
 const app = express()
 // const PORT = 3001
+// Render chooses a random port (usually 10000)
 const PORT = process.env.PORT || 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
