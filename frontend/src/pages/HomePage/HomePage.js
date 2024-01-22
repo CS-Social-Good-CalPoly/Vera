@@ -37,6 +37,7 @@ function HomePage() {
                 }, {})
                 setSubresourceDict(tempDict)
             })
+            .catch((error) => console.error(error))
     }, [])
 
     // Hook which executes fetch (GET) to the database and is only

@@ -12,7 +12,6 @@ function StoriesPage() {
 
     useEffect(() => {
         fetch('http://localhost:3001/stories/generalstorycat')
-            .then((response) => response.json())
             .then((json) => {
                 let tempArray = []
                 let tempNameToID = {}
@@ -40,6 +39,7 @@ function StoriesPage() {
                 }, {})
                 setStories(tempDict)
             })
+            .catch((error) => console.error(error))
     }, [])
 
     return (
