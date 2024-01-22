@@ -4,6 +4,7 @@ import {
     CategoryButtonGroup,
     StoryTileGroup,
 } from '../../components/components'
+import URL_PATH from '../../links'
 
 function StoriesPage() {
     const [stories, setStories] = useState([])
@@ -11,7 +12,10 @@ function StoriesPage() {
     const [categorNames, setCategorNames] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/stories/generalstorycat')
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = '/stories/generalstorycat'
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
                 let tempArray = []
@@ -28,7 +32,10 @@ function StoriesPage() {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3001/stories/individualstory')
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = '/stories/individualstory'
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
                 // Create a dictionary using subresource id as the key

@@ -4,6 +4,7 @@ import { ResourcePageTileGroup, Banner } from '../components.js'
 import styled from 'styled-components'
 import mockRelevantResourceData from './mockRelevantData.json'
 import moment from 'moment'
+import URL_PATH from '../../links'
 
 const Header = styled.div`
     font-size: 32px;
@@ -133,7 +134,10 @@ function StoryPopUp(props) {
     const [individualStory, setindividualStory] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/stories/individualstory')
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = '/stories/individualstory'
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((data) => {
                 setindividualStory(data)
@@ -142,7 +146,10 @@ function StoryPopUp(props) {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3001/resources/subrsrcs')
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = '/resources/subrsrcs'
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((data) => {
                 if (data.length > 0) {
