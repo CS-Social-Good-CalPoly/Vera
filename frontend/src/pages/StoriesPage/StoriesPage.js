@@ -11,7 +11,7 @@ function StoriesPage() {
     const [categorNames, setCategorNames] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/stories/generalstorycat')
+        fetch('https://vera-backend.onrender.com/stories/generalstorycat')
             .then((response) => response.json())
             .then((json) => {
                 let tempArray = []
@@ -28,7 +28,7 @@ function StoriesPage() {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3001/stories/individualstory')
+        fetch('https://vera-backend.onrender.com/stories/individualstory')
             .then((response) => response.json())
             .then((json) => {
                 // Create a dictionary using subresource id as the key

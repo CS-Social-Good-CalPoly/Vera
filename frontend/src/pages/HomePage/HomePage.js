@@ -25,7 +25,7 @@ function HomePage() {
     // This hook will execute before the other one.
     // It fetches the subrsrcs data and stores it into subresourceDict for later use.
     useEffect(() => {
-        fetch('http://localhost:3001/resources/subrsrcs')
+        fetch('https://vera-backend.onrender.com/resources/subrsrcs')
             .then((response) => response.json())
             .then((json) => {
                 // Create a dictionary using subresource id as the key
@@ -42,7 +42,7 @@ function HomePage() {
     // Hook which executes fetch (GET) to the database and is only
     // run upon the very first render of the website.
     useEffect(() => {
-        fetch('http://localhost:3001/resources/generalrsrcscat')
+        fetch('https://vera-backend.onrender.com/resources/generalrsrcscat')
             .then((response) => response.json())
             .then((json) => {
                 let tempArray = []
