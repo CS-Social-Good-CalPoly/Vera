@@ -47,14 +47,10 @@ function HomePage() {
     // Hook which executes fetch (GET) to the database and is only
     // run upon the very first render of the website.
     useEffect(() => {
-<<<<<<< HEAD
-        fetch('https://vera-backend.onrender.com/resources/generalrsrcscat')
-=======
         // URL_PATH imported from frontend/src/links.js
         // combined with subdirectory to make the full URL
         const subdirectory = '/resources/generalrsrcscat'
         fetch(URL_PATH + subdirectory)
->>>>>>> edf5534c70c39a472a2090cf8f4ed8159f2d8595
             .then((response) => response.json())
             .then((json) => {
                 let tempArray = []
