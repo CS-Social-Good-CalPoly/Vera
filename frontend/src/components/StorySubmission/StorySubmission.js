@@ -16,6 +16,7 @@ function StorySubmission() {
         College: college,
         Major: major,
         Description: quillValue,
+        Title: title
     }
 
     const handleTitleKeyPress = (e) => {
@@ -77,7 +78,7 @@ function StorySubmission() {
             alert('Thank you for your submission!')
 
             const data = {
-                Title: 'My Story Title',
+                Title: values.Title,
                 ParagraphText: values.Description,
                 Date: new Date(),
                 StudentMajor: values.Major,
