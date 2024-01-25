@@ -3,7 +3,7 @@ name: Replace Localhost URLs
 on:
   push:
     branches:
-      - AddWorkflow
+      - main
 
 jobs:
   replace-localhost-urls:
