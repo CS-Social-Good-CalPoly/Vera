@@ -3,6 +3,7 @@ import { DropDownForm, DropDownOptionalForm } from '../components'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
+import URL_PATH from '../../links'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -16,6 +17,7 @@ function StorySubmission() {
         College: college,
         Major: major,
         Description: quillValue,
+        Title: title,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -77,7 +79,7 @@ function StorySubmission() {
             alert('Thank you for your submission!')
 
             const data = {
-                Title: 'My Story Title',
+                Title: values.Title,
                 ParagraphText: values.Description,
                 Date: new Date(),
                 StudentMajor: values.Major,
@@ -88,16 +90,16 @@ function StorySubmission() {
             console.log(data)
 
             try {
-                const response = fetch(
-                    'https://vera-backend.onrender.com/stories/storysubmission',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
+                // URL_PATH imported from frontend/src/links.js
+                // combined with subdirectory to make the full URL
+                const subdirectory = '/stories/storysubmission'
+                const response = fetch(URL_PATH + subdirectory, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
-                )
+                    body: JSON.stringify(data),
+                })
 
                 const responseData = response.json()
                 console.log('Server response:', responseData)

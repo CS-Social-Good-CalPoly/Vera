@@ -19,7 +19,7 @@ jobs:
 
       - name: Replace localhost in frontend
         run: |
-          find frontend -type f -name "*.js" -exec sed -i 's|http://localhost:3001|https://vera-backend.onrender.com|g' {} +
+          perl -i -pe 's|const URL_PATH = PROTOCOL \+ '\''://'\'' \+ HOSTNAME \+ '\''\:'\'' \+ PORT|const URL_PATH = '\''https://vera-backend.onrender.com'\''|s' frontend/src/links.js
 
       - name: Commit and push changes
         run: |

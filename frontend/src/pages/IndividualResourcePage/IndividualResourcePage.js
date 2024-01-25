@@ -6,6 +6,7 @@ import {
     TextBlock,
 } from '../../components/components'
 import { useLocation } from 'react-router-dom'
+import URL_PATH from '../../links'
 
 function IndividualResourcePage() {
     const location = useLocation()
@@ -19,9 +20,10 @@ function IndividualResourcePage() {
     const [resourceList, setResourceList] = useState([])
 
     useEffect(() => {
-        fetch(
-            `https://vera-backend.onrender.com/resources/individualResources?${individualIDsQueryParam}`,
-        )
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = `/resources/individualResources?${individualIDsQueryParam}`
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
                 let tempDict = {}
