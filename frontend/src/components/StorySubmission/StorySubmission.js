@@ -17,7 +17,7 @@ function StorySubmission() {
         College: college,
         Major: major,
         Description: quillValue,
-        Title: title
+        Title: title,
     }
 
     const handleTitleKeyPress = (e) => {
