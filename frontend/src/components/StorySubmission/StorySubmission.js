@@ -1,83 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import { DropDownForm, DropDownOptionalForm } from '../components'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
-import './StorySubmission.css'
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { DropDownForm, DropDownOptionalForm } from '../components';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './StorySubmission.css';
 const cheerio = require('cheerio');
+// const scrapeWebsite = require('./scrapeWebsite.cjs');
 
 function StorySubmission() {
-    const [year, setYear] = useState('')
-    const [college, setCollege] = useState('')
-    const [major, setMajor] = useState('')
-    const [quillValue, setQuillValue] = useState('')
-    const [title, setTitleValue] = useState('')
+    const [year, setYear] = useState('');
+    const [college, setCollege] = useState('');
+    const [major, setMajor] = useState('');
+    const [quillValue, setQuillValue] = useState('');
+    const [title, setTitleValue] = useState('');
     const [collegeList, setCollegeList] = useState([]);
-
-
-    // const cheerio = require("cheerio")
-    // const axios = require("axios")
 
     const values = {
         Year: year,
         College: college,
         Major: major,
         Description: quillValue,
-    }
+    };
 
     const handleTitleKeyPress = (e) => {
-        setTitleValue(e.target.value)
-    }
+        setTitleValue(e.target.value);
+    };
 
     const handleYearChange = (e) => {
-        setYear(e)
-    }
+        setYear(e);
+    };
 
     const handleCollegeChange = (e) => {
-        setCollege(e)
-    }
+        setCollege(e);
+    };
 
     const handleTitleChange = (e) => {
-        setTitleValue(e.target.value)
-    }
+        setTitleValue(e.target.value);
+    };
 
     const handleMajorChange = (e) => {
-        console.log(e)
-        setMajor(e)
-    }
-
-    const fetchCollegeList = async () => {
-        try {
-            const response = await axios.get('https://www.calpoly.edu/colleges-departments-and-majors');
-            const htmlContent = response.data;
-            console.log("HTML Content:", htmlContent); // Log HTML content for troubleshooting
-            const $ = cheerio.load(htmlContent);
-            const colleges = [];
-            $('h2[data-gtm-vis-first-on-screen40381968_93][data-gtm-vis-total-visible-time40381968_93="100"][data-gtm-vis-has-fired40381968_93="1"]').each((index, element) => {
-                colleges.push($(element).text().trim());
-            });
-            setCollegeList(colleges);
-            console.log("Colleges:", colleges); // Log colleges for troubleshooting
-        } catch (error) {
-            console.error('Error fetching college list:', error);
-        }
+        console.log(e);
+        setMajor(e);
     };
-    
 
-
-    useEffect(() => {
-        fetchCollegeList();
-    }, []);
-
-    // const collegeList = [
-    //     'Agriculture, Food and Environmental Sciences',
-    //     'Architecture and Environmental Design',
-    //     'Engineering',
-    //     'Liberal Arts',
-    //     'Science and Mathematics',
-    //     'Liberal Arts',
-    //     'Business',
-    // ]
+    // useEffect(() => {
+    //     scrapeWebsite('https://www.calpoly.edu/colleges-departments-and-majors')
+    //         .then(colleges => {
+    //             setCollegeList(colleges);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }, []);
 
     const yearList = [
         '1st Year',
@@ -85,9 +58,9 @@ function StorySubmission() {
         '3rd Year',
         '4th Year',
         '5th+ Year',
-    ]
+    ];
 
-    const majorList = ['CSC', 'SE', 'Other']
+    const majorList = ['CSC', 'SE', 'Other'];
 
     function verifySubmission(e) {
         // if an option is selected, the value is stored as 1 at the moment
@@ -202,4 +175,4 @@ function StorySubmission() {
     )
 }
 
-export default StorySubmission
+export default StorySubmission;
