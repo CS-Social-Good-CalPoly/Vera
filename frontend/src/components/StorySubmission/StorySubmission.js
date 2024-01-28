@@ -3,6 +3,8 @@ import { DropDownForm, DropDownOptionalForm } from '../components'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
+import axios from 'axios';
+const cheerio = require('cheerio');
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -10,6 +12,11 @@ function StorySubmission() {
     const [major, setMajor] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
+    const [collegeList, setCollegeList] = useState([]);
+
+
+    // const cheerio = require("cheerio")
+    // const axios = require("axios")
 
     const values = {
         Year: year,
@@ -39,15 +46,38 @@ function StorySubmission() {
         setMajor(e)
     }
 
-    const collegeList = [
-        'Agriculture, Food and Environmental Sciences',
-        'Architecture and Environmental Design',
-        'Engineering',
-        'Liberal Arts',
-        'Science and Mathematics',
-        'Liberal Arts',
-        'Business',
-    ]
+    const fetchCollegeList = async () => {
+        try {
+            const response = await axios.get('https://www.calpoly.edu/colleges-departments-and-majors');
+            const htmlContent = response.data;
+            console.log("HTML Content:", htmlContent); // Log HTML content for troubleshooting
+            const $ = cheerio.load(htmlContent);
+            const colleges = [];
+            $('h2[data-gtm-vis-first-on-screen40381968_93][data-gtm-vis-total-visible-time40381968_93="100"][data-gtm-vis-has-fired40381968_93="1"]').each((index, element) => {
+                colleges.push($(element).text().trim());
+            });
+            setCollegeList(colleges);
+            console.log("Colleges:", colleges); // Log colleges for troubleshooting
+        } catch (error) {
+            console.error('Error fetching college list:', error);
+        }
+    };
+    
+
+
+    useEffect(() => {
+        fetchCollegeList();
+    }, []);
+
+    // const collegeList = [
+    //     'Agriculture, Food and Environmental Sciences',
+    //     'Architecture and Environmental Design',
+    //     'Engineering',
+    //     'Liberal Arts',
+    //     'Science and Mathematics',
+    //     'Liberal Arts',
+    //     'Business',
+    // ]
 
     const yearList = [
         '1st Year',
@@ -63,19 +93,20 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    function handlePost(e) {
+    async function handlePost(e) {
+        e.preventDefault();
         if (
             year === '' ||
             college === '' ||
             quillValue === '' ||
             title === ''
         ) {
-            alert('Complete missing fields')
-            e.preventDefault()
-            console.log('Missing info')
-        } else {
-            alert('Thank you for your submission!')
-
+            alert('Complete missing fields');
+            console.log('Missing info');
+            return;
+        }
+    
+        try {
             const data = {
                 Title: 'My Story Title',
                 ParagraphText: values.Description,
@@ -83,29 +114,25 @@ function StorySubmission() {
                 StudentMajor: values.Major,
                 StudentCollege: values.College,
                 StudentYear: values.Year,
-            }
-
-            console.log(data)
-
-            try {
-                const response = fetch(
-                    'http://localhost:3001/stories/storysubmission',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    },
-                )
-
-                const responseData = response.json()
-                console.log('Server response:', responseData)
-            } catch (err) {
-                console.error(err)
-            }
+            };
+    
+            const response = await fetch('http://localhost:3001/stories/storysubmission', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const responseData = await response.json();
+            console.log('Server response:', responseData);
+            alert('Thank you for your submission!');
+        } catch (err) {
+            console.error('Error submitting data:', err);
+            alert('Error submitting data. Please try again later.');
         }
     }
+    
 
     return (
         <div>
