@@ -61,6 +61,7 @@ router.post('/storysubmission', async (req, res) => {
     try {
         const savedStory = await newStory.save()
         res.status(201).json(savedStory)
+        console.log('came here')
     } catch (err) {
         res.status(400).json({ message: err.message })
     }
