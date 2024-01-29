@@ -6,9 +6,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .banner-img {
-    height: 190px;
-  }
+    .banner-img {
+        height: 190px;
+    }
 }
 
 #dropdown-optional {
@@ -21,29 +21,26 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     width: 100%;
-    color: #bfbfbf;
+    color: #534d49;
     border-color: white;
     /* margin: 10% 0px 0px 0px; */
-    
+
     margin: 0px 0px 7% 0px;
-    
-  
-    background: white!important;
+
+    background: white !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-  
+
     /* border-right: 15px solid transparent;
     border-left: 0px solid transparent;
     border-top: 0px solid transparent; */
 
-    border: .5px solid rgba(0, 0, 0, 0.25);
-  
+    border: 0.5px solid rgba(0, 0, 0, 0.25);
+
     text-overflow: ellipsis;
+}
 
-
-  }
-
-  #options {
+#options {
     padding: 3px;
     padding-left: 20px;
     font-family: 'Poppins';
@@ -53,21 +50,18 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     width: 100%;
-    color: #534D49;
+    color: #534d49;
     border-color: white;
-    
-  
-    background: white!important;
+
+    background: white !important;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-  
+
     /* border-right: 15px solid transparent;
     border-left: 0px solid transparent;
     border-top: 0px solid transparent; */
 
-    border: .5px solid rgba(0, 0, 0, 0.25);
-  
+    border: 0.5px solid rgba(0, 0, 0, 0.25);
+
     text-overflow: ellipsis;
-
-
-  }
+}
