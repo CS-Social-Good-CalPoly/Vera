@@ -58,10 +58,13 @@ function IndividualResourceTileCollapsed(props) {
                 setMaxContainerWidthPx(2000)
             }
         }
-
-        window.addEventListener('resize', handleResize)
-        handleResize()
-        return () => window.removeEventListener('resize', handleResize)
+        try {
+            window.addEventListener('resize', handleResize)
+            handleResize()
+            return () => window.removeEventListener('resize', handleResize)
+        } catch (err) {
+            console.error(err)
+        }
     })
 
     return (
