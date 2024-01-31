@@ -1,5 +1,4 @@
 const express = require('express')
-// const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
 const cors = require('cors')
@@ -9,7 +8,12 @@ const app = express()
 const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
-app.use(cors({ origin: 'https://vera-backend.onrender.com' }))
+// Allow localhost to make requests to the backend
+app.use(cors({ origin: 'http://localhost:3000' }))
+
+// Allow main and preview netlify URLs to make requests to the backend
+const allowNetlify = /calpolyvera\.netlify\.app/
+app.use(cors({ origin: allowNetlify }))
 
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
