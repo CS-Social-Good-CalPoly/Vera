@@ -4,13 +4,7 @@ const TruncateText = ({ text, factor, maxLines, containerWidth }) => {
     const [truncatedText, setTruncatedText] = useState('')
 
     useEffect(() => {
-        try {
-            setTruncatedText(
-                truncateText(text, factor, maxLines, containerWidth),
-            )
-        } catch (err) {
-            console.error(err)
-        }
+        setTruncatedText(truncateText(text, factor, maxLines, containerWidth))
     }, [text, factor, maxLines, containerWidth])
 
     const truncateText = (text, factor, maxLines, containerWidth) => {

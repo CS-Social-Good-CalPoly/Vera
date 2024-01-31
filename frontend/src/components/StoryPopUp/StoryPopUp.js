@@ -142,7 +142,7 @@ function StoryPopUp(props) {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:3001/resources/subrsrcs')
+        fetch('http://localhost:3001/resources222/subrsrcs')
             .then((response) => response.json())
             .then((data) => {
                 if (data.length > 0) {
