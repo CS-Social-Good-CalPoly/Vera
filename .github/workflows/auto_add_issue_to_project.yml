@@ -1,0 +1,25 @@
+name: Auto Add Issue to Project
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Add to Project
+        run: |
+          ISSUE_NUMBER=$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")
+          PROJECT_COLUMN_ID="19665339"
+
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+            -H "Accept: application/vnd.github.inertia-preview+json" \
+            "https://api.github.com/projects/columns/cards" \
+            -d "{\"content_id\": $ISSUE_NUMBER, \"content_type\": \"Issue\"}"
