@@ -8,12 +8,11 @@ const app = express()
 const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
-// Allow localhost to make requests to the backend
-app.use(cors({ origin: 'http://localhost:3000' }))
+const corsOptions = {
+    origin: ['http://localhost:3000', /calpolyvera\.netlify\.app/],
+}
 
-// Allow main and preview netlify URLs to make requests to the backend
-const allowNetlify = /calpolyvera\.netlify\.app/
-app.use(cors({ origin: allowNetlify }))
+app.use(cors(corsOptions))
 
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
@@ -21,7 +20,6 @@ const storyRoutes = require('./routes/stories')
 // Middleware || routes
 app.use(bodyparser.json())
 app.use(express.json())
-app.use(cors())
 
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
