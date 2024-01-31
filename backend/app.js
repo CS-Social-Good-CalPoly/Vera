@@ -12,7 +12,7 @@ const DB_CONNECTION = process.env.DB_CONNECTION
 app.use(cors({ origin: 'http://localhost:3000' }))
 
 // Allow main and preview netlify URLs to make requests to the backend
-const allowNetlify = /https:\/\/.*calpolyvera\.netlify\.app.*/
+const allowNetlify = /calpolyvera\.netlify\.app/
 app.use(cors({ origin: allowNetlify }))
 
 const resourceRoutes = require('./routes/resources')
