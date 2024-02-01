@@ -3,7 +3,9 @@ import { DropDownForm, DropDownOptionalForm } from '../components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './StorySubmission.css';
-const cheerio = require('cheerio');
+import axios from 'axios';
+import cheerio from 'cheerio';
+// const cheerio = require('cheerio');
 // const scrapeWebsite = require('./scrapeWebsite.cjs');
 
 function StorySubmission() {
@@ -13,6 +15,7 @@ function StorySubmission() {
     const [quillValue, setQuillValue] = useState('');
     const [title, setTitleValue] = useState('');
     const [collegeList, setCollegeList] = useState([]);
+    const [majorList, setMajorList] = useState([]);
 
     const values = {
         Year: year,
@@ -38,19 +41,43 @@ function StorySubmission() {
     };
 
     const handleMajorChange = (e) => {
-        console.log(e);
         setMajor(e);
     };
 
-    // useEffect(() => {
-    //     scrapeWebsite('https://www.calpoly.edu/colleges-departments-and-majors')
-    //         .then(colleges => {
-    //             setCollegeList(colleges);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //         });
-    // }, []);
+    useEffect(() => {
+    axios.get('https://www.calpoly.edu/colleges-departments-and-majors')
+    .then(res => {
+    const $ = cheerio.load(res.data);
+    const college_lst = [];
+    const major_lst = [];
+
+    // Select each h2 tag
+    $('h2').each((index, element) => {
+        // Get the text content of the h2 tag
+        const h2Text = $(element).text();
+        
+        // Check if the text content contains the word "college"
+        if (h2Text.toLowerCase().includes('college')) {
+            college_lst.push(h2Text);
+        }
+    });
+    setCollegeList(college_lst);
+
+    $('a').each((index, element) => {
+        // Get the text content of the h2 tag
+        const aText = $(element).text();
+        
+        // Check if the text content contains the word "college"
+        if (aText.toLowerCase().includes('major') && aText !== "Find a major") {
+            console.log(aText);
+            major_lst.push(aText);
+        }
+    });
+    setMajorList(major_lst);
+
+    })
+    .catch(err => console.error(err));
+    }, []);
 
     const yearList = [
         '1st Year',
@@ -59,8 +86,6 @@ function StorySubmission() {
         '4th Year',
         '5th+ Year',
     ];
-
-    const majorList = ['CSC', 'SE', 'Other'];
 
     function verifySubmission(e) {
         // if an option is selected, the value is stored as 1 at the moment
