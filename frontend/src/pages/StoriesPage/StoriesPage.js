@@ -47,6 +47,7 @@ function StoriesPage() {
                 }, {})
                 setStories(tempDict)
             })
+            .catch((error) => console.error(error))
     }, [])
 
     return (

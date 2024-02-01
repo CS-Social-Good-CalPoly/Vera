@@ -58,7 +58,6 @@ function ResourcePageTile(props) {
                 setMaxContainerWidthPx(2000)
             }
         }
-
         window.addEventListener('resize', handleResize)
         handleResize()
         return () => window.removeEventListener('resize', handleResize)
