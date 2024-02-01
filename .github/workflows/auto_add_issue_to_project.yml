@@ -1,25 +1,15 @@
-name: Auto Add Issue to Project
+name: Move new issues into Backlog
 
 on:
   issues:
-    types:
-      - opened
+    types: [opened]
 
 jobs:
-  add-to-project:
+  automate-project-columns:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Add to Project
-        run: |
-          ISSUE_NUMBER=$(jq --raw-output .issue.number "$GITHUB_EVENT_PATH")
-          PROJECT_COLUMN_ID="19665339"
-
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GH_TOKEN }}" \
-            -H "Accept: application/vnd.github.inertia-preview+json" \
-            "https://api.github.com/projects/columns/cards" \
-            -d "{\"content_id\": $ISSUE_NUMBER, \"content_type\": \"Issue\"}"
+      - uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          project: Vera 2023-2024
+          column: Backlog
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
