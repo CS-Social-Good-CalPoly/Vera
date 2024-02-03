@@ -1,0 +1,26 @@
+name: Replace Localhost URLs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  replace-localhost-urls:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Replace localhost in frontend
+        run: |
+          perl -i -pe 's|const URL_PATH = PROTOCOL \+ '\''://'\'' \+ HOSTNAME \+ '\''\:'\'' \+ PORT|const URL_PATH = '\''https://vera-backend.onrender.com'\''|s' frontend/src/links.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "Replace localhost URLs with https://vera-backend.onrender.com" || true
+          git push

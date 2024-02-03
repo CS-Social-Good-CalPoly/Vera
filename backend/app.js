@@ -1,5 +1,4 @@
 const express = require('express')
-// const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
 const cors = require('cors')
@@ -9,7 +8,11 @@ const app = express()
 const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
 
-app.use(cors({ origin: 'http://localhost:3000' }))
+const corsOptions = {
+    origin: ['http://localhost:3000', /calpolyvera\.netlify\.app/],
+}
+
+app.use(cors(corsOptions))
 
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
@@ -17,7 +20,6 @@ const storyRoutes = require('./routes/stories')
 // Middleware || routes
 app.use(bodyparser.json())
 app.use(express.json())
-app.use(cors())
 
 // a link to seperated routes
 app.use('/resources', resourceRoutes)

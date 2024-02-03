@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react'
 
 const TruncateText = ({ text, factor, maxLines, containerWidth }) => {
-    const [truncatedText, setTruncatedText] = useState("")
+    const [truncatedText, setTruncatedText] = useState('')
 
     useEffect(() => {
         setTruncatedText(truncateText(text, factor, maxLines, containerWidth))
     }, [text, factor, maxLines, containerWidth])
 
     const truncateText = (text, factor, maxLines, containerWidth) => {
-
         const maxLineWidth = containerWidth / factor // Factor is kind of like average char width
-        const words = text.split(" ")
+        const words = text.split(' ')
 
         let lineCount = 1
         let charsCount = 0
-        let truncated = ""
+        let truncated = ''
 
         for (const word of words) {
             const wordLength = word.length
@@ -23,14 +22,13 @@ const TruncateText = ({ text, factor, maxLines, containerWidth }) => {
                 lineCount += 1
 
                 if (lineCount > maxLines) {
-                    truncated = truncated.trim() + "..."
+                    truncated = truncated.trim() + '...'
                     break
                 }
-
             }
-            
+
             if (truncated.length > 0) {
-                truncated += " "
+                truncated += ' '
             }
 
             truncated += word
@@ -41,8 +39,6 @@ const TruncateText = ({ text, factor, maxLines, containerWidth }) => {
     }
 
     return truncatedText
-        
-   
 }
 
 export default TruncateText

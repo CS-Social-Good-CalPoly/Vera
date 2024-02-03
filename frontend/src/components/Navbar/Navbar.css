@@ -56,9 +56,13 @@ button:focus{
     color: #4A6E82;
 }
 
-.navbar-links:after{
-    color: #4A6E82;
-}
+
+/*.navbar-links:active:after{
+     text-decoration: underline;
+     color: red;
+} 
+this is what i tried but it didn't actually do anything
+*/
 
 @media only screen and (min-width: 768px) {
 

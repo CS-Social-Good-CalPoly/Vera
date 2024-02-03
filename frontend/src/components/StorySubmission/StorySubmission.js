@@ -5,8 +5,8 @@ import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
 import axios from 'axios'
 import cheerio from 'cheerio'
-// const cheerio = require('cheerio');
-// const scrapeWebsite = require('./scrapeWebsite.cjs');
+import URL_PATH from '../../links'
+
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -22,6 +22,7 @@ function StorySubmission() {
         College: college,
         Major: major,
         Description: quillValue,
+        Title: title,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -109,7 +110,7 @@ function StorySubmission() {
 
         try {
             const data = {
-                Title: 'My Story Title',
+                Title: values.Title,
                 ParagraphText: values.Description,
                 Date: new Date(),
                 StudentMajor: values.Major,
@@ -117,16 +118,20 @@ function StorySubmission() {
                 StudentYear: values.Year,
             }
 
-            const response = await fetch(
-                'http://localhost:3001/stories/storysubmission',
-                {
+            console.log(data)
+
+            try {
+                // URL_PATH imported from frontend/src/links.js
+                // combined with subdirectory to make the full URL
+                const subdirectory = '/stories/storysubmission'
+                const response = fetch(URL_PATH + subdirectory, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data),
-                },
-            )
+
+                })
 
             const responseData = await response.json()
             console.log('Server response:', responseData)

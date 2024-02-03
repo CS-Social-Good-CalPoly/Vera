@@ -7,6 +7,8 @@ import {
     CategoryButtonGroup,
     ResourcePageTileGroup,
 } from '../../components/components'
+import '../../links'
+import URL_PATH from '../../links'
 
 function HomePage() {
     // Hook to keep track of the categories to be loaded from the database.
@@ -25,7 +27,10 @@ function HomePage() {
     // This hook will execute before the other one.
     // It fetches the subrsrcs data and stores it into subresourceDict for later use.
     useEffect(() => {
-        fetch('http://localhost:3001/resources/subrsrcs')
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = '/resources/subrsrcs'
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
                 // Create a dictionary using subresource id as the key
@@ -37,12 +42,16 @@ function HomePage() {
                 }, {})
                 setSubresourceDict(tempDict)
             })
+            .catch((error) => console.error(error))
     }, [])
 
     // Hook which executes fetch (GET) to the database and is only
     // run upon the very first render of the website.
     useEffect(() => {
-        fetch('http://localhost:3001/resources/generalrsrcscat')
+        // URL_PATH imported from frontend/src/links.js
+        // combined with subdirectory to make the full URL
+        const subdirectory = '/resources/generalrsrcscat'
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
                 let tempArray = []
