@@ -7,7 +7,6 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 import URL_PATH from '../../links'
 
-
 function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
@@ -95,8 +94,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    async function handlePost(e) {
-        e.preventDefault()
+    function handlePost(e) {
         if (
             year === '' ||
             college === '' ||
@@ -104,11 +102,11 @@ function StorySubmission() {
             title === ''
         ) {
             alert('Complete missing fields')
+            e.preventDefault()
             console.log('Missing info')
-            return
-        }
+        } else {
+            alert('Thank you for your submission!')
 
-        try {
             const data = {
                 Title: values.Title,
                 ParagraphText: values.Description,
@@ -130,15 +128,13 @@ function StorySubmission() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data),
-
                 })
 
-            const responseData = await response.json()
-            console.log('Server response:', responseData)
-            alert('Thank you for your submission!')
-        } catch (err) {
-            console.error('Error submitting data:', err)
-            alert('Error submitting data. Please try again later.')
+                const responseData = response.json()
+                console.log('Server response:', responseData)
+            } catch (err) {
+                console.error(err)
+            }
         }
     }
 
