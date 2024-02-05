@@ -164,7 +164,6 @@ p.resource-tile-expanded-to-expect {
 
     img.resource-tile-expanded-img {
         object-fit: contain;
-        /* object-fit: cover; */
         width: 100%;
         height: auto;
         border-radius: 15px 0 0 15px;
