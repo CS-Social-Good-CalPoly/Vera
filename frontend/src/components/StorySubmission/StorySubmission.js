@@ -3,9 +3,6 @@ import { DropDownForm, DropDownOptionalForm } from '../components'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
-import axios from 'axios'
-import cheerio from 'cheerio'
-import URL_PATH from '../../links'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -13,15 +10,14 @@ function StorySubmission() {
     const [major, setMajor] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
-    const [collegeList, setCollegeList] = useState([])
-    const [majorList, setMajorList] = useState([])
+    const [category, setCategory] = useState([])
 
     const values = {
         Year: year,
         College: college,
         Major: major,
         Description: quillValue,
-        Title: title,
+        Category: category
     }
 
     const handleTitleKeyPress = (e) => {
@@ -36,51 +32,33 @@ function StorySubmission() {
         setCollege(e)
     }
 
+    const handleCategoryChange = (e) => {
+        setCollege(e)
+    }
+
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
     }
 
     const handleMajorChange = (e) => {
+        console.log(e)
         setMajor(e)
     }
 
-    useEffect(() => {
-        axios
-            .get('https://www.calpoly.edu/colleges-departments-and-majors')
-            .then((res) => {
-                const $ = cheerio.load(res.data)
-                const college_lst = []
-                const major_lst = []
+    const collegeList = [
+        'Agriculture, Food and Environmental Sciences',
+        'Architecture and Environmental Design',
+        'Engineering',
+        'Liberal Arts',
+        'Science and Mathematics',
+        'Liberal Arts',
+        'Business',
+    ]
 
-                // Select each h2 tag
-                $('h2').each((index, element) => {
-                    // Get the text content of the h2 tag
-                    const h2Text = $(element).text()
-
-                    // Check if the text content contains the word "college"
-                    if (h2Text.toLowerCase().includes('college')) {
-                        college_lst.push(h2Text)
-                    }
-                })
-                setCollegeList(college_lst)
-
-                $('a').each((index, element) => {
-                    // Get the text content of the h2 tag
-                    const aText = $(element).text()
-
-                    // Check if the text content contains the word "college"
-                    if (
-                        aText.toLowerCase().includes('major') &&
-                        aText !== 'Find a major'
-                    ) {
-                        console.log(aText)
-                        major_lst.push(aText)
-                    }
-                })
-                setMajorList(major_lst)
-            })
-            .catch((err) => console.error(err))
-    }, [])
+    const categoryList = [
+        'School',
+        'Family',
+    ]
 
     const yearList = [
         '1st Year',
@@ -89,6 +67,8 @@ function StorySubmission() {
         '4th Year',
         '5th+ Year',
     ]
+
+    const majorList = ['CSC', 'SE', 'Other']
 
     function verifySubmission(e) {
         // if an option is selected, the value is stored as 1 at the moment
@@ -108,7 +88,7 @@ function StorySubmission() {
             alert('Thank you for your submission!')
 
             const data = {
-                Title: values.Title,
+                Title: 'My Story Title',
                 ParagraphText: values.Description,
                 Date: new Date(),
                 StudentMajor: values.Major,
@@ -119,16 +99,16 @@ function StorySubmission() {
             console.log(data)
 
             try {
-                // URL_PATH imported from frontend/src/links.js
-                // combined with subdirectory to make the full URL
-                const subdirectory = '/stories/storysubmission'
-                const response = fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
+                const response = fetch(
+                    'http://localhost:3001/stories/storysubmission',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
                     },
-                    body: JSON.stringify(data),
-                })
+                )
 
                 const responseData = response.json()
                 console.log('Server response:', responseData)
@@ -161,6 +141,7 @@ function StorySubmission() {
                                     handleChange={handleCollegeChange}
                                 />
                             </div>
+
                         </div>
                         <div class="inner-container-box">
                             <DropDownOptionalForm
@@ -168,6 +149,13 @@ function StorySubmission() {
                                 myoptions={majorList}
                                 handleChange={handleMajorChange}
                             />
+                            <div>
+                                <DropDownForm
+                                    fieldTitle="Category"
+                                    myoptions={categoryList}
+                                    handleChange={handleCategoryChange}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="description-box">
