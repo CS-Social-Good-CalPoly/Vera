@@ -15,6 +15,7 @@ function StorySubmission() {
     const [title, setTitleValue] = useState('')
     const [collegeList, setCollegeList] = useState([])
     const [majorList, setMajorList] = useState([])
+    const [category, setCategory] = useState([])
 
     const values = {
         Year: year,
@@ -22,6 +23,7 @@ function StorySubmission() {
         Major: major,
         Description: quillValue,
         Title: title,
+        Category: category,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -34,6 +36,10 @@ function StorySubmission() {
 
     const handleCollegeChange = (e) => {
         setCollege(e)
+    }
+
+    const handleCategoryChange = (e) => {
+        setCategory(e)
     }
 
     const handleTitleChange = (e) => {
@@ -88,6 +94,10 @@ function StorySubmission() {
         '3rd Year',
         '4th Year',
         '5th+ Year',
+    ]
+    const categoryList = [
+        'School',
+        'Family',
     ]
 
     function verifySubmission(e) {
@@ -168,6 +178,13 @@ function StorySubmission() {
                                 myoptions={majorList}
                                 handleChange={handleMajorChange}
                             />
+                             <div>
+                                <DropDownForm
+                                    fieldTitle="Category"
+                                    myoptions={categoryList}
+                                    handleChange={handleCategoryChange}
+                                />
+                            </div>
                         </div>
                     </div>
                     <div className="description-box">
