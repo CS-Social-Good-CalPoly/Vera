@@ -1,192 +1,199 @@
 .resource-tile-expanded {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  background: #ffffff;
-  box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-  border-radius: 15px;
-  width: unset;
-  padding: 0;
-  position: relative;
-  margin: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    background: #ffffff;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    border-radius: 15px;
+    width: unset;
+    padding: 0;
+    position: relative;
+    margin: 1rem;
 }
 
 .resource-tile-expanded-text {
-  display: flex;
-  flex-direction: column;
-  padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
 }
 
 .resource-tile-expanded-text-title {
-  margin-top: 0.5rem;
-  font-weight: 600;
-  font-size: 18px;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 18px;
 
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 
-  color: #0d2020;
+    color: #0d2020;
 }
 
 .resource-tile-expanded-text-location {
-  font-weight: normal;
-  letter-spacing: 0.05em;
-  text-transform: capitalize;
-  color: #0d2020;
-  margin-bottom: 0.5rem;
-  margin-top: 0.5rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #0d2020;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .resource-tile-expanded-text-location p {
-  font-size: 12px;
-  margin-bottom: 6px;
+    font-size: 12px;
+    margin-bottom: 6px;
 }
 
 .resource-tile-expanded-text-description {
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
-  line-height: 26px;
-  letter-spacing: 0.02em;
-  text-transform: lowercase;
-  color: #4a6e82;
-  margin-bottom: 0;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 26px;
+    letter-spacing: 0.02em;
+    text-transform: lowercase;
+    color: #4a6e82;
+    margin-bottom: 0;
 }
 
 .resource-tile-expanded-text-hours {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 26px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 26px;
 
-  letter-spacing: 0.05em;
-  text-transform: capitalize;
-  display: flex;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    display: flex;
 
-  color: #4a6e82;
+    color: #4a6e82;
 }
 
 .resource-tile-expanded-text-hours-item-container {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
 }
 
 .resource-tile-expanded-text-hours-item {
-  font-size: 14px;
-  line-height: 26px;
-  margin-bottom: 0;
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 0;
 }
 
 .resource-tile-expanded-text-phone {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 26px;
-  margin-top: 1rem;
-  margin-bottom: 0;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 26px;
+    margin-top: 1rem;
+    margin-bottom: 0;
 
-  letter-spacing: 0.05em;
-  text-transform: capitalize;
-  color: #4a6e82;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    color: #4a6e82;
 }
 
 p.resource-tile-expanded-to-expect {
-  font-size: 14px;
-  margin-top: 1rem;
-  margin-bottom: 5px;
+    font-size: 14px;
+    margin-top: 1rem;
+    margin-bottom: 5px;
 }
 
 .resource-tile-expanded-to-expect {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.05em;
-  text-transform: capitalize;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
 }
 .resource-tile-expanded-to-expect-item {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .resource-tile-expanded-button {
-  border: none;
-  border-radius: 5px;
-  background: rgba(65, 128, 137, 0.9);
-  font-weight: bold;
-  font-size: 10px;
-  line-height: 15px;
-  margin: 0.5rem 0 1rem 0;
+    border: none;
+    border-radius: 5px;
+    background: rgba(65, 128, 137, 0.9);
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 15px;
+    margin: 0.5rem 0 1rem 0;
 
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: white;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: white;
 
-  width: fit-content;
-  align-self: center;
-
+    width: fit-content;
+    align-self: center;
 }
 
-.resource-tile-expanded-button:hover{
-  text-decoration: underline;
-  color: white;
+.resource-tile-expanded-button:hover {
+    text-decoration: underline;
+    color: white;
 }
 
 /* Mobile specific setting */
 @media only screen and (max-width: 768px) {
-  img.resource-tile-expanded-img {
-    height: 85px;
-    object-fit: cover;
-    width: inherit;
-    border-radius: 15px 15px 0 0;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  }
+    img.resource-tile-expanded-img {
+        height: 85px;
+        object-fit: contain;
+        width: inherit;
+        border-radius: 15px 15px 0 0;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        align-self: center;
+        justify-self: center;
+    }
 
-  .resource-tile-expanded-row {
-    display: flex;
-    flex-direction: column-reverse;
-  }
+    .resource-tile-expanded-row {
+        display: flex;
+        flex-direction: column-reverse;
+    }
 
-  .resource-tile-expanded-close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    text-shadow: 0 2px 0 white, 0 -2px white, -2px 0px white, 2px 0px white;
-  }
+    .resource-tile-expanded-close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        text-shadow:
+            0 2px 0 white,
+            0 -2px white,
+            -2px 0px white,
+            2px 0px white;
+    }
 }
 
 /* Desktop specific settings */
 @media only screen and (min-width: 768px) {
-  .resource-tile-expanded-img-col {
-    padding: 0;
-    display: flex;
-  }
+    .resource-tile-expanded-img-col {
+        padding: 0;
+        display: flex;
+    }
 
-  img.resource-tile-expanded-img {
-    object-fit: cover;
-    width: 100%;
-    height: auto;
-    border-radius: 15px 0 0 15px;
-  }
+    img.resource-tile-expanded-img {
+        object-fit: contain;
+        width: 100%;
+        height: auto;
+        border-radius: 15px 0 0 15px;
+        align-self: center;
+        justify-self: center;
+    }
 
-  .resource-tile-expanded-text-group-toExpect-phone-hour {
-    display: flex;
-    flex-direction: row-reverse;
-    white-space: break-spaces;
-    justify-content: flex-end;
-  }
+    .resource-tile-expanded-text-group-toExpect-phone-hour {
+        display: flex;
+        flex-direction: row-reverse;
+        white-space: break-spaces;
+        justify-content: flex-end;
+    }
 
-  .resource-tile-expanded-row {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 0 1rem;
-  }
+    .resource-tile-expanded-row {
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 0 1rem;
+    }
 }
 
 .resource-tile-expanded-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  cursor:pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
 }
 
 a.resource-tile-expanded-button {
-  padding: 9px 19px;
+    padding: 9px 19px;
 }
