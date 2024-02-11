@@ -6,12 +6,11 @@ import {
 } from '../../components/components'
 import URL_PATH from '../../links'
 
-
 function AdminPages() {
     const [stories, setStories] = useState([])
     const [nameToID, setNameToID] = useState({})
     const [categorNames, setCategorNames] = useState([])
-    const [selectedDiscipline, setSelectedDiscipline] = useState(null);
+    const [selectedDiscipline, setSelectedDiscipline] = useState(null)
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -28,7 +27,7 @@ function AdminPages() {
                     tempNameToID[name] = json[object]['StoryIDList']
                 }
                 setNameToID(tempNameToID)
-                
+
                 setCategorNames(tempArray)
                 console.log(categorNames)
             })
@@ -49,15 +48,15 @@ function AdminPages() {
                     acc[obj._id] = obj
                     return acc
                 }, {})
-                
+
                 setStories(tempDict)
             })
             .catch((error) => console.error(error))
     }, [])
 
     const handleFilter = (discipline) => {
-        setSelectedDiscipline(discipline);
-    };
+        setSelectedDiscipline(discipline)
+    }
 
     return (
         <div>
@@ -73,25 +72,29 @@ function AdminPages() {
             <div>
                 {/* Buttons for filtering */}
                 <button onClick={() => handleFilter('SE')}>SE</button>
-                <button onClick={() => handleFilter('Computer Science')}>CSC</button>
+                <button onClick={() => handleFilter('Computer Science')}>
+                    CSC
+                </button>
                 <button onClick={() => handleFilter(null)}>Show All</button>
             </div>
             {categorNames.map((name, index) => {
-            let result = nameToID[name].map((id) => stories[id]);
-            // Filter stories based on selected discipline
-            if (selectedDiscipline) {
-                result = result.filter((story) => story.StudentMajor === selectedDiscipline);
-            }
-            return (
-                <StoryTileGroup
-                    key={name}
-                    id={name}
-                    title={name}
-                    stories={result}
-                />
-            );
-        })}
-    </div>
+                let result = nameToID[name].map((id) => stories[id])
+                // Filter stories based on selected discipline
+                if (selectedDiscipline) {
+                    result = result.filter(
+                        (story) => story.StudentMajor === selectedDiscipline,
+                    )
+                }
+                return (
+                    <StoryTileGroup
+                        key={name}
+                        id={name}
+                        title={name}
+                        stories={result}
+                    />
+                )
+            })}
+        </div>
     )
 }
 
