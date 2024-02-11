@@ -3,3 +3,4 @@ export { default as IndividualResourcePage } from './IndividualResourcePage/Indi
 export { default as StoriesPage } from './StoriesPage/StoriesPage'
 export { default as IndividualStoryPage } from './IndividualStoryPage/IndividualStoryPage'
 export { default as StorySubmissionPage } from './StorySubmissionPage/StorySubmissionPage'
+export { default as AdminPages } from './AdminPage/AdminPages'

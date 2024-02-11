@@ -6,7 +6,7 @@ import {
     IndividualResourcePage,
     StoriesPage,
     StorySubmissionPage,
-    IndividualStoryPage,
+    IndividualStoryPage, AdminPages
 } from './pages/pages'
 
 function App() {
@@ -40,6 +40,11 @@ function App() {
                         exact
                         path="/storySubmission"
                         component={() => <StorySubmissionPage />}
+                    />
+                    <Route
+                        exact
+                        path="/AdminPages"
+                        component={() => <AdminPages />}
                     />
                 </Switch>
             </div>
