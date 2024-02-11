@@ -16,6 +16,8 @@ const StorySchema = new Schema({
     StudentCollege: String,
     StudentYear: String,
     GeneralCategory: String,
+    Status: { type: String, default: 'review' },
+    RejectionReasonList: { type: [String], default: [] },
 })
 
 module.exports = model('story', StorySchema, 'story')
