@@ -39,7 +39,15 @@ const InfoText = styled.div`
 function StoryTile(props) {
     return (
         <Tile onClick={props.handleClick} className="tile">
-            <Link to="/individualStory" className="tile-link">
+            <Link
+                to={{
+                    pathname: '/individualStory/',
+                    state: {
+                        storyID: props.id,
+                    },
+                }}
+                className="tile-link"
+            >
                 <TileBanner src={props.imgUrl} alt={props.title} />
                 <TileTitle>{props.title}</TileTitle>
                 <Info>
