@@ -91,9 +91,9 @@ function StorySubmission() {
 
     useEffect(() => {
         axios
-            .get('http://localhost:3001/stories/generalstorycat')
+            .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_lst = res.data.map(item => item.Title);
+                const category_lst = res.data.map((item) => item.Title)
                 console.log(category_lst)
                 setCategoryList(category_lst)
             })
@@ -107,7 +107,6 @@ function StorySubmission() {
         '4th Year',
         '5th+ Year',
     ]
-
 
     function verifySubmission(e) {
         // if an option is selected, the value is stored as 1 at the moment
@@ -187,7 +186,7 @@ function StorySubmission() {
                                 myoptions={majorList}
                                 handleChange={handleMajorChange}
                             />
-                             <div>
+                            <div>
                                 <DropDownForm
                                     fieldTitle="Category"
                                     myoptions={categoryList}
