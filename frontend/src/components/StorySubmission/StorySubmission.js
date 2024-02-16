@@ -14,8 +14,7 @@ function StorySubmission() {
     const [category, setCategory] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
-    const [collegeList, setCollegeList] = useState([])
-    const [majorList, setMajorList] = useState([])
+    const [collegeDict, setCollegeDict] = useState({})
     const [categoryList, setCategoryList] = useState([])
 
     const values = {
@@ -49,6 +48,8 @@ function StorySubmission() {
 
     const handleMajorChange = (e) => {
         setMajor(e)
+        setCollege(collegeDict[e])
+        console.log(e + ': ' + collegeDict[e])
     }
 
     useEffect(() => {
@@ -56,35 +57,38 @@ function StorySubmission() {
             .get('https://www.calpoly.edu/colleges-departments-and-majors')
             .then((res) => {
                 const $ = cheerio.load(res.data)
-                const college_lst = []
-                const major_lst = []
+                const college_dict = {}
 
                 // Select each h2 tag
                 $('h2').each((index, element) => {
                     // Get the text content of the h2 tag
-                    const h2Text = $(element).text()
+                    const college_name = $(element).text().trim()
+                    if (college_name.toLowerCase().includes('college')) {
+                        // Get the section, stopping at the next h2 which should be the college
+                        const $collegeSection = $(element).nextUntil('h2')
 
-                    // Check if the text content contains the word "college"
-                    if (h2Text.toLowerCase().includes('college')) {
-                        college_lst.push(h2Text)
+                        // Iterate over each HTML a element within this section
+                        $collegeSection.find('a').each((index, element) => {
+                            // Get the text content of the a tag
+                            const major_name = $(element).text().trim()
+
+                            if (
+                                major_name.toLowerCase().includes('major') &&
+                                major_name !== 'Find a major'
+                            ) {
+                                // Create key/value pair; keys = majors, values = colleges
+                                // Note: keys are unique, colleges duplicate
+                                college_dict[major_name] = college_name
+                                console.log(
+                                    major_name +
+                                        ': ' +
+                                        college_dict[major_name],
+                                )
+                            }
+                        })
                     }
                 })
-                setCollegeList(college_lst)
-
-                $('a').each((index, element) => {
-                    // Get the text content of the h2 tag
-                    const aText = $(element).text()
-
-                    // Check if the text content contains the word "college"
-                    if (
-                        aText.toLowerCase().includes('major') &&
-                        aText !== 'Find a major'
-                    ) {
-                        console.log(aText)
-                        major_lst.push(aText)
-                    }
-                })
-                setMajorList(major_lst)
+                setCollegeDict(college_dict)
             })
             .catch((err) => console.error(err))
     }, [])
@@ -174,8 +178,10 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownForm
-                                    fieldTitle="College"
-                                    myoptions={collegeList}
+                                    fieldTitle={college ? college : 'College'}
+                                    myoptions={[
+                                        ...new Set(Object.values(collegeDict)),
+                                    ]}
                                     handleChange={handleCollegeChange}
                                 />
                             </div>
@@ -183,7 +189,7 @@ function StorySubmission() {
                         <div class="inner-container-box">
                             <DropDownOptionalForm
                                 fieldTitle="Major (optional)"
-                                myoptions={majorList}
+                                myoptions={Object.keys(collegeDict).sort()}
                                 handleChange={handleMajorChange}
                             />
                             <div>
