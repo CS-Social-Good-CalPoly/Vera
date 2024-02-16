@@ -11,6 +11,7 @@ function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
     const [major, setMajor] = useState('')
+    const [category, setCategory] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [category, setCategory] = useState([])
@@ -93,9 +94,15 @@ function StorySubmission() {
     }, [])
 
     useEffect(() => {
-        // Runs whenever college state changes (which also means whenever major changes)
-        console.log('College updated:', college)
-    }, [college])
+        axios
+            .get(URL_PATH + '/stories/generalstorycat')
+            .then((res) => {
+                const category_lst = res.data.map((item) => item.Title)
+                console.log(category_lst)
+                setCategoryList(category_lst)
+            })
+            .catch((err) => console.error(err))
+    }, [])
 
     const yearList = [
         '1st Year',
@@ -104,7 +111,6 @@ function StorySubmission() {
         '4th Year',
         '5th+ Year',
     ]
-    const categoryList = ['School', 'Family']
 
     function verifySubmission(e) {
         // if an option is selected, the value is stored as 1 at the moment
