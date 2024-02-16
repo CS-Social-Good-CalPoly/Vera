@@ -172,7 +172,7 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownForm
-                                    fieldTitle="College"
+                                    fieldTitle={college ? college : 'College'}
                                     myoptions={[
                                         ...new Set(Object.values(collegeDict)),
                                     ]}
