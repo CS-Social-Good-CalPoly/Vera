@@ -14,7 +14,6 @@ function StorySubmission() {
     const [category, setCategory] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
-    const [category, setCategory] = useState([])
     const [collegeDict, setCollegeDict] = useState({})
 
     const values = {
