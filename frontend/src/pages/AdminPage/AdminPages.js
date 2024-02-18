@@ -17,6 +17,7 @@ function AdminPages() {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
+                console.log(json);
                 let tempArray = json.map((story) => ({
                     _id: story._id,
                     Title: story.Title,
