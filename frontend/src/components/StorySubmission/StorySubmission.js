@@ -78,12 +78,9 @@ function StorySubmission() {
                             ) {
                                 // Create key/value pair; keys = majors, values = colleges
                                 // Note: keys are unique, colleges duplicate
-                                college_dict[major_name] = college_name
-                                console.log(
-                                    major_name +
-                                        ': ' +
-                                        college_dict[major_name],
-                                )
+                                college_dict[
+                                    major_name.replace('Major', '').trim()
+                                ] = college_name
                             }
                         })
                     }
