@@ -12,4 +12,6 @@ backend/package-lock.json
 
 frontend/package-lock.json
 
+package-lock.json
+
 .vscode/
