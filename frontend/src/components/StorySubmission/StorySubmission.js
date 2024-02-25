@@ -16,6 +16,8 @@ function StorySubmission() {
     const [title, setTitleValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
     const [categoryList, setCategoryList] = useState([])
+    const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] = useState(false)
+
 
     const values = {
         Year: year,
@@ -50,6 +52,7 @@ function StorySubmission() {
         setMajor(e)
         setCollege(collegeDict[e])
         console.log(e + ': ' + collegeDict[e])
+        setIsCollegeDropdownDisabled(e !== 'N/A')
     }
 
     useEffect(() => {
@@ -180,6 +183,7 @@ function StorySubmission() {
                                         ...new Set(Object.values(collegeDict)),
                                     ]}
                                     handleChange={handleCollegeChange}
+                                    disabled={isCollegeDropdownDisabled}
                                 />
                             </div>
                         </div>
