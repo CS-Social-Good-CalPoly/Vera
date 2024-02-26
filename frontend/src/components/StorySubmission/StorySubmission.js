@@ -18,7 +18,6 @@ function StorySubmission() {
     const [categoryList, setCategoryList] = useState([])
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] = useState(false)
 
-
     const values = {
         Year: year,
         College: college,
@@ -49,12 +48,12 @@ function StorySubmission() {
     }
 
     const handleMajorChange = (e) => {
-        setMajor(e)
-        setCollege(collegeDict[e])
-        console.log(e + ': ' + collegeDict[e])
-        setIsCollegeDropdownDisabled(e !== 'N/A')
-    }
-
+        setMajor(e);
+        setCollege(collegeDict[e]);
+        console.log(e + ': ' + collegeDict[e]);
+        setIsCollegeDropdownDisabled(e !== 'N/A'); // Assuming "N/A" represents "MAJOR (OPTIONAL)"
+    };
+    
     useEffect(() => {
         axios
             .get('https://www.calpoly.edu/colleges-departments-and-majors')
@@ -178,6 +177,7 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownForm
+                                    key = {major}
                                     fieldTitle={college ? college : 'College'}
                                     myoptions={[
                                         ...new Set(Object.values(collegeDict)),
