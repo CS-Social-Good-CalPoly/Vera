@@ -11,12 +11,14 @@ function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
     const [major, setMajor] = useState('')
-    const [category, setCategory] = useState('')
+    const [selectedCategoryName, setSelectedCategoryName] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
     const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
+    const [categoryIds, setCategoryIds] = useState([])
+
     //const [selectedCategory, setSelectedCategory] = useState([]);
 
     const values = {
@@ -25,7 +27,8 @@ function StorySubmission() {
         Major: major,
         Description: quillValue,
         Title: title,
-        Category: category,
+        Category: selectedCategoryName,
+        CategoryIds: categoryIds
     }
 
     const handleTitleKeyPress = (e) => {
@@ -41,8 +44,25 @@ function StorySubmission() {
     }
 
     const handleCategoryChange = (e) => {
-        setCategory(e)
+        setSelectedCategoryName(e)
     }
+      
+    const getCategoryId = (categories, categoryName) => {
+        // console.log(categories)
+        const cat = categories.filter((c) => c.Name === categoryName)[0];
+        // console.log(cat)
+        return cat._id; 
+    }
+    
+    //change the id list to include the selected category
+    useEffect(() => {
+        console.log(selectedCategoryName)
+        if (selectedCategoryName) {
+          const id = getCategoryId(categoryList, selectedCategoryName);
+          console.log(id)
+          setCategoryIds(prev => [...prev, id]); 
+        }
+    }, [selectedCategoryName]);
 
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
@@ -133,17 +153,6 @@ function StorySubmission() {
         } else {
             alert('Thank you for your submission!')
 
-            const getCategoryId = (categories, categoryName) => {
-                const category = categories.filter(c => c.name === categoryName)[0];
-                console.log(category)
-                return category ? category._id : null; 
-              }
-            const categoryIds = []
-            const targetId = getCategoryId(categoryList, values.Category)
-            console.log(targetId)
-            
-            categoryIds.push(targetId);
-
             const data = {
                 Title: values.Title,
                 ParagraphText: values.Description,
@@ -151,7 +160,7 @@ function StorySubmission() {
                 StudentMajor: values.Major,
                 StudentCollege: values.College,
                 StudentYear: values.Year,
-                RelevantCategoryList: categoryIds
+                RelevantCategoryList: values.CategoryIds
             }
 
             console.log(data)
