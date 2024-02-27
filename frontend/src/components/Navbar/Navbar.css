@@ -44,8 +44,8 @@ button:focus {
     font-weight: 600;
     font-size: 12px;
     line-height: 28px;
-    padding-left: 25px;
-    padding-right: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
     padding-top: 10px;
     padding-bottom: 10px !important;
     border-top: #f1f4f7 solid 2px;
