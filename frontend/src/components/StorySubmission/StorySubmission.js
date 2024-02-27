@@ -16,6 +16,7 @@ function StorySubmission() {
     const [title, setTitleValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
     const [categoryList, setCategoryList] = useState([])
+    //const [selectedCategory, setSelectedCategory] = useState([]);
 
     const values = {
         Year: year,
@@ -101,6 +102,21 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
+    // useEffect(async () => {
+    //     axios
+    //         .get(URL_PATH + '/stories')
+    //         .then((res) => {
+    //             const storyId = res.data._id;
+    //             const categoryIdList = selectedCategory
+    //             axios.put(URL_PATH + '/stories/updatecategory'), {
+    //                 storyId,
+    //                 categoryIdList
+    //             }
+    //         })
+    //         .catch((err) => console.error(err))
+    //   }, [selectedCategory]);
+      
+
     const yearList = [
         '1st Year',
         '2nd Year',
@@ -125,7 +141,7 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             alert('Thank you for your submission!')
-
+            const categoryIds = values.Category.map(c => c._id); //get just category ids
             const data = {
                 Title: values.Title,
                 ParagraphText: values.Description,
@@ -133,6 +149,7 @@ function StorySubmission() {
                 StudentMajor: values.Major,
                 StudentCollege: values.College,
                 StudentYear: values.Year,
+                RelevantCategoryList: categoryIds
             }
 
             console.log(data)

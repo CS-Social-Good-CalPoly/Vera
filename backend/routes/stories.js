@@ -46,6 +46,7 @@ router.post('/storysubmission', async (req, res) => {
         StudentMajor,
         StudentCollege,
         StudentYear,
+        RelevantCategoryList,
     } = req.body
 
     const newStory = new IndStories({
@@ -55,6 +56,7 @@ router.post('/storysubmission', async (req, res) => {
         StudentMajor,
         StudentCollege,
         StudentYear,
+        RelevantCategoryList,
     })
 
     try {
@@ -64,5 +66,27 @@ router.post('/storysubmission', async (req, res) => {
         res.status(400).json({ message: err.message })
     }
 })
+
+// PUT route for story submissions
+router.put('/updatecategory', async (req, res) => {
+
+    const { storyId, categoryId } = req.body;
+    try {
+        await IndStories.updateOne(
+        { _id: storyId },  
+        { $push: { relevantCategoryList: categoryId } }
+      );
+        await GenStories.updateOne(
+        { _id: categoryId },
+        { $push: { storyIdList: storyId } }  
+      );
+  
+      res.send("Category updated successfully");
+  
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  
+  });
 
 module.exports = router
