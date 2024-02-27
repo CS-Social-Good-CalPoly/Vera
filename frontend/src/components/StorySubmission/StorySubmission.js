@@ -15,6 +15,7 @@ function StorySubmission() {
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
+    const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     //const [selectedCategory, setSelectedCategory] = useState([]);
 
@@ -95,12 +96,16 @@ function StorySubmission() {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_lst = res.data.map((item) => item.Title)
+                const category_names_lst = res.data.map((item) => item.Title)
+                const category_lst = res.data.map((item) => item)
+                console.log(category_names_lst)
                 console.log(category_lst)
+                setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
             .catch((err) => console.error(err))
     }, [])
+      
       
 
     const yearList = [
@@ -127,7 +132,18 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             alert('Thank you for your submission!')
-            const categoryIds = values.Category.map(c => c._id); //get just category ids
+
+            const getCategoryId = (categories, categoryName) => {
+                const category = categories.filter(c => c.name === categoryName)[0];
+                console.log(category)
+                return category ? category._id : null; 
+              }
+            const categoryIds = []
+            const targetId = getCategoryId(categoryList, values.Category)
+            console.log(targetId)
+            
+            categoryIds.push(targetId);
+
             const data = {
                 Title: values.Title,
                 ParagraphText: values.Description,
@@ -195,7 +211,7 @@ function StorySubmission() {
                             <div>
                                 <DropDownForm
                                     fieldTitle="Category"
-                                    myoptions={categoryList}
+                                    myoptions={categoryNamesList}
                                     handleChange={handleCategoryChange}
                                 />
                             </div>
