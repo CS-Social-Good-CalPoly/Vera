@@ -6,6 +6,7 @@ import './StorySubmission.css'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import URL_PATH from '../../links'
+import AnimalsToken from './AnimalsToken'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -14,6 +15,7 @@ function StorySubmission() {
     const [category, setCategory] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
+    const [token, setTokenValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
     const [categoryList, setCategoryList] = useState([])
 
@@ -24,6 +26,7 @@ function StorySubmission() {
         Description: quillValue,
         Title: title,
         Category: category,
+        Token: token,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -52,7 +55,7 @@ function StorySubmission() {
         console.log(e + ': ' + collegeDict[e])
     }
 
-    useEffect(() => {
+    const giveToken = useEffect(() => {
         axios
             .get('https://www.calpoly.edu/colleges-departments-and-majors')
             .then((res) => {
@@ -101,6 +104,15 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
+    const fetchToken = async () => {
+        try {
+            const response = await axios.get(URL_PATH + '/generate-token')
+            setTokenValue(response)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const yearList = [
         '1st Year',
         '2nd Year',
@@ -124,7 +136,12 @@ function StorySubmission() {
             e.preventDefault()
             console.log('Missing info')
         } else {
-            alert('Thank you for your submission!')
+            // Create token if the story successfully submits
+            fetchToken()
+            alert(
+                'Thank you for your submission!\nYour token is: ' +
+                    values.Token,
+            )
 
             const data = {
                 Title: values.Title,
@@ -133,6 +150,7 @@ function StorySubmission() {
                 StudentMajor: values.Major,
                 StudentCollege: values.College,
                 StudentYear: values.Year,
+                token: values.Token,
             }
 
             console.log(data)
