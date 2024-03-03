@@ -1,25 +1,35 @@
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
 import { Footer, NavBar } from './components/components'
+import { useState } from 'react'
 import {
     HomePage,
     IndividualResourcePage,
     StoriesPage,
     StorySubmissionPage,
-    IndividualStoryPage, AdminPages
+    IndividualStoryPage,
+    AdminPages,
 } from './pages/pages'
 
 function App() {
+    const [activeLink, setActiveLink] = useState(null)
+
     return (
         <div id="app">
-            <NavBar />
+            <NavBar activeLink={activeLink} />
             <div id="page">
                 <Switch>
                     <Route exact path="/" component={() => <HomePage />} />
                     <Route
                         exact
                         path="/resources"
-                        component={() => <HomePage />}
+                        render={(props) => (
+                            <HomePage
+                                {...props}
+                                setActiveLink={setActiveLink}
+                            />
+                        )}
+                        // component={() => <HomePage />}
                     />
                     <Route
                         exact
@@ -29,7 +39,13 @@ function App() {
                     <Route
                         exact
                         path="/stories"
-                        component={() => <StoriesPage />}
+                        render={(props) => (
+                            <StoriesPage
+                                {...props}
+                                setActiveLink={setActiveLink}
+                            />
+                        )}
+                        // component={() => <StoriesPage />}
                     />
                     <Route
                         exact
@@ -39,7 +55,13 @@ function App() {
                     <Route
                         exact
                         path="/storySubmission"
-                        component={() => <StorySubmissionPage />}
+                        render={(props) => (
+                            <StorySubmissionPage
+                                {...props}
+                                setActiveLink={setActiveLink}
+                            />
+                        )}
+                        // component={() => <StorySubmissionPage />}
                     />
                     <Route
                         exact
