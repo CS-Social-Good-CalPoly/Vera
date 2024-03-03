@@ -65,7 +65,7 @@ router.post('/storysubmission', async (req, res) => {
     }
 })
 
-// DELETE route for admin to delete stories 
+// DELETE route for admin to delete stories
 // Create the backend endpoint /deleteIndividualStory
 // Input: JSON with individualStoryId to delete, e.g., {"individualStoryId": "someId"}
 // Remove that story from the MongoDB database
@@ -73,7 +73,7 @@ router.post('/storysubmission', async (req, res) => {
 
 router.delete('/deleteIndividualStory', async (req, res) => {
     const { individualStoryId } = req.body
-
+    console.log(req.body)
     try {
         const deletedStory =
             await IndStories.findByIdAndDelete(individualStoryId)
@@ -87,10 +87,11 @@ router.delete('/deleteIndividualStory', async (req, res) => {
     }
 })
 
-// UPDATE route for admin to update stories 
+// UPDATE route for admin to update stories
 router.put('/updateIndividualStory', async (req, res) => {
+    console.log(req.body)
     const { individualStoryId, ...updates } = req.body
-
+    
     try {
         const updatedStory = await IndStories.findByIdAndUpdate(
             individualStoryId,
@@ -106,6 +107,5 @@ router.put('/updateIndividualStory', async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 })
-
 
 module.exports = router
