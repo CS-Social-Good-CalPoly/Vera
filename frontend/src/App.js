@@ -22,23 +22,16 @@ function App() {
                     <Route
                         exact
                         path="/"
-                        render={(props) => (
-                            <HomePage
-                                {...props}
-                                setActiveLink={setActiveLink}
-                            />
+                        component={() => (
+                            <HomePage setActiveLink={setActiveLink} />
                         )}
                     />
                     <Route
                         exact
                         path="/resources"
-                        render={(props) => (
-                            <HomePage
-                                {...props}
-                                setActiveLink={setActiveLink}
-                            />
+                        component={() => (
+                            <HomePage setActiveLink={setActiveLink} />
                         )}
-                        // component={() => <HomePage />}
                     />
                     <Route
                         exact
@@ -48,13 +41,9 @@ function App() {
                     <Route
                         exact
                         path="/stories"
-                        render={(props) => (
-                            <StoriesPage
-                                {...props}
-                                setActiveLink={setActiveLink}
-                            />
+                        render={() => (
+                            <StoriesPage setActiveLink={setActiveLink} />
                         )}
-                        // component={() => <StoriesPage />}
                     />
                     <Route
                         exact
@@ -64,13 +53,11 @@ function App() {
                     <Route
                         exact
                         path="/storySubmission"
-                        render={(props) => (
+                        component={() => (
                             <StorySubmissionPage
-                                {...props}
                                 setActiveLink={setActiveLink}
                             />
                         )}
-                        // component={() => <StorySubmissionPage />}
                     />
                     <Route
                         exact
