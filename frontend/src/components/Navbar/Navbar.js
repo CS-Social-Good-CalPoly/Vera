@@ -28,9 +28,7 @@ function NavBar({ activeLink }) {
                         className="navbar-links"
                         to="/Stories"
                         activeClassName={
-                            activeLink === '/Stories'
-                                ? 'navbar-links active'
-                                : 'navbar-links'
+                            activeLink === '/Stories' ? 'active' : ''
                         }
                     >
                         Stories
@@ -39,9 +37,7 @@ function NavBar({ activeLink }) {
                         className="navbar-links"
                         to="/StorySubmission"
                         activeClassName={
-                            activeLink === '/StorySubmission'
-                                ? 'navbar-links active'
-                                : 'navbar-links'
+                            activeLink === '/StorySubmission' ? 'active' : ''
                         }
                     >
                         Share Your Story
