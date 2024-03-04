@@ -19,7 +19,16 @@ function App() {
             <NavBar activeLink={activeLink} />
             <div id="page">
                 <Switch>
-                    <Route exact path="/" component={() => <HomePage />} />
+                    <Route
+                        exact
+                        path="/"
+                        render={(props) => (
+                            <HomePage
+                                {...props}
+                                setActiveLink={setActiveLink}
+                            />
+                        )}
+                    />
                     <Route
                         exact
                         path="/resources"
