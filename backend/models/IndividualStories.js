@@ -21,14 +21,4 @@ const StorySchema = new Schema({
     RejectionReasonList: { type: [String], default: [] },
 })
 
-StorySchema.statics.tokenExists = async function (token) {
-    try {
-        const existingToken = await this.findOne({ Token: token })
-        return !!existingToken
-    } catch (error) {
-        console.error('Error checking token:', error)
-        throw error
-    }
-}
-
 module.exports = model('story', StorySchema, 'story')
