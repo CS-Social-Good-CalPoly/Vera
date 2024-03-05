@@ -98,20 +98,22 @@ function StorySubmission() {
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
                 const category_lst = res.data.map((item) => item.Title)
-                console.log(category_lst)
+                console.log(res)
                 setCategoryList(category_lst)
             })
             .catch((err) => console.error(err))
     }, [])
 
-    const fetchToken = async () => {
-        try {
-            const response = await axios.get(URL_PATH + '/generate-token')
-            setTokenValue(response)
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    useEffect(() => {
+        axios
+            .get(URL_PATH + '/stories/generate-token')
+            .then((res) => {
+                const newToken = res.data
+                console.log(res.data)
+                setTokenValue(newToken)
+            })
+            .catch((err) => console.error(err))
+    }, [])
 
     const yearList = [
         '1st Year',
@@ -137,7 +139,6 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             // Create token if the story successfully submits
-            fetchToken()
             alert(
                 'Thank you for your submission!\nYour token is: ' +
                     values.Token,
