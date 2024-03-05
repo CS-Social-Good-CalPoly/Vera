@@ -3,6 +3,7 @@ const router = express.Router()
 
 const GenStories = require('../models/GenStories')
 const IndStories = require('../models/IndividualStories')
+const Tokens = require('../models/Tokens')
 
 // GET route for all general story categories
 router.get('/generalstorycat', async (req, res) => {
@@ -18,6 +19,16 @@ router.get('/individualstory', async (req, res) => {
     try {
         const individual = await IndStories.find({})
         res.json(individual)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+// GET route for all tokens
+router.get('/tokens', async (req, res) => {
+    try {
+        const stry = await Tokens.find({})
+        res.json(stry)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
