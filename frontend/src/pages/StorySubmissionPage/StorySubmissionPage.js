@@ -1,7 +1,12 @@
 import React from 'react'
 import { StoryBanner, StorySubmission } from '../../components/components'
+import { useEffect } from 'react'
 
-function StorySubmissionPage() {
+function StorySubmissionPage({ setActiveLink }) {
+    useEffect(() => {
+        setActiveLink('/StorySubmission')
+    }, [])
+
     return (
         <div>
             <StoryBanner

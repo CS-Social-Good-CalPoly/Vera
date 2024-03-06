@@ -51,7 +51,8 @@ button:focus {
     border-top: #f1f4f7 solid 2px;
 }
 
-.navbar-links:hover {
+.navbar-links:hover,
+.active {
     text-decoration: underline;
     color: #4a6e82;
 }
