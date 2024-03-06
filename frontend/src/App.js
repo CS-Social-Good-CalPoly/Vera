@@ -10,6 +10,7 @@ import {
 } from './pages/pages'
 
 function App() {
+
     return (
         <div id="app">
             <NavBar />
@@ -33,7 +34,7 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/individualStory"
+                        path="/individualStory/:title"
                         component={() => <IndividualStoryPage />}
                     />
                     <Route

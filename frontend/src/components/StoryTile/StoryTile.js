@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile'
 import '../Shared/Tile.css'
+import slugify from 'slugify'
 
 const Info = styled.div`
     padding-left: 23px;
@@ -37,13 +38,16 @@ const InfoText = styled.div`
 `
 
 function StoryTile(props) {
+    const slugifiedTitle = slugify(props.title, { lower: true });
+
     return (
         <Tile onClick={props.handleClick} className="tile">
             <Link
                 to={{
-                    pathname: '/individualStory/',
+                    pathname: `/individualStory/${slugifiedTitle}`,
                     state: {
                         storyID: props.id,
+                        storyTitle: props.title,
                     },
                 }}
                 className="tile-link"

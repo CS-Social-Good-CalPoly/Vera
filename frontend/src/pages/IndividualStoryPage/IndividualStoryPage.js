@@ -1,16 +1,16 @@
 import React from 'react'
 import { StoryPopUp } from '../../components/components'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 function IndividualStoryPage() {
     const location = useLocation()
     let id = location.state.storyID
-    // console.log('hi')
-    // console.log(id)
+    // let title = location.state.storyTitle
+    const { title } = useParams()
 
     return (
         <div>
-            <StoryPopUp id={id} />
+            <StoryPopUp id={id} title={title}/>
         </div>
     )
 }
