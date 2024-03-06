@@ -65,4 +65,47 @@ router.post('/storysubmission', async (req, res) => {
     }
 })
 
+// DELETE route for admin to delete stories
+// Create the backend endpoint /deleteIndividualStory
+// Input: JSON with individualStoryId to delete, e.g., {"individualStoryId": "someId"}
+// Remove that story from the MongoDB database
+// Return a string indicating success or failure
+
+router.delete('/deleteIndividualStory', async (req, res) => {
+    const { individualStoryId } = req.body
+    console.log(req.body)
+    try {
+        const deletedStory =
+            await IndStories.findByIdAndDelete(individualStoryId)
+        if (deletedStory) {
+            res.json({ message: 'Story successfully deleted.' })
+        } else {
+            res.status(404).json({ message: 'Story not found.' })
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+// UPDATE route for admin to update stories
+router.put('/updateIndividualStory', async (req, res) => {
+    console.log(req.body)
+    const { individualStoryId, ...updates } = req.body
+    
+    try {
+        const updatedStory = await IndStories.findByIdAndUpdate(
+            individualStoryId,
+            { $set: updates },
+            { new: true },
+        )
+        if (updatedStory) {
+            res.json(updatedStory)
+        } else {
+            res.status(404).json({ message: 'Story not found.' })
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 module.exports = router
