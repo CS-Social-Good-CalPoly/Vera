@@ -14,6 +14,7 @@ function StorySubmission() {
     const [category, setCategory] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
+    const [token, setTokenValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
     const [categoryList, setCategoryList] = useState([])
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] = useState(false)
@@ -25,6 +26,7 @@ function StorySubmission() {
         Description: quillValue,
         Title: title,
         Category: category,
+        Token: token,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -97,7 +99,7 @@ function StorySubmission() {
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
                 const category_lst = res.data.map((item) => item.Title)
-                console.log(category_lst)
+                console.log(res)
                 setCategoryList(category_lst)
             })
             .catch((err) => console.error(err))
@@ -126,36 +128,50 @@ function StorySubmission() {
             e.preventDefault()
             console.log('Missing info')
         } else {
-            alert('Thank you for your submission!')
+            // Create token if the story successfully submits
+            axios
+                .get(URL_PATH + '/stories/generate-token')
+                .then((res) => {
+                    const newToken = res.data
+                    console.log(res.data)
+                    setTokenValue(newToken)
 
-            const data = {
-                Title: values.Title,
-                ParagraphText: values.Description,
-                Date: new Date(),
-                StudentMajor: values.Major,
-                StudentCollege: values.College,
-                StudentYear: values.Year,
-            }
+                    alert(
+                        'Thank you for your submission!\nYour token is: ' +
+                            newToken,
+                    )
 
-            console.log(data)
+                    const data = {
+                        Title: values.Title,
+                        ParagraphText: values.Description,
+                        Date: new Date(),
+                        StudentMajor: values.Major,
+                        StudentCollege: values.College,
+                        StudentYear: values.Year,
+                        token: values.Token,
+                    }
 
-            try {
-                // URL_PATH imported from frontend/src/links.js
-                // combined with subdirectory to make the full URL
-                const subdirectory = '/stories/storysubmission'
-                const response = fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
+                    console.log(data)
+
+                    try {
+                        // URL_PATH imported from frontend/src/links.js
+                        // combined with subdirectory to make the full URL
+                        const subdirectory = '/stories/storysubmission'
+                        const response = fetch(URL_PATH + subdirectory, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data),
+                        })
+
+                        const responseData = response.json()
+                        console.log('Server response:', responseData)
+                    } catch (err) {
+                        console.error(err)
+                    }
                 })
-
-                const responseData = response.json()
-                console.log('Server response:', responseData)
-            } catch (err) {
-                console.error(err)
-            }
+                .catch((err) => console.error(err))
         }
     }
 
