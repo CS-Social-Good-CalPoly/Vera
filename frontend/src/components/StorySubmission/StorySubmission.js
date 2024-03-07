@@ -6,7 +6,6 @@ import './StorySubmission.css'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import URL_PATH from '../../links'
-import AnimalsToken from './AnimalsToken'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -55,7 +54,7 @@ function StorySubmission() {
         console.log(e + ': ' + collegeDict[e])
     }
 
-    const giveToken = useEffect(() => {
+    useEffect(() => {
         axios
             .get('https://www.calpoly.edu/colleges-departments-and-majors')
             .then((res) => {
@@ -104,17 +103,6 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
-    useEffect(() => {
-        axios
-            .get(URL_PATH + '/stories/generate-token')
-            .then((res) => {
-                const newToken = res.data
-                console.log(res.data)
-                setTokenValue(newToken)
-            })
-            .catch((err) => console.error(err))
-    }, [])
-
     const yearList = [
         '1st Year',
         '2nd Year',
@@ -139,40 +127,49 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             // Create token if the story successfully submits
-            alert(
-                'Thank you for your submission!\nYour token is: ' +
-                    values.Token,
-            )
+            axios
+                .get(URL_PATH + '/stories/generate-token')
+                .then((res) => {
+                    const newToken = res.data
+                    console.log(res.data)
+                    setTokenValue(newToken)
 
-            const data = {
-                Title: values.Title,
-                ParagraphText: values.Description,
-                Date: new Date(),
-                StudentMajor: values.Major,
-                StudentCollege: values.College,
-                StudentYear: values.Year,
-                token: values.Token,
-            }
+                    alert(
+                        'Thank you for your submission!\nYour token is: ' +
+                            newToken,
+                    )
 
-            console.log(data)
+                    const data = {
+                        Title: values.Title,
+                        ParagraphText: values.Description,
+                        Date: new Date(),
+                        StudentMajor: values.Major,
+                        StudentCollege: values.College,
+                        StudentYear: values.Year,
+                        token: values.Token,
+                    }
 
-            try {
-                // URL_PATH imported from frontend/src/links.js
-                // combined with subdirectory to make the full URL
-                const subdirectory = '/stories/storysubmission'
-                const response = fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
+                    console.log(data)
+
+                    try {
+                        // URL_PATH imported from frontend/src/links.js
+                        // combined with subdirectory to make the full URL
+                        const subdirectory = '/stories/storysubmission'
+                        const response = fetch(URL_PATH + subdirectory, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data),
+                        })
+
+                        const responseData = response.json()
+                        console.log('Server response:', responseData)
+                    } catch (err) {
+                        console.error(err)
+                    }
                 })
-
-                const responseData = response.json()
-                console.log('Server response:', responseData)
-            } catch (err) {
-                console.error(err)
-            }
+                .catch((err) => console.error(err))
         }
     }
 
