@@ -18,6 +18,8 @@ function StorySubmission() {
     const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
+    //use for put
+    const [storyId, setStoryId] = useState([])
 
     //const [selectedCategory, setSelectedCategory] = useState([]);
 
@@ -140,50 +142,68 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    function handlePost(e) {
-        if (
-            year === '' ||
-            college === '' ||
-            quillValue === '' ||
-            title === ''
-        ) {
-            alert('Complete missing fields')
-            e.preventDefault()
-            console.log('Missing info')
-        } else {
-            alert('Thank you for your submission!')
+function handlePost(e) {
+    if (
+        year === '' || 
+        college === '' || 
+        quillValue === '' || 
+        title === '') {
+        alert('Complete missing fields');
+        e.preventDefault();
+        console.log('Missing info');
+    } else {
+        alert('Thank you for your submission!');
 
-            const data = {
-                Title: values.Title,
-                ParagraphText: values.Description,
-                Date: new Date(),
-                StudentMajor: values.Major,
-                StudentCollege: values.College,
-                StudentYear: values.Year,
-                RelevantCategoryList: values.CategoryIds
-            }
+        const data = {
+            Title: values.Title,
+            ParagraphText: values.Description,
+            Date: new Date(),
+            StudentMajor: values.Major,
+            StudentCollege: values.College,
+            StudentYear: values.Year,
+            RelevantCategoryList: values.CategoryIds,
+        };
 
-            console.log(data)
+        console.log(data);
 
-            try {
-                // URL_PATH imported from frontend/src/links.js
-                // combined with subdirectory to make the full URL
-                const subdirectory = '/stories/storysubmission'
-                const response = fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
+        try {
+            const subdirectory = '/stories/storysubmission';
+            const postResponse = fetch(URL_PATH + subdirectory, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const postResponseData = postResponse.json();
+            console.log('Server response:', postResponseData);
+
+            postResponseData.then((response) => {
+                const storyId = response._id; 
+
+                // put request
+                const putData = {
+                    categoryId: values.CategoryIds[0], 
+                    storyId: storyId,
+                };
+
+                const putResponse = fetch(URL_PATH + '/generalstorycat', {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data),
-                })
+                    body: JSON.stringify(putData),
+                });
 
-                const responseData = response.json()
-                console.log('Server response:', responseData)
-            } catch (err) {
-                console.error(err)
-            }
+                const putResponseData = putResponse.json();
+                console.log('PUT response:', putResponseData);
+            });
+        } catch (err) {
+            console.error(err);
         }
     }
+}
 
     return (
         <div>
