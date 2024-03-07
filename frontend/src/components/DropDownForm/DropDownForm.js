@@ -20,7 +20,11 @@ class DropDownForm extends Component {
     render() {
         return (
             <div className="wrapper-drop-down">
-                <select id="dropdown" onChange={this.handleDropdownChange}>
+                <select
+                    id="dropdown"
+                    onChange={this.handleDropdownChange}
+                    disabled={this.props.disabled}
+                >
                     <option value="N/A">{this.props.fieldTitle}</option>
                     {this.props.myoptions.map((optionTitle, index) => (
                         <option value={optionTitle} index={index}>
