@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const GenStories = require('../models/GenStories')
 const IndStories = require('../models/IndividualStories')
+const Tokens = require('../models/Tokens')
 const AnimalList = [
     'Aardvark',
     'Albatross',
@@ -329,6 +330,16 @@ router.get('/generate-token', async (req, res) => {
         const token = animal + randDigits
 
         res.send(token)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+// GET route for all tokens
+router.get('/tokens', async (req, res) => {
+    try {
+        const stry = await Tokens.find({})
+        res.json(stry)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
