@@ -6,7 +6,7 @@ import {
 } from '../../components/components'
 import URL_PATH from '../../links'
 
-function StoriesPage() {
+function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
     const [nameToID, setNameToID] = useState({})
     const [categorNames, setCategorNames] = useState([])
@@ -48,6 +48,10 @@ function StoriesPage() {
                 setStories(tempDict)
             })
             .catch((error) => console.error(error))
+    }, [])
+
+    useEffect(() => {
+        setActiveLink('/Stories')
     }, [])
 
     return (

@@ -10,7 +10,7 @@ import {
 import '../../links'
 import URL_PATH from '../../links'
 
-function HomePage() {
+function HomePage({ setActiveLink }) {
     // Hook to keep track of the categories to be loaded from the database.
     const [categorNames, setCategorNames] = useState([])
 
@@ -65,6 +65,10 @@ function HomePage() {
                 setCategorNames(tempArray)
             })
             .catch((error) => console.error(error))
+    }, [])
+
+    useEffect(() => {
+        setActiveLink('/Resources')
     }, [])
 
     return (
