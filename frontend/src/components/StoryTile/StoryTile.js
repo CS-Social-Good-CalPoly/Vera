@@ -38,7 +38,7 @@ const InfoText = styled.div`
 `
 
 function StoryTile(props) {
-    const slugifiedTitle = slugify(props.title, { lower: true });
+    const slugifiedTitle = slugify(props.title, { lower: true })
 
     return (
         <Tile onClick={props.handleClick} className="tile">

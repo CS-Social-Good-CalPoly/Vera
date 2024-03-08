@@ -136,7 +136,7 @@ function StoryPopUp(props) {
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
         // combined with subdirectory to make the full URL
-        const subdirectory = `/stories/individualstory/${props.title}`
+        const subdirectory = `/stories/individualstory`
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((data) => {
