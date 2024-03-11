@@ -79,11 +79,11 @@ router.put('/generalstorycat', async (req, res) => {
       }
   
       // check if the storyId is already in the category's storyIds array
-      const storyIdExists = category.storyIds.includes(storyId);
+      const storyIdExists = category.StoryIDList.includes(storyId);
   
       if (!storyIdExists) {
         // add the storyId to the category's storyIds array
-        category.storyIds.push(storyId);
+        category.StoryIDList.push(storyId);
   
         // save the updated category
         const updatedCategory = await category.save();
