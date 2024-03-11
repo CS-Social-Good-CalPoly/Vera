@@ -142,7 +142,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-function handlePost(e) {
+async function handlePost(e) {
     if (
         year === '' || 
         college === '' || 
@@ -165,45 +165,85 @@ function handlePost(e) {
         };
 
         console.log(data);
-
         try {
             const subdirectory = '/stories/storysubmission';
-            const postResponse = fetch(URL_PATH + subdirectory, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+            const postResponse = await fetch(URL_PATH + subdirectory, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
             });
-
+          
             const postResponseData = postResponse.json();
             console.log('Server response:', postResponseData);
-
-            postResponseData.then((response) => {
-                const storyId = response._id; 
-
-                // put request
-                const putData = {
-                    categoryId: values.CategoryIds[0], 
-                    storyId: storyId,
-                };
-
-                const putResponse = fetch(URL_PATH + '/generalstorycat', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(putData),
-                });
-
+          
+            if (postResponse.status == 201) {
+              const storyId = postResponseData._id;
+              const catId = postResponseData.RelevantCategoryList[0]
+          
+              const putData = {
+                categoryId: catId,
+                storyId: storyId,
+              };
+          
+              const putResponse = fetch(URL_PATH + '/stories/generalstorycat', {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(putData),
+              });
+          
+              if (putResponse.status == 200) {
                 const putResponseData = putResponse.json();
                 console.log('PUT response:', putResponseData);
-            });
-        } catch (err) {
+              } else {
+                console.error('PUT request failed:', putResponse.status);
+              }
+            } else {
+              console.error('POST request failed:', postResponse.status);
+            }
+          } catch (err) {
             console.error(err);
-        }
-    }
-}
+          }}}
+//         try {
+//             const subdirectory = '/stories/storysubmission';
+//             const postResponse = await fetch(URL_PATH + subdirectory, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify(data),
+//             });
+
+//             const postResponseData = await postResponse.json();
+//             console.log('Server response:', postResponseData);
+
+//             postResponseData.then((response) => {
+//                 const storyId = response._id; 
+
+//                 // put request
+//                 const putData = {
+//                     categoryId: values.CategoryIds[0], 
+//                     storyId: storyId,
+//                 };
+
+//                 const putResponse = fetch(URL_PATH + '/stories/generalstorycat', {
+//                     method: 'PUT',
+//                     headers: {
+//                         'Content-Type': 'application/json',
+//                     },
+//                     body: JSON.stringify(putData),
+//                 });
+
+//                 const putResponseData = putResponse.json();
+//                 console.log('PUT response:', putResponseData);
+//             });
+//         } catch (err) {
+//             console.error(err);
+//         }
+//     }
 
     return (
         <div>
