@@ -7,6 +7,7 @@ require('dotenv').config()
 const app = express()
 const PORT = 3001
 const DB_CONNECTION = process.env.DB_CONNECTION
+const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY
 
 const corsOptions = {
     origin: ['http://localhost:3000', /calpolyvera\.netlify\.app/],

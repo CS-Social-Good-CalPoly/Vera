@@ -5,6 +5,7 @@ import {
     StoryTileGroup,
 } from '../../components/components'
 import URL_PATH from '../../links'
+import { ClerkProvider } from '@clerk/clerk-expo'
 
 function AdminPages() {
     const [stories, setStories] = useState([])
@@ -17,7 +18,7 @@ function AdminPages() {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json);
+                console.log(json)
                 let tempArray = json.map((story) => ({
                     _id: story._id,
                     Title: story.Title,
@@ -36,6 +37,9 @@ function AdminPages() {
     return (
         <div>
             <div>
+                <SignedIn>
+                    <Text>You are Signed in</Text>
+                </SignedIn>
                 {/* Buttons for filtering */}
                 <button onClick={() => handleFilter('SE')}>SE</button>
                 <button onClick={() => handleFilter('Computer Science')}>

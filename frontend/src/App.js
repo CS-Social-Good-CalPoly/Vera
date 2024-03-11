@@ -10,64 +10,69 @@ import {
     IndividualStoryPage,
     AdminPages,
 } from './pages/pages'
+import { ClerkProvider } from '@clerk/clerk-expo'
 
 function App() {
     const [activeLink, setActiveLink] = useState(null)
 
     return (
-        <div id="app">
-            <NavBar activeLink={activeLink} />
-            <div id="page">
-                <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        component={() => (
-                            <HomePage setActiveLink={setActiveLink} />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/resources"
-                        component={() => (
-                            <HomePage setActiveLink={setActiveLink} />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/individualResource"
-                        component={() => <IndividualResourcePage />}
-                    />
-                    <Route
-                        exact
-                        path="/stories"
-                        render={() => (
-                            <StoriesPage setActiveLink={setActiveLink} />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/individualStory"
-                        component={() => <IndividualStoryPage />}
-                    />
-                    <Route
-                        exact
-                        path="/storySubmission"
-                        component={() => (
-                            <StorySubmissionPage
-                                setActiveLink={setActiveLink}
-                            />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/AdminPages"
-                        component={() => <AdminPages />}
-                    />
-                </Switch>
+        <ClerkProvider
+            publishableKey={Constants.expoConfig.extra.clerkPublishableKey}
+        >
+            <div id="app">
+                <NavBar activeLink={activeLink} />
+                <div id="page">
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            component={() => (
+                                <HomePage setActiveLink={setActiveLink} />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/resources"
+                            component={() => (
+                                <HomePage setActiveLink={setActiveLink} />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/individualResource"
+                            component={() => <IndividualResourcePage />}
+                        />
+                        <Route
+                            exact
+                            path="/stories"
+                            render={() => (
+                                <StoriesPage setActiveLink={setActiveLink} />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/individualStory"
+                            component={() => <IndividualStoryPage />}
+                        />
+                        <Route
+                            exact
+                            path="/storySubmission"
+                            component={() => (
+                                <StorySubmissionPage
+                                    setActiveLink={setActiveLink}
+                                />
+                            )}
+                        />
+                        <Route
+                            exact
+                            path="/AdminPages"
+                            component={() => <AdminPages />}
+                        />
+                    </Switch>
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        </ClerkProvider>
     )
 }
 
