@@ -142,7 +142,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-async function handlePost(e) {
+function handlePost(e) {
     if (
         year === '' || 
         college === '' || 
@@ -167,7 +167,7 @@ async function handlePost(e) {
         console.log(data);
         try {
             const subdirectory = '/stories/storysubmission';
-            const postResponse = await fetch(URL_PATH + subdirectory, {
+            const postResponse = fetch(URL_PATH + subdirectory, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -207,43 +207,6 @@ async function handlePost(e) {
           } catch (err) {
             console.error(err);
           }}}
-//         try {
-//             const subdirectory = '/stories/storysubmission';
-//             const postResponse = await fetch(URL_PATH + subdirectory, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(data),
-//             });
-
-//             const postResponseData = await postResponse.json();
-//             console.log('Server response:', postResponseData);
-
-//             postResponseData.then((response) => {
-//                 const storyId = response._id; 
-
-//                 // put request
-//                 const putData = {
-//                     categoryId: values.CategoryIds[0], 
-//                     storyId: storyId,
-//                 };
-
-//                 const putResponse = fetch(URL_PATH + '/stories/generalstorycat', {
-//                     method: 'PUT',
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                     },
-//                     body: JSON.stringify(putData),
-//                 });
-
-//                 const putResponseData = putResponse.json();
-//                 console.log('PUT response:', putResponseData);
-//             });
-//         } catch (err) {
-//             console.error(err);
-//         }
-//     }
 
     return (
         <div>
