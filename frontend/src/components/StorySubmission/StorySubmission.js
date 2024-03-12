@@ -55,6 +55,16 @@ function StorySubmission() {
         // console.log(cat)
         return cat._id; 
     }
+
+    const clearInputs = () => {
+        setYear('');
+        setCollege('');
+        setMajor('');
+        setQuillValue('');
+        setTitleValue('');
+        setSelectedCategoryName('');
+        setCategoryIds([]);
+      };
     
     //change the id list to include the selected category
     useEffect(() => {
@@ -190,7 +200,10 @@ function handlePost(e) {
                 },
                 body: JSON.stringify(putData),
                 })
-                .then((putResponse)=> putResponse.json())
+                .then((putResponse)=> {
+                    putResponse.json();
+                    clearInputs();
+                })
                 .catch((err) => console.error(err))
         })
         .catch((err) => console.error(err))
