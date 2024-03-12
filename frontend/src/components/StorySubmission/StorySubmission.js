@@ -152,9 +152,9 @@ function handlePost(e) {
         e.preventDefault();
         console.log('Missing info');
     } else {
+        e.preventDefault();
         alert('Thank you for your submission!');
-
-        const data = {
+        const postData = {
             Title: values.Title,
             ParagraphText: values.Description,
             Date: new Date(),
@@ -164,49 +164,37 @@ function handlePost(e) {
             RelevantCategoryList: values.CategoryIds,
         };
 
-        console.log(data);
-        try {
-            const subdirectory = '/stories/storysubmission';
-            const postResponse = fetch(URL_PATH + subdirectory, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data),
-            });
-          
-            const postResponseData = postResponse.json();
-            console.log('Server response:', postResponseData);
-          
-            if (postResponse.status == 201) {
-              const storyId = postResponseData._id;
-              const catId = postResponseData.RelevantCategoryList[0]
-          
-              const putData = {
+        console.log(postData);
+        const subdirectory = '/stories/storysubmission';
+        fetch(URL_PATH + subdirectory, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+        .then((postResponse)=>postResponse.json())
+        .then((postRes) => {
+            
+            const storyId = postRes._id;
+            const catId = postRes.RelevantCategoryList[0]
+            const putData = {
                 categoryId: catId,
                 storyId: storyId,
-              };
-          
-              const putResponse = fetch(URL_PATH + '/stories/generalstorycat', {
+            };
+            console.log(putData)
+            fetch(URL_PATH + '/stories/generalstorycat', {
                 method: 'PUT',
                 headers: {
-                  'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(putData),
-              });
-          
-              if (putResponse.status == 200) {
-                const putResponseData = putResponse.json();
-                console.log('PUT response:', putResponseData);
-              } else {
-                console.error('PUT request failed:', putResponse.status);
-              }
-            } else {
-              console.error('POST request failed:', postResponse.status);
-            }
-          } catch (err) {
-            console.error(err);
-          }}}
+                })
+                .then((putResponse)=> putResponse.json())
+                .catch((err) => console.error(err))
+        })
+        .catch((err) => console.error(err))
+    }}
 
     return (
         <div>
