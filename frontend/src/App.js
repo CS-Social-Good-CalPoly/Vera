@@ -36,7 +36,9 @@ function App() {
                     <Route
                         exact
                         path="/individualResource"
-                        component={() => <IndividualResourcePage />}
+                        component={() => (
+                            <IndividualResourcePage setActiveLink={setActiveLink} />
+                        )}
                     />
                     <Route
                         exact
@@ -48,7 +50,9 @@ function App() {
                     <Route
                         exact
                         path="/individualStory"
-                        component={() => <IndividualStoryPage />}
+                        component={() => (
+                            <IndividualStoryPage setActiveLink={setActiveLink} />
+                        )}
                     />
                     <Route
                         exact
@@ -62,7 +66,9 @@ function App() {
                     <Route
                         exact
                         path="/AdminPages"
-                        component={() => <AdminPages />}
+                        component={() => (
+                            <AdminPages setActiveLink={setActiveLink} /> 
+                        )}
                     />
                 </Switch>
             </div>

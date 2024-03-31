@@ -6,7 +6,7 @@ import {
 } from '../../components/components'
 import URL_PATH from '../../links'
 
-function AdminPages() {
+function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
     // const [nameToID, setNameToID] = useState({})
     // const [categorNames, setCategorNames] = useState([])
@@ -17,7 +17,7 @@ function AdminPages() {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json);
+                console.log(json)
                 let tempArray = json.map((story) => ({
                     _id: story._id,
                     Title: story.Title,
@@ -27,6 +27,10 @@ function AdminPages() {
                 setStories(tempArray)
             })
             .catch((error) => console.error(error))
+    }, [])
+
+    useEffect(() => {
+        setActiveLink('/AdminPages')
     }, [])
 
     const handleFilter = (discipline) => {

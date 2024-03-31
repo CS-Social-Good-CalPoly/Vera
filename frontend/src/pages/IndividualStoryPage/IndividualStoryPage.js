@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StoryPopUp } from '../../components/components'
 import { useLocation } from 'react-router-dom'
 
-function IndividualStoryPage() {
+function IndividualStoryPage({ setActiveLink }) {
     const location = useLocation()
     let id = location.state.storyID
     // console.log('hi')
     // console.log(id)
+
+    useEffect(() => {
+        setActiveLink('/IndividualStory')
+    }, [])
 
     return (
         <div>

@@ -8,7 +8,7 @@ import {
 import { useLocation } from 'react-router-dom'
 import URL_PATH from '../../links'
 
-function IndividualResourcePage() {
+function IndividualResourcePage({ setActiveLink }) {
     const location = useLocation()
     const { individualIDs, title, description, imageUrl } = location.state || {}
 
@@ -40,6 +40,10 @@ function IndividualResourcePage() {
                 window.scrollTo(0, 0)
             })
             .catch((error) => console.error(error))
+    }, [])
+
+    useEffect(() => {
+        setActiveLink('/IndividualResource')
     }, [])
 
     return (
