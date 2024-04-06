@@ -254,6 +254,7 @@ router.post('/storysubmission', async (req, res) => {
         StudentMajor,
         StudentCollege,
         StudentYear,
+        RelevantCategoryList,
         Token,
     } = req.body
 
@@ -264,6 +265,7 @@ router.post('/storysubmission', async (req, res) => {
         StudentMajor,
         StudentCollege,
         StudentYear,
+        RelevantCategoryList,
         Token,
     })
 
@@ -274,6 +276,36 @@ router.post('/storysubmission', async (req, res) => {
         res.status(400).json({ message: err.message })
     }
 })
+
+// PUT route for updating category's story ID list
+router.put('/generalstorycat', async (req, res) => {
+    try {
+      const { categoryId, storyId } = req.body;
+        console.log("categoryId:", categoryId);
+      const category = await GenStories.findById(categoryId);
+  
+      if (!category) {
+        return res.status(404).json({ message: 'Category not found' });
+      }
+  
+      // check if the storyId is already in the category's storyIds array
+      const storyIdExists = category.StoryIDList.includes(storyId);
+  
+      if (!storyIdExists) {
+        // add the storyId to the category's storyIds array
+        category.StoryIDList.push(storyId);
+  
+        // save the updated category
+        const updatedCategory = await category.save();
+  
+        res.status(200).json(updatedCategory);
+      } else {
+        res.status(400).json({ message: 'Story ID already exists in the category' });
+      }
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  });
 
 // DELETE route for admin to delete stories
 // Create the backend endpoint /deleteIndividualStory

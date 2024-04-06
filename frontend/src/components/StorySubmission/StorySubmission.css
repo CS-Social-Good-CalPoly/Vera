@@ -39,9 +39,7 @@
 .inputs {
   display: flex;
   flex-direction: row;
-  
   margin: 3% 0px 1% 3%;
-  
 }
 
 #option {
