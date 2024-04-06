@@ -30,7 +30,7 @@ function StorySubmission() {
         Description: quillValue,
         Title: title,
         Category: selectedCategoryName,
-        CategoryIds: categoryIds
+        CategoryIds: categoryIds,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -48,23 +48,23 @@ function StorySubmission() {
     const handleCategoryChange = (e) => {
         setSelectedCategoryName(e)
     }
-      
+
     const getCategoryId = (categories, categoryName) => {
         // console.log(categories)
-        const cat = categories.filter((c) => c.Name === categoryName)[0];
+        const cat = categories.filter((c) => c.Name === categoryName)[0]
         // console.log(cat)
-        return cat._id; 
+        return cat._id
     }
-    
+
     //change the id list to include the selected category
     useEffect(() => {
         console.log(selectedCategoryName)
         if (selectedCategoryName) {
-          const id = getCategoryId(categoryList, selectedCategoryName);
-          console.log(id)
-          setCategoryIds(prev => [...prev, id]); 
+            const id = getCategoryId(categoryList, selectedCategoryName)
+            console.log(id)
+            setCategoryIds((prev) => [...prev, id])
         }
-    }, [selectedCategoryName]);
+    }, [selectedCategoryName])
 
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
@@ -127,8 +127,6 @@ function StorySubmission() {
             })
             .catch((err) => console.error(err))
     }, [])
-      
-      
 
     const yearList = [
         '1st Year',
@@ -142,59 +140,65 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-function handlePost(e) {
-    if (
-        year === '' || 
-        college === '' || 
-        quillValue === '' || 
-        title === '') {
-        alert('Complete missing fields');
-        e.preventDefault();
-        console.log('Missing info');
-    } else {
-        e.preventDefault();
-        alert('Thank you for your submission!');
-        const postData = {
-            Title: values.Title,
-            ParagraphText: values.Description,
-            Date: new Date(),
-            StudentMajor: values.Major,
-            StudentCollege: values.College,
-            StudentYear: values.Year,
-            RelevantCategoryList: values.CategoryIds,
-        };
+    function handlePost(e) {
+        if (
+            year === '' ||
+            college === '' ||
+            quillValue === '' ||
+            title === ''
+        ) {
+            alert('Complete missing fields')
+            e.preventDefault()
+            console.log('Missing info')
+        } else {
+            e.preventDefault()
+            alert('Thank you for your submission!')
+            const postData = {
+                Title: values.Title,
+                ParagraphText: values.Description,
+                Date: new Date(),
+                StudentMajor: values.Major,
+                StudentCollege: values.College,
+                StudentYear: values.Year,
+                RelevantCategoryList: values.CategoryIds,
+            }
 
-        console.log(postData);
-        const subdirectory = '/stories/storysubmission';
-        fetch(URL_PATH + subdirectory, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postData),
-        })
-        .then((postResponse)=>postResponse.json())
-        .then((postRes) => {
-            
-            const storyId = postRes._id;
-            const catId = postRes.RelevantCategoryList[0]
-            const putData = {
-                categoryId: catId,
-                storyId: storyId,
-            };
-            console.log(putData)
-            fetch(URL_PATH + '/stories/generalstorycat', {
-                method: 'PUT',
+            console.log(postData)
+            const subdirectory = '/stories/storysubmission'
+            fetch(URL_PATH + subdirectory, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(putData),
+                body: JSON.stringify(postData),
+            })
+                .then((postResponse) => postResponse.json())
+                .then((postRes) => {
+                    const storyId = postRes._id
+                    const catId = postRes.RelevantCategoryList[0]
+                    const putData = {
+                        categoryId: catId,
+                        storyId: storyId,
+                    }
+                    console.log(putData)
+                    fetch(URL_PATH + '/stories/generalstorycat', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(putData),
+                    })
+                        .then((putResponse) => putResponse.json())
+                        .then(() => {
+                            // Refresh the page after all asynchronous operations are complete
+                            window.location.reload()
+                            window.scrollTo(0, 0)
+                        })
+                        .catch((err) => console.error(err))
                 })
-                .then((putResponse)=> putResponse.json())
                 .catch((err) => console.error(err))
-        })
-        .catch((err) => console.error(err))
-    }}
+        }
+    }
 
     return (
         <div>
