@@ -23,7 +23,8 @@ function StorySubmission() {
     const [storyId, setStoryId] = useState([])
 
     //const [selectedCategory, setSelectedCategory] = useState([]);
-    const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] = useState(false)
+    const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
+        useState(false)
 
     const values = {
         Year: year,
@@ -74,12 +75,12 @@ function StorySubmission() {
     }
 
     const handleMajorChange = (e) => {
-        setMajor(e);
-        setCollege(collegeDict[e]);
-        console.log(e + ': ' + collegeDict[e]);
-        setIsCollegeDropdownDisabled(e !== 'N/A'); // Assuming "N/A" represents "MAJOR (OPTIONAL)"
-    };
-    
+        setMajor(e)
+        setCollege(collegeDict[e])
+        console.log(e + ': ' + collegeDict[e])
+        setIsCollegeDropdownDisabled(e !== 'N/A') // Assuming "N/A" represents "MAJOR (OPTIONAL)"
+    }
+
     useEffect(() => {
         axios
             .get('https://www.calpoly.edu/colleges-departments-and-majors')
@@ -155,69 +156,67 @@ function StorySubmission() {
             e.preventDefault()
             console.log('Missing info')
         } else {
-
             e.preventDefault()
-            
+
             // Create token if the story successfully submits
-            axios
-                .get(URL_PATH + '/stories/generate-token')
-                .then((res) => {
-                    const newToken = res.data
-                    console.log(res.data)
-                    setTokenValue(newToken)
+            axios.get(URL_PATH + '/stories/generate-token').then((res) => {
+                const newToken = res.data
+                console.log(res.data)
+                setTokenValue(newToken)
 
-                    alert(
-                        'Thank you for your submission!\nYour token is: ' +
-                            newToken,
-                    )
-          
-            const postData = {
-                Title: values.Title,
-                ParagraphText: values.Description,
-                Date: new Date(),
-                StudentMajor: values.Major,
-                StudentCollege: values.College,
-                StudentYear: values.Year,
-                RelevantCategoryList: values.CategoryIds,
-            }
+                alert(
+                    'Thank you for your submission!\nYour token is: ' +
+                        newToken,
+                )
 
-            console.log(postData)
-            const subdirectory = '/stories/storysubmission'
-            fetch(URL_PATH + subdirectory, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData),
-            })
-                .then((postResponse) => postResponse.json())
-                .then((postRes) => {
-                    const storyId = postRes._id
-                    const catId = postRes.RelevantCategoryList[0]
-                    const putData = {
-                        categoryId: catId,
-                        storyId: storyId,
-                    }
-                    console.log(putData)
-                    fetch(URL_PATH + '/stories/generalstorycat', {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(putData),
-                    })
-                        .then((putResponse) => putResponse.json())
-                        .then(() => {
-                            //here
-                        })
-                        .then(() => {
-                            // Refresh the page after all asynchronous operations are complete
-                            window.location.reload()
-                            window.scrollTo(0, 0)
-                        })
-                        .catch((err) => console.error(err))
+                const postData = {
+                    Title: values.Title,
+                    ParagraphText: values.Description,
+                    Date: new Date(),
+                    StudentMajor: values.Major,
+                    StudentCollege: values.College,
+                    StudentYear: values.Year,
+                    RelevantCategoryList: values.CategoryIds,
+                }
+
+                console.log(postData)
+                const subdirectory = '/stories/storysubmission'
+                fetch(URL_PATH + subdirectory, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(postData),
                 })
-                .catch((err) => console.error(err))
+                    .then((postResponse) => postResponse.json())
+                    .then((postRes) => {
+                        const storyId = postRes._id
+                        const catId = postRes.RelevantCategoryList[0]
+                        const putData = {
+                            categoryId: catId,
+                            storyId: storyId,
+                        }
+                        console.log(putData)
+                        fetch(URL_PATH + '/stories/generalstorycat', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(putData),
+                        })
+                            .then((putResponse) => putResponse.json())
+                            .then(() => {
+                                //here
+                            })
+                            .then(() => {
+                                // Refresh the page after all asynchronous operations are complete
+                                window.location.reload()
+                                window.scrollTo(0, 0)
+                            })
+                            .catch((err) => console.error(err))
+                    })
+                    .catch((err) => console.error(err))
+            })
         }
     }
 
@@ -239,7 +238,7 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownForm
-                                    key = {major}
+                                    key={major}
                                     fieldTitle={college ? college : 'College'}
                                     myoptions={[
                                         ...new Set(Object.values(collegeDict)),
@@ -299,5 +298,4 @@ function StorySubmission() {
         </div>
     )
 }
-
 export default StorySubmission
