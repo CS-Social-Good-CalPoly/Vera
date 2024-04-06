@@ -14,6 +14,7 @@ function StorySubmission() {
     const [selectedCategoryName, setSelectedCategoryName] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
+    const [token, setTokenValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
     const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
@@ -22,6 +23,7 @@ function StorySubmission() {
     const [storyId, setStoryId] = useState([])
 
     //const [selectedCategory, setSelectedCategory] = useState([]);
+    const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] = useState(false)
 
     const values = {
         Year: year,
@@ -31,6 +33,7 @@ function StorySubmission() {
         Title: title,
         Category: selectedCategoryName,
         CategoryIds: categoryIds,
+        Token: token,
     }
 
     const handleTitleKeyPress = (e) => {
@@ -71,11 +74,12 @@ function StorySubmission() {
     }
 
     const handleMajorChange = (e) => {
-        setMajor(e)
-        setCollege(collegeDict[e])
-        console.log(e + ': ' + collegeDict[e])
-    }
-
+        setMajor(e);
+        setCollege(collegeDict[e]);
+        console.log(e + ': ' + collegeDict[e]);
+        setIsCollegeDropdownDisabled(e !== 'N/A'); // Assuming "N/A" represents "MAJOR (OPTIONAL)"
+    };
+    
     useEffect(() => {
         axios
             .get('https://www.calpoly.edu/colleges-departments-and-majors')
@@ -151,8 +155,22 @@ function StorySubmission() {
             e.preventDefault()
             console.log('Missing info')
         } else {
+
             e.preventDefault()
-            alert('Thank you for your submission!')
+            
+            // Create token if the story successfully submits
+            axios
+                .get(URL_PATH + '/stories/generate-token')
+                .then((res) => {
+                    const newToken = res.data
+                    console.log(res.data)
+                    setTokenValue(newToken)
+
+                    alert(
+                        'Thank you for your submission!\nYour token is: ' +
+                            newToken,
+                    )
+          
             const postData = {
                 Title: values.Title,
                 ParagraphText: values.Description,
@@ -190,6 +208,9 @@ function StorySubmission() {
                     })
                         .then((putResponse) => putResponse.json())
                         .then(() => {
+                            //here
+                        })
+                        .then(() => {
                             // Refresh the page after all asynchronous operations are complete
                             window.location.reload()
                             window.scrollTo(0, 0)
@@ -218,11 +239,13 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownForm
+                                    key = {major}
                                     fieldTitle={college ? college : 'College'}
                                     myoptions={[
                                         ...new Set(Object.values(collegeDict)),
                                     ]}
                                     handleChange={handleCollegeChange}
+                                    disabled={isCollegeDropdownDisabled}
                                 />
                             </div>
                         </div>
