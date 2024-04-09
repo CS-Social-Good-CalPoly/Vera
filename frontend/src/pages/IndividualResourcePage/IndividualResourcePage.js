@@ -43,7 +43,7 @@ function IndividualResourcePage({ setActiveLink }) {
     }, [])
 
     useEffect(() => {
-        setActiveLink('/IndividualResource')
+        setActiveLink('/Resources')
     }, [])
 
     return (

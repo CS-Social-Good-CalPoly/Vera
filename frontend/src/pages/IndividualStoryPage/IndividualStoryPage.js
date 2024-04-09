@@ -9,7 +9,7 @@ function IndividualStoryPage({ setActiveLink }) {
     // console.log(id)
 
     useEffect(() => {
-        setActiveLink('/IndividualStory')
+        setActiveLink('/Stories')
     }, [])
 
     return (
