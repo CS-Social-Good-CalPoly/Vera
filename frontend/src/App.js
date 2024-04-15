@@ -6,11 +6,11 @@ import {
     IndividualResourcePage,
     StoriesPage,
     StorySubmissionPage,
-    IndividualStoryPage, AdminPages
+    IndividualStoryPage,
+    AdminPages,
 } from './pages/pages'
 
 function App() {
-
     return (
         <div id="app">
             <NavBar />
@@ -34,8 +34,8 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/individualStory/:title"
-                        component={() => <IndividualStoryPage />}
+                        path="/individualStory/:id"
+                        render={() => <IndividualStoryPage />}
                     />
                     <Route
                         exact

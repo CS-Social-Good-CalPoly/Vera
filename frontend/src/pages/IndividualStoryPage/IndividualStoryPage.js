@@ -1,18 +1,16 @@
 import React from 'react'
 import { StoryPopUp } from '../../components/components'
-import { useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 function IndividualStoryPage() {
-    const location = useLocation()
-    console.log("location: ", location)
-    let id = location.state.storyID
-    let title = location.state.storyTitle
+    const { id } = useParams(); // Use useParams to get the id from the URL
+    console.log('id:', id);
 
     return (
         <div>
-            <StoryPopUp id={id} title={title}/>
+            <StoryPopUp id={id} />
         </div>
-    )
+    );
 }
 
 export default IndividualStoryPage

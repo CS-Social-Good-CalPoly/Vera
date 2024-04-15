@@ -141,9 +141,10 @@ function StoryPopUp(props) {
             .then((response) => response.json())
             .then((data) => {
                 setindividualStory(data)
+                console.log('Data', data)
             })
             .catch((error) => console.error(error))
-    }, [])
+    }, [props.id])
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -160,14 +161,15 @@ function StoryPopUp(props) {
             .catch((error) => console.error(error))
     }, [])
 
-    let currentStory = individualStory[0]
+    let currentStory = individualStory.find(story => story._id === props.id);
+    console.log('Current', currentStory)
     // got the id, just need to iterate through stories
-    for (var i = 0; i < individualStory.length; i++) {
-        // console.log(individualStory[i].id)
-        if (individualStory[i]._id == props.id) {
-            currentStory = individualStory[i]
-        }
-    }
+    // for (var i = 0; i < individualStory.length; i++) {
+    //     // console.log(individualStory[i].id)
+    //     if (individualStory[i]._id == props.id) {
+    //         currentStory = individualStory[i]
+    //     }
+    // }
 
     const date = moment(currentStory?.Date)
     const formattedDate = date.format('MMM DD, YYYY')
