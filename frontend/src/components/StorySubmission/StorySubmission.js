@@ -83,41 +83,50 @@ function StorySubmission() {
 
     useEffect(() => {
         axios
-            .get('https://www.calpoly.edu/colleges-departments-and-majors')
+            .get(URL_PATH + '/stories/colleges-and-majors')
             .then((res) => {
-                const $ = cheerio.load(res.data)
-                const college_dict = {}
-
-                // Select each h2 tag
-                $('h2').each((index, element) => {
-                    // Get the text content of the h2 tag
-                    const college_name = $(element).text().trim()
-                    if (college_name.toLowerCase().includes('college')) {
-                        // Get the section, stopping at the next h2 which should be the college
-                        const $collegeSection = $(element).nextUntil('h2')
-
-                        // Iterate over each HTML a element within this section
-                        $collegeSection.find('a').each((index, element) => {
-                            // Get the text content of the a tag
-                            const major_name = $(element).text().trim()
-
-                            if (
-                                major_name.toLowerCase().includes('major') &&
-                                major_name !== 'Find a major'
-                            ) {
-                                // Create key/value pair; keys = majors, values = colleges
-                                // Note: keys are unique, colleges duplicate
-                                college_dict[
-                                    major_name.replace('Major', '').trim()
-                                ] = college_name
-                            }
-                        })
-                    }
-                })
-                setCollegeDict(college_dict)
+                setCollegeDict(res.data)
             })
             .catch((err) => console.error(err))
     }, [])
+
+    // useEffect(() => {
+    //     axios
+    //         .get('https://www.calpoly.edu/colleges-departments-and-majors')
+    //         .then((res) => {
+    //             const $ = cheerio.load(res.data)
+    //             const college_dict = {}
+
+    //             // Select each h2 tag
+    //             $('h2').each((index, element) => {
+    //                 // Get the text content of the h2 tag
+    //                 const college_name = $(element).text().trim()
+    //                 if (college_name.toLowerCase().includes('college')) {
+    //                     // Get the section, stopping at the next h2 which should be the college
+    //                     const $collegeSection = $(element).nextUntil('h2')
+
+    //                     // Iterate over each HTML a element within this section
+    //                     $collegeSection.find('a').each((index, element) => {
+    //                         // Get the text content of the a tag
+    //                         const major_name = $(element).text().trim()
+
+    //                         if (
+    //                             major_name.toLowerCase().includes('major') &&
+    //                             major_name !== 'Find a major'
+    //                         ) {
+    //                             // Create key/value pair; keys = majors, values = colleges
+    //                             // Note: keys are unique, colleges duplicate
+    //                             college_dict[
+    //                                 major_name.replace('Major', '').trim()
+    //                             ] = college_name
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //             setCollegeDict(college_dict)
+    //         })
+    //         .catch((err) => console.error(err))
+    // }, [])
 
     useEffect(() => {
         axios
