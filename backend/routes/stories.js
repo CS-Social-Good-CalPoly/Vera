@@ -3,6 +3,8 @@ const router = express.Router()
 const GenStories = require('../models/GenStories')
 const IndStories = require('../models/IndividualStories')
 const Tokens = require('../models/Tokens')
+const axios = require('axios')
+const cheerio = require('cheerio')
 const AnimalList = [
     'Aardvark',
     'Albatross',
@@ -379,7 +381,8 @@ router.get('/tokens', async (req, res) => {
     }
 })
 
-app.get('/colleges-and-majors', async (req, res) => {
+router.get('/colleges-and-majors', async (req, res) => {
+    console.log('hi 1')
     try {
         const response = await axios.get(
             'https://www.calpoly.edu/colleges-departments-and-majors',
@@ -403,6 +406,8 @@ app.get('/colleges-and-majors', async (req, res) => {
                 })
             }
         })
+
+        console.log('hi 2')
 
         res.json(college_dict)
     } catch (error) {

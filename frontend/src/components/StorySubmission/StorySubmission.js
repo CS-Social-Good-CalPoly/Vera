@@ -83,7 +83,7 @@ function StorySubmission() {
 
     useEffect(() => {
         axios
-            .get(URL_PATH + '/colleges-and-majors')
+            .get(URL_PATH + '/stories/colleges-and-majors')
             .then((res) => {
                 setCollegeDict(res.data)
             })
