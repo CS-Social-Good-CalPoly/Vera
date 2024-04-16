@@ -47,8 +47,8 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/individualStory"
-                        component={() => <IndividualStoryPage />}
+                        path="/individualStory/:id"
+                        render={() => <IndividualStoryPage />}
                     />
                     <Route
                         exact
