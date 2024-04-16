@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile'
 import '../Shared/Tile.css'
-// import slugify from 'slugify'
 
 const Info = styled.div`
     padding-left: 23px;

@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 
 function IndividualStoryPage() {
     const { id } = useParams(); // Use useParams to get the id from the URL
-    console.log('id:', id);
 
     return (
         <div>
