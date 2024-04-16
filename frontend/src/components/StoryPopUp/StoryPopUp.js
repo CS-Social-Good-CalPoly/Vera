@@ -160,7 +160,7 @@ function StoryPopUp(props) {
             .catch((error) => console.error(error))
     }, [])
 
-    let currentStory = individualStory.find(story => story._id === props.id);
+    let currentStory = individualStory.find((story) => story._id === props.id)
 
     const date = moment(currentStory?.Date)
     const formattedDate = date.format('MMM DD, YYYY')
