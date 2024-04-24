@@ -4,6 +4,7 @@ import {
     CategoryButtonGroup,
     StoryTileGroup,
 } from '../../components/components'
+import { Link } from 'react-router-dom'
 import URL_PATH from '../../links'
 
 function AdminPages() {
@@ -17,7 +18,7 @@ function AdminPages() {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json);
+                console.log(json)
                 let tempArray = json.map((story) => ({
                     _id: story._id,
                     Title: story.Title,
@@ -56,6 +57,13 @@ function AdminPages() {
                             <h2>{story.Title}</h2>
                             <p>Student Major: {story.StudentMajor}</p>
                             <p>{story.ParagraphText}</p>
+                            <Link
+                                to={{
+                                    pathname: `/individualStory/${story._id}`,
+                                }}
+                            >
+                                <button>View Story</button>
+                            </Link>
                             <br /> {/* Line break */}
                         </div>
                     ))}
