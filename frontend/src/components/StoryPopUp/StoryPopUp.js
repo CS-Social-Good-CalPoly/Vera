@@ -136,14 +136,14 @@ function StoryPopUp(props) {
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
         // combined with subdirectory to make the full URL
-        const subdirectory = '/stories/individualstory'
+        const subdirectory = `/stories/individualstory`
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((data) => {
                 setindividualStory(data)
             })
             .catch((error) => console.error(error))
-    }, [])
+    }, [props.id])
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -160,14 +160,7 @@ function StoryPopUp(props) {
             .catch((error) => console.error(error))
     }, [])
 
-    let currentStory = individualStory[0]
-    // got the id, just need to iterate through stories
-    for (var i = 0; i < individualStory.length; i++) {
-        // console.log(individualStory[i].id)
-        if (individualStory[i]._id == props.id) {
-            currentStory = individualStory[i]
-        }
-    }
+    let currentStory = individualStory.find((story) => story._id === props.id)
 
     const date = moment(currentStory?.Date)
     const formattedDate = date.format('MMM DD, YYYY')

@@ -11,13 +11,20 @@ function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
     const [major, setMajor] = useState('')
-    const [category, setCategory] = useState('')
+    const [selectedCategoryName, setSelectedCategoryName] = useState('')
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [token, setTokenValue] = useState('')
     const [collegeDict, setCollegeDict] = useState({})
+    const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
-    const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] = useState(false)
+    const [categoryIds, setCategoryIds] = useState([])
+    //use for put
+    const [storyId, setStoryId] = useState([])
+
+    //const [selectedCategory, setSelectedCategory] = useState([]);
+    const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
+        useState(false)
 
     const values = {
         Year: year,
@@ -25,7 +32,8 @@ function StorySubmission() {
         Major: major,
         Description: quillValue,
         Title: title,
-        Category: category,
+        Category: selectedCategoryName,
+        CategoryIds: categoryIds,
         Token: token,
     }
 
@@ -42,64 +50,93 @@ function StorySubmission() {
     }
 
     const handleCategoryChange = (e) => {
-        setCategory(e)
+        setSelectedCategoryName(e)
     }
+
+    const getCategoryId = (categories, categoryName) => {
+        // console.log(categories)
+        const cat = categories.filter((c) => c.Name === categoryName)[0]
+        // console.log(cat)
+        return cat._id
+    }
+
+    //change the id list to include the selected category
+    useEffect(() => {
+        console.log(selectedCategoryName)
+        if (selectedCategoryName) {
+            const id = getCategoryId(categoryList, selectedCategoryName)
+            console.log(id)
+            setCategoryIds((prev) => [...prev, id])
+        }
+    }, [selectedCategoryName])
 
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
     }
 
     const handleMajorChange = (e) => {
-        setMajor(e);
-        setCollege(collegeDict[e]);
-        console.log(e + ': ' + collegeDict[e]);
-        setIsCollegeDropdownDisabled(e !== 'N/A'); // Assuming "N/A" represents "MAJOR (OPTIONAL)"
-    };
-    
+        setMajor(e)
+        setCollege(collegeDict[e])
+        console.log(e + ': ' + collegeDict[e])
+        setIsCollegeDropdownDisabled(e !== 'N/A') // Assuming "N/A" represents "MAJOR (OPTIONAL)"
+    }
+
     useEffect(() => {
         axios
-            .get('https://www.calpoly.edu/colleges-departments-and-majors')
+            .get(URL_PATH + '/stories/colleges-and-majors')
             .then((res) => {
-                const $ = cheerio.load(res.data)
-                const college_dict = {}
-
-                // Select each h2 tag
-                $('h2').each((index, element) => {
-                    // Get the text content of the h2 tag
-                    const college_name = $(element).text().trim()
-                    if (college_name.toLowerCase().includes('college')) {
-                        // Get the section, stopping at the next h2 which should be the college
-                        const $collegeSection = $(element).nextUntil('h2')
-
-                        // Iterate over each HTML a element within this section
-                        $collegeSection.find('a').each((index, element) => {
-                            // Get the text content of the a tag
-                            const major_name = $(element).text().trim()
-
-                            if (
-                                major_name.toLowerCase().includes('major') &&
-                                major_name !== 'Find a major'
-                            ) {
-                                // Create key/value pair; keys = majors, values = colleges
-                                // Note: keys are unique, colleges duplicate
-                                college_dict[
-                                    major_name.replace('Major', '').trim()
-                                ] = college_name
-                            }
-                        })
-                    }
-                })
-                setCollegeDict(college_dict)
+                setCollegeDict(res.data)
             })
             .catch((err) => console.error(err))
     }, [])
+
+    // useEffect(() => {
+    //     axios
+    //         .get('https://www.calpoly.edu/colleges-departments-and-majors')
+    //         .then((res) => {
+    //             const $ = cheerio.load(res.data)
+    //             const college_dict = {}
+
+    //             // Select each h2 tag
+    //             $('h2').each((index, element) => {
+    //                 // Get the text content of the h2 tag
+    //                 const college_name = $(element).text().trim()
+    //                 if (college_name.toLowerCase().includes('college')) {
+    //                     // Get the section, stopping at the next h2 which should be the college
+    //                     const $collegeSection = $(element).nextUntil('h2')
+
+    //                     // Iterate over each HTML a element within this section
+    //                     $collegeSection.find('a').each((index, element) => {
+    //                         // Get the text content of the a tag
+    //                         const major_name = $(element).text().trim()
+
+    //                         if (
+    //                             major_name.toLowerCase().includes('major') &&
+    //                             major_name !== 'Find a major'
+    //                         ) {
+    //                             // Create key/value pair; keys = majors, values = colleges
+    //                             // Note: keys are unique, colleges duplicate
+    //                             college_dict[
+    //                                 major_name.replace('Major', '').trim()
+    //                             ] = college_name
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //             setCollegeDict(college_dict)
+    //         })
+    //         .catch((err) => console.error(err))
+    // }, [])
 
     useEffect(() => {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_lst = res.data.map((item) => item.Title)
-                console.log(res)
+                const category_names_lst = res.data.map((item) => item.Title)
+                const category_lst = res.data.map((item) => item)
+                console.log(category_names_lst)
+                console.log(category_lst)
+                setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
             .catch((err) => console.error(err))
@@ -128,50 +165,67 @@ function StorySubmission() {
             e.preventDefault()
             console.log('Missing info')
         } else {
+            e.preventDefault()
+
             // Create token if the story successfully submits
-            axios
-                .get(URL_PATH + '/stories/generate-token')
-                .then((res) => {
-                    const newToken = res.data
-                    console.log(res.data)
-                    setTokenValue(newToken)
+            axios.get(URL_PATH + '/stories/generate-token').then((res) => {
+                const newToken = res.data
+                console.log(res.data)
+                setTokenValue(newToken)
 
-                    alert(
-                        'Thank you for your submission!\nYour token is: ' +
-                            newToken,
-                    )
+                alert(
+                    'Thank you for your submission!\nYour token is: ' +
+                        newToken,
+                )
 
-                    const data = {
-                        Title: values.Title,
-                        ParagraphText: values.Description,
-                        Date: new Date(),
-                        StudentMajor: values.Major,
-                        StudentCollege: values.College,
-                        StudentYear: values.Year,
-                        token: values.Token,
-                    }
+                const postData = {
+                    Title: values.Title,
+                    ParagraphText: values.Description,
+                    Date: new Date(),
+                    StudentMajor: values.Major,
+                    StudentCollege: values.College,
+                    StudentYear: values.Year,
+                    RelevantCategoryList: values.CategoryIds,
+                }
 
-                    console.log(data)
-
-                    try {
-                        // URL_PATH imported from frontend/src/links.js
-                        // combined with subdirectory to make the full URL
-                        const subdirectory = '/stories/storysubmission'
-                        const response = fetch(URL_PATH + subdirectory, {
-                            method: 'POST',
+                console.log(postData)
+                const subdirectory = '/stories/storysubmission'
+                fetch(URL_PATH + subdirectory, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(postData),
+                })
+                    .then((postResponse) => postResponse.json())
+                    .then((postRes) => {
+                        const storyId = postRes._id
+                        const catId = postRes.RelevantCategoryList[0]
+                        const putData = {
+                            categoryId: catId,
+                            storyId: storyId,
+                        }
+                        console.log(putData)
+                        fetch(URL_PATH + '/stories/generalstorycat', {
+                            method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify(data),
+                            body: JSON.stringify(putData),
                         })
-
-                        const responseData = response.json()
-                        console.log('Server response:', responseData)
-                    } catch (err) {
-                        console.error(err)
-                    }
-                })
-                .catch((err) => console.error(err))
+                            .then((putResponse) => putResponse.json())
+                            .then(() => {
+                                //here
+                            })
+                            .then(() => {
+                                // Refresh the page after all asynchronous operations are complete
+                                window.location.reload()
+                                window.scrollTo(0, 0)
+                            })
+                            .catch((err) => console.error(err))
+                    })
+                    .catch((err) => console.error(err))
+            })
         }
     }
 
@@ -193,7 +247,7 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownForm
-                                    key = {major}
+                                    key={major}
                                     fieldTitle={college ? college : 'College'}
                                     myoptions={[
                                         ...new Set(Object.values(collegeDict)),
@@ -212,7 +266,7 @@ function StorySubmission() {
                             <div>
                                 <DropDownForm
                                     fieldTitle="Category"
-                                    myoptions={categoryList}
+                                    myoptions={categoryNamesList}
                                     handleChange={handleCategoryChange}
                                 />
                             </div>
@@ -253,5 +307,4 @@ function StorySubmission() {
         </div>
     )
 }
-
 export default StorySubmission

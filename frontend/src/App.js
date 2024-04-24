@@ -49,10 +49,8 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/individualStory"
-                        component={() => (
-                            <IndividualStoryPage setActiveLink={setActiveLink} />
-                        )}
+                        path="/individualStory/:id"
+                        render={() => <IndividualStoryPage setActiveLink={setActiveLink} />}
                     />
                     <Route
                         exact

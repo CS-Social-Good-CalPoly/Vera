@@ -41,10 +41,7 @@ function StoryTile(props) {
         <Tile onClick={props.handleClick} className="tile">
             <Link
                 to={{
-                    pathname: '/individualStory/',
-                    state: {
-                        storyID: props.id,
-                    },
+                    pathname: `/individualStory/${props.id}`,
                 }}
                 className="tile-link"
             >
