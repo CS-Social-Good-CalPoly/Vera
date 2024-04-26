@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom'
 import URL_PATH from '../../links'
 
-function AdminPages() {
+function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
     // const [nameToID, setNameToID] = useState({})
     // const [categorNames, setCategorNames] = useState([])
@@ -28,6 +28,10 @@ function AdminPages() {
                 setStories(tempArray)
             })
             .catch((error) => console.error(error))
+    }, [])
+
+    useEffect(() => {
+        setActiveLink('/AdminPages')
     }, [])
 
     const handleFilter = (discipline) => {
