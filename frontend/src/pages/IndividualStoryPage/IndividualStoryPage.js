@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { StoryPopUp } from '../../components/components'
 import { useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 function IndividualStoryPage({ setActiveLink }) {
     const location = useLocation()
