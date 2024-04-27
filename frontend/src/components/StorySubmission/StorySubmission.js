@@ -20,7 +20,7 @@ function StorySubmission() {
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
     //use for put
-    const [storyId, setStoryId] = useState(null)
+    const [storyId, setStoryId] = useState('')
 
     //use for Token POST: check if token already in database
     const [allTokens, setAllTokens] = useState([])
@@ -93,44 +93,6 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
-    // useEffect(() => {
-    //     axios
-    //         .get('https://www.calpoly.edu/colleges-departments-and-majors')
-    //         .then((res) => {
-    //             const $ = cheerio.load(res.data)
-    //             const college_dict = {}
-
-    //             // Select each h2 tag
-    //             $('h2').each((index, element) => {
-    //                 // Get the text content of the h2 tag
-    //                 const college_name = $(element).text().trim()
-    //                 if (college_name.toLowerCase().includes('college')) {
-    //                     // Get the section, stopping at the next h2 which should be the college
-    //                     const $collegeSection = $(element).nextUntil('h2')
-
-    //                     // Iterate over each HTML a element within this section
-    //                     $collegeSection.find('a').each((index, element) => {
-    //                         // Get the text content of the a tag
-    //                         const major_name = $(element).text().trim()
-
-    //                         if (
-    //                             major_name.toLowerCase().includes('major') &&
-    //                             major_name !== 'Find a major'
-    //                         ) {
-    //                             // Create key/value pair; keys = majors, values = colleges
-    //                             // Note: keys are unique, colleges duplicate
-    //                             college_dict[
-    //                                 major_name.replace('Major', '').trim()
-    //                             ] = college_name
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //             setCollegeDict(college_dict)
-    //         })
-    //         .catch((err) => console.error(err))
-    // }, [])
-
     useEffect(() => {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
@@ -171,103 +133,105 @@ function StorySubmission() {
             e.preventDefault()
 
             // Create token if the story successfully submits
-            axios.get(URL_PATH + '/stories/generate-token').then((res) => {
-                const postData = {
-                    Title: values.Title,
-                    ParagraphText: values.Description,
-                    Date: new Date(),
-                    StudentMajor: values.Major,
-                    StudentCollege: values.College,
-                    StudentYear: values.Year,
-                    RelevantCategoryList: values.CategoryIds,
-                }
+            axios
+                .get(URL_PATH + '/stories/generate-token')
+                .then(async (res) => {
+                    const postData = {
+                        Title: values.Title,
+                        ParagraphText: values.Description,
+                        Date: new Date(),
+                        StudentMajor: values.Major,
+                        StudentCollege: values.College,
+                        StudentYear: values.Year,
+                        RelevantCategoryList: values.CategoryIds,
+                    }
 
-                let storyID = ''
-                console.log(postData)
-                const subdirectory = '/stories/storysubmission'
-                fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
+                    console.log(postData)
+                    let storyID = await fetchStoryPost(postData)
+                    const newToken = res.data
+                    console.log(res.data)
+
+                    // get all tokens
+                    await fetchTokenPost(newToken, storyID)
+                })
+        }
+    }
+
+    async function fetchStoryPost(postData) {
+        let storyID = ''
+        const subdirectory = '/stories/storysubmission'
+        await fetch(URL_PATH + subdirectory, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then((postResponse) => postResponse.json())
+            .then((postRes) => {
+                // setStoryId(postRes._id)  // state isn't updating for fetchTokenPost
+                storyID = postRes._id
+                const catId = postRes.RelevantCategoryList[0]
+                const putData = {
+                    categoryId: catId,
+                    storyId: storyID,
+                }
+                console.log(putData)
+                fetch(URL_PATH + '/stories/generalstorycat', {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(postData),
-                })
-                    .then((postResponse) => postResponse.json())
-                    .then((postRes) => {
-                        // const storyId = postRes._id
-                        setStoryId(postRes._id)
-                        storyID = postRes._id
-                        const catId = postRes.RelevantCategoryList[0]
-                        const putData = {
-                            categoryId: catId,
-                            storyId: storyID,
-                        }
-                        console.log(putData)
-                        fetch(URL_PATH + '/stories/generalstorycat', {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(putData),
-                        })
-                            .then((putResponse) => putResponse.json())
-                            .then(() => {
-                                //here
-                            })
-                            .then(() => {
-                                // Refresh the page after all asynchronous operations are complete
-                                // window.location.reload()
-                                window.scrollTo(0, 0)
-                            })
-                            .catch((err) => console.error(err))
-                    })
-                    .catch((err) => console.error(err))
-
-                const newToken = res.data
-                console.log(res.data)
-
-                // get all tokens
-                fetch(URL_PATH + '/stories/tokens')
-                    .then((response) => response.json())
-                    .then((json) => {
-                        // Create dictionary using token value as the key
-                        // mapping ito the full token object
-                        let tempDict = {}
-                        tempDict = json.reduce((acc, obj) => {
-                            acc[obj.Value] = obj
-                            return acc
-                        }, {})
-                        setAllTokens(tempDict)
-                    })
-                    .catch((error) => console.error(error))
-
-                // check if token already exists
-                if (allTokens[newToken]) {
-                    // token already exists
-                    // TODO: re-create token
-                    console.log('token already exists')
-                } else {
-                    // token does not exist already, POST
-                    setTokenValue(newToken)
-                    alert(
-                        'Thank you for your submission!\nYour token is: ' +
-                            newToken,
-                    )
-                    const tokenData = {
-                        Value: newToken,
-                        AssociatedStories: [storyID],
-                    }
-
-                    // POST token to database
-                    fetch(URL_PATH + '/stories/tokens', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(tokenData),
-                    }).catch((err) => console.error(err))
-                }
+                    body: JSON.stringify(putData),
+                }).catch((err) => console.error(err))
             })
+            .catch((err) => console.error(err))
+        return storyID
+    }
+
+    async function fetchTokenPost(token, storyID) {
+        await fetch(URL_PATH + '/stories/tokens')
+            .then((response) => response.json())
+            .then((json) => {
+                // Create dictionary using token value as the key
+                // mapping ito the full token object
+                let tempDict = {}
+                tempDict = json.reduce((acc, obj) => {
+                    acc[obj.Value] = obj
+                    return acc
+                }, {})
+                setAllTokens(tempDict)
+            })
+            .catch((error) => console.error(error))
+
+        // check if token already exists
+        if (allTokens[token]) {
+            // token already exists
+            // TODO: re-create token
+            console.log('token already exists')
+        } else {
+            // token does not exist already, POST
+            setTokenValue(token)
+            alert('Thank you for your submission!\nYour token is: ' + token)
+            const tokenData = {
+                Value: token,
+                AssociatedStories: [storyID],
+            }
+
+            // POST token to database
+            await fetch(URL_PATH + '/stories/tokens', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(tokenData),
+            })
+                .then(() => {
+                    // Refresh the page after all asynchronous operations are complete
+                    window.location.reload()
+                    window.scrollTo(0, 0)
+                })
+                .catch((err) => console.error(err))
         }
     }
 
