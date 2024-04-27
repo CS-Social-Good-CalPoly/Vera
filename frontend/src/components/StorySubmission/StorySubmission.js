@@ -20,7 +20,7 @@ function StorySubmission() {
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
     //use for put
-    const [storyId, setStoryId] = useState('')
+    const [storyId, setStoryId] = useState(null)
 
     //use for Token POST: check if token already in database
     const [allTokens, setAllTokens] = useState([])
@@ -197,8 +197,6 @@ function StorySubmission() {
                         // const storyId = postRes._id
                         setStoryId(postRes._id)
                         storyID = postRes._id
-                        console.log(storyId)
-                        console.log(storyID)
                         const catId = postRes.RelevantCategoryList[0]
                         const putData = {
                             categoryId: catId,
