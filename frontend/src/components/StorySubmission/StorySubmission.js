@@ -20,7 +20,10 @@ function StorySubmission() {
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
     //use for put
-    const [storyId, setStoryId] = useState([])
+    const [storyId, setStoryId] = useState('')
+
+    //use for Token POST: check if token already in database
+    const [allTokens, setAllTokens] = useState([])
 
     //const [selectedCategory, setSelectedCategory] = useState([]);
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
@@ -169,15 +172,6 @@ function StorySubmission() {
 
             // Create token if the story successfully submits
             axios.get(URL_PATH + '/stories/generate-token').then((res) => {
-                const newToken = res.data
-                console.log(res.data)
-                setTokenValue(newToken)
-
-                alert(
-                    'Thank you for your submission!\nYour token is: ' +
-                        newToken,
-                )
-
                 const postData = {
                     Title: values.Title,
                     ParagraphText: values.Description,
@@ -188,6 +182,7 @@ function StorySubmission() {
                     RelevantCategoryList: values.CategoryIds,
                 }
 
+                let storyID = ''
                 console.log(postData)
                 const subdirectory = '/stories/storysubmission'
                 fetch(URL_PATH + subdirectory, {
@@ -199,11 +194,15 @@ function StorySubmission() {
                 })
                     .then((postResponse) => postResponse.json())
                     .then((postRes) => {
-                        const storyId = postRes._id
+                        // const storyId = postRes._id
+                        setStoryId(postRes._id)
+                        storyID = postRes._id
+                        console.log(storyId)
+                        console.log(storyID)
                         const catId = postRes.RelevantCategoryList[0]
                         const putData = {
                             categoryId: catId,
-                            storyId: storyId,
+                            storyId: storyID,
                         }
                         console.log(putData)
                         fetch(URL_PATH + '/stories/generalstorycat', {
@@ -219,12 +218,57 @@ function StorySubmission() {
                             })
                             .then(() => {
                                 // Refresh the page after all asynchronous operations are complete
-                                window.location.reload()
+                                // window.location.reload()
                                 window.scrollTo(0, 0)
                             })
                             .catch((err) => console.error(err))
                     })
                     .catch((err) => console.error(err))
+
+                const newToken = res.data
+                console.log(res.data)
+
+                // get all tokens
+                fetch(URL_PATH + '/stories/tokens')
+                    .then((response) => response.json())
+                    .then((json) => {
+                        // Create dictionary using token value as the key
+                        // mapping ito the full token object
+                        let tempDict = {}
+                        tempDict = json.reduce((acc, obj) => {
+                            acc[obj.Value] = obj
+                            return acc
+                        }, {})
+                        setAllTokens(tempDict)
+                    })
+                    .catch((error) => console.error(error))
+
+                // check if token already exists
+                if (allTokens[newToken]) {
+                    // token already exists
+                    // TODO: re-create token
+                    console.log('token already exists')
+                } else {
+                    // token does not exist already, POST
+                    setTokenValue(newToken)
+                    alert(
+                        'Thank you for your submission!\nYour token is: ' +
+                            newToken,
+                    )
+                    const tokenData = {
+                        Value: newToken,
+                        AssociatedStories: [storyID],
+                    }
+
+                    // POST token to database
+                    fetch(URL_PATH + '/stories/tokens', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(tokenData),
+                    }).catch((err) => console.error(err))
+                }
             })
         }
     }
