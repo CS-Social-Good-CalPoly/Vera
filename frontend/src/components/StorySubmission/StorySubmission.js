@@ -147,7 +147,7 @@ function StorySubmission() {
                     }
 
                     console.log(postData)
-                    let storyID = await fetchStoryPost(postData)
+                    const storyID = await fetchStoryPost(postData)
                     const newToken = res.data
                     console.log(res.data)
 
