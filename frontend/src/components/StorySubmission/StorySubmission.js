@@ -119,7 +119,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    function handlePost(e) {
+    async function handlePost(e) {
         if (
             year === '' ||
             college === '' ||
@@ -131,29 +131,51 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             e.preventDefault()
+            // POST the story
+            const postData = {
+                Title: values.Title,
+                ParagraphText: values.Description,
+                Date: new Date(),
+                StudentMajor: values.Major,
+                StudentCollege: values.College,
+                StudentYear: values.Year,
+                RelevantCategoryList: values.CategoryIds,
+            }
+            const storyID = await fetchStoryPost(postData)
+            console.log(postData)
 
-            // Create token if the story successfully submits
-            axios
-                .get(URL_PATH + '/stories/generate-token')
-                .then(async (res) => {
-                    const postData = {
-                        Title: values.Title,
-                        ParagraphText: values.Description,
-                        Date: new Date(),
-                        StudentMajor: values.Major,
-                        StudentCollege: values.College,
-                        StudentYear: values.Year,
-                        RelevantCategoryList: values.CategoryIds,
+            // gets all tokens from database into allTokens state
+            await fetchAllTokens()
+            let numAttempts = 0
+            while (numAttempts < 10) {
+                try {
+                    console.log('looking for new token')
+                    // Create token if the story successfully submits
+                    const response = await axios.get(
+                        URL_PATH + '/stories/generate-token',
+                    )
+                    const newToken = response.data
+
+                    // check if token already exists
+                    if (allTokens[newToken]) {
+                        // token already exists
+                        console.log('token already exists: ', newToken)
+                    } else {
+                        setTokenValue(newToken)
+                        console.log(response.data)
+
+                        // POST the token
+                        await fetchTokenPost(newToken, storyID)
+                        console.log('unique token found')
                     }
-
-                    console.log(postData)
-                    const storyID = await fetchStoryPost(postData)
-                    const newToken = res.data
-                    console.log(res.data)
-
-                    // get all tokens
-                    await fetchTokenPost(newToken, storyID)
-                })
+                    numAttempts++
+                } catch (err) {
+                    console.error('Error fetching token:', err)
+                }
+            }
+            if (numAttempts == 10) {
+                console.log('error, no valid token found')
+            }
         }
     }
 
@@ -189,7 +211,7 @@ function StorySubmission() {
         return storyID
     }
 
-    async function fetchTokenPost(token, storyID) {
+    async function fetchAllTokens() {
         await fetch(URL_PATH + '/stories/tokens')
             .then((response) => response.json())
             .then((json) => {
@@ -203,36 +225,30 @@ function StorySubmission() {
                 setAllTokens(tempDict)
             })
             .catch((error) => console.error(error))
+    }
 
-        // check if token already exists
-        if (allTokens[token]) {
-            // token already exists
-            // TODO: re-create token
-            console.log('token already exists')
-        } else {
-            // token does not exist already, POST
-            setTokenValue(token)
-            alert('Thank you for your submission!\nYour token is: ' + token)
-            const tokenData = {
-                Value: token,
-                AssociatedStories: [storyID],
-            }
-
-            // POST token to database
-            await fetch(URL_PATH + '/stories/tokens', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(tokenData),
-            })
-                .then(() => {
-                    // Refresh the page after all asynchronous operations are complete
-                    window.location.reload()
-                    window.scrollTo(0, 0)
-                })
-                .catch((err) => console.error(err))
+    async function fetchTokenPost(token, storyID) {
+        // token does not exist already, POST
+        const tokenData = {
+            Value: token,
+            AssociatedStories: [storyID],
         }
+
+        // POST token to database
+        await fetch(URL_PATH + '/stories/tokens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(tokenData),
+        })
+            .then(() => {
+                // Refresh the page after all asynchronous operations are complete
+                window.location.reload()
+                window.scrollTo(0, 0)
+                alert('Thank you for your submission!\nYour token is: ' + token)
+            })
+            .catch((err) => console.error(err))
     }
 
     return (
