@@ -1,0 +1,20 @@
+.title {
+    display: inline-block;
+}
+
+.approved-container {
+    float: right;
+    display: inline-block;
+    padding-right: 2%;
+    margin-top: 0.2%;
+}
+
+.approved-label {
+    display: inline-block;
+}
+
+.approved-value {
+    display: inline-block;
+    color: red;
+    padding-left: 3%;
+}

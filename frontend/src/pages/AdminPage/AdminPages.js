@@ -6,6 +6,7 @@ import {
 } from '../../components/components'
 import { Link } from 'react-router-dom'
 import URL_PATH from '../../links'
+import './AdminPages.css'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
@@ -25,6 +26,7 @@ function AdminPages({ setActiveLink }) {
                     Title: story.Title,
                     StudentMajor: story.StudentMajor,
                     ParagraphText: story.ParagraphText,
+                    Approved: story.Approved,
                 }))
                 setStories(tempArray)
             })
@@ -41,7 +43,7 @@ function AdminPages({ setActiveLink }) {
 
     async function toggleApproval(id) {
         try {
-            const response = await fetch('/updateIndividualStory', {
+            const response = await fetch(URL_PATH + '/updateIndividualStory', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,29 +81,25 @@ function AdminPages({ setActiveLink }) {
                     )
                     .map((story, index) => (
                         <div key={index}>
-                            <div style={{ paddingRight: '50px' }}>
-                                <h2 style={{ display: 'inline-block' }}>
-                                    {story.Title}
-                                </h2>
+                            <div style={{ paddingRight: '3%' }}>
+                                <h2 className="title">{story.Title}</h2>
                                 <button
                                     onClick={toggleApproval(story._id)}
                                     style={{
-                                        display: 'inline-block',
                                         float: 'right',
+                                        display: 'inline-block',
                                     }}
                                 >
-                                    {approved ? 'Unapprove' : 'Approve'}
+                                    {story.Approved ? 'Unapprove' : 'Approve'}
                                 </button>
-                                <h6
-                                    style={{
-                                        display: 'inline-block',
-                                        float: 'right',
-                                        paddingRight: '2%',
-                                        marginTop: '0.4%',
-                                    }}
-                                >
-                                    Approved: {story.Approved}
-                                </h6>
+                                <div className="approved-container">
+                                    <h6 className="approved-label">
+                                        Approved:
+                                    </h6>
+                                    <h6 className="approved-value">
+                                        {story.Approved ? 'Yes' : 'No'}
+                                    </h6>
+                                </div>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
                             <p>{story.ParagraphText}</p>
