@@ -100,8 +100,7 @@ function AdminPages({ setActiveLink }) {
                                         marginTop: '0.4%',
                                     }}
                                 >
-                                    Approval:{' '}
-                                    {story.Approved ? story.Approved : 'N/A'}
+                                    Approved: {story.Approved}
                                 </h6>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
