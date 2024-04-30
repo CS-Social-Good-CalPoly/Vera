@@ -12,6 +12,7 @@ function AdminPages({ setActiveLink }) {
     // const [nameToID, setNameToID] = useState({})
     // const [categorNames, setCategorNames] = useState([])
     const [selectedDiscipline, setSelectedDiscipline] = useState(null)
+    const [approved, setApproved] = useState(false)
 
     useEffect(() => {
         const subdirectory = '/stories/individualstory'
@@ -38,6 +39,26 @@ function AdminPages({ setActiveLink }) {
         setSelectedDiscipline(discipline)
     }
 
+    async function toggleApproval(id) {
+        try {
+            const response = await fetch('/updateIndividualStory', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    individualStoryId: id,
+                    Approved: !approved,
+                }),
+            })
+            const updatedStory = await response.json()
+            console.log('Updated Story:', updatedStory)
+            setApproved(!approved)
+        } catch (error) {
+            console.error('Error toggling approval:', error)
+        }
+    }
+
     return (
         <div>
             <div>
@@ -58,7 +79,31 @@ function AdminPages({ setActiveLink }) {
                     )
                     .map((story, index) => (
                         <div key={index}>
-                            <h2>{story.Title}</h2>
+                            <div style={{ paddingRight: '50px' }}>
+                                <h2 style={{ display: 'inline-block' }}>
+                                    {story.Title}
+                                </h2>
+                                <button
+                                    onClick={toggleApproval(story._id)}
+                                    style={{
+                                        display: 'inline-block',
+                                        float: 'right',
+                                    }}
+                                >
+                                    {approved ? 'Unapprove' : 'Approve'}
+                                </button>
+                                <h6
+                                    style={{
+                                        display: 'inline-block',
+                                        float: 'right',
+                                        paddingRight: '2%',
+                                        marginTop: '0.4%',
+                                    }}
+                                >
+                                    Approval:{' '}
+                                    {story.Approved ? story.Approved : 'N/A'}
+                                </h6>
+                            </div>
                             <p>Student Major: {story.StudentMajor}</p>
                             <p>{story.ParagraphText}</p>
                             <Link
@@ -68,7 +113,7 @@ function AdminPages({ setActiveLink }) {
                             >
                                 <button>View Story</button>
                             </Link>
-                            <br /> {/* Line break */}
+                            <br />
                         </div>
                     ))}
             </div>
