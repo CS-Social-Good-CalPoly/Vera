@@ -229,29 +229,31 @@ function StorySubmission() {
                 })
                     .then((postResponse) => postResponse.json())
                     .then((postRes) => {
-                        const storyId = postRes._id
-                        const catId = postRes.RelevantCategoryList[0]
-                        const putData = {
-                            categoryId: catId,
-                            storyId: storyId,
-                        }
-                        console.log(putData)
-                        fetch(URL_PATH + '/stories/generalstorycat', {
+                        const storyId = postRes._id;
+                        const categoryList = postRes.RelevantCategoryList;
+                      
+                        // Create an array of promises for each PUT request
+                        const putPromises = categoryList.map(categoryId => {
+                          const putData = { categoryId, storyId };
+                          return fetch(URL_PATH + '/stories/generalstorycat', {
                             method: 'PUT',
                             headers: {
-                                'Content-Type': 'application/json',
+                              'Content-Type': 'application/json',
                             },
                             body: JSON.stringify(putData),
-                        })
-                            .then((putResponse) => putResponse.json())
-                            .then(() => {
-                                //here
-                            })
-                            // .then(() => {
-                            //     // Refresh the page after all asynchronous operations are complete
-                            //     window.location.reload()
-                            //     window.scrollTo(0, 0)
-                            // })
+                          })
+                          .then(putResponse => putResponse.json())
+                          .catch(err => console.error(err));
+                        });
+                      
+                        // Wait for all PUT requests to complete
+                        Promise.all(putPromises)
+                          .then(() => {
+                            // All PUT requests completed successfully
+                            // Refresh the page after all asynchronous operations are complete
+                            window.location.reload();
+                            window.scrollTo(0, 0);
+                          })
                             .catch((err) => console.error(err))
                     })
                     .catch((err) => console.error(err))
