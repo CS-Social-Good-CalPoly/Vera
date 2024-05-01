@@ -261,6 +261,29 @@ function StorySubmission() {
         }
     }
 
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            padding: '3px',
+            paddingLeft: '20px',
+            fontFamily: 'Poppins',
+            fontStyle: 'normal',
+            fontWeight: 600,
+            fontSize: '16px',
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
+            width: '100%',
+            color: '#534D49',
+            borderColor: 'white',
+            margin: '0px 0px 7% 0px',
+            background: 'white',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            borderRadius: '20px',
+            border: '.5px solid rgba(0, 0, 0, 0.25)',
+            textOverflow: 'ellipsis',
+        }),
+    };
+
     return (
         <div>
             <div className="background">
@@ -302,7 +325,9 @@ function StorySubmission() {
                                     handleChange={handleCategoryChange}
                                 /> */}
                                 <Select
+                                    styles = {customStyles}
                                     options={categoryOptions}
+                                    placeholder="Categories"
                                     isMulti
                                     onChange={(selectedOptions) => {
                                         const selectedIds = selectedOptions.map(option => option.value);
