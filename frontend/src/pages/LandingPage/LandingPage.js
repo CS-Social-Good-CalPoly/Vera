@@ -30,13 +30,13 @@ function LandingPage(){
       />
       <PhotoBanner 
         background='#728D95'
-        color='black'
+        color='#DCE3E7'
         title='RESOURCES'
         bodyText="Discover the diverse array of resources readily available through Cal Poly, providing you with up-to-date and valuable information for your needs."
         buttonTitles= {['RESOURCES']}
         buttonLinks={{'RESOURCES':'/resources'}}
-        buttonColor='black'
-        buttonBackground='#48858D'
+        buttonColor='#728D95'
+        buttonBackground='#DCE3E7'
         imageUrl={resource_img}
         bannerOrder={['text', 'photo']}
       />
@@ -47,8 +47,8 @@ function LandingPage(){
         bodyText="Dive into a collection of inspiring experiences, empowering users to contribute their stories and find solace in the shared narratives of others."
         buttonTitles= {['STORIES', 'SHARE YOUR STORY']}
         buttonLinks={{'STORIES':'/stories', 'SHARE YOUR STORY':'/storySubmission'}}
-        buttonColor='#48858D'
-        buttonBackground='white'
+        buttonColor='#DCE3E7'
+        buttonBackground='#48858D'
         imageUrl={stories}
         bannerOrder={['photo','text']}
       />

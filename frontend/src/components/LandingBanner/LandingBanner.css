@@ -9,9 +9,9 @@
 }
 
 .textCol{
-  margin-left: 10%;
+  margin-left:10vw;
   text-align: left;
-  width: 45%;
+  width: 50vw;
   color: black;
   font-family: Poppins;
   font-style: italic;
@@ -19,10 +19,11 @@
 
 
 .header1 {
-  font-size: 3vw;
-  color: black;
+  font-size: 4vw;
+  color: white;
   text-align: left;
   font-family: Poppins;
-  font-weight: bold;
+  font-weight:bolder;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.531);
 }
 
