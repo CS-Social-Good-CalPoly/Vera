@@ -41,24 +41,38 @@ function AdminPages({ setActiveLink }) {
         setSelectedDiscipline(discipline)
     }
 
-    async function toggleApproval(id) {
-        try {
-            const response = await fetch(URL_PATH + '/updateIndividualStory', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    individualStoryId: id,
-                    Approved: !approved,
-                }),
+    function toggleApproval(id, approved, setApproved) {
+        return fetch(URL_PATH + '/updateIndividualStory', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                individualStoryId: id,
+                Approved: !approved,
+            }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Failed to update story')
+                }
+                return response.json()
             })
-            const updatedStory = await response.json()
-            console.log('Updated Story:', updatedStory)
-            setApproved(!approved)
-        } catch (error) {
-            console.error('Error toggling approval:', error)
-        }
+            .then((updatedStory) => {
+                console.log('Updated Story Successfully')
+                // Call setApproved with the updated value after the request completes
+                setApproved(!approved)
+                return updatedStory
+            })
+            .catch((error) => {
+                console.error('Error toggling approval:', error)
+            })
+    }
+
+    const changeApproval = (id) => {
+        toggleApproval(id, approved, setApproved).catch((error) => {
+            console.log("Didn't change approval")
+        })
     }
 
     return (
@@ -81,10 +95,10 @@ function AdminPages({ setActiveLink }) {
                     )
                     .map((story, index) => (
                         <div key={index}>
-                            <div style={{ paddingRight: '3%' }}>
+                            <div>
                                 <h2 className="title">{story.Title}</h2>
                                 <button
-                                    onClick={toggleApproval(story._id)}
+                                    // onClick={changeApproval(story._id)}
                                     style={{
                                         float: 'right',
                                         display: 'inline-block',

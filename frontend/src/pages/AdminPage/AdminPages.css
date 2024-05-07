@@ -4,17 +4,19 @@
 
 .approved-container {
     float: right;
-    display: inline-block;
-    padding-right: 2%;
-    margin-top: 0.2%;
+    display: flex;
+    padding-right: 3%;
+    margin-top: 0.3%;
+    width: 50;
 }
 
 .approved-label {
     display: inline-block;
+    padding-right: 3%;
 }
 
 .approved-value {
     display: inline-block;
     color: red;
-    padding-left: 3%;
+    text-align: center;
 }
