@@ -20,7 +20,7 @@ function AdminPages({ setActiveLink }) {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json)
+                // console.log(json)
                 let tempArray = json.map((story) => ({
                     _id: story._id,
                     Title: story.Title,
@@ -33,40 +33,38 @@ function AdminPages({ setActiveLink }) {
             .catch((error) => console.error(error))
     }, [])
 
-    useEffect(() => {
-        setActiveLink('/AdminPages')
-    }, [])
+    // useEffect(() => {
+    //     setActiveLink('/AdminPages')
+    // }, [])
 
     const handleFilter = (discipline) => {
         setSelectedDiscipline(discipline)
     }
 
-    function toggleApproval(id, approved, setApproved) {
-        return fetch(URL_PATH + '/updateIndividualStory', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                individualStoryId: id,
-                Approved: !approved,
-            }),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Failed to update story')
-                }
-                return response.json()
+    async function toggleApproval(id, approved, setApproved) {
+        console.log(id)
+        console.log(URL_PATH)
+        try {
+            const response = await fetch(URL_PATH + '/updateIndividualStory', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    individualStoryId: id,
+                    Approved: !approved,
+                }),
             })
-            .then((updatedStory) => {
-                console.log('Updated Story Successfully')
-                // Call setApproved with the updated value after the request completes
-                setApproved(!approved)
-                return updatedStory
-            })
-            .catch((error) => {
-                console.error('Error toggling approval:', error)
-            })
+            if (!response.ok) {
+                throw new Error('Failed to update story')
+            }
+            const updatedStory = await response.json()
+            console.log('Updated Story Successfully')
+            setApproved(!approved)
+            return updatedStory
+        } catch (error) {
+            console.error('Error toggling approval:', error)
+        }
     }
 
     const changeApproval = (id) => {
@@ -97,15 +95,6 @@ function AdminPages({ setActiveLink }) {
                         <div key={index}>
                             <div>
                                 <h2 className="title">{story.Title}</h2>
-                                <button
-                                    // onClick={changeApproval(story._id)}
-                                    style={{
-                                        float: 'right',
-                                        display: 'inline-block',
-                                    }}
-                                >
-                                    {story.Approved ? 'Unapprove' : 'Approve'}
-                                </button>
                                 <div className="approved-container">
                                     <h6 className="approved-label">
                                         Approved:
@@ -113,6 +102,15 @@ function AdminPages({ setActiveLink }) {
                                     <h6 className="approved-value">
                                         {story.Approved ? 'Yes' : 'No'}
                                     </h6>
+                                    <button
+                                        onClick={() =>
+                                            changeApproval(story._id)
+                                        }
+                                    >
+                                        {story.Approved
+                                            ? 'Unapprove'
+                                            : 'Approve'}
+                                    </button>
                                 </div>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>

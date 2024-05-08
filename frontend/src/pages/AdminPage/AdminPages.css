@@ -5,18 +5,16 @@
 .approved-container {
     float: right;
     display: flex;
-    padding-right: 3%;
-    margin-top: 0.3%;
-    width: 50;
+    padding-right: 4%;
 }
 
 .approved-label {
-    display: inline-block;
-    padding-right: 3%;
+    padding-top: 3%;
 }
 
 .approved-value {
-    display: inline-block;
+    padding-top: 3%;
+    padding-right: 15%;
+    padding-left: 3%;
     color: red;
-    text-align: center;
 }
