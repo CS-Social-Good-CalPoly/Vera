@@ -43,6 +43,16 @@ function StorySubmission() {
         'Family', 
         'Clubs', 
         'Work',
+        'Home',
+        'Friends',
+        'Sports',
+        'Eating',
+        'Alcohol',
+        'Drugs',
+        'Financial',
+        'Anxiety',
+        'Stress',
+        'Depression',
     ]
 
     const handleTitleKeyPress = (e) => {
