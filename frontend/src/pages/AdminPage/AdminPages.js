@@ -42,8 +42,6 @@ function AdminPages({ setActiveLink }) {
     }
 
     async function toggleApproval(id, approved, setApproved) {
-        console.log(id)
-        console.log(URL_PATH)
         try {
             const response = await fetch(URL_PATH + '/updateIndividualStory', {
                 method: 'PUT',
@@ -61,7 +59,6 @@ function AdminPages({ setActiveLink }) {
             const updatedStory = await response.json()
             console.log('Updated Story Successfully')
             setApproved(!approved)
-            return updatedStory
         } catch (error) {
             console.error('Error toggling approval:', error)
         }
