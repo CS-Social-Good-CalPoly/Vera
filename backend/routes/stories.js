@@ -279,6 +279,24 @@ router.post('/storysubmission', async (req, res) => {
     }
 })
 
+router.post('/tokens', async (req, res) => {
+    const { Value, AssociatedStories } = req.body
+
+    const newToken = new Tokens({
+        Value,
+        AssociatedStories,
+    })
+
+    try {
+        const savedToken = await newToken.save()
+        res.status(201).json(savedToken)
+    } catch (err) {
+        console.log('failed here')
+        console.log(newToken)
+        res.status(400).json({ message: err.message })
+    }
+})
+
 // PUT route for updating category's story ID list
 router.put('/generalstorycat', async (req, res) => {
     try {

@@ -21,7 +21,10 @@ function StorySubmission() {
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
     //use for put
-    const [storyId, setStoryId] = useState([])
+    const [storyId, setStoryId] = useState('')
+
+    //use for Token POST: check if token already in database
+    const [allTokens, setAllTokens] = useState([])
 
     //const [selectedCategory, setSelectedCategory] = useState([]);
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
@@ -113,44 +116,6 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
-    // useEffect(() => {
-    //     axios
-    //         .get('https://www.calpoly.edu/colleges-departments-and-majors')
-    //         .then((res) => {
-    //             const $ = cheerio.load(res.data)
-    //             const college_dict = {}
-
-    //             // Select each h2 tag
-    //             $('h2').each((index, element) => {
-    //                 // Get the text content of the h2 tag
-    //                 const college_name = $(element).text().trim()
-    //                 if (college_name.toLowerCase().includes('college')) {
-    //                     // Get the section, stopping at the next h2 which should be the college
-    //                     const $collegeSection = $(element).nextUntil('h2')
-
-    //                     // Iterate over each HTML a element within this section
-    //                     $collegeSection.find('a').each((index, element) => {
-    //                         // Get the text content of the a tag
-    //                         const major_name = $(element).text().trim()
-
-    //                         if (
-    //                             major_name.toLowerCase().includes('major') &&
-    //                             major_name !== 'Find a major'
-    //                         ) {
-    //                             // Create key/value pair; keys = majors, values = colleges
-    //                             // Note: keys are unique, colleges duplicate
-    //                             college_dict[
-    //                                 major_name.replace('Major', '').trim()
-    //                             ] = college_name
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //             setCollegeDict(college_dict)
-    //         })
-    //         .catch((err) => console.error(err))
-    // }, [])
-
     useEffect(() => {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
@@ -183,7 +148,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    function handlePost(e) {
+    async function handlePost(e) {
         if (
             year === '' ||
             college === '' ||
@@ -195,70 +160,125 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             e.preventDefault()
+            // POST the story
+            const postData = {
+                Title: values.Title,
+                ParagraphText: values.Description,
+                Date: new Date(),
+                StudentMajor: values.Major,
+                StudentCollege: values.College,
+                StudentYear: values.Year,
+                RelevantCategoryList: values.CategoryIds,
+            }
+            const storyID = await fetchStoryPost(postData)
+            console.log(postData)
 
-            // Create token if the story successfully submits
-            axios.get(URL_PATH + '/stories/generate-token').then((res) => {
-                const newToken = res.data
-                console.log(res.data)
-                setTokenValue(newToken)
+            // gets all tokens from database into allTokens state
+            await fetchAllTokens()
+            let numAttempts = 0
+            while (numAttempts < 10) {
+                try {
+                    console.log('looking for new token')
+                    // Create token if the story successfully submits
+                    const response = await axios.get(
+                        URL_PATH + '/stories/generate-token',
+                    )
+                    const newToken = response.data
 
-                alert(
-                    'Thank you for your submission!\nYour token is: ' +
-                        newToken,
-                )
-                console.log(categoryIds)
-                const postData = {
-                    Title: values.Title,
-                    ParagraphText: values.Description,
-                    Date: new Date(),
-                    StudentMajor: values.Major,
-                    StudentCollege: values.College,
-                    StudentYear: values.Year,
-                    RelevantCategoryList: categoryIds.flatMap(innerArray =>
-                        innerArray.map(category => category.value)),
+
+                    // check if token already exists
+                    if (allTokens[newToken]) {
+                        // token already exists
+                        console.log('token already exists: ', newToken)
+                    } else {
+                        setTokenValue(newToken)
+                        console.log(response.data)
+
+                        // POST the token
+                        await fetchTokenPost(newToken, storyID)
+                        console.log('unique token found')
+                    }
+                    numAttempts++
+                } catch (err) {
+                    console.error('Error fetching token:', err)
                 }
+            }
+            if (numAttempts == 10) {
+                console.log('error, no valid token found')
+            }
+        }
+    }
 
-                console.log(postData)
-                const subdirectory = '/stories/storysubmission'
-                fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
+    async function fetchStoryPost(postData) {
+        let storyID = ''
+        const subdirectory = '/stories/storysubmission'
+        await fetch(URL_PATH + subdirectory, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then((postResponse) => postResponse.json())
+            .then((postRes) => {
+                // setStoryId(postRes._id)  // state isn't updating for fetchTokenPost
+                storyID = postRes._id
+                const catId = postRes.RelevantCategoryList[0]
+                const putData = {
+                    categoryId: catId,
+                    storyId: storyID,
+                }
+                console.log(putData)
+                fetch(URL_PATH + '/stories/generalstorycat', {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(postData),
-                })
-                    .then((postResponse) => postResponse.json())
-                    .then((postRes) => {
-                        const storyId = postRes._id;
-                        const categoryList = postRes.RelevantCategoryList;
-                      
-                        // Create an array of promises for each PUT request
-                        const putPromises = categoryList.map(categoryId => {
-                          const putData = { categoryId, storyId };
-                          return fetch(URL_PATH + '/stories/generalstorycat', {
-                            method: 'PUT',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(putData),
-                          })
-                          .then(putResponse => putResponse.json())
-                          .catch(err => console.error(err));
-                        });
-                      
-                        // Wait for all PUT requests to complete
-                        Promise.all(putPromises)
-                          .then(() => {
-                            // All PUT requests completed successfully
-                            // Refresh the page after all asynchronous operations are complete
-                            window.location.reload();
-                            window.scrollTo(0, 0);
-                          })
-                            .catch((err) => console.error(err))
-                    })
-                    .catch((err) => console.error(err))
+                    body: JSON.stringify(putData),
+                }).catch((err) => console.error(err))
             })
+            .catch((err) => console.error(err))
+        return storyID
+    }
+
+    async function fetchAllTokens() {
+        await fetch(URL_PATH + '/stories/tokens')
+            .then((response) => response.json())
+            .then((json) => {
+                // Create dictionary using token value as the key
+                // mapping ito the full token object
+                let tempDict = {}
+                tempDict = json.reduce((acc, obj) => {
+                    acc[obj.Value] = obj
+                    return acc
+                }, {})
+                setAllTokens(tempDict)
+            })
+            .catch((error) => console.error(error))
+    }
+
+    async function fetchTokenPost(token, storyID) {
+        // token does not exist already, POST
+        const tokenData = {
+            Value: token,
+            AssociatedStories: [storyID],
         }
+
+        // POST token to database
+        await fetch(URL_PATH + '/stories/tokens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(tokenData),
+        })
+            .then(() => {
+                // Refresh the page after all asynchronous operations are complete
+                window.location.reload()
+                window.scrollTo(0, 0)
+                alert('Thank you for your submission!\nYour token is: ' + token)
+            })
+            .catch((err) => console.error(err))
     }
 
     const customStyles = {
