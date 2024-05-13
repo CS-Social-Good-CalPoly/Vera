@@ -1,0 +1,32 @@
+.text-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 5vw 10vw;
+}
+
+.banner-text-col {
+  text-align: center;
+  font-family: Poppins;
+  
+}
+
+.banner-title {
+  align-self: center;
+  font-size: 4vw;
+  margin-bottom: 3vw;
+  font-weight: bold;
+}
+
+.banner-text {
+  text-align: center;
+  font-size: 1.5vw;
+}
+
+.banner-buttons {
+  display: flex;
+  flex-direction: row;
+}

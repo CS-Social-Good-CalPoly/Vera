@@ -6,12 +6,13 @@ import './StorySubmission.css'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import URL_PATH from '../../links'
+import Select from 'react-select';
 
 function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
     const [major, setMajor] = useState('')
-    const [selectedCategoryName, setSelectedCategoryName] = useState('')
+    const [selectedCategories, setSelectedCategories] = useState([])
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [token, setTokenValue] = useState('')
@@ -35,10 +36,17 @@ function StorySubmission() {
         Major: major,
         Description: quillValue,
         Title: title,
-        Category: selectedCategoryName,
+        Category: selectedCategories,
         CategoryIds: categoryIds,
         Token: token,
     }
+
+    const categoryValues = [
+        'School',
+        'Family', 
+        'Clubs', 
+        'Work',
+    ]
 
     const handleTitleKeyPress = (e) => {
         setTitleValue(e.target.value)
@@ -53,28 +61,43 @@ function StorySubmission() {
     }
 
     const handleCategoryChange = (e) => {
-        setSelectedCategoryName(e)
+        setCategoryIds([...selectedCategories, e])
     }
+
+
+    // const getCategoryId = (categories, categoryName) => {
+    //     // console.log(categories)
+    //     const cat = categories.filter((c) => c.Name === categoryName)[0]
+    //     // console.log(cat)
+    //     return cat._id
+    // }
 
     const getCategoryId = (categories, categoryName) => {
-        // console.log(categories)
-        const cat = categories.filter((c) => c.Name === categoryName)[0]
-        // console.log(cat)
-        return cat._id
-    }
+        const cat = categories.find((c) => c.Title === categoryName);
+        return cat ? cat._id : null;
+    };
 
-    //change the id list to include the selected category
-    useEffect(() => {
-        console.log(selectedCategoryName)
-        if (selectedCategoryName) {
-            const id = getCategoryId(categoryList, selectedCategoryName)
-            console.log(id)
-            setCategoryIds((prev) => [...prev, id])
-        }
-    }, [selectedCategoryName])
+    // //change the id list to include the selected category
+    // useEffect(() => {
+    //     console.log(selectedCategoryName)
+    //     if (selectedCategoryName) {
+    //         const id = getCategoryId(categoryList, selectedCategoryName)
+    //         console.log(id)
+    //         setCategoryIds((prev) => [...prev, id])
+    //     }
+    // }, [selectedCategories])
+
+    // useEffect(() => {
+    //     const ids = selectedCategories.map((category) =>
+    //         getCategoryId(categoryList, category.value)
+    //     );
+    //     setCategoryIds(ids);
+    // }, [selectedCategories, categoryList]);
+
 
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
+        console.log("selected:", categoryIds)
     }
 
     const handleMajorChange = (e) => {
@@ -106,6 +129,12 @@ function StorySubmission() {
             })
             .catch((err) => console.error(err))
     }, [])
+
+    // react-select Select takes value and label objects as category options
+    const categoryOptions = categoryList.map(category => ({
+        value: category._id,
+        label: category.Name
+    }));
 
     const yearList = [
         '1st Year',
@@ -155,6 +184,7 @@ function StorySubmission() {
                         URL_PATH + '/stories/generate-token',
                     )
                     const newToken = response.data
+
 
                     // check if token already exists
                     if (allTokens[newToken]) {
@@ -251,6 +281,29 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }
 
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            padding: '3px',
+            paddingLeft: '20px',
+            fontFamily: 'Poppins',
+            fontStyle: 'normal',
+            fontWeight: 600,
+            fontSize: '16px',
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
+            width: '100%',
+            color: '#534D49',
+            borderColor: 'white',
+            margin: '0px 0px 7% 0px',
+            background: 'white',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            borderRadius: '20px',
+            border: '.5px solid rgba(0, 0, 0, 0.25)',
+            textOverflow: 'ellipsis',
+        }),
+    };
+
     return (
         <div>
             <div className="background">
@@ -286,10 +339,20 @@ function StorySubmission() {
                                 handleChange={handleMajorChange}
                             />
                             <div>
-                                <DropDownForm
+                                {/* <DropDownForm
                                     fieldTitle="Category"
                                     myoptions={categoryNamesList}
                                     handleChange={handleCategoryChange}
+                                /> */}
+                                <Select
+                                    styles = {customStyles}
+                                    options={categoryOptions}
+                                    placeholder="Categories"
+                                    isMulti
+                                    onChange={(selectedOptions) => {
+                                        const selectedIds = selectedOptions.map(option => option.value);
+                                        handleCategoryChange(selectedOptions);
+                                    }}
                                 />
                             </div>
                         </div>
@@ -329,4 +392,4 @@ function StorySubmission() {
         </div>
     )
 }
-export default StorySubmission
+export default StorySubmission;

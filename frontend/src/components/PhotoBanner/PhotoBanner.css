@@ -1,0 +1,44 @@
+.photo-banner {
+
+  margin-left: calc(50% - 50vw);
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+
+
+.photo-banner-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: cover;
+  padding: 5vw 10vw;
+  width: 50vw;
+}
+
+.photo-text-col {
+  text-align: center;
+  font-family: Poppins;
+  
+}
+
+.photo-title {
+  align-self: center;
+  font-size: 2vw;
+  margin-bottom: 1vw;
+  font-weight: bold;
+}
+
+.photo-text {
+  text-align: center;
+  font-size: 1vw;
+}
+
+.photo-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.photo-banner-img {
+  width: 50vw;
+}
