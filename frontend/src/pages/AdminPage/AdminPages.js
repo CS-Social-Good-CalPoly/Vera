@@ -6,6 +6,14 @@ import {
 } from '../../components/components'
 import { Link } from 'react-router-dom'
 import URL_PATH from '../../links'
+import {
+    SignedIn,
+    SignedOut,
+    SignInButton,
+    UserButton,
+    useUser,
+    Protect,
+} from '@clerk/clerk-react'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
@@ -38,8 +46,31 @@ function AdminPages({ setActiveLink }) {
         setSelectedDiscipline(discipline)
     }
 
+    //Limiting /adminpages to users manually put into organizaitons
+    // const { user } = useUser()
+    // const hasAdminAccess = user?.organizationMemberships.length >= 1
+    // console.log('membershispsS')
+    // console.log(user.organizationMemberships)
+
+    // if (!hasAdminAccess) {
+    //     return (
+    //         <div>
+    //             Access Denied. You do not have permission to view this page.
+    //         </div>
+    //     )
+    // }
+
     return (
         <div>
+            <header>
+                <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+            </header>
+            <div></div>
             <div>
                 {/* Buttons for filtering */}
                 <button onClick={() => handleFilter('SE')}>SE</button>

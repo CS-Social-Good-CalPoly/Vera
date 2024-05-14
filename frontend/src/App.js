@@ -11,6 +11,8 @@ import {
     AdminPages,
     LandingPage,
 } from './pages/pages'
+import { ProtectedRoute } from './components/Clerk/ProtectedRoute'
+import { SignInPage } from './components/Clerk/SignInPage'
 
 function App() {
     const [activeLink, setActiveLink] = useState(null)
@@ -20,13 +22,7 @@ function App() {
             <NavBar activeLink={activeLink} />
             <div id="page">
                 <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        component={() => (
-                            <LandingPage />
-                        )}
-                    />
+                    <Route exact path="/" component={() => <LandingPage />} />
                     <Route
                         exact
                         path="/resources"
@@ -38,7 +34,9 @@ function App() {
                         exact
                         path="/individualResource"
                         component={() => (
-                            <IndividualResourcePage setActiveLink={setActiveLink} />
+                            <IndividualResourcePage
+                                setActiveLink={setActiveLink}
+                            />
                         )}
                     />
                     <Route
@@ -51,7 +49,11 @@ function App() {
                     <Route
                         exact
                         path="/individualStory/:id"
-                        render={() => <IndividualStoryPage setActiveLink={setActiveLink} />}
+                        render={() => (
+                            <IndividualStoryPage
+                                setActiveLink={setActiveLink}
+                            />
+                        )}
                     />
                     <Route
                         exact
@@ -62,13 +64,14 @@ function App() {
                             />
                         )}
                     />
-                    <Route
+                    <ProtectedRoute
                         exact
                         path="/AdminPages"
                         component={() => (
-                            <AdminPages setActiveLink={setActiveLink} /> 
+                            <AdminPages setActiveLink={setActiveLink} />
                         )}
                     />
+                    <Route path="/sign-in" component={SignInPage} />
                 </Switch>
             </div>
             <Footer />

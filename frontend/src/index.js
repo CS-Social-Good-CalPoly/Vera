@@ -4,11 +4,22 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+// hardcoding temp publishable key
+const PUBLISHABLE_KEY =
+    'pk_test_ZGVzdGluZWQtY2ljYWRhLTg1LmNsZXJrLmFjY291bnRzLmRldiQ' //process.env.REACT_APP_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+    throw new Error('Add the clerk key in your .env file')
+}
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+                <App />
+            </ClerkProvider>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root'),
