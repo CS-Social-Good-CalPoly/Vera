@@ -26,10 +26,7 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
     }
 
     useEffect(async () => {
-        console.log(radioOption)
-        console.log(newToken)
-        if (radioOption === 'no-token' && newToken !== '') {
-            console.log('finding token')
+        if (radioOption === 'no-token' && newToken === '') {
             setNewToken(await makeToken())
         }
     }, [radioOption])
