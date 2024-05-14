@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { DropDownForm, DropDownOptionalForm } from '../components'
+import {
+    DropDownForm,
+    DropDownOptionalForm,
+    StorySubmissionPopUp,
+} from '../components'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import URL_PATH from '../../links'
-import Select from 'react-select';
+import Select from 'react-select'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -20,6 +24,7 @@ function StorySubmission() {
     const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
+    const [showPopUp, setShowPopUp] = useState(false)
     //use for put
     const [storyId, setStoryId] = useState('')
 
@@ -43,8 +48,8 @@ function StorySubmission() {
 
     const categoryValues = [
         'School',
-        'Family', 
-        'Clubs', 
+        'Family',
+        'Clubs',
         'Work',
         'Home',
         'Friends',
@@ -74,7 +79,6 @@ function StorySubmission() {
         setCategoryIds([...selectedCategories, e])
     }
 
-
     // const getCategoryId = (categories, categoryName) => {
     //     // console.log(categories)
     //     const cat = categories.filter((c) => c.Name === categoryName)[0]
@@ -83,9 +87,9 @@ function StorySubmission() {
     // }
 
     const getCategoryId = (categories, categoryName) => {
-        const cat = categories.find((c) => c.Title === categoryName);
-        return cat ? cat._id : null;
-    };
+        const cat = categories.find((c) => c.Title === categoryName)
+        return cat ? cat._id : null
+    }
 
     // //change the id list to include the selected category
     // useEffect(() => {
@@ -104,10 +108,9 @@ function StorySubmission() {
     //     setCategoryIds(ids);
     // }, [selectedCategories, categoryList]);
 
-
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
-        console.log("selected:", categoryIds)
+        console.log('selected:', categoryIds)
     }
 
     const handleMajorChange = (e) => {
@@ -141,10 +144,10 @@ function StorySubmission() {
     }, [])
 
     // react-select Select takes value and label objects as category options
-    const categoryOptions = categoryList.map(category => ({
+    const categoryOptions = categoryList.map((category) => ({
         value: category._id,
-        label: category.Name
-    }));
+        label: category.Name,
+    }))
 
     const yearList = [
         '1st Year',
@@ -158,7 +161,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    async function handlePost(e) {
+    async function handlePopUp(e) {
         if (
             year === '' ||
             college === '' ||
@@ -170,53 +173,61 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             e.preventDefault()
-            // POST the story
-            const postData = {
-                Title: values.Title,
-                ParagraphText: values.Description,
-                Date: new Date(),
-                StudentMajor: values.Major,
-                StudentCollege: values.College,
-                StudentYear: values.Year,
-                RelevantCategoryList: values.CategoryIds,
-            }
-            const storyID = await fetchStoryPost(postData)
-            console.log(postData)
+            setShowPopUp(true)
+        }
+    }
 
-            // gets all tokens from database into allTokens state
-            await fetchAllTokens()
-            let numAttempts = 0
-            while (numAttempts < 10) {
-                try {
-                    console.log('looking for new token')
-                    // Create token if the story successfully submits
-                    const response = await axios.get(
-                        URL_PATH + '/stories/generate-token',
-                    )
-                    const newToken = response.data
+    async function generateToken() {
+        // gets all tokens from database into allTokens state
+        console.log('generating...')
+        await fetchAllTokens()
+        let numAttempts = 0
+        while (numAttempts < 10) {
+            try {
+                console.log('looking for new token')
+                // Create token if the story successfully submits
+                const response = await axios.get(
+                    URL_PATH + '/stories/generate-token',
+                )
+                const newToken = response.data
 
-
-                    // check if token already exists
-                    if (allTokens[newToken]) {
-                        // token already exists
-                        console.log('token already exists: ', newToken)
-                    } else {
-                        setTokenValue(newToken)
-                        console.log(response.data)
-
-                        // POST the token
-                        await fetchTokenPost(newToken, storyID)
-                        console.log('unique token found')
-                    }
-                    numAttempts++
-                } catch (err) {
-                    console.error('Error fetching token:', err)
+                // check if token already exists
+                if (allTokens[newToken]) {
+                    // token already exists
+                    console.log('token already exists: ', newToken)
+                } else {
+                    setTokenValue(newToken)
+                    console.log('token found', response.data)
+                    return newToken
                 }
-            }
-            if (numAttempts == 10) {
-                console.log('error, no valid token found')
+                numAttempts++
+            } catch (err) {
+                console.error('Error fetching token:', err)
             }
         }
+        if (numAttempts == 10) {
+            console.log('error, no valid token found')
+        }
+    }
+
+    async function handlePost(e) {
+        e.preventDefault()
+        // POST the story
+        const postData = {
+            Title: values.Title,
+            ParagraphText: values.Description,
+            Date: new Date(),
+            StudentMajor: values.Major,
+            StudentCollege: values.College,
+            StudentYear: values.Year,
+            RelevantCategoryList: values.CategoryIds,
+        }
+        const storyID = await fetchStoryPost(postData)
+        console.log(postData)
+
+        // POST the token
+        await fetchTokenPost(token, storyID)
+        console.log('unique token found')
     }
 
     async function fetchStoryPost(postData) {
@@ -312,13 +323,15 @@ function StorySubmission() {
             border: '.5px solid rgba(0, 0, 0, 0.25)',
             textOverflow: 'ellipsis',
         }),
-    };
+    }
 
     return (
         <div>
             <div className="background">
                 <form
-                    className="story-submission-box"
+                    className={`story-submission-box ${
+                        showPopUp ? 'inactive' : ''
+                    }`}
                     onSubmit={verifySubmission}
                 >
                     <div class="input-outer-container">
@@ -355,13 +368,15 @@ function StorySubmission() {
                                     handleChange={handleCategoryChange}
                                 /> */}
                                 <Select
-                                    styles = {customStyles}
+                                    styles={customStyles}
                                     options={categoryOptions}
                                     placeholder="Categories"
                                     isMulti
                                     onChange={(selectedOptions) => {
-                                        const selectedIds = selectedOptions.map(option => option.value);
-                                        handleCategoryChange(selectedOptions);
+                                        const selectedIds = selectedOptions.map(
+                                            (option) => option.value,
+                                        )
+                                        handleCategoryChange(selectedOptions)
                                     }}
                                 />
                             </div>
@@ -388,7 +403,7 @@ function StorySubmission() {
                             <button
                                 id="submitButton"
                                 className="button"
-                                onClick={handlePost}
+                                onClick={handlePopUp}
                             >
                                 Submit
                             </button>
@@ -396,10 +411,17 @@ function StorySubmission() {
                     </div>
                     {/* </div>   */}
                 </form>
+                {showPopUp && (
+                    <StorySubmissionPopUp
+                        onClose={() => setShowPopUp(false)}
+                        onPost={handlePost}
+                        makeToken={generateToken}
+                    />
+                )}
             </div>
 
             {/* </div>   */}
         </div>
     )
 }
-export default StorySubmission;
+export default StorySubmission
