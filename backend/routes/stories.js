@@ -350,6 +350,7 @@ router.put('/updateIndividualStory', async (req, res) => {
             res.status(404).json({ message: 'Story not found.' })
         }
     } catch (err) {
+        console.error('Error updating story:', err)
         res.status(500).json({ message: err.message })
     }
 })

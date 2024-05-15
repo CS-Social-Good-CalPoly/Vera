@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import {
-    StoryBanner,
-    CategoryButtonGroup,
-    StoryTileGroup,
-} from '../../components/components'
 import { Link } from 'react-router-dom'
 import URL_PATH from '../../links'
 import './AdminPages.css'
@@ -13,10 +8,10 @@ function AdminPages({ setActiveLink }) {
     // const [nameToID, setNameToID] = useState({})
     // const [categorNames, setCategorNames] = useState([])
     const [selectedDiscipline, setSelectedDiscipline] = useState(null)
-    const [approved, setApproved] = useState(false)
 
     useEffect(() => {
         const subdirectory = '/stories/individualstory'
+        console.log(URL_PATH + subdirectory)
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
@@ -33,41 +28,41 @@ function AdminPages({ setActiveLink }) {
             .catch((error) => console.error(error))
     }, [])
 
-    // useEffect(() => {
-    //     setActiveLink('/AdminPages')
-    // }, [])
+    useEffect(() => {
+        setActiveLink('/AdminPages')
+    }, [])
 
     const handleFilter = (discipline) => {
         setSelectedDiscipline(discipline)
     }
 
-    async function toggleApproval(id, approved, setApproved) {
+    async function toggleApproval(id, approval) {
         try {
-            const response = await fetch(URL_PATH + '/updateIndividualStory', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
+            const response = await fetch(
+                URL_PATH + '/stories/updateIndividualStory',
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        individualStoryId: id,
+                        Approved: !approval,
+                    }),
                 },
-                body: JSON.stringify({
-                    individualStoryId: id,
-                    Approved: !approved,
-                }),
-            })
+            )
             if (!response.ok) {
                 throw new Error('Failed to update story')
             }
             const updatedStory = await response.json()
-            console.log('Updated Story Successfully')
-            setApproved(!approved)
+            console.log('Updated Story:' + updatedStory)
         } catch (error) {
             console.error('Error toggling approval:', error)
         }
     }
 
-    const changeApproval = (id) => {
-        toggleApproval(id, approved, setApproved).catch((error) => {
-            console.log("Didn't change approval")
-        })
+    const changeApproval = (id, approval) => {
+        toggleApproval(id, approval)
     }
 
     return (
@@ -101,7 +96,10 @@ function AdminPages({ setActiveLink }) {
                                     </h6>
                                     <button
                                         onClick={() =>
-                                            changeApproval(story._id)
+                                            changeApproval(
+                                                story._id,
+                                                story.Approved,
+                                            )
                                         }
                                     >
                                         {story.Approved
