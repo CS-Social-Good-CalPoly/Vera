@@ -110,6 +110,7 @@
 
 .background {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: center;
     width: 100%;
     background-color: #f9f9f900;

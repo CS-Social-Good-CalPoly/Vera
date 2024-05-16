@@ -175,6 +175,12 @@ function StorySubmission() {
         } else {
             e.preventDefault()
             setShowPopUp(true)
+            window.scrollTo({
+                top:
+                    document.documentElement.scrollHeight / 2 -
+                    window.innerHeight / 2,
+                behavior: 'smooth',
+            })
         }
     }
 
