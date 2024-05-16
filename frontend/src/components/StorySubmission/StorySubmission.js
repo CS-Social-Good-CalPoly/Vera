@@ -3,6 +3,7 @@ import {
     DropDownForm,
     DropDownOptionalForm,
     StorySubmissionPopUp,
+    StoryBanner,
 } from '../components'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -326,8 +327,12 @@ function StorySubmission() {
     }
 
     return (
-        <div>
-            <div className="background">
+        <div className="background">
+            <div className={`body ${showPopUp ? 'inactive' : ''}`}>
+                <StoryBanner
+                    displayButton="false"
+                    imageUrl="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=773&q=80"
+                />
                 <form
                     className={`story-submission-box ${
                         showPopUp ? 'inactive' : ''
@@ -411,14 +416,14 @@ function StorySubmission() {
                     </div>
                     {/* </div>   */}
                 </form>
-                {showPopUp && (
-                    <StorySubmissionPopUp
-                        onClose={() => setShowPopUp(false)}
-                        onPost={handlePost}
-                        makeToken={generateToken}
-                    />
-                )}
             </div>
+            {showPopUp && (
+                <StorySubmissionPopUp
+                    onClose={() => setShowPopUp(false)}
+                    onPost={handlePost}
+                    makeToken={generateToken}
+                />
+            )}
 
             {/* </div>   */}
         </div>

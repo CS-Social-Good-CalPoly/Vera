@@ -1,14 +1,21 @@
+/* .background {
+    height: 100%;
+    width: 100%;
+    filter: blur(8px);
+} */
+
 .popup-container {
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 100%;
     background-color: #f9f9f900;
     padding: 7%;
     font-family: 'Poppins';
     font-style: normal;
     z-index: 100;
-    position: absolute;
-    backdrop-filter: blur(3px);
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
 }
 
 .form {
