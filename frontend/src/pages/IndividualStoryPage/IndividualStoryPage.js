@@ -5,9 +5,8 @@ import { useLocation } from 'react-router-dom'
 
 function IndividualStoryPage({ setActiveLink }) {
     const location = useLocation()
-    let id = location.state.storyID
-    // console.log('hi')
-    // console.log(id)
+    const pathSegments = location.pathname.split('/')
+    const id = pathSegments[pathSegments.length - 1]
 
     useEffect(() => {
         setActiveLink('/Stories')
