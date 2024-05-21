@@ -3,6 +3,12 @@ import { Navbar, Nav } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
 import './Navbar.css'
 import logo from './VeraLogo.jpg'
+import {
+    SignedIn,
+    SignedOut,
+    SignInButton,
+    UserButton,
+} from '@clerk/clerk-react'
 
 function NavBar({ activeLink }) {
     return (
@@ -42,6 +48,11 @@ function NavBar({ activeLink }) {
                     >
                         Share Your Story
                     </NavLink>
+                    <>
+                        <SignedIn>
+                            <UserButton />
+                        </SignedIn>
+                    </>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

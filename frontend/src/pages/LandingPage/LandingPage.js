@@ -9,12 +9,6 @@ import {
     TextBanner,
 } from '../../components/components'
 import '../../links'
-import {
-    SignedIn,
-    SignedOut,
-    SignInButton,
-    UserButton,
-} from '@clerk/clerk-react'
 
 function LandingPage() {
     return (
@@ -64,14 +58,6 @@ function LandingPage() {
                 bannerOrder={['photo', 'text']}
             />
             <div>Hi there</div>
-            <div>
-                <SignedOut>
-                    <SignInButton />
-                </SignedOut>
-                <SignedIn>
-                    <UserButton />
-                </SignedIn>
-            </div>
         </div>
     )
 }
