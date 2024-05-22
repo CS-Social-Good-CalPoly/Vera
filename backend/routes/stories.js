@@ -258,6 +258,7 @@ router.post('/storysubmission', async (req, res) => {
         StudentYear,
         RelevantCategoryList,
         Token,
+        Approved,
     } = req.body
 
     const newStory = new IndStories({
@@ -269,6 +270,7 @@ router.post('/storysubmission', async (req, res) => {
         StudentYear,
         RelevantCategoryList,
         Token,
+        Approved,
     })
 
     try {
@@ -335,15 +337,18 @@ router.delete('/deleteIndividualStory', async (req, res) => {
 
 // UPDATE route for admin to update stories
 router.put('/updateIndividualStory', async (req, res) => {
-    console.log(req.body)
+    console.log('Request body:', req.body)
     const { individualStoryId, ...updates } = req.body
 
     try {
         const updatedStory = await IndStories.findByIdAndUpdate(
             individualStoryId,
-            { $set: updates },
+            {
+                $set: { Approved: true, ...updates },
+            },
             { new: true },
         )
+        console.log(updatedStory)
         if (updatedStory) {
             res.json(updatedStory)
         } else {

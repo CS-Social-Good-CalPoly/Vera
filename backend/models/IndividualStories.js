@@ -17,6 +17,7 @@ const StorySchema = new Schema({
     StudentYear: String,
     GeneralCategory: String,
     Token: String,
+    Approved: { type: Boolean, default: false },
     Status: { type: String, default: 'review' },
     RejectionReasonList: { type: [String], default: [] },
 })
