@@ -337,7 +337,6 @@ router.delete('/deleteIndividualStory', async (req, res) => {
 
 // UPDATE route for admin to update stories
 router.put('/updateIndividualStory', async (req, res) => {
-    console.log('Request body:', req.body)
     const { individualStoryId, ...updates } = req.body
 
     try {
@@ -348,7 +347,6 @@ router.put('/updateIndividualStory', async (req, res) => {
             },
             { new: true },
         )
-        console.log(updatedStory)
         if (updatedStory) {
             res.json(updatedStory)
         } else {
