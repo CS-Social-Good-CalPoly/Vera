@@ -33,7 +33,7 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
         e.preventDefault()
         if (allTokens[tokenInput]) {
             // token exists
-            onPost()
+            onPost(tokenInput)
             // TODO: connect to previous token
         } else {
             // token does not exist, prompt user
@@ -49,6 +49,7 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
         if (Object.keys(allTokens).length === 0) {
             await fetchAllTokens()
         }
+        setShowError(false)
     }, [radioOption])
 
     async function fetchAllTokens() {
@@ -151,7 +152,13 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
                                 : ''
                         }`}
                         disabled={radioOption === '' || showError}
-                        onClick={handleTokenVerify}
+                        onClick={
+                            radioOption === 'existing-token'
+                                ? handleTokenVerify
+                                : () => {
+                                      onPost()
+                                  }
+                        }
                     >
                         Submit
                     </button>
