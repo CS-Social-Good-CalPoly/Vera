@@ -217,8 +217,8 @@ function StorySubmission() {
         }
     }
 
-    async function handlePost(e) {
-        e.preventDefault()
+    async function handlePost() {
+        // e.preventDefault()
         // POST the story
         const postData = {
             Title: values.Title,
