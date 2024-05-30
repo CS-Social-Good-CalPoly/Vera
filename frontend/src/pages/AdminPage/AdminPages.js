@@ -8,6 +8,7 @@ function AdminPages({ setActiveLink }) {
     // const [nameToID, setNameToID] = useState({})
     // const [categorNames, setCategorNames] = useState([])
     const [selectedDiscipline, setSelectedDiscipline] = useState(null)
+    const [toggleStatus, setToggleStatus] = useState(false)
 
     useEffect(() => {
         let isMounted = true
@@ -21,6 +22,7 @@ function AdminPages({ setActiveLink }) {
                         Title: story.Title,
                         StudentMajor: story.StudentMajor,
                         ParagraphText: story.ParagraphText,
+                        Status: story.Status,
                         Approved: story.Approved,
                     }))
                     setStories(tempArray)
@@ -35,7 +37,8 @@ function AdminPages({ setActiveLink }) {
 
     useEffect(() => {
         setActiveLink('/AdminPages')
-    }, [setActiveLink])
+        console.log('toggleStatus:', toggleStatus)
+    }, [setActiveLink, toggleStatus])
 
     const handleFilter = (discipline) => {
         setSelectedDiscipline(discipline)
@@ -67,6 +70,10 @@ function AdminPages({ setActiveLink }) {
             console.error('Error toggling approval:', error)
         }
     }
+    const handleToggleStatus = () => {
+        console.log('prev toggleStatus:', toggleStatus)
+        setToggleStatus((prevToggleStatus) => !prevToggleStatus)
+    }
 
     return (
         <div>
@@ -76,16 +83,20 @@ function AdminPages({ setActiveLink }) {
                 <button onClick={() => handleFilter('Computer Science')}>
                     CSC
                 </button>
+                <button onClick={() => handleToggleStatus()}>Review</button>
                 <button onClick={() => handleFilter(null)}>Show All</button>
             </div>
 
             <div>
                 {stories
-                    .filter(
-                        (story) =>
-                            !selectedDiscipline ||
-                            story.StudentMajor === selectedDiscipline,
-                    )
+                    .filter((story) => {
+                        console.log(`story status: ${story.Status}`)
+                        return (
+                            (!selectedDiscipline ||
+                                story.StudentMajor === selectedDiscipline) &&
+                            (toggleStatus ? story.Status === 'review' : true)
+                        )
+                    })
                     .map((story, index) => (
                         <div key={index}>
                             <div>

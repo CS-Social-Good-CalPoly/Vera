@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { DropDownForm, DropDownOptionalForm } from '../components'
+import {
+    DropDownForm,
+    DropDownOptionalForm,
+    StorySubmissionPopUp,
+    StoryBanner,
+} from '../components'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
 import axios from 'axios'
 import cheerio from 'cheerio'
 import URL_PATH from '../../links'
+import Select from 'react-select'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
     const [major, setMajor] = useState('')
-    const [selectedCategoryName, setSelectedCategoryName] = useState('')
+    const [selectedCategories, setSelectedCategories] = useState([])
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [token, setTokenValue] = useState('')
@@ -19,8 +25,12 @@ function StorySubmission() {
     const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
+    const [showPopUp, setShowPopUp] = useState(false)
     //use for put
-    const [storyId, setStoryId] = useState([])
+    const [storyId, setStoryId] = useState('')
+
+    //use for Token POST: check if token already in database
+    const [allTokens, setAllTokens] = useState([])
 
     //const [selectedCategory, setSelectedCategory] = useState([]);
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
@@ -32,10 +42,27 @@ function StorySubmission() {
         Major: major,
         Description: quillValue,
         Title: title,
-        Category: selectedCategoryName,
+        Category: selectedCategories,
         CategoryIds: categoryIds,
         Token: token,
     }
+
+    const categoryValues = [
+        'School',
+        'Family',
+        'Clubs',
+        'Work',
+        'Home',
+        'Friends',
+        'Sports',
+        'Eating',
+        'Alcohol',
+        'Drugs',
+        'Financial',
+        'Anxiety',
+        'Stress',
+        'Depression',
+    ]
 
     const handleTitleKeyPress = (e) => {
         setTitleValue(e.target.value)
@@ -50,28 +77,41 @@ function StorySubmission() {
     }
 
     const handleCategoryChange = (e) => {
-        setSelectedCategoryName(e)
+        setCategoryIds([...selectedCategories, e])
     }
+
+    // const getCategoryId = (categories, categoryName) => {
+    //     // console.log(categories)
+    //     const cat = categories.filter((c) => c.Name === categoryName)[0]
+    //     // console.log(cat)
+    //     return cat._id
+    // }
 
     const getCategoryId = (categories, categoryName) => {
-        // console.log(categories)
-        const cat = categories.filter((c) => c.Name === categoryName)[0]
-        // console.log(cat)
-        return cat._id
+        const cat = categories.find((c) => c.Title === categoryName)
+        return cat ? cat._id : null
     }
 
-    //change the id list to include the selected category
-    useEffect(() => {
-        console.log(selectedCategoryName)
-        if (selectedCategoryName) {
-            const id = getCategoryId(categoryList, selectedCategoryName)
-            console.log(id)
-            setCategoryIds((prev) => [...prev, id])
-        }
-    }, [selectedCategoryName])
+    // //change the id list to include the selected category
+    // useEffect(() => {
+    //     console.log(selectedCategoryName)
+    //     if (selectedCategoryName) {
+    //         const id = getCategoryId(categoryList, selectedCategoryName)
+    //         console.log(id)
+    //         setCategoryIds((prev) => [...prev, id])
+    //     }
+    // }, [selectedCategories])
+
+    // useEffect(() => {
+    //     const ids = selectedCategories.map((category) =>
+    //         getCategoryId(categoryList, category.value)
+    //     );
+    //     setCategoryIds(ids);
+    // }, [selectedCategories, categoryList]);
 
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
+        console.log('selected:', categoryIds)
     }
 
     const handleMajorChange = (e) => {
@@ -90,44 +130,6 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
-    // useEffect(() => {
-    //     axios
-    //         .get('https://www.calpoly.edu/colleges-departments-and-majors')
-    //         .then((res) => {
-    //             const $ = cheerio.load(res.data)
-    //             const college_dict = {}
-
-    //             // Select each h2 tag
-    //             $('h2').each((index, element) => {
-    //                 // Get the text content of the h2 tag
-    //                 const college_name = $(element).text().trim()
-    //                 if (college_name.toLowerCase().includes('college')) {
-    //                     // Get the section, stopping at the next h2 which should be the college
-    //                     const $collegeSection = $(element).nextUntil('h2')
-
-    //                     // Iterate over each HTML a element within this section
-    //                     $collegeSection.find('a').each((index, element) => {
-    //                         // Get the text content of the a tag
-    //                         const major_name = $(element).text().trim()
-
-    //                         if (
-    //                             major_name.toLowerCase().includes('major') &&
-    //                             major_name !== 'Find a major'
-    //                         ) {
-    //                             // Create key/value pair; keys = majors, values = colleges
-    //                             // Note: keys are unique, colleges duplicate
-    //                             college_dict[
-    //                                 major_name.replace('Major', '').trim()
-    //                             ] = college_name
-    //                         }
-    //                     })
-    //                 }
-    //             })
-    //             setCollegeDict(college_dict)
-    //         })
-    //         .catch((err) => console.error(err))
-    // }, [])
-
     useEffect(() => {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
@@ -142,6 +144,12 @@ function StorySubmission() {
             .catch((err) => console.error(err))
     }, [])
 
+    // react-select Select takes value and label objects as category options
+    const categoryOptions = categoryList.map((category) => ({
+        value: category._id,
+        label: category.Name,
+    }))
+
     const yearList = [
         '1st Year',
         '2nd Year',
@@ -154,7 +162,7 @@ function StorySubmission() {
         // if an option is selected, the value is stored as 1 at the moment
     }
 
-    function handlePost(e) {
+    async function handlePopUp(e) {
         if (
             year === '' ||
             college === '' ||
@@ -166,74 +174,175 @@ function StorySubmission() {
             console.log('Missing info')
         } else {
             e.preventDefault()
-
-            // Create token if the story successfully submits
-            axios.get(URL_PATH + '/stories/generate-token').then((res) => {
-                const newToken = res.data
-                console.log(res.data)
-                setTokenValue(newToken)
-
-                alert(
-                    'Thank you for your submission!\nYour token is: ' +
-                        newToken,
-                )
-
-                const postData = {
-                    Title: values.Title,
-                    ParagraphText: values.Description,
-                    Date: new Date(),
-                    StudentMajor: values.Major,
-                    StudentCollege: values.College,
-                    StudentYear: values.Year,
-                    RelevantCategoryList: values.CategoryIds,
-                }
-
-                console.log(postData)
-                const subdirectory = '/stories/storysubmission'
-                fetch(URL_PATH + subdirectory, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(postData),
-                })
-                    .then((postResponse) => postResponse.json())
-                    .then((postRes) => {
-                        const storyId = postRes._id
-                        const catId = postRes.RelevantCategoryList[0]
-                        const putData = {
-                            categoryId: catId,
-                            storyId: storyId,
-                        }
-                        console.log(putData)
-                        fetch(URL_PATH + '/stories/generalstorycat', {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(putData),
-                        })
-                            .then((putResponse) => putResponse.json())
-                            .then(() => {
-                                //here
-                            })
-                            .then(() => {
-                                // Refresh the page after all asynchronous operations are complete
-                                window.location.reload()
-                                window.scrollTo(0, 0)
-                            })
-                            .catch((err) => console.error(err))
-                    })
-                    .catch((err) => console.error(err))
+            setShowPopUp(true)
+            window.scrollTo({
+                top:
+                    document.documentElement.scrollHeight / 2 -
+                    window.innerHeight / 2,
+                behavior: 'smooth',
             })
         }
     }
 
+    async function generateToken() {
+        // gets all tokens from database into allTokens state
+        console.log('generating...')
+        await fetchAllTokens()
+        let numAttempts = 0
+        while (numAttempts < 10) {
+            try {
+                console.log('looking for new token')
+                // Create token if the story successfully submits
+                const response = await axios.get(
+                    URL_PATH + '/stories/generate-token',
+                )
+                const newToken = response.data
+
+                // check if token already exists
+                if (allTokens[newToken]) {
+                    // token already exists
+                    console.log('token already exists: ', newToken)
+                } else {
+                    setTokenValue(newToken)
+                    console.log('token found', response.data)
+                    return newToken
+                }
+                numAttempts++
+            } catch (err) {
+                console.error('Error fetching token:', err)
+            }
+        }
+        if (numAttempts == 10) {
+            console.log('error, no valid token found')
+        }
+    }
+
+    async function handlePost(e) {
+        e.preventDefault()
+        // POST the story
+        const postData = {
+            Title: values.Title,
+            ParagraphText: values.Description,
+            Date: new Date(),
+            StudentMajor: values.Major,
+            StudentCollege: values.College,
+            StudentYear: values.Year,
+            RelevantCategoryList: values.CategoryIds,
+        }
+        const storyID = await fetchStoryPost(postData)
+        console.log(postData)
+
+        // POST the token
+        await fetchTokenPost(token, storyID)
+        console.log('unique token found')
+    }
+
+    async function fetchStoryPost(postData) {
+        let storyID = ''
+        const subdirectory = '/stories/storysubmission'
+        await fetch(URL_PATH + subdirectory, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then((postResponse) => postResponse.json())
+            .then((postRes) => {
+                // setStoryId(postRes._id)  // state isn't updating for fetchTokenPost
+                storyID = postRes._id
+                const catId = postRes.RelevantCategoryList[0]
+                const putData = {
+                    categoryId: catId,
+                    storyId: storyID,
+                }
+                console.log(putData)
+                fetch(URL_PATH + '/stories/generalstorycat', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(putData),
+                }).catch((err) => console.error(err))
+            })
+            .catch((err) => console.error(err))
+        return storyID
+    }
+
+    async function fetchAllTokens() {
+        await fetch(URL_PATH + '/stories/tokens')
+            .then((response) => response.json())
+            .then((json) => {
+                // Create dictionary using token value as the key
+                // mapping ito the full token object
+                let tempDict = {}
+                tempDict = json.reduce((acc, obj) => {
+                    acc[obj.Value] = obj
+                    return acc
+                }, {})
+                setAllTokens(tempDict)
+            })
+            .catch((error) => console.error(error))
+    }
+
+    async function fetchTokenPost(token, storyID) {
+        // token does not exist already, POST
+        const tokenData = {
+            Value: token,
+            AssociatedStories: [storyID],
+        }
+
+        // POST token to database
+        await fetch(URL_PATH + '/stories/tokens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(tokenData),
+        })
+            .then(() => {
+                // Refresh the page after all asynchronous operations are complete
+                window.location.reload()
+                window.scrollTo(0, 0)
+                alert('Thank you for your submission!\nYour token is: ' + token)
+            })
+            .catch((err) => console.error(err))
+    }
+
+    const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            padding: '3px',
+            paddingLeft: '20px',
+            fontFamily: 'Poppins',
+            fontStyle: 'normal',
+            fontWeight: 600,
+            fontSize: '16px',
+            letterSpacing: '0.05em',
+            textTransform: 'uppercase',
+            width: '100%',
+            color: '#534D49',
+            borderColor: 'white',
+            margin: '0px 0px 7% 0px',
+            background: 'white',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            borderRadius: '20px',
+            border: '.5px solid rgba(0, 0, 0, 0.25)',
+            textOverflow: 'ellipsis',
+        }),
+    }
+
     return (
-        <div>
-            <div className="background">
+        <div className="background">
+            <div className={`body ${showPopUp ? 'inactive' : ''}`}>
+                <StoryBanner
+                    displayButton="false"
+                    imageUrl="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=773&q=80"
+                />
                 <form
-                    className="story-submission-box"
+                    className={`story-submission-box ${
+                        showPopUp ? 'inactive' : ''
+                    }`}
                     onSubmit={verifySubmission}
                 >
                     <div class="input-outer-container">
@@ -264,10 +373,22 @@ function StorySubmission() {
                                 handleChange={handleMajorChange}
                             />
                             <div>
-                                <DropDownForm
+                                {/* <DropDownForm
                                     fieldTitle="Category"
                                     myoptions={categoryNamesList}
                                     handleChange={handleCategoryChange}
+                                /> */}
+                                <Select
+                                    styles={customStyles}
+                                    options={categoryOptions}
+                                    placeholder="Categories"
+                                    isMulti
+                                    onChange={(selectedOptions) => {
+                                        const selectedIds = selectedOptions.map(
+                                            (option) => option.value,
+                                        )
+                                        handleCategoryChange(selectedOptions)
+                                    }}
                                 />
                             </div>
                         </div>
@@ -293,7 +414,7 @@ function StorySubmission() {
                             <button
                                 id="submitButton"
                                 className="button"
-                                onClick={handlePost}
+                                onClick={handlePopUp}
                             >
                                 Submit
                             </button>
@@ -302,6 +423,13 @@ function StorySubmission() {
                     {/* </div>   */}
                 </form>
             </div>
+            {showPopUp && (
+                <StorySubmissionPopUp
+                    onClose={() => setShowPopUp(false)}
+                    onPost={handlePost}
+                    makeToken={generateToken}
+                />
+            )}
 
             {/* </div>   */}
         </div>
