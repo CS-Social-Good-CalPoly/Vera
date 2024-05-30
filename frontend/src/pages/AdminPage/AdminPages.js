@@ -5,8 +5,6 @@ import './AdminPages.css'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
-    // const [nameToID, setNameToID] = useState({})
-    // const [categorNames, setCategorNames] = useState([])
     const [selectedDiscipline, setSelectedDiscipline] = useState(null)
     const [toggleStatus, setToggleStatus] = useState(false)
 
@@ -44,6 +42,11 @@ function AdminPages({ setActiveLink }) {
         setSelectedDiscipline(discipline)
     }
 
+    const handleToggleStatus = () => {
+        console.log('prev toggleStatus:', toggleStatus)
+        setToggleStatus((prevToggleStatus) => !prevToggleStatus)
+    }
+
     async function toggleApproval(id, approval) {
         const subdirectory = '/stories/updateIndividualStory'
         try {
@@ -69,10 +72,6 @@ function AdminPages({ setActiveLink }) {
         } catch (error) {
             console.error('Error toggling approval:', error)
         }
-    }
-    const handleToggleStatus = () => {
-        console.log('prev toggleStatus:', toggleStatus)
-        setToggleStatus((prevToggleStatus) => !prevToggleStatus)
     }
 
     return (
