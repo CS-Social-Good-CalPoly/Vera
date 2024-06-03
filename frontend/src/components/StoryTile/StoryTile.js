@@ -36,6 +36,25 @@ const InfoText = styled.div`
     }
 `
 
+const Categories = styled.div`
+    margin-top: 10px;
+`;
+
+const CategoryTag = styled.span`
+    display: inline-block;
+    background-color: #4a6e82;
+    color: white;
+    padding: 2px 8px;
+    margin-right: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+
+    @media only screen and (max-width: 768px) {
+        font-size: 8px;
+        padding: 1px 4px;
+    }
+`;
+
 function StoryTile(props) {
     return (
         <Tile onClick={props.handleClick} className="tile">
@@ -50,6 +69,14 @@ function StoryTile(props) {
                 <Info>
                     <InfoText>{props.studentYear}</InfoText>
                     <InfoText>{props.studentMajor} Major</InfoText>
+                    {/* {props.categories.map((category, index) => (
+                            <InfoText key={index}>{category}</InfoText>
+                        ))} */}
+                    <Categories>
+                        {props.categories.map((category, index) => (
+                            <CategoryTag key={index}>{category}</CategoryTag>
+                        ))}
+                    </Categories>
                 </Info>
                 <TileIcon src={arrow} />
             </Link>

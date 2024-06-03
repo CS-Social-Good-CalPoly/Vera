@@ -36,6 +36,7 @@ function StoryTileGroup({ id, title, stories }) {
                                     ? story.StudentMajor
                                     : ''
                             }
+                            categories={story.RelevantCategoryList}
                             // buildingName={story.building}
                             // address={story.address}
                             // toExpect={story.whatToExpectList}
