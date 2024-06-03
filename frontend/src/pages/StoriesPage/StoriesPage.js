@@ -3,6 +3,7 @@ import {
     StoryBanner,
     CategoryButtonGroup,
     StoryTileGroup,
+    DropDownForm
 } from '../../components/components'
 import URL_PATH from '../../links'
 
@@ -10,6 +11,7 @@ function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
     const [nameToID, setNameToID] = useState({})
     const [categorNames, setCategorNames] = useState([])
+    const allStories = Object.values(nameToID).flat().map(id => stories[id]);
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -54,6 +56,7 @@ function StoriesPage({ setActiveLink }) {
         setActiveLink('/Stories')
     }, [])
 
+
     return (
         <div>
             <StoryBanner
@@ -65,7 +68,20 @@ function StoriesPage({ setActiveLink }) {
                 names={categorNames}
                 locations={categorNames}
             />
-            {categorNames.map((name, index) => {
+            <DropDownForm
+                fieldTitle="Categories"
+                myoptions={categorNames}
+                // handleChange={handleYearChange}
+            />
+
+            <StoryTileGroup
+                key="all-stories"
+                id="all-stories"
+                title="All Stories"
+                stories={allStories}
+            />
+
+            {/* {categorNames.map((name, index) => {
                 let result = nameToID[name].map((id, index2) => stories[id])
                 return (
                     <StoryTileGroup
@@ -75,7 +91,7 @@ function StoriesPage({ setActiveLink }) {
                         stories={result}
                     />
                 )
-            })}
+            })} */}
         </div>
     )
 }
