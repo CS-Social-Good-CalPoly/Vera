@@ -11,6 +11,7 @@ function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
     const [idToName, setIdToName] = useState({})
     const [categoryNames, setCategoryNames] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -53,6 +54,14 @@ function StoriesPage({ setActiveLink }) {
         setActiveLink('/Stories')
     }, [])
     
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category)
+    }
+
+    const filteredStories = selectedCategory 
+    ? stories.filter(story => story.RelevantCategoryList.includes(selectedCategory)) 
+    : stories
+
 
 
     return (
@@ -64,13 +73,13 @@ function StoriesPage({ setActiveLink }) {
             <DropDownForm
                 fieldTitle="Categories"
                 myoptions={categoryNames}
-                // handleChange={handleYearChange}
+                handleChange={handleCategoryChange}
             />
             <StoryTileGroup
                 key="all-stories"
                 id="all-stories"
                 title="All Stories"
-                stories={stories}
+                stories={filteredStories}
             />
         </div>
     )
