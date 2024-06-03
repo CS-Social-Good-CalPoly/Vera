@@ -11,7 +11,6 @@ function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
     const [nameToID, setNameToID] = useState({})
     const [categorNames, setCategorNames] = useState([])
-    const allStories = Object.values(nameToID).flat().map(id => stories[id]);
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -40,14 +39,9 @@ function StoriesPage({ setActiveLink }) {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                // Create a dictionary using subresource id as the key
-                // mapping to the full subresource object.
-                let tempDict = {}
-                tempDict = json.reduce((acc, obj) => {
-                    acc[obj._id] = obj
-                    return acc
-                }, {})
-                setStories(tempDict)
+                // Create a list of all stories
+                const allStories = json.map(obj => obj);
+                setStories(allStories);
             })
             .catch((error) => console.error(error))
     }, [])
@@ -78,7 +72,7 @@ function StoriesPage({ setActiveLink }) {
                 key="all-stories"
                 id="all-stories"
                 title="All Stories"
-                stories={allStories}
+                stories={stories}
             />
 
             {/* {categorNames.map((name, index) => {
