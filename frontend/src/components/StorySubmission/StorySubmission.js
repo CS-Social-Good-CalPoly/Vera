@@ -228,13 +228,17 @@ function StorySubmission() {
             StudentCollege: values.College,
             StudentYear: values.Year,
             RelevantCategoryList: values.CategoryIds,
+            ImageUrl: '',
+            ImageAltText: '',
+            GeneralCategory: '',
         }
-        const storyID = await fetchStoryPost(postData)
         console.log(postData)
 
         if (submittedToken) {
             // user inputted a token, connect old token to new story
             console.log('updating old token')
+            postData['Token'] = submittedToken
+            const storyID = await fetchStoryPost(postData)
             const tokenPutData = {
                 tokenID: submittedToken,
                 storyID: storyID,
@@ -242,6 +246,8 @@ function StorySubmission() {
             await updateTokenAssociatedStories(tokenPutData)
         } else {
             // no token provided, create a new token and POST
+            postData['Token'] = token
+            const storyID = await fetchStoryPost(postData)
             await fetchTokenPost(token, storyID)
             console.log('unique token found')
         }
