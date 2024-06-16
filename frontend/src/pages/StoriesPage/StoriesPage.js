@@ -3,13 +3,15 @@ import {
     StoryBanner,
     CategoryButtonGroup,
     StoryTileGroup,
+    DropDownForm
 } from '../../components/components'
 import URL_PATH from '../../links'
 
 function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
-    const [nameToID, setNameToID] = useState({})
-    const [categorNames, setCategorNames] = useState([])
+    const [idToName, setIdToName] = useState({})
+    const [categoryNames, setCategoryNames] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -18,15 +20,14 @@ function StoriesPage({ setActiveLink }) {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                let tempArray = []
-                let tempNameToID = {}
-                for (let object in json) {
-                    let name = json[object]['Title']
-                    tempArray.push(name)
-                    tempNameToID[name] = json[object]['StoryIDList']
-                }
-                setNameToID(tempNameToID)
-                setCategorNames(tempArray)
+                let tempCategoryNames = []
+                let tempIdToName = {}
+                json.forEach(category => {
+                    tempIdToName[category['_id']] = category['Title']
+                    tempCategoryNames.push(category['Title'])
+                })
+                setIdToName(tempIdToName)
+                setCategoryNames(tempCategoryNames)
             })
             .catch((error) => console.error(error))
     }, [])
@@ -38,21 +39,30 @@ function StoriesPage({ setActiveLink }) {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                // Create a dictionary using subresource id as the key
-                // mapping to the full subresource object.
-                let tempDict = {}
-                tempDict = json.reduce((acc, obj) => {
-                    acc[obj._id] = obj
-                    return acc
-                }, {})
-                setStories(tempDict)
+                // Create a list of all stories
+                const allStories = json.map(story => ({
+                    ...story,
+                    RelevantCategoryList: story.RelevantCategoryList.map(catId => idToName[catId] || catId)
+                }))              
+                console.log("all stories", allStories)
+                setStories(allStories);
             })
             .catch((error) => console.error(error))
-    }, [])
+    }, [idToName])
 
     useEffect(() => {
         setActiveLink('/Stories')
     }, [])
+    
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category)
+    }
+
+    const filteredStories = selectedCategory 
+    ? stories.filter(story => story.RelevantCategoryList.includes(selectedCategory)) 
+    : stories
+
+
 
     return (
         <div>
@@ -60,22 +70,17 @@ function StoriesPage({ setActiveLink }) {
                 imageUrl="https://images.unsplash.com/photo-1506962240359-bd03fbba0e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2065&q=80"
                 displayButton="true"
             />
-            <CategoryButtonGroup
-                title="Categories"
-                names={categorNames}
-                locations={categorNames}
+            <DropDownForm
+                fieldTitle="Categories"
+                myoptions={categoryNames}
+                handleChange={handleCategoryChange}
             />
-            {categorNames.map((name, index) => {
-                let result = nameToID[name].map((id, index2) => stories[id])
-                return (
-                    <StoryTileGroup
-                        key={name}
-                        id={name}
-                        title={name}
-                        stories={result}
-                    />
-                )
-            })}
+            <StoryTileGroup
+                key="all-stories"
+                id="all-stories"
+                title="All Stories"
+                stories={filteredStories}
+            />
         </div>
     )
 }
