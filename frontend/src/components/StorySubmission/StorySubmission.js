@@ -217,8 +217,8 @@ function StorySubmission() {
         }
     }
 
-    async function handlePost(e) {
-        e.preventDefault()
+    async function handlePost(submittedToken = null) {
+        // e.preventDefault()
         // POST the story
         const postData = {
             Title: values.Title,
@@ -228,13 +228,48 @@ function StorySubmission() {
             StudentCollege: values.College,
             StudentYear: values.Year,
             RelevantCategoryList: values.CategoryIds,
+            ImageUrl: '',
+            ImageAltText: '',
+            GeneralCategory: '',
         }
-        const storyID = await fetchStoryPost(postData)
         console.log(postData)
 
-        // POST the token
-        await fetchTokenPost(token, storyID)
-        console.log('unique token found')
+        if (submittedToken) {
+            // user inputted a token, connect old token to new story
+            console.log('updating old token')
+            postData['Token'] = submittedToken
+            const storyID = await fetchStoryPost(postData)
+            const tokenPutData = {
+                tokenID: submittedToken,
+                storyID: storyID,
+            }
+            await updateTokenAssociatedStories(tokenPutData)
+        } else {
+            // no token provided, create a new token and POST
+            postData['Token'] = token
+            const storyID = await fetchStoryPost(postData)
+            await fetchTokenPost(token, storyID)
+            console.log('unique token found')
+        }
+    }
+
+    async function updateTokenAssociatedStories(putData) {
+        await fetch(URL_PATH + '/stories/tokens', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(putData),
+        })
+            .then(() => {
+                // Refresh the page after all asynchronous operations are complete
+                window.location.reload()
+                window.scrollTo(0, 0)
+                alert(
+                    'Thank you for your submission!\nYour token has been connected to your new story!',
+                )
+            })
+            .catch((err) => console.error(err))
     }
 
     async function fetchStoryPost(postData) {

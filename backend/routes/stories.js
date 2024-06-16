@@ -299,6 +299,30 @@ router.post('/tokens', async (req, res) => {
     }
 })
 
+router.put('/tokens', async (req, res) => {
+    try {
+        const { tokenID, storyID } = req.body
+        const token = await Tokens.findOne({ Value: { $eq: tokenID } })
+
+        if (!token) {
+            return res.status(404).json({ message: 'Token not found' })
+        }
+
+        // checks to see if the storyID already exists in the story array
+        if (token.AssociatedStories.includes(storyID)) {
+            res.status(400).json({
+                message: 'Associated Story ID already exists in token',
+            })
+        } else {
+            token.AssociatedStories.push(storyID)
+            const updatedToken = await token.save()
+            res.status(200).json(updatedToken)
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
 // PUT route for updating category's story ID list
 router.put('/generalstorycat', async (req, res) => {
     try {
@@ -404,7 +428,6 @@ router.get('/tokens', async (req, res) => {
 })
 
 router.get('/colleges-and-majors', async (req, res) => {
-    console.log('hi 1')
     try {
         const response = await axios.get(
             'https://www.calpoly.edu/colleges-departments-and-majors',
@@ -428,8 +451,6 @@ router.get('/colleges-and-majors', async (req, res) => {
                 })
             }
         })
-
-        console.log('hi 2')
 
         res.json(college_dict)
     } catch (error) {

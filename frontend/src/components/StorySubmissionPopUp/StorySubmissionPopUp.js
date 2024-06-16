@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import './StorySubmissionPopUp.css'
+import URL_PATH from '../../links'
 
 function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
     const [radioOption, setRadioOption] = useState('')
     const [tokenInput, setTokenInput] = useState('')
     const [newToken, setNewToken] = useState('')
     const [copied, setCopied] = useState(false)
+    const [allTokens, setAllTokens] = useState({})
+    const [showError, setShowError] = useState(false)
 
     const optionChange = (e) => {
         setRadioOption(e.target.value)
@@ -16,6 +19,7 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
     }
 
     const tokenInputChange = (e) => {
+        setShowError(false)
         setTokenInput(e.target.value)
     }
 
@@ -25,11 +29,44 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
         alert(`${newToken}\nCopied to your clipboard!`)
     }
 
+    const handleTokenVerify = async (e) => {
+        e.preventDefault()
+        if (allTokens[tokenInput]) {
+            // token exists
+            onPost(tokenInput)
+            // TODO: connect to previous token
+        } else {
+            // token does not exist, prompt user
+            setShowError(true)
+        }
+    }
+
     useEffect(async () => {
         if (radioOption === 'no-token' && newToken === '') {
             setNewToken(await makeToken())
         }
+        // gets all the tokens when a radio button is pressed
+        if (Object.keys(allTokens).length === 0) {
+            await fetchAllTokens()
+        }
+        setShowError(false)
     }, [radioOption])
+
+    async function fetchAllTokens() {
+        await fetch(URL_PATH + '/stories/tokens')
+            .then((response) => response.json())
+            .then((json) => {
+                // Create dictionary using token value as the key
+                // mapping ito the full token object
+                let tempDict = {}
+                tempDict = json.reduce((acc, obj) => {
+                    acc[obj.Value] = obj
+                    return acc
+                }, {})
+                setAllTokens(tempDict)
+            })
+            .catch((error) => console.error(error))
+    }
 
     return (
         <div className="popup-container">
@@ -93,6 +130,12 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
                         </div>
                     ) : null}
                 </div>
+                {showError ? (
+                    <p className="errorMessage">
+                        {`Error, token '${tokenInput}' does not exist. \nIf you do
+                        not have a token, please select the other option :)`}
+                    </p>
+                ) : null}
                 <div className="formButtons">
                     <button
                         id="cancelButton"
@@ -104,10 +147,18 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
                     <button
                         id="submitButton"
                         className={`submitButton ${
-                            radioOption === '' ? 'inactiveButton' : ''
+                            radioOption === '' || showError
+                                ? 'inactiveButton'
+                                : ''
                         }`}
-                        disabled={radioOption === ''}
-                        onClick={onPost}
+                        disabled={radioOption === '' || showError}
+                        onClick={
+                            radioOption === 'existing-token'
+                                ? handleTokenVerify
+                                : () => {
+                                      onPost()
+                                  }
+                        }
                     >
                         Submit
                     </button>
