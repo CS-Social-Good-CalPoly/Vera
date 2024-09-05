@@ -1,6 +1,6 @@
 import './App.css'
 import { Route, Switch } from 'react-router-dom'
-import { Footer, NavBar } from './components/components'
+import { Footer, NavBar } from './components/components.js'
 import { useState } from 'react'
 import {
     HomePage,
@@ -10,7 +10,7 @@ import {
     IndividualStoryPage,
     AdminPages,
     LandingPage,
-} from './pages/pages'
+} from './pages/pages.js'
 
 function App() {
     const [activeLink, setActiveLink] = useState(null)
@@ -20,13 +20,7 @@ function App() {
             <NavBar activeLink={activeLink} />
             <div id="page">
                 <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        component={() => (
-                            <LandingPage />
-                        )}
-                    />
+                    <Route exact path="/" component={() => <LandingPage />} />
                     <Route
                         exact
                         path="/resources"
@@ -38,7 +32,9 @@ function App() {
                         exact
                         path="/individualResource"
                         component={() => (
-                            <IndividualResourcePage setActiveLink={setActiveLink} />
+                            <IndividualResourcePage
+                                setActiveLink={setActiveLink}
+                            />
                         )}
                     />
                     <Route
@@ -51,7 +47,11 @@ function App() {
                     <Route
                         exact
                         path="/individualStory/:id"
-                        render={() => <IndividualStoryPage setActiveLink={setActiveLink} />}
+                        render={() => (
+                            <IndividualStoryPage
+                                setActiveLink={setActiveLink}
+                            />
+                        )}
                     />
                     <Route
                         exact
@@ -66,7 +66,7 @@ function App() {
                         exact
                         path="/AdminPages"
                         component={() => (
-                            <AdminPages setActiveLink={setActiveLink} /> 
+                            <AdminPages setActiveLink={setActiveLink} />
                         )}
                     />
                 </Switch>
