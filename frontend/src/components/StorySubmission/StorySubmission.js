@@ -4,13 +4,12 @@ import {
     DropDownOptionalForm,
     StorySubmissionPopUp,
     StoryBanner,
-} from '../components'
+} from '../components.js'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
 import axios from 'axios'
-import cheerio from 'cheerio'
-import URL_PATH from '../../links'
+import URL_PATH from '../../links.js'
 import Select from 'react-select'
 
 function StorySubmission() {
@@ -212,7 +211,7 @@ function StorySubmission() {
                 console.error('Error fetching token:', err)
             }
         }
-        if (numAttempts == 10) {
+        if (numAttempts === 10) {
             console.log('error, no valid token found')
         }
     }

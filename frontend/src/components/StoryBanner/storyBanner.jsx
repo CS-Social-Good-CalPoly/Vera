@@ -30,7 +30,7 @@ function StoryBanner(props){
                         <p id="story-banner-text-paragraph">
                             {newText}
                         </p>
-                        { props.displayButton == 'true' && <button id="story-banner-button" onClick={redirectToStory}>Share Your Story</button> }
+                        { props.displayButton === 'true' && <button id="story-banner-button" onClick={redirectToStory}>Share Your Story</button> }
                     </div>
                 </Col>
             </Row>

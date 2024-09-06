@@ -4,7 +4,7 @@ import { ResourcePageTileGroup, Banner } from '../components.js'
 import styled from 'styled-components'
 import mockRelevantResourceData from './mockRelevantData.json'
 import moment from 'moment'
-import URL_PATH from '../../links'
+import URL_PATH from '../../links.js'
 
 const Header = styled.div`
     font-size: 32px;

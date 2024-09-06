@@ -7,8 +7,8 @@ import {
     LandingBanner,
     PhotoBanner,
     TextBanner
-} from '../../components/components'
-import '../../links'
+} from '../../components/components.js'
+import '../../links.js'
 
 function LandingPage(){
 

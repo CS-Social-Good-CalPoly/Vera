@@ -4,9 +4,9 @@ import {
     TitleContainer,
     Heading,
     TileGroup,
-} from '../Shared/TileGroup'
+} from '../Shared/TileGroup.js'
 
-import { StoryTile } from '../components'
+import { StoryTile } from '../components.js'
 
 function StoryTileGroup({ id, title, stories }) {
     return (

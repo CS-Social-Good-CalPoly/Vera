@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import URL_PATH from '../../links';
+import URL_PATH from '../../links.js';
 import './AdminPages.css';
 
 function AdminPages({ setActiveLink }) {

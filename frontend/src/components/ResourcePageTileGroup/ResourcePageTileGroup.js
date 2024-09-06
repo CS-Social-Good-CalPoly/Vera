@@ -5,9 +5,9 @@ import {
     TitleContainer,
     Heading,
     TileGroup,
-} from '../Shared/TileGroup'
+} from '../Shared/TileGroup.js'
 
-import { ResourcePageTile } from '../components'
+import { ResourcePageTile } from '../components.js'
 
 function ResourcePageTileGroup({ id, title, resources }) {
     return (

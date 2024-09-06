@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {
     StoryBanner,
-    CategoryButtonGroup,
     StoryTileGroup,
-    DropDownForm
-} from '../../components/components'
-import URL_PATH from '../../links'
+    DropDownForm,
+} from '../../components/components.js'
+import URL_PATH from '../../links.js'
 
 function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
@@ -22,7 +21,7 @@ function StoriesPage({ setActiveLink }) {
             .then((json) => {
                 let tempCategoryNames = []
                 let tempIdToName = {}
-                json.forEach(category => {
+                json.forEach((category) => {
                     tempIdToName[category['_id']] = category['Title']
                     tempCategoryNames.push(category['Title'])
                 })
@@ -40,12 +39,14 @@ function StoriesPage({ setActiveLink }) {
             .then((response) => response.json())
             .then((json) => {
                 // Create a list of all stories
-                const allStories = json.map(story => ({
+                const allStories = json.map((story) => ({
                     ...story,
-                    RelevantCategoryList: story.RelevantCategoryList.map(catId => idToName[catId] || catId)
-                }))              
-                console.log("all stories", allStories)
-                setStories(allStories);
+                    RelevantCategoryList: story.RelevantCategoryList.map(
+                        (catId) => idToName[catId] || catId,
+                    ),
+                }))
+                console.log('all stories', allStories)
+                setStories(allStories)
             })
             .catch((error) => console.error(error))
     }, [idToName])
@@ -53,16 +54,16 @@ function StoriesPage({ setActiveLink }) {
     useEffect(() => {
         setActiveLink('/Stories')
     }, [])
-    
+
     const handleCategoryChange = (category) => {
         setSelectedCategory(category)
     }
 
-    const filteredStories = selectedCategory 
-    ? stories.filter(story => story.RelevantCategoryList.includes(selectedCategory)) 
-    : stories
-
-
+    const filteredStories = selectedCategory
+        ? stories.filter((story) =>
+              story.RelevantCategoryList.includes(selectedCategory),
+          )
+        : stories
 
     return (
         <div>

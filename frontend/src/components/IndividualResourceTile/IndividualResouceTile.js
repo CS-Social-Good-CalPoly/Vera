@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import IndividualResourceTileCollapsed from './IndividualResourceTileCollapsed'
-import IndividualResourceTileExpanded from './IndividualResourceTileExpanded'
+import IndividualResourceTileCollapsed from './IndividualResourceTileCollapsed.js'
+import IndividualResourceTileExpanded from './IndividualResourceTileExpanded.jsx'
 
 function IndividualResourceTile(props) {
     const [expanded, setExpanded] = useState(false)
