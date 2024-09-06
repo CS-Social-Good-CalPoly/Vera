@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3"
+  },
+  "dependencies": {
+    "webpack": "^5.94.0"
   }
 }
