@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 })
 
 mongoose
-    .connect(DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(DB_CONNECTION)
     .then(() => {
         console.log('MongoDB connected 😄')
     })
