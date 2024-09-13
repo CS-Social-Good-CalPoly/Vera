@@ -39,13 +39,12 @@ function StoriesPage({ setActiveLink }) {
             .then((response) => response.json())
             .then((json) => {
                 // Create a list of all stories
-                const allStories = json.map((story) => ({
+                const allStories = json?.map((story) => ({           
                     ...story,
-                    RelevantCategoryList: story.RelevantCategoryList.map(
+                    RelevantCategoryList: story.RelevantCategoryList?.map(
                         (catId) => idToName[catId] || catId,
                     ),
                 }))
-                console.log('all stories', allStories)
                 setStories(allStories)
             })
             .catch((error) => console.error(error))

@@ -25,9 +25,9 @@ class DropDownForm extends Component {
                     onChange={this.handleDropdownChange}
                     disabled={this.props.disabled}
                 >
-                    <option value="N/A">{this.props.fieldTitle}</option>
+                    <option key={null} value="N/A">{this.props.fieldTitle}</option>
                     {this.props.myoptions.map((optionTitle, index) => (
-                        <option value={optionTitle} index={index}>
+                        <option key={index} value={optionTitle} index={index}>
                             {optionTitle}
                         </option>
                     ))}

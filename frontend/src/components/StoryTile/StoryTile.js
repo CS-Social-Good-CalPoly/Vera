@@ -73,7 +73,7 @@ function StoryTile(props) {
                             <InfoText key={index}>{category}</InfoText>
                         ))} */}
                     <Categories>
-                        {props.categories.map((category, index) => (
+                        {props.categories?.map((category, index) => (
                             <CategoryTag key={index}>{category}</CategoryTag>
                         ))}
                     </Categories>
