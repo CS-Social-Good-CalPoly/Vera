@@ -6,9 +6,9 @@ import {
     Banner,
     CategoryButtonGroup,
     ResourcePageTileGroup,
-} from '../../components/components'
-import '../../links'
-import URL_PATH from '../../links'
+} from '../../components/components.js'
+import '../../links.js'
+import URL_PATH from '../../links.js'
 
 function HomePage({ setActiveLink }) {
     // Hook to keep track of the categories to be loaded from the database.

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StoryBanner, StorySubmission } from '../../components/components'
+import { StoryBanner, StorySubmission } from '../../components/components.js'
 import { useEffect } from 'react'
 
 function StorySubmissionPage({ setActiveLink }) {

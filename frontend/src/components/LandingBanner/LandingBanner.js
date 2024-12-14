@@ -1,6 +1,6 @@
 import React from 'react'
 import './LandingBanner.css'
-import { LinkButton } from '../components'
+import { LinkButton } from '../components.js'
 
 function LandingBanner(props) {
     return (

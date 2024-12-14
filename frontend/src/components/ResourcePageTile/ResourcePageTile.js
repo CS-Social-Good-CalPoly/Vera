@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import arrowIcon from '../Shared/arrow-icon.svg'
-import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile'
+import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile.js'
 import { Link } from 'react-router-dom'
 import '../Shared/Tile.css'
-import TruncateText from '../Shared/TruncateText'
+import TruncateText from '../Shared/TruncateText.jsx'
 
 const InfoText = styled.p`
     font-family: Poppins;

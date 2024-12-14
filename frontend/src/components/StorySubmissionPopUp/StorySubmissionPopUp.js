@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './StorySubmissionPopUp.css'
-import URL_PATH from '../../links'
+import URL_PATH from '../../links.js'
 
 function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
     const [radioOption, setRadioOption] = useState('')
@@ -41,15 +41,18 @@ function StorySubmissionPopUp({ onClose, onPost, makeToken }) {
         }
     }
 
-    useEffect(async () => {
-        if (radioOption === 'no-token' && newToken === '') {
-            setNewToken(await makeToken())
+    useEffect(() => {
+        async function fetchTokenData() {
+            if (radioOption === 'no-token' && newToken === '') {
+                setNewToken(await makeToken())
+            }
+            // gets all the tokens when a radio button is pressed
+            if (Object.keys(allTokens).length === 0) {
+                await fetchAllTokens()
+            }
+            setShowError(false)
         }
-        // gets all the tokens when a radio button is pressed
-        if (Object.keys(allTokens).length === 0) {
-            await fetchAllTokens()
-        }
-        setShowError(false)
+        fetchTokenData()
     }, [radioOption])
 
     async function fetchAllTokens() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile'
-import TruncateText from '../Shared/TruncateText'
+import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile.js'
+import TruncateText from '../Shared/TruncateText.jsx'
 import arrow from './right-arrow.svg'
 
 const InfoText = styled.p`

@@ -4,9 +4,9 @@ import {
     IndividualResourceTileGroup,
     CategoryButtonGroup,
     TextBlock,
-} from '../../components/components'
+} from '../../components/components.js'
 import { useLocation } from 'react-router-dom'
-import URL_PATH from '../../links'
+import URL_PATH from '../../links.js'
 
 function IndividualResourcePage({ setActiveLink }) {
     const location = useLocation()

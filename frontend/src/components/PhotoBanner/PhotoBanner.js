@@ -1,5 +1,5 @@
 import './PhotoBanner.css'
-import { LinkButton } from '../components'
+import { LinkButton } from '../components.js'
 
 /* 
   allowing the photo banner to be reusable by adding 'bannerOrder' which is an array passed
@@ -47,12 +47,12 @@ function PhotoBanner(props) {
   return (
     <div className='photo-banner'>
       {props.bannerOrder.map((name, index) => {
-        if(name == 'text') {
+        if(name === 'text') {
           return (
             textBox()
           )
         }
-        else if(name == 'photo') {
+        else if(name === 'photo') {
           return (
             imageBox()
           )

@@ -1,5 +1,5 @@
 import './TextBanner.css'
-import { LinkButton } from '../components'
+import { LinkButton } from '../components.js'
 
 function TextBanner(props) {
   return (

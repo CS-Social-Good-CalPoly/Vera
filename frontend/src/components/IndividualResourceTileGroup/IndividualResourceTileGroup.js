@@ -4,8 +4,8 @@ import {
     TitleContainer,
     Heading,
     TileGroup,
-} from '../Shared/TileGroup'
-import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile'
+} from '../Shared/TileGroup.js'
+import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile.js'
 
 function IndividualResourceTileGroup({ id, title, resources }) {
     return (

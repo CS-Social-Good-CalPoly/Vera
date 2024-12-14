@@ -1,8 +1,8 @@
 import arrow from './arrow-icon.svg'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import React, { useState } from 'react'
-import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile'
+import React from 'react'
+import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile.js'
 import '../Shared/Tile.css'
 
 const Info = styled.div`
@@ -38,7 +38,7 @@ const InfoText = styled.div`
 
 const Categories = styled.div`
     margin-top: 10px;
-`;
+`
 
 const CategoryTag = styled.span`
     display: inline-block;
@@ -53,7 +53,7 @@ const CategoryTag = styled.span`
         font-size: 8px;
         padding: 1px 4px;
     }
-`;
+`
 
 function StoryTile(props) {
     return (
