@@ -81,8 +81,8 @@ function Hours(props) {
         <div className="resource-tile-expanded-text-hours">
             <strong>Hours: </strong>
             <div className="resource-tile-expanded-text-hours-item-container">
-                {props.hours.map((item, i) => (
-                    <p className="resource-tile-expanded-text-hours-item">
+                {props.hours.map((item, index) => (
+                    <p key={index} className="resource-tile-expanded-text-hours-item">
                         {item}
                     </p>
                 ))}
