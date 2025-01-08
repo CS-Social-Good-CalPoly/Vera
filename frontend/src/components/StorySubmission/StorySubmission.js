@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import Select from 'react-select'
+import URL_PATH from '../../links.js'
 import {
     DropDownForm,
     DropDownOptionalForm,
-    StorySubmissionPopUp,
     StoryBanner,
+    StorySubmissionPopUp,
 } from '../components.js'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
-import axios from 'axios'
-import URL_PATH from '../../links.js'
-import Select from 'react-select'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
@@ -135,8 +135,6 @@ function StorySubmission() {
             .then((res) => {
                 const category_names_lst = res.data.map((item) => item.Title)
                 const category_lst = res.data.map((item) => item)
-                console.log(category_names_lst)
-                console.log(category_lst)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })

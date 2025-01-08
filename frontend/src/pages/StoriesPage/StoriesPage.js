@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
+    DropDownForm,
     StoryBanner,
     StoryTileGroup,
-    DropDownForm,
 } from '../../components/components.js'
 import URL_PATH from '../../links.js'
 
@@ -45,7 +45,6 @@ function StoriesPage({ setActiveLink }) {
                         (catId) => idToName[catId] || catId,
                     ),
                 }))
-                console.log('all stories', allStories)
                 setStories(allStories)
             })
             .catch((error) => console.error(error))
