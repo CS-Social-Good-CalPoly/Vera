@@ -7,7 +7,6 @@ function Footer() {
         <footer className="main-footer">
             <div className="column1">&copy; 2024 VERA</div>
             <div className="column3">
-                
                 <Link
                     onClick={() => {
                         window.scroll(0, 0)

@@ -27,7 +27,7 @@ class DropDownForm extends Component {
                 >
                     <option value="N/A">{this.props.fieldTitle}</option>
                     {this.props.myoptions.map((optionTitle, index) => (
-                        <option value={optionTitle} index={index}>
+                        <option value={optionTitle} key={index}>
                             {optionTitle}
                         </option>
                     ))}

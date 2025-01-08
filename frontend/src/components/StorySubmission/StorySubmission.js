@@ -379,8 +379,8 @@ function StorySubmission() {
                     }`}
                     onSubmit={verifySubmission}
                 >
-                    <div class="input-outer-container">
-                        <div class="inner-container-box">
+                    <div className="input-outer-container">
+                        <div className="inner-container-box">
                             <div>
                                 <DropDownForm
                                     fieldTitle="Year"
@@ -400,7 +400,7 @@ function StorySubmission() {
                                 />
                             </div>
                         </div>
-                        <div class="inner-container-box">
+                        <div className="inner-container-box">
                             <DropDownOptionalForm
                                 fieldTitle="Major (optional)"
                                 myoptions={Object.keys(collegeDict).sort()}

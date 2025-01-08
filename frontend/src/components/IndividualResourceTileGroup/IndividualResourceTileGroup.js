@@ -16,6 +16,7 @@ function IndividualResourceTileGroup({ id, title, resources }) {
             <TileGroup>
                 {resources.map((resource, index) => (
                     <IndividualResourceTile
+                        key={index}
                         imgUrl={resource.ImageURL}
                         title={resource.Title}
                         description={resource.ParagraphText}

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
     Banner,
-    IndividualResourceTileGroup,
     CategoryButtonGroup,
+    IndividualResourceTileGroup,
     TextBlock,
 } from '../../components/components.js'
-import { useLocation } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 
 function IndividualResourcePage({ setActiveLink }) {
@@ -58,12 +58,13 @@ function IndividualResourcePage({ setActiveLink }) {
 
             <TextBlock text={description} />
 
-            {Object.keys(resourceMapper).map((categoryName) => {
+            {Object.keys(resourceMapper).map((categoryName, index) => {
                 let result = resourceList.filter(
                     (resource) => categoryName === resource.Category,
                 )
                 return (
                     <IndividualResourceTileGroup
+                        key={index}
                         id={categoryName}
                         title={categoryName}
                         resources={result}

@@ -14,18 +14,18 @@ function LandingBanner(props) {
         >
             <div className="textCol">
                 <h1 className="header1">{props.pageTitle}</h1>
-                <div className='banner-button-group'>
-                    <LinkButton 
-                        link='/resources'
-                        title='RESOURCES'
-                        color='white'
-                        background='#728D95'
+                <div className="banner-button-group">
+                    <LinkButton
+                        link="/resources"
+                        title="RESOURCES"
+                        color="white"
+                        background="#728D95"
                     />
-                    <LinkButton 
-                    link='/stories'
-                    title='STORIES'
-                    color='white'
-                    background='#728D95'
+                    <LinkButton
+                        link="/stories"
+                        title="STORIES"
+                        color="white"
+                        background="#728D95"
                     />
                 </div>
             </div>
