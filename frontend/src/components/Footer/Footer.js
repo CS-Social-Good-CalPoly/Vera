@@ -28,6 +28,16 @@ function Footer() {
                     {' '}
                     Stories{' '}
                 </Link>
+                <Link
+                    onClick = {() => {
+                        window.scroll(0, 0)
+                    }}
+                    className = "footer-links"
+                    to = "/StorySubmission"
+                >
+                    {' '}
+                    Share Your Story{' '}
+                </Link>
             </div>
         </footer>
     )
