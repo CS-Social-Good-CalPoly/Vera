@@ -71,7 +71,7 @@ function App() {
                     />
                 </Switch>
             </div>
-            <Footer />
+            <Footer activeLink={activeLink} />
         </div>
     )
 }
