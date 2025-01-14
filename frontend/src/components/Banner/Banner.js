@@ -9,6 +9,7 @@ function Banner(props) {
                 backgroundImage: `url(${props.imageUrl})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
             }}
         >
             <div className="textCol">
