@@ -124,6 +124,18 @@ function AdminPages({ setActiveLink }) {
                                             ? 'Unapprove'
                                             : 'Approve'}
                                     </button>
+                                    {story.Approved
+                                            ? null
+                                            : <button
+                                            onClick={() =>
+                                                toggleApproval(
+                                                    story._id,
+                                                    story.Approved
+                                                )
+                                            }
+                                        >
+                                            Delete
+                                        </button>}
                                 </div>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
