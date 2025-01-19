@@ -11,7 +11,7 @@ assignees: ''
 
 We want to start filling Vera with real deployment resources! Create a POST request to web scrape the provided URL to populate the Resources page.
 
-The Idea is to have a set of web scrapers for specific pages. We do not want to link these to specific buttons, routes, or interactions with the website. Instead, these should run periodically (ex: every 3 months) by the project leads to make sure the resource information is up-to-date.
+The Idea is to have a set of web scrapers for specific pages. We do not want to link these to specific buttons, routes, or interactions with the website. Instead, these should run periodically (ex: every 3 months) by the project leads to make sure the resource information is up-to-date (but DON'T worry about implementing periodic execution right now, just make the API request).
 
 Since these POST won't be connected to any website interaction, you'll need to manually make a POST request with Postman. You should see the newly created resource at the end of the "individual-resources" collection in MongoDB. Copy and paste the ObjectId for your individual resource and append it to the "SubCategoryIDList" field in the "Dev-Resources" document under "general-resource-category".
 
