@@ -21,8 +21,20 @@ URL: [INSERT URL HERE]
 - [ ] Create a POST request in `backend/routes/web_scrapping.js`. Since each web scraper is unique to the URL page, we suggest keeping the entire web scraping code within the POST request, but we're open to different code design choices!
 - [ ] Find as much information for the `IndResSchema` as possible (`/backend/models/IndividualResources.js`)
 - [ ] These fields MUST be populated by your request:
-    - [ ] Field 1
-    - [ ] Field 2
+    - [ ] `Title`: 
+    - [ ] `ImageURL`: 
+    - [ ] `ImageAltText`: this is always required for any image
+    - [ ] `Address`: 
+    - [ ] `BuildingName`: 
+    - [ ] `ParagraphText`: 
+    - [ ] `PhoneNumber`: 
+    - [ ] `ResourceURL`: 
+    - [ ] `LastUpdate`: should be the current time
+    - [ ] `Category`: [something hard-coded, like "Health Services"]
+    - [ ] `ListOfHours`: 
+    - [ ] `ExtraInfo`: include the following:
+        - [ ] info1
+        - [ ] info2
 - [ ] Use Postman (or something similar) to manually make a POST request. Verify that the new resource appears in MongoDB (include a screenshot in your PR)
 - [ ] Copy the new individual resource ObjectId and add it to the "Dev-Resources" document under "general-resource-category" in MongoDB. Verify that your individual resource appears on the website now (include a screenshot in your PR)
 
