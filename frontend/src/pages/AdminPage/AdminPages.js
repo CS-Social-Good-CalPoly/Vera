@@ -98,7 +98,13 @@ function AdminPages({ setActiveLink }) {
                     .map((story, index) => (
                         <div key={index}>
                             <div>
-                                <h2 className="title">{story.Title}</h2>
+                                <Link
+                                    to={{
+                                        pathname: `/individualStory/${story._id}`,
+                                    }}
+                                >
+                                    <h2 className="title">{story.Title}</h2>
+                                </Link>
                                 <div className="approved-container">
                                     <h6 className="approved-label">
                                         Approved:
@@ -122,13 +128,6 @@ function AdminPages({ setActiveLink }) {
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
                             <p>{story.ParagraphText}</p>
-                            <Link
-                                to={{
-                                    pathname: `/individualStory/${story._id}`,
-                                }}
-                            >
-                                <button>View Story</button>
-                            </Link>
                             <br />
                         </div>
                     ))}

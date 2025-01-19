@@ -1,5 +1,6 @@
 .title {
     display: inline-block;
+    text-decoration: underline;
 }
 
 .approved-container {
