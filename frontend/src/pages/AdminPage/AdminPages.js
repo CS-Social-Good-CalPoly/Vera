@@ -138,7 +138,7 @@ function AdminPages({ setActiveLink }) {
                                         {story.Approved ? 'Yes' : 'No'}
                                     </h6>
                                     <div className="approval-button-container">
-                                        <button
+                                        <button className="approval-button"
                                             onClick={() =>
                                                 toggleApproval(
                                                     story._id,
@@ -152,8 +152,9 @@ function AdminPages({ setActiveLink }) {
                                         </button>
                                         {
                                             story.Approved
-                                                ? null
-                                                : <button
+                                                ? <button className="approval-button"
+                                                disabled>Delete</button>
+                                                : <button className="approval-button"
                                                 onClick={() =>
                                                     deleteStory(
                                                         story._id

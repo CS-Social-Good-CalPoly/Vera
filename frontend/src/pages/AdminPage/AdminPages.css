@@ -19,3 +19,13 @@
     padding-left: 3%;
     color: red;
 }
+
+.approval-button {
+    width: 100px;
+}
+
+.approval-button-container {
+    display: flex;
+    gap: 3%;
+    
+}
