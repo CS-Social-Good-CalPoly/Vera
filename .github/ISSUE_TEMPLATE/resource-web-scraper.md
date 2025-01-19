@@ -31,7 +31,7 @@ URL: [INSERT URL HERE]
     - [ ] `ResourceURL`: 
     - [ ] `LastUpdate`: should be the current time
     - [ ] `Category`: [something hard-coded, like "Health Services"]
-    - [ ] `ListOfHours`: 
+    - [ ] `ListOfHours`: [INFO ABOUT HOURS]. Different time blocks should be stored as different list elements. For example, the list should look something like `["Mon-Wed: 12:00 PM - 1:00 PM", "Sat: 6:00 AM - 6:00 PM"]`
     - [ ] `ExtraInfo`: include the following:
         - [ ] info1
         - [ ] info2
