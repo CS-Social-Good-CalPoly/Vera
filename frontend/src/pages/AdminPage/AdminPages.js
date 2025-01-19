@@ -74,7 +74,7 @@ function AdminPages({ setActiveLink }) {
         }
     }
 
-    async function deleteStory(id) {
+    async function deleteIndividualStory(id) {
         const subdirectory = '/stories/deleteIndividualStory';
         try {
             const response = await fetch(URL_PATH + subdirectory, {
@@ -90,10 +90,9 @@ function AdminPages({ setActiveLink }) {
                 throw new Error('Failed to delete story');
             }
             setStories((prevStories) =>
-                prevStories.map((story) =>
-                    story
-                )
-            );
+                prevStories.filter((story) =>
+                    story._id !== id
+                ));
         } catch (error) {
             console.error('Error deleting story:', error);
         }
@@ -156,7 +155,7 @@ function AdminPages({ setActiveLink }) {
                                                 disabled>Delete</button>
                                                 : <button className="approval-button"
                                                 onClick={() =>
-                                                    deleteStory(
+                                                    deleteIndividualStory(
                                                         story._id
                                                     )
                                                 }>
