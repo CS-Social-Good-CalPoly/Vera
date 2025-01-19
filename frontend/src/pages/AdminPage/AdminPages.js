@@ -74,6 +74,31 @@ function AdminPages({ setActiveLink }) {
         }
     }
 
+    async function deleteStory(id) {
+        const subdirectory = '/stories/deleteIndividualStory';
+        try {
+            const response = await fetch(URL_PATH + subdirectory, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    individualStoryId: id
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete story');
+            }
+            setStories((prevStories) =>
+                prevStories.map((story) =>
+                    story
+                )
+            );
+        } catch (error) {
+            console.error('Error deleting story:', error);
+        }
+    }
+
     return (
         <div>
             <div>
@@ -112,21 +137,8 @@ function AdminPages({ setActiveLink }) {
                                     <h6 className="approved-value">
                                         {story.Approved ? 'Yes' : 'No'}
                                     </h6>
-                                    <button
-                                        onClick={() =>
-                                            toggleApproval(
-                                                story._id,
-                                                story.Approved
-                                            )
-                                        }
-                                    >
-                                        {story.Approved
-                                            ? 'Unapprove'
-                                            : 'Approve'}
-                                    </button>
-                                    {story.Approved
-                                            ? null
-                                            : <button
+                                    <div className="approval-button-container">
+                                        <button
                                             onClick={() =>
                                                 toggleApproval(
                                                     story._id,
@@ -134,8 +146,23 @@ function AdminPages({ setActiveLink }) {
                                                 )
                                             }
                                         >
-                                            Delete
-                                        </button>}
+                                            {story.Approved
+                                                ? 'Unapprove'
+                                                : 'Approve'}
+                                        </button>
+                                        {
+                                            story.Approved
+                                                ? null
+                                                : <button
+                                                onClick={() =>
+                                                    deleteStory(
+                                                        story._id
+                                                    )
+                                                }>
+                                                Delete
+                                                </button>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
