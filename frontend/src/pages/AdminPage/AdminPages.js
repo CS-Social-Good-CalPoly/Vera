@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import URL_PATH from '../../links.js';
 import './AdminPages.css';
+import {Modal} from '../../components/components.js'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([]);
     const [selectedDiscipline, setSelectedDiscipline] = useState(null);
     const [toggleStatus, setToggleStatus] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
@@ -45,6 +47,23 @@ function AdminPages({ setActiveLink }) {
     const handleToggleStatus = () => {
         console.log("prev toggleStatus:", toggleStatus);
         setToggleStatus((prevToggleStatus) => !prevToggleStatus);
+    };
+
+    const handleDelete = () => {
+        setShowModal(true);
+        console.log(showModal);
+    };
+
+    const handleConfirm = () => {
+        alert("Deleting would happen now!");
+        /*deleteIndividualStory(
+            0//story._id
+        )*/
+        setShowModal(false);
+    };
+
+    const handleCancel = () => {
+        setShowModal(false);
     };
 
     async function toggleApproval(id, approval) {
@@ -100,6 +119,11 @@ function AdminPages({ setActiveLink }) {
 
     return (
         <div>
+            {showModal && <Modal
+                message= "Confirm delete story?"
+                onConfirm= {handleConfirm}
+                onCancel= {handleCancel}
+            />}
             <div>
                 {/* Buttons for filtering */}
                 <button onClick={() => handleFilter('SE')}>SE</button>
@@ -154,11 +178,7 @@ function AdminPages({ setActiveLink }) {
                                                 ? <button className="approval-button"
                                                 disabled>Delete</button>
                                                 : <button className="approval-button"
-                                                onClick={() =>
-                                                    deleteIndividualStory(
-                                                        story._id
-                                                    )
-                                                }>
+                                                onClick={handleDelete}>
                                                 Delete
                                                 </button>
                                         }
