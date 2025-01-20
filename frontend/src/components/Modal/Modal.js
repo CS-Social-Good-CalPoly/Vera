@@ -7,12 +7,12 @@ function Modal(props) {
       <div className="modal-bg">
         <p>{props.message}</p>
         <div className="modal-button-container">
-          <button onClick={props.onConfirm}>OK</button>
-          <button onClick={props.onCancel}>Cancel</button>
+          <button onClick={props.onConfirm} className='modal-button'>OK</button>
+          <button onClick={props.onCancel} className='modal-button'>Cancel</button>
         </div>
       </div>
     </div>
   );
 }
 
-export default Modal
+export default Modal;
