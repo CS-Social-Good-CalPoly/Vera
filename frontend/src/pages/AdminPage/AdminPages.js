@@ -9,6 +9,7 @@ function AdminPages({ setActiveLink }) {
     const [selectedDiscipline, setSelectedDiscipline] = useState(null);
     const [toggleStatus, setToggleStatus] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [selectedStoryId, setSelectedStoryId] = useState("");
 
     useEffect(() => {
         let isMounted = true;
@@ -51,18 +52,14 @@ function AdminPages({ setActiveLink }) {
 
     const handleDelete = () => {
         setShowModal(true);
-        console.log(showModal);
     };
 
-    const handleConfirm = () => {
-        alert("Deleting would happen now!");
-        /*deleteIndividualStory(
-            0//story._id
-        )*/
+    const handleConfirmDelete = () => {
+        deleteIndividualStory(selectedStoryId);
         setShowModal(false);
     };
 
-    const handleCancel = () => {
+    const handleCancelDelete = () => {
         setShowModal(false);
     };
 
@@ -120,9 +117,9 @@ function AdminPages({ setActiveLink }) {
     return (
         <div>
             {showModal && <Modal
-                message= "Confirm delete story?"
-                onConfirm= {handleConfirm}
-                onCancel= {handleCancel}
+                message= "Delete this story? (This action cannot be undone!)"
+                onConfirm= {handleConfirmDelete}
+                onCancel= {handleCancelDelete}
             />}
             <div>
                 {/* Buttons for filtering */}
@@ -176,9 +173,15 @@ function AdminPages({ setActiveLink }) {
                                         {
                                             story.Approved
                                                 ? <button className="approval-button"
-                                                disabled>Delete</button>
+                                                    disabled>
+                                                    Delete
+                                                </button>
                                                 : <button className="approval-button"
-                                                onClick={handleDelete}>
+                                                    onClick={
+                                                        () => {
+                                                            setSelectedStoryId(story._id);
+                                                            handleDelete();
+                                                    }}>
                                                 Delete
                                                 </button>
                                         }
