@@ -115,7 +115,7 @@ function AdminPages({ setActiveLink }) {
     }
 
     return (
-        <div>
+        <div className='admin-container'>
             {showModal && <Modal
                 message= "Delete this story? (This action cannot be undone!)"
                 onConfirm= {handleConfirmDelete}

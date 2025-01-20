@@ -3,6 +3,10 @@
     text-decoration: underline;
 }
 
+.admin-container {
+    padding: 0 2%;
+}
+
 .approved-container {
     float: right;
     display: flex;
