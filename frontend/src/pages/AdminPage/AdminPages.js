@@ -107,6 +107,7 @@ function AdminPages({ setActiveLink }) {
                                         {story.Approved ? 'Yes' : 'No'}
                                     </h6>
                                     <button
+                                        className = "approved-button"
                                         onClick={() =>
                                             toggleApproval(
                                                 story._id,

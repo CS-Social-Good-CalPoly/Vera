@@ -18,3 +18,10 @@
     padding-left: 3%;
     color: red;
 }
+
+/* button {
+    min-width: 95.19px;
+} */
+.approved-button{
+    min-width: 95.19px;
+}
