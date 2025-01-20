@@ -170,21 +170,17 @@ function AdminPages({ setActiveLink }) {
                                                 ? 'Unapprove'
                                                 : 'Approve'}
                                         </button>
-                                        {
-                                            story.Approved
-                                                ? <button className="approval-button"
-                                                    disabled>
-                                                    Delete
-                                                </button>
-                                                : <button className="approval-button"
-                                                    onClick={
-                                                        () => {
-                                                            setSelectedStoryId(story._id);
-                                                            handleDelete();
-                                                    }}>
-                                                Delete
-                                                </button>
-                                        }
+                                        <button className="approval-button"
+                                            disabled={story.Approved}
+                                            onClick={
+                                                () => {
+                                                    if (!story.Approved) {
+                                                        setSelectedStoryId(story._id);
+                                                        handleDelete();
+                                                    }
+                                            }}>
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             </div>
