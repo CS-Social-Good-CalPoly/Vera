@@ -162,9 +162,12 @@ function StorySubmission() {
     }
 
     async function handlePopUp(e) {
+        // NOTE: TEMPORARY FIX UNTIL ISSUES #336 AND #337 ARE COMPLETE
+        // Temporarily removes college requirement
+        // remove these comments and restore college requirement when working on ISSUE #337
         if (
             year === '' ||
-            college === '' ||
+            // college === '' ||
             quillValue === '' ||
             title === ''
         ) {
