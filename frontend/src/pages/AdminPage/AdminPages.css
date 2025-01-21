@@ -3,6 +3,10 @@
     text-decoration: underline;
 }
 
+.admin-container {
+    padding: 0 2%;
+}
+
 .approved-container {
     float: right;
     display: flex;
@@ -18,4 +22,13 @@
     padding-right: 15%;
     padding-left: 3%;
     color: red;
+}
+
+.approval-button {
+    width: 100px;
+}
+
+.approval-button-container {
+    display: flex;
+    gap: 3%;
 }

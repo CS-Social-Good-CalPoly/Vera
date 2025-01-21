@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import URL_PATH from '../../links.js';
 import './AdminPages.css';
+import {Modal} from '../../components/components.js'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([]);
     const [selectedDiscipline, setSelectedDiscipline] = useState(null);
     const [toggleStatus, setToggleStatus] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedStoryId, setSelectedStoryId] = useState("");
 
     useEffect(() => {
         let isMounted = true;
@@ -47,6 +50,19 @@ function AdminPages({ setActiveLink }) {
         setToggleStatus((prevToggleStatus) => !prevToggleStatus);
     };
 
+    const handleDelete = () => {
+        setShowModal(true);
+    };
+
+    const handleConfirmDelete = () => {
+        deleteIndividualStory(selectedStoryId);
+        setShowModal(false);
+    };
+
+    const handleCancelDelete = () => {
+        setShowModal(false);
+    };
+
     async function toggleApproval(id, approval) {
         const subdirectory = '/stories/updateIndividualStory';
         try {
@@ -74,8 +90,37 @@ function AdminPages({ setActiveLink }) {
         }
     }
 
+    async function deleteIndividualStory(id) {
+        const subdirectory = '/stories/deleteIndividualStory';
+        try {
+            const response = await fetch(URL_PATH + subdirectory, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    individualStoryId: id
+                }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete story');
+            }
+            setStories((prevStories) =>
+                prevStories.filter((story) =>
+                    story._id !== id
+                ));
+        } catch (error) {
+            console.error('Error deleting story:', error);
+        }
+    }
+
     return (
-        <div>
+        <div className='admin-container'>
+            {showModal && <Modal
+                message= "Delete this story? (This action cannot be undone!)"
+                onConfirm= {handleConfirmDelete}
+                onCancel= {handleCancelDelete}
+            />}
             <div>
                 {/* Buttons for filtering */}
                 <button onClick={() => handleFilter('SE')}>SE</button>
@@ -112,18 +157,31 @@ function AdminPages({ setActiveLink }) {
                                     <h6 className="approved-value">
                                         {story.Approved ? 'Yes' : 'No'}
                                     </h6>
-                                    <button
-                                        onClick={() =>
-                                            toggleApproval(
-                                                story._id,
-                                                story.Approved
-                                            )
-                                        }
-                                    >
-                                        {story.Approved
-                                            ? 'Unapprove'
-                                            : 'Approve'}
-                                    </button>
+                                    <div className="approval-button-container">
+                                        <button className="approval-button"
+                                            onClick={() =>
+                                                toggleApproval(
+                                                    story._id,
+                                                    story.Approved
+                                                )
+                                            }
+                                        >
+                                            {story.Approved
+                                                ? 'Unapprove'
+                                                : 'Approve'}
+                                        </button>
+                                        <button className="approval-button"
+                                            disabled={story.Approved}
+                                            onClick={
+                                                () => {
+                                                    if (!story.Approved) {
+                                                        setSelectedStoryId(story._id);
+                                                        handleDelete();
+                                                    }
+                                            }}>
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
