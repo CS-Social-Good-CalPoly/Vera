@@ -27,7 +27,6 @@ function AdminPages({ setActiveLink }) {
                         Status: story.Status,
                         Approved: story.Approved,
                     }))
-                    console.log(tempArray)
                     setStories(tempArray)
 
                     const uniqueMajors = [
@@ -52,7 +51,6 @@ function AdminPages({ setActiveLink }) {
 
     useEffect(() => {
         setActiveLink('/AdminPages')
-        console.log('toggleStatus:', toggleStatus)
     }, [setActiveLink, toggleStatus])
 
     const handleFilter = (discipline) => {
@@ -63,7 +61,6 @@ function AdminPages({ setActiveLink }) {
     }
 
     const handleToggleStatus = () => {
-        console.log('prev toggleStatus:', toggleStatus)
         setToggleStatus((prevToggleStatus) => !prevToggleStatus)
     }
 
