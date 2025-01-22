@@ -66,7 +66,7 @@ function ResourcePageTile(props) {
     return (
         <Link
             to={{
-                pathname: '/individualResource',
+                pathname: `/individualResource/${props.id}`,
                 state: {
                     individualIDs: individualIDs,
                     title: title,
