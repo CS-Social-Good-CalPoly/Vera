@@ -135,8 +135,6 @@ function StorySubmission() {
             .then((res) => {
                 const category_names_lst = res.data.map((item) => item.Title)
                 const category_lst = res.data.map((item) => item)
-                console.log(category_names_lst)
-                console.log(category_lst)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
