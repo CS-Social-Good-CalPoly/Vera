@@ -5,23 +5,32 @@ import {
     CategoryButtonGroup,
     TextBlock,
 } from '../../components/components.js'
-import { useLocation } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 
-function ResourcePopUp() {
-    const location = useLocation()
-    const { individualIDs, title, description, imageUrl } = location.state || {}
-
-    const individualIDsQueryParam = new URLSearchParams({
-        listOfResourceIDs: JSON.stringify(individualIDs),
-    }).toString()
-
+function ResourcePopUp({ id }) {
+    const [currResource, setCurrResource] = useState(null)
     const [resourceMapper, setResourceMapper] = useState({})
     const [resourceList, setResourceList] = useState([])
 
     useEffect(() => {
-        // URL_PATH imported from frontend/src/links.js
-        // combined with subdirectory to make the full URL
+        const subdirectory = '/resources/subrsrcs'
+        fetch(URL_PATH + subdirectory)
+            .then((response) => response.json())
+            .then((allResources) => {
+                setCurrResource(
+                    allResources.find((resource) => resource._id === id),
+                )
+            })
+            .catch((error) => console.error(error))
+    }, [])
+
+    useEffect(() => {
+        if (!currResource || !currResource.ResourceIDList) return
+
+        const individualIDsQueryParam = new URLSearchParams({
+            listOfResourceIDs: JSON.stringify(currResource.ResourceIDList),
+        }).toString()
+
         const subdirectory = `/resources/individualResources?${individualIDsQueryParam}`
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
@@ -40,19 +49,23 @@ function ResourcePopUp() {
                 window.scrollTo(0, 0)
             })
             .catch((error) => console.error(error))
-    }, [])
+    }, [currResource])
+
+    if (!currResource) {
+        return <div>Loading ...</div>
+    }
 
     return (
         <div>
-            <Banner imageUrl={imageUrl} />
+            <Banner imageUrl={currResource.ImageURL} />
 
             <CategoryButtonGroup
-                title={title}
+                title={currResource.Title}
                 names={Object.keys(resourceMapper)}
                 locations={Object.keys(resourceMapper)}
             />
 
-            <TextBlock text={description} />
+            <TextBlock text={currResource.LongDescription} />
 
             {Object.keys(resourceMapper).map((categoryName) => {
                 let result = resourceList.filter(
@@ -60,6 +73,7 @@ function ResourcePopUp() {
                 )
                 return (
                     <IndividualResourceTileGroup
+                        key={categoryName}
                         id={categoryName}
                         title={categoryName}
                         resources={result}
