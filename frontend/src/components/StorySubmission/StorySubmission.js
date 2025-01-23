@@ -135,8 +135,6 @@ function StorySubmission() {
             .then((res) => {
                 const category_names_lst = res.data.map((item, index) => item.Title)
                 const category_lst = res.data.map((item, index) => item)
-                console.log(category_names_lst)
-                console.log(category_lst)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
@@ -162,9 +160,12 @@ function StorySubmission() {
     }
 
     async function handlePopUp(e) {
+        // NOTE: TEMPORARY FIX UNTIL ISSUES #336 AND #337 ARE COMPLETE
+        // Temporarily removes college requirement
+        // remove these comments and restore college requirement when working on ISSUE #337
         if (
             year === '' ||
-            college === '' ||
+            // college === '' ||
             quillValue === '' ||
             title === ''
         ) {

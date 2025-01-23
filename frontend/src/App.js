@@ -20,7 +20,13 @@ function App() {
             <NavBar activeLink={activeLink} />
             <div id="page">
                 <Switch>
-                    <Route exact path="/" component={() => <LandingPage />} />
+                    <Route
+                        exact
+                        path="/"
+                        component={() => (
+                            <LandingPage setActiveLink={setActiveLink} />
+                        )}
+                    />
                     <Route
                         exact
                         path="/resources"
@@ -30,8 +36,8 @@ function App() {
                     />
                     <Route
                         exact
-                        path="/individualResource"
-                        component={() => (
+                        path="/individualResource/:id"
+                        render={() => (
                             <IndividualResourcePage
                                 setActiveLink={setActiveLink}
                             />
@@ -71,7 +77,7 @@ function App() {
                     />
                 </Switch>
             </div>
-            <Footer />
+            <Footer activeLink={activeLink} />
         </div>
     )
 }

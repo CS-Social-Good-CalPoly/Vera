@@ -23,6 +23,15 @@ function NavBar({ activeLink }) {
                 <Nav className="ml-auto">
                     <NavLink
                         className="navbar-links"
+                        to="/"
+                        activeClassName={
+                            activeLink === '/' ? 'active' : ''
+                        }
+                    >
+                        Home
+                    </NavLink>
+                    <NavLink
+                        className="navbar-links"
                         to="/Resources"
                         activeClassName={
                             activeLink === '/Resources' ? 'active' : ''
