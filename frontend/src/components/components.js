@@ -15,6 +15,7 @@ export { default as DropDownOptionalForm } from './DropDownOptionalForm/DropDown
 export { default as StoryTileGroup } from './StoryTileGroup/StoryTileGroup.js'
 export { default as IndividualResourceTileGroup } from './IndividualResourceTileGroup/IndividualResourceTileGroup.js'
 export { default as StoryPopUp } from './StoryPopUp/StoryPopUp.js'
+export { default as ResourcePopUp } from './ResourcePopUp/ResourcePopUp.js'
 export { default as TextBlock } from './TextBlock/TextBlock.js'
 export { default as LandingBanner } from './LandingBanner/LandingBanner.js'
 export { default as LinkButton } from './LinkButton/LinkButton.js'
