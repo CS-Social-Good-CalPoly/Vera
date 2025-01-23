@@ -133,8 +133,8 @@ function StorySubmission() {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_names_lst = res.data.map((item) => item.Title)
-                const category_lst = res.data.map((item) => item)
+                const category_names_lst = res.data.map((item, index) => item.Title)
+                const category_lst = res.data.map((item, index) => item)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
@@ -142,7 +142,7 @@ function StorySubmission() {
     }, [])
 
     // react-select Select takes value and label objects as category options
-    const categoryOptions = categoryList.map((category) => ({
+    const categoryOptions = categoryList.map((category, index) => ({
         value: category._id,
         label: category.Name,
     }))
@@ -420,7 +420,7 @@ function StorySubmission() {
                                     isMulti
                                     onChange={(selectedOptions) => {
                                         const selectedIds = selectedOptions.map(
-                                            (option) => option.value,
+                                            (option, index) => option.value,
                                         )
                                         handleCategoryChange(selectedOptions)
                                     }}
