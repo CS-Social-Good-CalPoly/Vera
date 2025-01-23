@@ -58,7 +58,7 @@ function IndividualResourcePage({ setActiveLink }) {
 
             <TextBlock text={description} />
 
-            {Object.keys(resourceMapper).map((categoryName) => {
+            {Object.keys(resourceMapper).map((categoryName, index) => {
                 let result = resourceList.filter(
                     (resource) => categoryName === resource.Category,
                 )
