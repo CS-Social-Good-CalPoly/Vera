@@ -45,7 +45,6 @@ function StoriesPage({ setActiveLink }) {
                         (catId) => idToName[catId] || catId,
                     ),
                 }))
-                console.log('all stories', allStories)
                 setStories(allStories)
             })
             .catch((error) => console.error(error))
