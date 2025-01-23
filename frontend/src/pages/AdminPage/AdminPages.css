@@ -1,5 +1,10 @@
 .title {
     display: inline-block;
+    text-decoration: underline;
+}
+
+.admin-container {
+    padding: 0 2%;
 }
 
 .approved-container {
@@ -23,5 +28,10 @@
 }
 
 .approved-button{
-    min-width: 98px;
+    min-width: 100px;
+}
+
+.approval-button-container {
+    display: flex;
+    gap: 3%;
 }

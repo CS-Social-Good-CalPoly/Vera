@@ -12,7 +12,7 @@ const IndResSchema = new Schema({
     ResourceURL: String,
     LastUpdate: Date,
     Category: String,
-    WhatToExpect: [String],
+    ExtraInfo: [String],
     ListOfHours: [String],
 })
 
