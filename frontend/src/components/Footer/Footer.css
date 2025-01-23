@@ -20,9 +20,17 @@
     font-size: 16px;
     height: 153px;
     padding-left: 40px;
-    padding-left: 20px;
+    /* padding-left: 20px; */
 }
 
+.column5 {
+    align-items: flex-end;
+    flex-direction: column;
+    display: flex;
+    float: left;
+    font-size: 20px;
+    padding-left: 40px;
+}
 @media only screen and (max-width: 768px) {
     .column1{
         font-size: 8px;
