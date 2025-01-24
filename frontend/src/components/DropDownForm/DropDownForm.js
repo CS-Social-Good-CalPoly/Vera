@@ -6,7 +6,7 @@ class DropDownForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectValue: '',
+            selectValue: 'default',
         }
 
         this.handleDropdownChange = this.handleDropdownChange.bind(this)
@@ -25,8 +25,17 @@ class DropDownForm extends Component {
                     onChange={this.handleDropdownChange}
                     disabled={this.props.disabled}
                 >
-                    <option key="N/A" value="N/A">
+                    <option
+                        className="default-option"
+                        key="default"
+                        value=""
+                        disabled
+                        selected
+                    >
                         {this.props.fieldTitle}
+                    </option>
+                    <option key="N/A" value="">
+                        {'Show All'}
                     </option>
                     {this.props.myoptions.map((optionTitle, index) => (
                         <option

@@ -29,7 +29,7 @@ function AdminPages({ setActiveLink }) {
                     }))
                     setStories(tempArray)
 
-                    const uniqueMajors = [
+                    let uniqueMajors = [
                         ...new Set(
                             json
                                 .map((item) => item.StudentMajor?.trim())
@@ -38,6 +38,7 @@ function AdminPages({ setActiveLink }) {
                     ]
                     // Sort the majors alphabetically
                     uniqueMajors.sort((a, b) => a.localeCompare(b))
+                    uniqueMajors = [...uniqueMajors, 'Other']
 
                     setCategoryNames(uniqueMajors)
                 }
@@ -54,9 +55,6 @@ function AdminPages({ setActiveLink }) {
     }, [setActiveLink, toggleStatus])
 
     const handleFilter = (discipline) => {
-        if (discipline === 'N/A') {
-            discipline = null
-        }
         setSelectedDiscipline(discipline)
     }
 
@@ -156,9 +154,16 @@ function AdminPages({ setActiveLink }) {
             <div>
                 {stories
                     .filter((story) => {
+                        const isOther =
+                            selectedDiscipline === 'Other' &&
+                            (story.StudentMajor === undefined ||
+                                story.StudentMajor === null ||
+                                story.StudentMajor.trim() === '')
+
                         return (
                             (!selectedDiscipline ||
-                                story.StudentMajor === selectedDiscipline) &&
+                                story.StudentMajor === selectedDiscipline ||
+                                isOther) &&
                             (toggleStatus ? story.Status === 'review' : true)
                         )
                     })

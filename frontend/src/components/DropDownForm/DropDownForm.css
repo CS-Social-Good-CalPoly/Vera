@@ -6,34 +6,42 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .banner-img {
-    height: 190px;
-  }
+    .banner-img {
+        height: 190px;
+    }
 }
 
 #dropdown {
-  padding: 3px;
-  padding-left: 20px;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  width: 100%;
-  color: #534D49;
-  border-color: white;
-  margin: 0px 0px 7% 0px;
-  
+    padding: 3px;
+    padding-left: 20px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    width: 100%;
+    color: #534d49;
+    border-color: white;
+    margin: 0px 0px 7% 0px;
 
-  background: white!important;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
+    background: white !important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
 
-  /* border-right: 15px solid transparent; */
+    /* border-right: 15px solid transparent; */
 
-  
-  border: .5px solid rgba(0, 0, 0, 0.25);
+    border: 0.5px solid rgba(0, 0, 0, 0.25);
 
-  text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.default-option {
+    color: black;
+    background: #ebebe4;
+}
+
+.default-option:hover {
+    background: #ebebe4;
+    cursor: not-allowed; /* Indicate the option is disabled */
 }
