@@ -31,9 +31,7 @@ class DropDownForm extends Component {
                         value=""
                         className={`${this.state.selectValue == '' ? 'select-option' : ''} `}
                     >
-                        {this.props.hasShowAll
-                            ? `All ${this.props.fieldTitle}`
-                            : this.props.fieldTitle}
+                        {this.props.fieldTitle}
                     </option>
                     {this.props.myoptions.map((optionTitle, index) => (
                         <option
