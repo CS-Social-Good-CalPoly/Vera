@@ -6,7 +6,7 @@ class DropDownForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            selectValue: 'default',
+            selectValue: '',
         }
 
         this.handleDropdownChange = this.handleDropdownChange.bind(this)
@@ -24,13 +24,13 @@ class DropDownForm extends Component {
                     id="dropdown"
                     onChange={this.handleDropdownChange}
                     disabled={this.props.disabled}
+                    defaultValue={''}
                 >
                     <option
                         className="default-option"
                         key="default"
                         value=""
                         disabled
-                        selected
                     >
                         {this.props.fieldTitle}
                     </option>
