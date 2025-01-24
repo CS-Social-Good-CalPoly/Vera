@@ -74,6 +74,7 @@ function StoriesPage({ setActiveLink }) {
                 fieldTitle="Categories"
                 myoptions={categoryNames}
                 handleChange={handleCategoryChange}
+                hasShowAll={true}
             />
             <StoryTileGroup
                 key="all-stories"

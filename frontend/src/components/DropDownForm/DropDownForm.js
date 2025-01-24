@@ -27,18 +27,17 @@ class DropDownForm extends Component {
                     defaultValue={''}
                 >
                     <option
-                        className="default-option"
-                        key="default"
+                        key="N/A"
                         value=""
-                        disabled
+                        className={`${this.state.selectValue == '' ? 'select-option' : ''} `}
                     >
-                        {this.props.fieldTitle}
-                    </option>
-                    <option key="N/A" value="">
-                        {'Show All'}
+                        {this.props.hasShowAll
+                            ? `All ${this.props.fieldTitle}`
+                            : this.props.fieldTitle}
                     </option>
                     {this.props.myoptions.map((optionTitle, index) => (
                         <option
+                            className={`${this.state.selectValue == optionTitle ? 'select-option' : ''} `}
                             key={optionTitle}
                             value={optionTitle}
                             index={index}

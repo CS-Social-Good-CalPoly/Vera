@@ -137,9 +137,10 @@ function AdminPages({ setActiveLink }) {
             <div className="dropdown-container">
                 {/* Drop down for filtering by major*/}
                 <DropDownForm
-                    fieldTitle="Filter By Major"
+                    fieldTitle="Majors"
                     myoptions={categoryNames}
                     handleChange={handleFilter}
+                    hasShowAll={true}
                 />
                 {/* Buttons for reviewing */}
 

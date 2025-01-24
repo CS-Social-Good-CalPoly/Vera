@@ -36,12 +36,7 @@
     text-overflow: ellipsis;
 }
 
-.default-option {
+.select-option {
     color: black;
     background: #ebebe4;
-}
-
-.default-option:hover {
-    background: #ebebe4;
-    cursor: not-allowed; /* Indicate the option is disabled */
 }
