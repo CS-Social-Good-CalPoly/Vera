@@ -71,9 +71,10 @@ function StoriesPage({ setActiveLink }) {
                 displayButton="true"
             />
             <DropDownForm
-                fieldTitle="Categories"
+                fieldTitle="All Categories"
                 myoptions={categoryNames}
                 handleChange={handleCategoryChange}
+                hasShowAll={true}
             />
             <StoryTileGroup
                 key="all-stories"

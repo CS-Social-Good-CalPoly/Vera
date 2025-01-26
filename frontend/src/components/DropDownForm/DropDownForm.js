@@ -24,10 +24,22 @@ class DropDownForm extends Component {
                     id="dropdown"
                     onChange={this.handleDropdownChange}
                     disabled={this.props.disabled}
+                    defaultValue={''}
                 >
-                    <option value="N/A">{this.props.fieldTitle}</option>
+                    <option
+                        key="N/A"
+                        value=""
+                        className={`${this.state.selectValue == '' ? 'select-option' : ''} `}
+                    >
+                        {this.props.fieldTitle}
+                    </option>
                     {this.props.myoptions.map((optionTitle, index) => (
-                        <option value={optionTitle} index={index}>
+                        <option
+                            className={`${this.state.selectValue == optionTitle ? 'select-option' : ''} `}
+                            key={optionTitle}
+                            value={optionTitle}
+                            index={index}
+                        >
                             {optionTitle}
                         </option>
                     ))}
