@@ -19,7 +19,7 @@ function AdminPages({ setActiveLink }) {
             .then((response) => response.json())
             .then((json) => {
                 if (isMounted) {
-                    let tempArray = json.map((story) => ({
+                    let tempArray = json.map((story, index) => ({
                         _id: story._id,
                         Title: story.Title,
                         StudentMajor: story.StudentMajor,

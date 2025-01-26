@@ -42,7 +42,7 @@ function StoriesPage({ setActiveLink }) {
                 const allStories = json.map((story) => ({
                     ...story,
                     RelevantCategoryList: story.RelevantCategoryList.map(
-                        (catId) => idToName[catId] || catId,
+                        (catId, index) => idToName[catId] || catId,
                     ),
                 }))
                 setStories(allStories)
