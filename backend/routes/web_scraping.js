@@ -5,68 +5,6 @@ const cheerio = require('cheerio');
 const IndResources = require('../models/IndividualResources')
 
 /* SEXUAL REPRODUCTIVE HEALTH */
-
-/*
-router.get('/colleges-and-majors', async (req, res) => {
-    try {
-        const response = await axios.get(
-            'https://www.calpoly.edu/colleges-departments-and-majors',
-        )
-        const $ = cheerio.load(response.data)
-        const college_dict = {}
-
-        $('h2').each((index, element) => {
-            const college_name = $(element).text().trim()
-            if (college_name.toLowerCase().includes('college')) {
-                const $collegeSection = $(element).nextUntil('h2')
-                $collegeSection.find('a').each((index, element) => {
-                    const major_name = $(element).text().trim()
-                    if (
-                        major_name.toLowerCase().includes('major') &&
-                        major_name !== 'Find a major'
-                    ) {
-                        college_dict[major_name.replace('Major', '').trim()] =
-                            college_name
-                    }
-                })
-            }
-        })
-
-        res.json(college_dict)
-    } catch (error) {
-        console.error('Scraping failed:', error)
-        res.status(500).send('Error fetching college data')
-    }
-})
-*/
-
-/*
-router.put('/individual-resources', async (req, res) => {
-    try {
-        const { tokenID, storyID } = req.body
-        const token = await Tokens.findOne({ Value: { $eq: tokenID } })
-
-        if (!token) {
-            return res.status(404).json({ message: 'Token not found' })
-        }
-
-        // checks to see if the storyID already exists in the story array
-        if (token.AssociatedStories.includes(storyID)) {
-            res.status(400).json({
-                message: 'Associated Story ID already exists in token',
-            })
-        } else {
-            token.AssociatedStories.push(storyID)
-            const updatedToken = await token.save()
-            res.status(200).json(updatedToken)
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-})
-    */
-
-// Function to scrape data and send a PUT request
 router.put('/sexual-reproductive-health', async (req, res) => {
     try {
         // taken from the database once the record was added to the collection already
@@ -112,7 +50,7 @@ router.put('/sexual-reproductive-health', async (req, res) => {
         // extract info from About Us widget
         const phoneRegex =
             /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
-            
+
         const aboutUs = []
         $('div[class="widget"]')
             .children('ul[class="cluster"]')
