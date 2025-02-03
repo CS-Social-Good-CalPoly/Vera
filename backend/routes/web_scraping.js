@@ -1,8 +1,7 @@
 const express = require('express')
+const router = express.Router()
 const axios = require('axios');
 const cheerio = require('cheerio');
-
-const router = express.Router()
 const IndResources = require('../models/IndividualResources')
 
 /* SEXUAL REPRODUCTIVE HEALTH */
@@ -159,4 +158,4 @@ router.get('/sexual-reproductive-health', async (req, res) => {
     }
 })
 
-model.express = router
+module.exports = router
