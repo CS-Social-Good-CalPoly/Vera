@@ -67,26 +67,23 @@ router.put('/individual-resources', async (req, res) => {
     */
 
 // Function to scrape data and send a PUT request
-router.get('/sexual-reproductive-health', async (req, res) => {
+router.put('/sexual-reproductive-health', async (req, res) => {
     try {
-        // CHANGE LATER
-        let health_id = '77988afa0813b31428b7e80d'
+        // taken from the database once the record was added to the collection already
+        let health_id = '67a0515f5ad4b6e0938cd2d5'
 
-        // Step 1: Fetch the HTML content of the webpage
+        // fetch HTML and extract data
         const response = await axios.get('https://chw.calpoly.edu/health/sexual-reproductive-health-services');
-        const html = response.data;
+        const $ = cheerio.load(response.data);
 
-        // Step 2: Use Cheerio to parse the HTML and extract data
-        const $ = cheerio.load(html);
-
-        // Extract header information
+        // extract header information
         const title =
             ($('meta[property="og:title"]').attr('content') ||
             $('title').text() ||
             $('meta[name="title"]').attr('content')).substring(1)
         const url = $('meta[property="og:url"]').attr('content')
 
-        // Extract image information
+        // extract image information
         const image = $('p[id="subH1"]')
             .children('img')
             .attr('src')
@@ -94,9 +91,8 @@ router.get('/sexual-reproductive-health', async (req, res) => {
             .children('img')
             .attr('alt')
 
-        // get paragraph text
+        // extract paragraph text
         const paragraphs = [];
-    
         $('div[class="field-item even"]').children('p').each((i, elem) => {
             const $text = $(elem).text().trim()
             if ($text.length > 0) {
@@ -104,23 +100,30 @@ router.get('/sexual-reproductive-health', async (req, res) => {
             }
         });
 
-        // get extra info
+        // extract extra info (headers)
         const extraInfo = []
-        $('div[class="field-item even"]').children('[id^="header-"]').each((i, elem) => {
-            extraInfo.push($(elem).html());
+        $('div[class="field-item even"]')
+            .children('[id^="header-"]')
+            .children('img')
+            .each((i, elem) => {
+            extraInfo.push($(elem).attr('src'));
         });
 
         // extract info from About Us widget
+        const phoneRegex =
+            /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
+            
         const aboutUs = []
         $('div[class="widget"]')
             .children('ul[class="cluster"]')
             .find('li')
             .each((_index, element) => {
                 const $text = $(element).children('p').text().trim()
-                const match = $text.match(/\d{3}-\d{3}-\d{4}/);
+                const match = $text.match(phoneRegex);
                 aboutUs.push(match ? match[0] : $text);
             })
 
+        // construct object to store in the database
         const newResource = new IndResources({
             _id: health_id,
             ImageURL: image,
@@ -136,25 +139,24 @@ router.get('/sexual-reproductive-health', async (req, res) => {
             ExtraInfo: extraInfo,
         })
 
-        res.json(newResource);
-        /*
-        // Data to send in the PUT request
-        const data = {
-            title: title,
-            description: description
-        };
+        // ensure this page has been included in the db before and update it
+        // if this fails, we can add a new record to the db using IndResources.insertMany()
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: health_id },
+            newResource,
+            { new: true },
+        )
 
-        // Step 3: Send the extracted data via a PUT request
-        const putResponse = await axios.put(putUrl, data, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
 
-        console.log('PUT Request Successful:', putResponse.data);
-        */
+        // respond with the updated resource
+        res.json(newResource)
+
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Sexual Reproductive Health data')
     }
 })
 
