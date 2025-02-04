@@ -16,6 +16,7 @@ app.use(cors(corsOptions))
 
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
+const web_scraping = require('./routes/web_scraping')
 
 // Middleware || routes
 app.use(bodyparser.json())
