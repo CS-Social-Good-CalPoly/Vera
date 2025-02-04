@@ -95,3 +95,4 @@ router.put('/scrapefoodpantry', async (req, res) => {
 
 //TODO: Add the "||" statements for every single scrape in case it didn't work
 
+module.exports = router

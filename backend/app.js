@@ -25,6 +25,7 @@ app.use(express.json())
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
 app.use('/stories', storyRoutes)
+app.use('/web_scraping', web_scraping)
 
 // home page route
 app.get('/', (req, res) => {
