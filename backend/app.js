@@ -16,6 +16,7 @@ app.use(cors(corsOptions))
 
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
+const webScrappingRoutes = require('./routes/web_scaping')
 
 // Middleware || routes
 app.use(bodyparser.json())
@@ -24,6 +25,7 @@ app.use(express.json())
 // a link to seperated routes
 app.use('/resources', resourceRoutes)
 app.use('/stories', storyRoutes)
+app.use('/web_scrapping', webScrappingRoutes)
 
 // home page route
 app.get('/', (req, res) => {
