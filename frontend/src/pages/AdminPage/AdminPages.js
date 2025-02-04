@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import URL_PATH from '../../links.js';
-import './AdminPages.css';
-import {Modal} from '../../components/components.js'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import URL_PATH from '../../links.js'
+import './AdminPages.css'
+import { DropDownForm, Modal } from '../../components/components.js'
 
 function AdminPages({ setActiveLink }) {
-    const [stories, setStories] = useState([]);
-    const [selectedDiscipline, setSelectedDiscipline] = useState(null);
-    const [toggleStatus, setToggleStatus] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [selectedStoryId, setSelectedStoryId] = useState("");
+    const [stories, setStories] = useState([])
+    const [selectedDiscipline, setSelectedDiscipline] = useState(null)
+    const [toggleStatus, setToggleStatus] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [selectedStoryId, setSelectedStoryId] = useState('')
+    const [categoryNames, setCategoryNames] = useState([])
 
     useEffect(() => {
-        let isMounted = true;
-        const subdirectory = '/stories/individualstory';
+        let isMounted = true
+        const subdirectory = '/stories/individualstory'
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
@@ -25,46 +26,57 @@ function AdminPages({ setActiveLink }) {
                         ParagraphText: story.ParagraphText,
                         Status: story.Status,
                         Approved: story.Approved,
-                    }));
-                    setStories(tempArray);
+                    }))
+                    setStories(tempArray)
+
+                    let uniqueMajors = [
+                        ...new Set(
+                            json
+                                .map((item) => item.StudentMajor?.trim())
+                                .filter((major) => major), // Filter out null, undefined, or empty strings
+                        ),
+                    ]
+                    // Sort the majors alphabetically
+                    uniqueMajors.sort((a, b) => a.localeCompare(b))
+                    uniqueMajors = [...uniqueMajors, 'Other']
+
+                    setCategoryNames(uniqueMajors)
                 }
             })
-            .catch((error) => console.error(error));
+            .catch((error) => console.error(error))
 
         return () => {
-            isMounted = false;
-        };
-    }, []);
+            isMounted = false
+        }
+    }, [])
 
     useEffect(() => {
-        setActiveLink('/AdminPages');
-        console.log("toggleStatus:", toggleStatus);
-    }, [setActiveLink, toggleStatus]);
+        setActiveLink('/AdminPages')
+    }, [setActiveLink, toggleStatus])
 
     const handleFilter = (discipline) => {
-        setSelectedDiscipline(discipline);
-    };
+        setSelectedDiscipline(discipline)
+    }
 
     const handleToggleStatus = () => {
-        console.log("prev toggleStatus:", toggleStatus);
-        setToggleStatus((prevToggleStatus) => !prevToggleStatus);
-    };
+        setToggleStatus((prevToggleStatus) => !prevToggleStatus)
+    }
 
     const handleDelete = () => {
-        setShowModal(true);
-    };
+        setShowModal(true)
+    }
 
     const handleConfirmDelete = () => {
-        deleteIndividualStory(selectedStoryId);
-        setShowModal(false);
-    };
+        deleteIndividualStory(selectedStoryId)
+        setShowModal(false)
+    }
 
     const handleCancelDelete = () => {
-        setShowModal(false);
-    };
+        setShowModal(false)
+    }
 
     async function toggleApproval(id, approval) {
-        const subdirectory = '/stories/updateIndividualStory';
+        const subdirectory = '/stories/updateIndividualStory'
         try {
             const response = await fetch(URL_PATH + subdirectory, {
                 method: 'PUT',
@@ -75,23 +87,23 @@ function AdminPages({ setActiveLink }) {
                     individualStoryId: id,
                     Approved: !approval,
                 }),
-            });
+            })
             if (!response.ok) {
-                throw new Error('Failed to update story');
+                throw new Error('Failed to update story')
             }
-            const updatedStory = await response.json();
+            const updatedStory = await response.json()
             setStories((prevStories) =>
-                prevStories.map((story, index) =>
-                    story._id === updatedStory._id ? updatedStory : story
-                )
-            );
+                prevStories.map((story) =>
+                    story._id === updatedStory._id ? updatedStory : story,
+                ),
+            )
         } catch (error) {
-            console.error('Error toggling approval:', error);
+            console.error('Error toggling approval:', error)
         }
     }
 
     async function deleteIndividualStory(id) {
-        const subdirectory = '/stories/deleteIndividualStory';
+        const subdirectory = '/stories/deleteIndividualStory'
         try {
             const response = await fetch(URL_PATH + subdirectory, {
                 method: 'DELETE',
@@ -99,46 +111,62 @@ function AdminPages({ setActiveLink }) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    individualStoryId: id
+                    individualStoryId: id,
                 }),
-            });
+            })
             if (!response.ok) {
-                throw new Error('Failed to delete story');
+                throw new Error('Failed to delete story')
             }
             setStories((prevStories) =>
-                prevStories.filter((story) =>
-                    story._id !== id
-                ));
+                prevStories.filter((story) => story._id !== id),
+            )
         } catch (error) {
-            console.error('Error deleting story:', error);
+            console.error('Error deleting story:', error)
         }
     }
 
     return (
-        <div className='admin-container'>
-            {showModal && <Modal
-                message= "Delete this story? (This action cannot be undone!)"
-                onConfirm= {handleConfirmDelete}
-                onCancel= {handleCancelDelete}
-            />}
-            <div>
-                {/* Buttons for filtering */}
-                <button onClick={() => handleFilter('SE')}>SE</button>
-                <button onClick={() => handleFilter('Computer Science')}>
-                    CSC
+        <div className="admin-container">
+            {showModal && (
+                <Modal
+                    message="Delete this story? (This action cannot be undone!)"
+                    onConfirm={handleConfirmDelete}
+                    onCancel={handleCancelDelete}
+                />
+            )}
+            <div className="dropdown-container">
+                {/* Drop down for filtering by major*/}
+                <DropDownForm
+                    fieldTitle="All Majors"
+                    myoptions={categoryNames}
+                    handleChange={handleFilter}
+                    hasShowAll={true}
+                />
+                {/* Buttons for reviewing */}
+
+                <button
+                    className={`dropdown-style ${toggleStatus ? 'pressed' : ''}`}
+                    onClick={() => handleToggleStatus()}
+                >
+                    Review
                 </button>
-                <button onClick={() => handleToggleStatus()}>Review</button>
-                <button onClick={() => handleFilter(null)}>Show All</button>
             </div>
 
             <div>
                 {stories
                     .filter((story) => {
-                        console.log(`story status: ${story.Status}`);
+                        const isOther =
+                            selectedDiscipline === 'Other' &&
+                            (story.StudentMajor === undefined ||
+                                story.StudentMajor === null ||
+                                story.StudentMajor.trim() === '')
+
                         return (
-                            (!selectedDiscipline || story.StudentMajor === selectedDiscipline) &&
+                            (!selectedDiscipline ||
+                                story.StudentMajor === selectedDiscipline ||
+                                isOther) &&
                             (toggleStatus ? story.Status === 'review' : true)
-                        );
+                        )
                     })
                     .map((story, index) => (
                         <div key={index}>
@@ -158,11 +186,12 @@ function AdminPages({ setActiveLink }) {
                                         {story.Approved ? 'Yes' : 'No'}
                                     </h6>
                                     <div className="approval-button-container">
-                                        <button className="approval-button"
+                                        <button
+                                            className="approval-button"
                                             onClick={() =>
                                                 toggleApproval(
                                                     story._id,
-                                                    story.Approved
+                                                    story.Approved,
                                                 )
                                             }
                                         >
@@ -170,15 +199,18 @@ function AdminPages({ setActiveLink }) {
                                                 ? 'Unapprove'
                                                 : 'Approve'}
                                         </button>
-                                        <button className="approval-button"
+                                        <button
+                                            className="approval-button"
                                             disabled={story.Approved}
-                                            onClick={
-                                                () => {
-                                                    if (!story.Approved) {
-                                                        setSelectedStoryId(story._id);
-                                                        handleDelete();
-                                                    }
-                                            }}>
+                                            onClick={() => {
+                                                if (!story.Approved) {
+                                                    setSelectedStoryId(
+                                                        story._id,
+                                                    )
+                                                    handleDelete()
+                                                }
+                                            }}
+                                        >
                                             Delete
                                         </button>
                                     </div>
@@ -191,7 +223,7 @@ function AdminPages({ setActiveLink }) {
                     ))}
             </div>
         </div>
-    );
+    )
 }
 
-export default AdminPages;
+export default AdminPages
