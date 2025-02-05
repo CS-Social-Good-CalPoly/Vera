@@ -17,6 +17,7 @@ app.use(cors(corsOptions))
 const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
 const web_scraping = require('./routes/web_scraping')
+const colleges_scraper = require('./routes/colleges_scraper')
 
 // Middleware || routes
 app.use(bodyparser.json())
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use('/resources', resourceRoutes)
 app.use('/stories', storyRoutes)
 app.use('/web_scraping', web_scraping)
+app.use('/colleges_scraper', colleges_scraper)
 
 // home page route
 app.get('/', (req, res) => {
