@@ -12,6 +12,10 @@ const CollegeMajors = require('../models/CollegeMajors')
 // this should reflect the order of colleges in the catalog (https://catalog.calpoly.edu/collegesanddepartments/)
 const colleges = ['CAFES', 'CAED', 'OCOB', 'CENG', 'CLA', 'COSAM']
 
+router.get('/test', async (req, res) => {
+    res.json({ message: 'College scraper is working' })
+})
+
 // PUT route for updating all the colleges
 // Use to sync all 6 colleges
 router.put('/sync_colleges', async (req, res) => {
