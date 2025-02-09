@@ -42,10 +42,10 @@ router.put('/sexual-reproductive-health', async (req, res) => {
         // extract extra info (headers)
         const extraInfo = []
         $('div[class="field-item even"]')
-            .children('[id^="header-"]')
-            .children('img')
+            .children('ul')
+            .children('li')
             .each((i, elem) => {
-            extraInfo.push($(elem).attr('src'));
+            extraInfo.push($(elem).text());
         });
 
         // extract info from About Us widget
