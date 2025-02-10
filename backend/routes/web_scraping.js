@@ -19,7 +19,7 @@ router.put('/scrape-covid19-resource', async (req, res) => {
 
         // Extract Image URL
         let ImageURL = $('div.field-item.even img').attr('src') || '';
-        let ImageAltText = $('div.field-item.even img').attr('alt') || '';
+        let ImageAltText = $('div.field-item.even img').attr('alt').trim() || '';
         console.log("Image URL:", ImageURL);
         console.log("Image Alt:", ImageAltText);
 
