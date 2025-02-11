@@ -4,7 +4,70 @@ const cheerio = require('cheerio')
 const IndResources = require('../models/IndividualResources')
 const router = express.Router()
 
+/* -------------------- HELPER FUNCTIONS -------------------- */
+// Function to convert full days to abbreviated form (eg. Monday -> Mon)
+const convertToShortDay = (day) => {
+    const daysMap = {
+        Monday: 'Mon',
+        Tuesday: 'Tue',
+        Wednesday: 'Wed',
+        Thursday: 'Thu',
+        Friday: 'Fri',
+        Saturday: 'Sat',
+        Sunday: 'Sun',
+    }
+    return daysMap[day] || day // return the short form or the original if not found
+}
+// Function to handle extracting days and time ranges (eg. format to Mon-Fri 9am-5pm)
+const formatHours = (text) => {
+    const daysTimePattern =
+        /(\w+)(?: to (\w+))? (\d{1,2}am|\d{1,2}pm) - (\d{1,2}am|\d{1,2}pm)/
+    const match = text.match(daysTimePattern)
 
+    if (match) {
+        let [_, startDay, endDay, startTime, endTime] = match
+
+        // Convert to abbreviated form
+        startDay = convertToShortDay(startDay)
+        endDay = endDay ? convertToShortDay(endDay) : startDay // If there's no 'to', it's the same day
+
+        // Handle the case where the range is multiple days
+        const daysRange =
+            startDay === endDay ? startDay : `${startDay}-${endDay}`
+        return `${daysRange} ${startTime}-${endTime}`
+    }
+
+    return ''
+}
+
+const formatHours1 = (text) => {
+    const hoursRegex =
+        /(\d{1,2}(:\d{2})?\s?(AM|PM))\s?-\s?(\d{1,2}(:\d{2})?\s?(AM|PM))\s?\|\s?([A-Za-z,-]+)/i
+
+    const dayMapping = {
+        M: 'Mon',
+        T: 'Tue',
+        W: 'Wed',
+        Th: 'Thu',
+        F: 'Fri',
+        S: 'Sat',
+        Su: 'Sun',
+    }
+
+    const match = text.match(hoursRegex)
+    if (!match) return text // Return original if no match is found
+
+    let startTime = match[1].replace(/\s/g, '').toLowerCase() // Remove spaces, convert to lowercase
+    let endTime = match[4].replace(/\s/g, '').toLowerCase()
+    let days = match[7]
+
+    // Convert days to full names
+    days = days.replace(/M|T|W|Th|F|S|Su/g, (m) => dayMapping[m] || m)
+
+    return `${days} ${startTime}-${endTime}`
+}
+
+/* -------------------- COVID-19 -------------------- */
 router.put('/scrape-covid19-resource', async (req, res) => {
     try {
         const url = 'https://chw.calpoly.edu/health/Covid-19'
@@ -93,70 +156,7 @@ router.put('/scrape-covid19-resource', async (req, res) => {
     }
 })
 
-// Helper functions
-// Function to convert full days to abbreviated form (eg. Monday -> Mon)
-const convertToShortDay = (day) => {
-    const daysMap = {
-        Monday: 'Mon',
-        Tuesday: 'Tue',
-        Wednesday: 'Wed',
-        Thursday: 'Thu',
-        Friday: 'Fri',
-        Saturday: 'Sat',
-        Sunday: 'Sun',
-    }
-    return daysMap[day] || day // return the short form or the original if not found
-}
-// Function to handle extracting days and time ranges (eg. format to Mon-Fri 9am-5pm)
-const formatHours = (text) => {
-    const daysTimePattern =
-        /(\w+)(?: to (\w+))? (\d{1,2}am|\d{1,2}pm) - (\d{1,2}am|\d{1,2}pm)/
-    const match = text.match(daysTimePattern)
-
-    if (match) {
-        let [_, startDay, endDay, startTime, endTime] = match
-
-        // Convert to abbreviated form
-        startDay = convertToShortDay(startDay)
-        endDay = endDay ? convertToShortDay(endDay) : startDay // If there's no 'to', it's the same day
-
-        // Handle the case where the range is multiple days
-        const daysRange =
-            startDay === endDay ? startDay : `${startDay}-${endDay}`
-        return `${daysRange} ${startTime}-${endTime}`
-    }
-
-    return ''
-}
-
-const formatHours1 = (text) => {
-    const hoursRegex =
-        /(\d{1,2}(:\d{2})?\s?(AM|PM))\s?-\s?(\d{1,2}(:\d{2})?\s?(AM|PM))\s?\|\s?([A-Za-z,-]+)/i
-
-    const dayMapping = {
-        M: 'Mon',
-        T: 'Tue',
-        W: 'Wed',
-        Th: 'Thu',
-        F: 'Fri',
-        S: 'Sat',
-        Su: 'Sun',
-    }
-
-    const match = text.match(hoursRegex)
-    if (!match) return text // Return original if no match is found
-
-    let startTime = match[1].replace(/\s/g, '').toLowerCase() // Remove spaces, convert to lowercase
-    let endTime = match[4].replace(/\s/g, '').toLowerCase()
-    let days = match[7]
-
-    // Convert days to full names
-    days = days.replace(/M|T|W|Th|F|S|Su/g, (m) => dayMapping[m] || m)
-
-    return `${days} ${startTime}-${endTime}`
-}
-
-// -------------------- PHARMACY --------------------
+/* -------------------- PHARMACY -------------------- */
 // PUT route for Pharmacy
 router.put('/pharmacy', async (req, res) => {
     try {
@@ -317,7 +317,7 @@ router.put('/pharmacy', async (req, res) => {
     }
 })
 
-// -------------------- GENDER AFFIRMING CARE --------------------
+/* -------------------- GENDER AFFIRMING CARE -------------------- */
 router.put('/gender-affirming-care', async (req, res) => {
     const url = 'https://chw.calpoly.edu/gender-affirming-care'
 
@@ -447,7 +447,7 @@ router.put('/gender-affirming-care', async (req, res) => {
     }
 })
 
-// -------------------- CAL FRESH RESOURCES --------------------
+/* -------------------- CAL FRESH RESOURCES -------------------- */
 // GET route for all individual resources
 router.put('/cal_fresh', async (req, res) => {
     try {
@@ -572,39 +572,40 @@ router.put('/cal_fresh', async (req, res) => {
     }
 })
 
-/* SEXUAL REPRODUCTIVE HEALTH */
+/* -------------------- SEXUAL REPRODUCTIVE HEALTH -------------------- */
 router.put('/sexual-reproductive-health', async (req, res) => {
     try {
         // taken from the database once the record was added to the collection already
         let health_id = '67a0515f5ad4b6e0938cd2d5'
 
         // fetch HTML and extract data
-        const response = await axios.get('https://chw.calpoly.edu/health/sexual-reproductive-health-services');
-        const $ = cheerio.load(response.data);
+        const response = await axios.get(
+            'https://chw.calpoly.edu/health/sexual-reproductive-health-services',
+        )
+        const $ = cheerio.load(response.data)
 
         // extract header information
-        const title =
-            ($('meta[property="og:title"]').attr('content') ||
+        const title = (
+            $('meta[property="og:title"]').attr('content') ||
             $('title').text() ||
-            $('meta[name="title"]').attr('content')).substring(1)
+            $('meta[name="title"]').attr('content')
+        ).substring(1)
         const url = $('meta[property="og:url"]').attr('content')
 
         // extract image information
-        const image = $('p[id="subH1"]')
-            .children('img')
-            .attr('src')
-        const image_alt = $('p[id="subH1"]')
-            .children('img')
-            .attr('alt')
+        const image = $('p[id="subH1"]').children('img').attr('src')
+        const image_alt = $('p[id="subH1"]').children('img').attr('alt')
 
         // extract paragraph text
-        const paragraphs = [];
-        $('div[class="field-item even"]').children('p').each((i, elem) => {
-            const $text = $(elem).text().trim()
-            if ($text.length > 0) {
-                paragraphs.push($text);
-            }
-        });
+        const paragraphs = []
+        $('div[class="field-item even"]')
+            .children('p')
+            .each((i, elem) => {
+                const $text = $(elem).text().trim()
+                if ($text.length > 0) {
+                    paragraphs.push($text)
+                }
+            })
 
         // extract extra info (headers)
         const extraInfo = []
@@ -612,8 +613,8 @@ router.put('/sexual-reproductive-health', async (req, res) => {
             .children('ul')
             .children('li')
             .each((i, elem) => {
-            extraInfo.push($(elem).text());
-        });
+                extraInfo.push($(elem).text())
+            })
 
         // extract info from About Us widget
         const phoneRegex =
@@ -625,8 +626,8 @@ router.put('/sexual-reproductive-health', async (req, res) => {
             .find('li')
             .each((_index, element) => {
                 const $text = $(element).children('p').text().trim()
-                const match = $text.match(phoneRegex);
-                aboutUs.push(match ? match[0] : $text);
+                const match = $text.match(phoneRegex)
+                aboutUs.push(match ? match[0] : $text)
             })
 
         // construct object to store in the database
@@ -659,7 +660,6 @@ router.put('/sexual-reproductive-health', async (req, res) => {
 
         // respond with the updated resource
         res.json(newResource)
-
     } catch (error) {
         console.error('Scrapping failed:', error)
         res.status(500).send('Error fetching Sexual Reproductive Health data')
