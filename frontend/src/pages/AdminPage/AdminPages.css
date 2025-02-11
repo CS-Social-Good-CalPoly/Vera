@@ -11,6 +11,8 @@
     float: right;
     display: flex;
     padding-right: 4%;
+    justify-content: flex-end;
+    width: 30%;
 }
 
 .approved-label {
@@ -21,11 +23,12 @@
     padding-top: 3%;
     padding-right: 15%;
     padding-left: 3%;
+    width: 20%;
     color: red;
 }
 
-.approval-button {
-    width: 100px;
+.approved-button{
+    min-width: 100px;
 }
 
 .approval-button-container {
