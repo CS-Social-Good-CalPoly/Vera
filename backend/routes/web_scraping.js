@@ -77,7 +77,6 @@ router.put('/gender-affirming-care', async (req, res) => {
             existingResource.Title = title || "Title not found";
             existingResource.BuildingName = aboutUs[0] || "Unknown Building";
             existingResource.ParagraphText = combinedParagraphContent;
-            // existingResource.ParagraphText = paragraphs.join('\n\n');
             existingResource.PhoneNumber = phoneNumber || "No Phone Number Found";
             existingResource.LastUpdate = new Date();
             existingResource.ListOfHours = aboutUs.slice(2);
@@ -100,7 +99,7 @@ router.put('/gender-affirming-care', async (req, res) => {
             LastUpdate: new Date(),
             Category: 'Health Services',
             ListOfHours: aboutUs.slice(2),
-            ExtraInfo: "Additional information extracted here...",
+            ExtraInfo: extraInfoList || "No extra info found",
         });
 
         const savedResource = await newResource.save();
