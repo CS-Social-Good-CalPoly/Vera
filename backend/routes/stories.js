@@ -459,4 +459,22 @@ router.get('/colleges-and-majors', async (req, res) => {
     }
 })
 
+// GET route for all stories associated with a specific token
+router.get('/stories-by-token', async (req, res) => {
+    try {
+        // find token from request
+        const tokenID = req.query.tokenID || -1
+        const token = await Tokens.findOne({ Value: { $eq: tokenID } })
+        if (token === null) {
+            throw Error(`Token ${tokenID} was not found`)
+        }
+
+        // get stories with IDs that belong to that token
+        const stories = await IndStories.find({ _id: { $in: token.AssociatedStories } })
+        res.status(200).json(stories)
+    } catch(err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 module.exports = router
