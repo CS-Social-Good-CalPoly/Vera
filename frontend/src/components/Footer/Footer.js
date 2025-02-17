@@ -9,7 +9,7 @@ function Footer() {
             <br></br>
                 National Suicide Hotline: 1 (800)-273-8255 or 988
           <br></br>
-             Cal Poly Police: (805)-783-2281
+             Cal Poly Police: (805)-756-2281
              </div>
          <div className="column1">&copy; 2024 VERA</div>
             <div className="column3">
