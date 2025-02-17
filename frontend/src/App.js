@@ -1,9 +1,10 @@
 import './App.css'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Footer, NavBar } from './components/components.js'
 import { useState } from 'react'
 import {
-    HomePage,
+    ResourcePage,
     IndividualResourcePage,
     StoriesPage,
     StorySubmissionPage,
@@ -31,7 +32,7 @@ function App() {
                         exact
                         path="/resources"
                         component={() => (
-                            <HomePage setActiveLink={setActiveLink} />
+                            <ResourcePage setActiveLink={setActiveLink} />
                         )}
                     />
                     <Route
