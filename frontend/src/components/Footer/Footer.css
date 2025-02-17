@@ -24,12 +24,23 @@
 }
 
 .column5 {
-    align-items: flex-end;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    float: left;
+    font-size: 22px;
+    height: 180px;
+    justify-content: center;
+    line-height: 33px;
+    padding-right: 50px;
+    text-align: left;
+    margin-left: 50px;
+    /* align-items: flex-end;
     flex-direction: column;
     display: flex;
     float: left;
     font-size: 20px;
-    padding-left: 40px;
+    padding-left: 40px; */
 }
 @media only screen and (max-width: 768px) {
     .column1{

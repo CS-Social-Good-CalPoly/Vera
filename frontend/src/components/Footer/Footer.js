@@ -7,7 +7,7 @@ function Footer() {
         <footer className="main-footer">
             <div className="column5">Call or Text
             <br></br>
-                National Suicide Hotline: 1 (800)-273-3255 or 988
+                National Suicide Hotline: 1 (800)-273-8255 or 988
           <br></br>
              Cal Poly Police: (805)-783-2281
              </div>
