@@ -666,4 +666,69 @@ router.put('/sexual-reproductive-health', async (req, res) => {
     }
 })
 
+router.post('/scrape-emotional-wellbeing', async (req, res) => {
+    try {
+        const url = 'https://chw.calpoly.edu/counseling/emotional-wellbeing-workshops';
+        const { data } = await axios.get(url);
+        const $ = cheerio.load(data);
+
+        // Extract the title
+        const title = "Emotional Wellbeing Workshops";
+
+        // Extract the image URL and alt text
+        const imageElement = $('img[src*="eww-header"]').first();
+        const imageURL = imageElement.attr('src') || "";
+        const imageAltText = imageElement.attr('alt') || "Emotional Wellbeing Workshops Header";
+
+        // Extract the building name and phone number
+        const infoText = $('#block-block-13').text();
+        const phoneNumber = infoText.match(/Phone:\s*(\d{3}-\d{3}-\d{4})/)?.[1] || "805-756-2511";
+        const buildingNameMatch = infoText.match(/Building\s+(\d+)/);
+        const buildingName = buildingNameMatch ? `Building ${buildingNameMatch[1]}` : "Building 27";
+
+        // Extract the main paragraph
+        const paragraphText = $('p:contains("Emotional Wellbeing Workshops will help")').text().trim();
+
+        // Extract the list of hours from the workshop schedule table
+        let listOfHours = [];
+        $('table tbody tr').each((_, element) => {
+            const day = $(element).find('td:nth-child(2)').text().trim();
+            const time = $(element).find('td:nth-child(4)').text().trim();
+            if (day && time) {
+                listOfHours.push(`${day}: ${time}`);
+            }
+        });
+
+        // Extract extra information from sections
+        const extraInfo = {
+            "Anxiety Toolbox": $('p:contains("Anxiety Toolbox focuses on helping you understand")').text().trim(),
+            "RIO (Recognition/Insight/Openness)": $('p:contains("Recognition, Insight, Openness (RIO) focuses on")').text().trim(),
+            "Getting Unstuck": $('p:contains("Getting Unstuck focuses on helping you understand depressive")').text().trim(),
+            "BRIDGE": $('p:contains("BRIDGE (Building Relationship Intimacy and Dialogue Effectiveness) focuses")').text().trim()
+        };
+
+        // Save to MongoDB
+        const newResource = new IndResources({
+            title,
+            imageURL,
+            imageAltText,
+            phoneNumber,
+            buildingName,
+            paragraphText,
+            listOfHours,
+            extraInfo,
+            resourceURL: url,
+            lastUpdate: new Date(),
+            category: "Counseling & Psychological Services"
+        });
+
+        await newResource.save();
+
+        res.status(201).json({ message: "Resource added successfully", resourceId: newResource._id });
+    } catch (error) {
+        console.error("Error scraping data:", error);
+        res.status(500).json({ error: "Failed to scrape the webpage" });
+    }
+});
+
 module.exports = router
