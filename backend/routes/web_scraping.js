@@ -666,68 +666,86 @@ router.put('/sexual-reproductive-health', async (req, res) => {
     }
 })
 
-router.post('/scrape-emotional-wellbeing', async (req, res) => {
+router.put('/emotional-wellbeing', async (req, res) => {
     try {
         const url = 'https://chw.calpoly.edu/counseling/emotional-wellbeing-workshops';
         const { data } = await axios.get(url);
         const $ = cheerio.load(data);
 
-        // Extract the title
-        const title = "Emotional Wellbeing Workshops";
+        // Extract Title
+        const Title = $('h1.page-title').text().trim();
+        console.log(Title)
+        
+        // Extract Image URL
+        let ImageURL = $('div.field-item.even img').attr('src') || ''
+        let ImageAltText = $('div.field-item.even img').attr('alt').trim() || 'Emotional Wellbeing Page Header'
+        console.log('Image URL:', ImageURL)
+        console.log('Image Alt:', ImageAltText)
 
-        // Extract the image URL and alt text
-        const imageElement = $('img[src*="eww-header"]').first();
-        const imageURL = imageElement.attr('src') || "";
-        const imageAltText = imageElement.attr('alt') || "Emotional Wellbeing Workshops Header";
+        // Extracting the building name under "Location" h3
+        const BuildingName = $('h3:contains("Location")')
+            .next('p')
+            .find('a')
+            .text()
+            .trim()
+        console.log('Building Name:', BuildingName)
 
-        // Extract the building name and phone number
-        const infoText = $('#block-block-13').text();
-        const phoneNumber = infoText.match(/Phone:\s*(\d{3}-\d{3}-\d{4})/)?.[1] || "805-756-2511";
-        const buildingNameMatch = infoText.match(/Building\s+(\d+)/);
-        const buildingName = buildingNameMatch ? `Building ${buildingNameMatch[1]}` : "Building 27";
+        // Extract Paragraph
+        const ParagraphText = $('.field-item[property="content:encoded"] p').eq(1).text().trim();
+        console.log('Paragraph Text:', ParagraphText)
 
-        // Extract the main paragraph
-        const paragraphText = $('p:contains("Emotional Wellbeing Workshops will help")').text().trim();
+        // Extract Phone Number
+        const PhoneNumber = $('p a[href^="tel:"]').first().text().trim();
+        console.log('Phone Number:', PhoneNumber)
 
-        // Extract the list of hours from the workshop schedule table
-        let listOfHours = [];
-        $('table tbody tr').each((_, element) => {
-            const day = $(element).find('td:nth-child(2)').text().trim();
-            const time = $(element).find('td:nth-child(4)').text().trim();
-            if (day && time) {
-                listOfHours.push(`${day}: ${time}`);
-            }
-        });
+        // Extract List of Hours
+        const ListOfHours = [];
+        const hoursText = $('h3:contains("Hours")').next('p').text().trim();
+        ListOfHours.push(hoursText);
 
-        // Extract extra information from sections
-        const extraInfo = {
-            "Anxiety Toolbox": $('p:contains("Anxiety Toolbox focuses on helping you understand")').text().trim(),
-            "RIO (Recognition/Insight/Openness)": $('p:contains("Recognition, Insight, Openness (RIO) focuses on")').text().trim(),
-            "Getting Unstuck": $('p:contains("Getting Unstuck focuses on helping you understand depressive")').text().trim(),
-            "BRIDGE": $('p:contains("BRIDGE (Building Relationship Intimacy and Dialogue Effectiveness) focuses")').text().trim()
-        };
+        const paragraphs = $('.field-item[property="content:encoded"] p');
+        // Getting the extra info fields dynamically as each pargraph contain a different structure
+        const anxietyToolboxParagraph = paragraphs.eq(5).text().trim();
+        const rioParagraph = paragraphs.eq(6).text().trim();
+        const gettingUnstuckParagraph = paragraphs.eq(9).text().trim();
+        const bridgeParagraph = paragraphs.eq(10).text().trim();
 
-        // Save to MongoDB
-        const newResource = new IndResources({
-            title,
-            imageURL,
-            imageAltText,
-            phoneNumber,
-            buildingName,
-            paragraphText,
-            listOfHours,
-            extraInfo,
-            resourceURL: url,
-            lastUpdate: new Date(),
-            category: "Counseling & Psychological Services"
-        });
+        // Push pargraphs to a list
+        const ExtraInfo = [];
+        ExtraInfo.push(anxietyToolboxParagraph);
+        ExtraInfo.push(rioParagraph);
+        ExtraInfo.push(gettingUnstuckParagraph);
+        ExtraInfo.push(bridgeParagraph);
+        console.log('Extra Info:', ExtraInfo)
 
-        await newResource.save();
+        // Upsert into MongoDB
+        const updatedEmotionalWellbeingResource = await IndResources.findOneAndUpdate(
+            { ResourceURL: url }, // Search by the resource URL
+            {
+                Title,
+                ImageURL,
+                ImageAltText,
+                BuildingName,
+                ParagraphText,
+                PhoneNumber,
+                ListOfHours,
+                ExtraInfo,
+                ResourceURL: url,
+                Category: "Counseling & Psychological Services",
+            },
+            { new: true, upsert: true }, // Create if doesn't exist, update if it does
+        )
 
-        res.status(201).json({ message: "Resource added successfully", resourceId: newResource._id });
+        res.status(200).json({
+            message: 'Scraped data successfully stored in MongoDB',
+            data: updatedEmotionalWellbeingResource,
+        })
+        
     } catch (error) {
-        console.error("Error scraping data:", error);
-        res.status(500).json({ error: "Failed to scrape the webpage" });
+        console.error('Scraping error:', error)
+        res.status(500).json({
+            error: 'An error occurred while scraping the resource.',
+        })
     }
 });
 
