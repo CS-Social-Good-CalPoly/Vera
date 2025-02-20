@@ -125,6 +125,25 @@ function AdminPages({ setActiveLink }) {
         }
     }
 
+    async function handleSyncColleges() {
+        const subdirectory = '/colleges_scraper/sync_colleges'
+        try {
+            const response = await fetch(URL_PATH + subdirectory, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (!response.ok) {
+                throw new Error('Failed to sync colleges')
+            }
+            alert('Colleges synced successfully')
+        } catch (error) {
+            console.error('Error syncing colleges:', error)
+            alert('Error syncing colleges')
+        }
+    }
+
     return (
         <div className="admin-container">
             {showModal && (
@@ -149,6 +168,14 @@ function AdminPages({ setActiveLink }) {
                     onClick={() => handleToggleStatus()}
                 >
                     Review
+                </button>
+
+                {/*button for syncing colleges */}
+                <button
+                    className="dropdown-style"
+                    onClick={() => handleSyncColleges()}
+                >
+                    Sync Colleges
                 </button>
             </div>
 
