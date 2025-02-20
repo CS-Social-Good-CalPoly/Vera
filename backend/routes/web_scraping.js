@@ -1,11 +1,14 @@
 const express = require('express')
-const axios = require('axios')
-const cheerio = require('cheerio')
 
 const router = express.Router()
 const IndResources = require('../models/IndividualResources')
 
-model.express = router
+module.exports = router
+
+const axios = require('axios')
+const cheerio = require('cheerio')
+const IndividualResources = require('../models/IndividualResources')
+
 
 // Copied Joel's convertAToShortDay function
 const convertToShortDay = (day) => {
@@ -84,13 +87,20 @@ router.put('/scrapefoodpantry', async (req, res) => {
             ExtraInfo: [AccessingFoodPantry, FoodSource],
             ListOfHours: [formattedHours],
         })
-
+        
+        const updatedResource = await IndividualResources.findByIdAndUpdate(
+            {_id : "60a5a5661d9811d718c3d998"},
+            foodPantryResource,
+            {new : true}); // save the resource to the database)
+        
         res.json(foodPantryResource) // return the resource 
 
     }  catch (error) {
         console.error('Scraping failed:', error)
         res.status(500).send('Error fetching food pantry data')
     }
+
+    
 })
 
 //TODO: Add the "||" statements for every single scrape in case it didn't work
