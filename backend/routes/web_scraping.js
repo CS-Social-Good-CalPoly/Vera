@@ -668,25 +668,6 @@ router.put('/sexual-reproductive-health', async (req, res) => {
 
 module.exports = router
 
-const axios = require('axios')
-const cheerio = require('cheerio')
-const IndividualResources = require('../models/IndividualResources')
-
-
-// Copied Joel's convertAToShortDay function
-const convertToShortDay = (day) => {
-    const daysMap = {
-        Monday: 'Mon',
-        Tuesday: 'Tue',
-        Wednesday: 'Wed',
-        Thursday: 'Thu',
-        Friday: 'Fri',
-        Saturday: 'Sat',
-        Sunday: 'Sun',
-    }
-    return daysMap[day] || day // return the short form or the original if not found
-}
-
 const formatListOfHours = (text) => {
     const hoursRegex = /(\w+) through (\w+) from (\d{1,2}):(\d{2})(AM|PM) to (\d{1,2}):(\d{2})(AM|PM)/ // regex pattern for hours
     const matchText = text.match(hoursRegex) // match the text with the pattern
