@@ -719,6 +719,7 @@ router.put('/scrapefoodpantry', async (req, res) => {
         
         // Create a new resource object for the Food Pantry
         const foodPantryResource = new IndResources({
+            _id: "60a5a5661d9811d718c3d998", // id of the food pantry resource in MongoDB
             Title: Title,
             ImageURL: ImageURL,
             ImageAltText: ImageAltText,
