@@ -695,60 +695,56 @@ router.put('/scrapefoodpantry', async (req, res) => {
         const Category = 'Food Resources' // Category of the resource is food resources
         const ResourceURL = 'https://basicneeds.calpoly.edu/foodpantry' // URL of the resource 
 
-        const ParagraphText = $('.field-item.even p').first().text().trim() // Getting the paragraph text located in the field-item even class
-        const AccessingFoodPantry = $("#Accessing_the_Cal_Poly_Food_Pantry").parent().next().text().trim() 
-        const FoodSource = $("#Where_does_the_food_come_from").parent().next().text().trim() 
-
+        const ParagraphText = $('.field-item.even p').first().text().trim() // Getting the paragraph text located in the div and uses the classes field-item and even
+        const AccessingFoodPantry = $("#Accessing_the_Cal_Poly_Food_Pantry").parent().next().text().trim() // Getting the text for accessing the food pantry by looking at the id and getting the next sibling
+        const FoodSource = $("#Where_does_the_food_come_from").parent().next().text().trim() // Getting the text for the food source by looking at the id and getting the next sibling
 
         // Getting Location Information from the drop-down menu
-        const LocationInformation = $('p.ui-accordion-content[id = "ui-id-2"] span').text() 
-        const LocationParts = LocationInformation.split('\n').map(line => line.trim()) // split the text by new line and trim each line
-        const BuildingName = LocationParts[0] // Getting the building name
-        const Address = LocationParts[1] // Getting the address
-        const PhoneNumber = LocationParts[2] // Getting the phone number
+        const LocationInformation = $('#Location').parent().next().find("span").html().trim() // Getting the location information by looking at the id and getting the next sibling
+        const LocationParts = LocationInformation.split('<br>').map(line => line.trim()) // split the text by new line and trim each line
+        const BuildingName = LocationParts[0].replace("&amp;", "&") // Getting the building name and replace &amp; with &
+        const Address = LocationParts[1].split('&nbsp')[0] // Getting the address and split by &nbsp and get the first part
+        let PhoneNumber = LocationParts[2].split('&nbsp')[0] // Getting the phone number and split by &nbsp and get the first part
+        PhoneNumber = PhoneNumber.replace("Phone:", '') // remove all non-digit characters from the phone number
 
         // Store when the scraper last ran
         const currentTime = new Date() // get the current time
         const LastUpdate = currentTime.toISOString() // convert the time to ISO string
 
         // Getting the list of hours
-        
-        let ListOfHours = $("#Hours_for_Cal_Poly_Students").parent().next().text().trim();
-        ListOfHours = ListOfHours.split('.', 1)[0]
+        let ListOfHours = $("#Hours_for_Cal_Poly_Students").parent().next().text().trim(); // Getting the list of hours by looking at the id and getting the next sibling
+        ListOfHours = ListOfHours.split('.')[0] // split the text by '.' and get the first part
 
-        const FormattedHours = formatHoursFoodPantry(ListOfHours) // format the hours and save it
+        const FormattedHours = formatHoursFoodPantry(ListOfHours) // format the hours using the formatHoursFoodPantry function
         
         // Create a new resource object for the Food Pantry
         const foodPantryResource = new IndResources({
-            ImageURL: ImageURL,
-            imageAltText: ImageAltText,
             Title: Title,
+            ImageURL: ImageURL,
+            ImageAltText: ImageAltText,
             Address: Address,
             BuildingName: BuildingName,
             ParagraphText: ParagraphText,
             PhoneNumber: PhoneNumber,
             ResourceURL: ResourceURL,
             LastUpdate: LastUpdate,
+            WhatToExpect: '',
             Category: Category,
             ExtraInfo: [AccessingFoodPantry, FoodSource],
             ListOfHours: [FormattedHours],
-            WhatToExpect: ''
         })
         
-        const updatedResource = await IndResources.findByIdAndUpdate( // save the resource to the database)
-            {_id : "60a5a5661d9811d718c3d998"},
-            foodPantryResource,
-            {new : true}
+        const updatedResource = await IndResources.findByIdAndUpdate( // save the resource to the database using the id
+            {_id : "60a5a5661d9811d718c3d998"}, // id of the food pantry resource in MongoDB
+            foodPantryResource, // resource object to save
+            {new : true} 
         ); 
         
         res.json(foodPantryResource) // return the resource 
 
-    }  catch (error) {
+    }  catch (error) { // return an error if the scraper fails
         console.error('Scraping failed:', error)
         res.status(500).send('Error fetching food pantry data')
     }
 
-    
 })
-
-//TODO: Add the "||" statements for every single scrape in case it didn't work
