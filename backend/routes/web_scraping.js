@@ -69,7 +69,7 @@ const formatHours1 = (text) => {
 }
 
 const formatHoursFoodPantry = (text) => {
-    const hoursRegex = /(\w+) through (\w+) from (\d{1,2}):(\d{2})(AM|PM) to (\d{1,2}):(\d{2})(AM|PM)/ // regex pattern for hours
+    const hoursRegex = /.*\s+(\w+)\s+through\s+(\w+)\s+from\s+(\d{1,2}):(\d{2})(AM|PM)\s+to\s+(\d{1,2}):(\d{2})(AM|PM).*/ // regex pattern for hours
     const matchText = text.match(hoursRegex) // match the text with the pattern
 
     if (matchText) {
@@ -683,17 +683,15 @@ router.put('/sexual-reproductive-health', async (req, res) => {
     }
 })
 
-/* -------------------- FOOD PANTRY -------------------- */
-// Scraping the food pantry resources
+/* ------------------------- FOOD PANTRY ------------------------- */
 router.put('/scrapefoodpantry', async (req, res) => {
     try {
-        const webpage = await axios.get(
-            'https://basicneeds.calpoly.edu/foodpantry',
-        ) // fetch the webpage
-        const $ = cheerio.load(webpage.data) // load the webpage into cheerio
+        const webpage = await axios.get('https://basicneeds.calpoly.edu/foodpantry') // fetch the webpage
+        const $ = cheerio.load(webpage.data) // load the static webpage into cheerio
     
-        const ImageURL = $('img').attr('src') // Getting the image URL located in the img tag
-        const Title = $('h1.page-title').text().trim() // Getting the title located in the h1 page-title class
+        const ImageURL = $("#header-1 a img").attr("src") // Getting the image URL located in header-1 -> a -> img
+        const ImageAltText = "Cal Poly Food Pantry" // Alt text for the image
+        const Title = $('h1.page-title').text().trim() // Getting the title located in the page-title class
         const Category = 'Food Resources' // Category of the resource is food resources
         const ResourceURL = 'https://basicneeds.calpoly.edu/foodpantry' // URL of the resource 
 
@@ -714,12 +712,16 @@ router.put('/scrapefoodpantry', async (req, res) => {
         const LastUpdate = currentTime.toISOString() // convert the time to ISO string
 
         // Getting the list of hours
-        const listOfHours = $('#ui-id-4').text().trim() // Getting the paragraph with hours
-        const formattedHours = formatHoursFoodPantry(listOfHours) // format the hours and save it
+        
+        let ListOfHours = $("#Hours_for_Cal_Poly_Students").parent().next().text().trim();
+        ListOfHours = ListOfHours.split('.', 1)[0]
+
+        const FormattedHours = formatHoursFoodPantry(ListOfHours) // format the hours and save it
         
         // Create a new resource object for the Food Pantry
         const foodPantryResource = new IndResources({
             ImageURL: ImageURL,
+            imageAltText: ImageAltText,
             Title: Title,
             Address: Address,
             BuildingName: BuildingName,
@@ -729,7 +731,8 @@ router.put('/scrapefoodpantry', async (req, res) => {
             LastUpdate: LastUpdate,
             Category: Category,
             ExtraInfo: [AccessingFoodPantry, FoodSource],
-            ListOfHours: [formattedHours],
+            ListOfHours: [FormattedHours],
+            WhatToExpect: ''
         })
         
         const updatedResource = await IndResources.findByIdAndUpdate( // save the resource to the database)
