@@ -3,6 +3,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const IndResources = require('../models/IndividualResources')
 const router = express.Router()
+module.exports = router
 
 /* -------------------- HELPER FUNCTIONS -------------------- */
 // Function to convert full days to abbreviated form (eg. Monday -> Mon)
@@ -65,6 +66,22 @@ const formatHours1 = (text) => {
     days = days.replace(/M|T|W|Th|F|S|Su/g, (m) => dayMapping[m] || m)
 
     return `${days} ${startTime}-${endTime}`
+}
+
+const formatHoursFoodPantry = (text) => {
+    const hoursRegex = /(\w+) through (\w+) from (\d{1,2}):(\d{2})(AM|PM) to (\d{1,2}):(\d{2})(AM|PM)/ // regex pattern for hours
+    const matchText = text.match(hoursRegex) // match the text with the pattern
+
+    if (matchText) {
+        let [_, startDay, endDay, startHour, startMinute, startPeriod, endHour, endMinute, endPeriod] = matchText // split up matchText into variables
+        startDay = convertToShortDay(startDay) // convert days to short form
+        endDay = convertToShortDay(endDay) // convert days to short form
+
+        const daysRange = startDay === endDay ? startDay : `${startDay}-${endDay}` // format days
+
+        return `${daysRange} ${startHour}:${startMinute}${startPeriod} - ${endHour}:${endMinute}${endPeriod}` // return formatted hours
+    }
+    return 'Not found' // return empty string if no match
 }
 
 /* -------------------- COVID-19 -------------------- */
@@ -666,24 +683,7 @@ router.put('/sexual-reproductive-health', async (req, res) => {
     }
 })
 
-module.exports = router
-
-const formatListOfHours = (text) => {
-    const hoursRegex = /(\w+) through (\w+) from (\d{1,2}):(\d{2})(AM|PM) to (\d{1,2}):(\d{2})(AM|PM)/ // regex pattern for hours
-    const matchText = text.match(hoursRegex) // match the text with the pattern
-
-    if (matchText) {
-        let [_, startDay, endDay, startHour, startMinute, startPeriod, endHour, endMinute, endPeriod] = matchText // split up matchText into variables
-        startDay = convertToShortDay(startDay) // convert days to short form
-        endDay = convertToShortDay(endDay) // convert days to short form
-
-        const daysRange = startDay === endDay ? startDay : `${startDay}-${endDay}` // format days
-
-        return `${daysRange} ${startHour}:${startMinute}${startPeriod} - ${endHour}:${endMinute}${endPeriod}` // return formatted hours
-    }
-    return '' // return empty string if no match
-}
-
+/* -------------------- FOOD PANTRY -------------------- */
 // Scraping the food pantry resources
 router.put('/scrapefoodpantry', async (req, res) => {
     try {
@@ -692,18 +692,18 @@ router.put('/scrapefoodpantry', async (req, res) => {
         ) // fetch the webpage
         const $ = cheerio.load(webpage.data) // load the webpage into cheerio
     
-        const ImageURL = $('img').attr('src') // Getting the image URL
-        const Title = $('h1.page-title').text().trim() // Getting the title
-        const Category = 'Food Resources' // Category of the resource
-        const ResourceURL = 'https://basicneeds.calpoly.edu/foodpantry' // URL of the resource
+        const ImageURL = $('img').attr('src') // Getting the image URL located in the img tag
+        const Title = $('h1.page-title').text().trim() // Getting the title located in the h1 page-title class
+        const Category = 'Food Resources' // Category of the resource is food resources
+        const ResourceURL = 'https://basicneeds.calpoly.edu/foodpantry' // URL of the resource 
 
-        const ParagraphText = $('.field-item.even p').first().text().trim() // Getting the paragraph text
-        const AccessingFoodPantry = $('p.ui-accordion-content[id = "ui-id-8"] span').text().trim() // Getting text on how to access resource
-        const FoodSource = $('p.ui-accordion-content[id = "ui-id-11"] span').text().trim() // Getting the food source of food pantry
+        const ParagraphText = $('.field-item.even p').first().text().trim() // Getting the paragraph text located in the field-item even class
+        const AccessingFoodPantry = $("#Accessing_the_Cal_Poly_Food_Pantry").parent().next().text().trim() 
+        const FoodSource = $("#Where_does_the_food_come_from").parent().next().text().trim() 
 
 
         // Getting Location Information from the drop-down menu
-        const LocationInformation = $('p.ui-accordion-content[id = "ui-id-2"] span').text()
+        const LocationInformation = $('p.ui-accordion-content[id = "ui-id-2"] span').text() 
         const LocationParts = LocationInformation.split('\n').map(line => line.trim()) // split the text by new line and trim each line
         const BuildingName = LocationParts[0] // Getting the building name
         const Address = LocationParts[1] // Getting the address
@@ -714,8 +714,8 @@ router.put('/scrapefoodpantry', async (req, res) => {
         const LastUpdate = currentTime.toISOString() // convert the time to ISO string
 
         // Getting the list of hours
-        const ListOfHours = $('.ui-accordion-content[id = "ui-id-4"]').text().trim() // Getting the paragraph with horus
-        const formattedHours = formatListOfHours(ListOfHours) // format the hours and save it
+        const listOfHours = $('#ui-id-4').text().trim() // Getting the paragraph with hours
+        const formattedHours = formatHoursFoodPantry(listOfHours) // format the hours and save it
         
         // Create a new resource object for the Food Pantry
         const foodPantryResource = new IndResources({
@@ -732,10 +732,11 @@ router.put('/scrapefoodpantry', async (req, res) => {
             ListOfHours: [formattedHours],
         })
         
-        const updatedResource = await IndividualResources.findByIdAndUpdate(
+        const updatedResource = await IndResources.findByIdAndUpdate( // save the resource to the database)
             {_id : "60a5a5661d9811d718c3d998"},
             foodPantryResource,
-            {new : true}); // save the resource to the database)
+            {new : true}
+        ); 
         
         res.json(foodPantryResource) // return the resource 
 
@@ -748,5 +749,3 @@ router.put('/scrapefoodpantry', async (req, res) => {
 })
 
 //TODO: Add the "||" statements for every single scrape in case it didn't work
-
-module.exports = router
