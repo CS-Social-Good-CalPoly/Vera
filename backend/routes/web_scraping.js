@@ -3,6 +3,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const IndResources = require('../models/IndividualResources')
 const router = express.Router()
+module.exports = router
 
 /* -------------------- HELPER FUNCTIONS -------------------- */
 // Function to convert full days to abbreviated form (eg. Monday -> Mon)
@@ -65,6 +66,22 @@ const formatHours1 = (text) => {
     days = days.replace(/M|T|W|Th|F|S|Su/g, (m) => dayMapping[m] || m)
 
     return `${days} ${startTime}-${endTime}`
+}
+
+const formatHoursFoodPantry = (text) => {
+    const hoursRegex = /.*\s+(\w+)\s+through\s+(\w+)\s+from\s+(\d{1,2}):(\d{2})(AM|PM)\s+to\s+(\d{1,2}):(\d{2})(AM|PM).*/ // regex pattern for hours
+    const matchText = text.match(hoursRegex) // match the text with the pattern
+
+    if (matchText) {
+        let [_, startDay, endDay, startHour, startMinute, startPeriod, endHour, endMinute, endPeriod] = matchText // split up matchText into variables
+        startDay = convertToShortDay(startDay) // convert days to short form
+        endDay = convertToShortDay(endDay) // convert days to short form
+
+        const daysRange = startDay === endDay ? startDay : `${startDay}-${endDay}` // format days
+
+        return `${daysRange} ${startHour}:${startMinute}${startPeriod} - ${endHour}:${endMinute}${endPeriod}` // return formatted hours
+    }
+    return 'Not found' // return empty string if no match
 }
 
 /* -------------------- COVID-19 -------------------- */
@@ -666,6 +683,7 @@ router.put('/sexual-reproductive-health', async (req, res) => {
     }
 })
 
+/* -------------------- EMOTIONAL WELLBEING -------------------- */
 router.put('/emotional-wellbeing', async (req, res) => {
     try {
         const url = 'https://chw.calpoly.edu/counseling/emotional-wellbeing-workshops';
@@ -748,5 +766,72 @@ router.put('/emotional-wellbeing', async (req, res) => {
         })
     }
 });
+
+/* ------------------------- FOOD PANTRY ------------------------- */
+router.put('/scrapefoodpantry', async (req, res) => {
+    try {
+        const webpage = await axios.get('https://basicneeds.calpoly.edu/foodpantry') // fetch the webpage
+        const $ = cheerio.load(webpage.data) // load the static webpage into cheerio
+    
+        const ImageURL = $("#header-1 a img").attr("src") // Getting the image URL located in header-1 -> a -> img
+        const ImageAltText = "Cal Poly Food Pantry" // Alt text for the image
+        const Title = $('h1.page-title').text().trim() // Getting the title located in the page-title class
+        const Category = 'Food Resources' // Category of the resource is food resources
+        const ResourceURL = 'https://basicneeds.calpoly.edu/foodpantry' // URL of the resource 
+
+        const ParagraphText = $('.field-item.even p').first().text().trim() // Getting the paragraph text located in the div and uses the classes field-item and even
+        const AccessingFoodPantry = $("#Accessing_the_Cal_Poly_Food_Pantry").parent().next().text().trim() // Getting the text for accessing the food pantry by looking at the id and getting the next sibling
+        const FoodSource = $("#Where_does_the_food_come_from").parent().next().text().trim() // Getting the text for the food source by looking at the id and getting the next sibling
+
+        // Getting Location Information from the drop-down menu
+        const LocationInformation = $('#Location').parent().next().find("span").html().trim() // Getting the location information by looking at the id and getting the next sibling
+        const LocationParts = LocationInformation.split('<br>').map(line => line.trim()) // split the text by new line and trim each line
+        const BuildingName = LocationParts[0].replace("&amp;", "&") // Getting the building name and replace &amp; with &
+        const Address = LocationParts[1].split('&nbsp')[0] // Getting the address and split by &nbsp and get the first part
+        let PhoneNumber = LocationParts[2].split('&nbsp')[0] // Getting the phone number and split by &nbsp and get the first part
+        PhoneNumber = PhoneNumber.replace("Phone:", '') // remove all non-digit characters from the phone number
+
+        // Store when the scraper last ran
+        const currentTime = new Date() // get the current time
+        const LastUpdate = currentTime.toISOString() // convert the time to ISO string
+
+        // Getting the list of hours
+        let ListOfHours = $("#Hours_for_Cal_Poly_Students").parent().next().text().trim(); // Getting the list of hours by looking at the id and getting the next sibling
+        ListOfHours = ListOfHours.split('.')[0] // split the text by '.' and get the first part
+
+        const FormattedHours = formatHoursFoodPantry(ListOfHours) // format the hours using the formatHoursFoodPantry function
+        
+        // Create a new resource object for the Food Pantry
+        const foodPantryResource = new IndResources({
+            _id: "60a5a5661d9811d718c3d998", // id of the food pantry resource in MongoDB
+            Title: Title,
+            ImageURL: ImageURL,
+            ImageAltText: ImageAltText,
+            Address: Address,
+            BuildingName: BuildingName,
+            ParagraphText: ParagraphText,
+            PhoneNumber: PhoneNumber,
+            ResourceURL: ResourceURL,
+            LastUpdate: LastUpdate,
+            WhatToExpect: '',
+            Category: Category,
+            ExtraInfo: [AccessingFoodPantry, FoodSource],
+            ListOfHours: [FormattedHours],
+        })
+        
+        const updatedResource = await IndResources.findByIdAndUpdate( // save the resource to the database using the id
+            {_id : "60a5a5661d9811d718c3d998"}, // id of the food pantry resource in MongoDB
+            foodPantryResource, // resource object to save
+            {new : true} 
+        ); 
+        
+        res.json(foodPantryResource) // return the resource 
+
+    }  catch (error) { // return an error if the scraper fails
+        console.error('Scraping failed:', error)
+        res.status(500).send('Error fetching food pantry data')
+    }
+
+})
 
 module.exports = router
