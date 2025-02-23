@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './HomePage.css'
+import './ResourcePage.css'
 import bg from '../../components/Banner/bannerBackground.jpg'
 import veraLogo from '../../components/Banner/draftLogo.png'
 import {
@@ -10,7 +10,7 @@ import {
 import '../../links.js'
 import URL_PATH from '../../links.js'
 
-function HomePage({ setActiveLink }) {
+function ResourcePage({ setActiveLink }) {
     // Hook to keep track of the categories to be loaded from the database.
     const [categorNames, setCategorNames] = useState([])
 
@@ -109,4 +109,4 @@ function HomePage({ setActiveLink }) {
     )
 }
 
-export default HomePage
+export default ResourcePage
