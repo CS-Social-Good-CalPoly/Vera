@@ -26,7 +26,9 @@
 .column5 {
     align-content: center;
     display: flex;
+    /* flex-direction: column; */
     flex-direction: column;
+    flex-wrap: wrap; 
     float: left;
     font-size: 22px;
     height: 180px;
@@ -35,12 +37,6 @@
     padding-right: 50px;
     text-align: left;
     margin-left: 50px;
-    /* align-items: flex-end;
-    flex-direction: column;
-    display: flex;
-    float: left;
-    font-size: 20px;
-    padding-left: 40px; */
 }
 @media only screen and (max-width: 768px) {
     .column1{
@@ -50,7 +46,20 @@
     }
 }
 
+.inline-text, a {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+}
 
+.inline-container {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    align-items: center;
+    gap: 10px;
+}
+  
 .column3 {
     align-content: center;
     display: flex;
