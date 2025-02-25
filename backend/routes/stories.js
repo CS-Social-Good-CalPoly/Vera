@@ -355,6 +355,39 @@ router.put('/generalstorycat', async (req, res) => {
     }
 })
 
+router.put('/updateStory', async (req, res) => {
+    const { storyId, token, ...updates } = req.body
+
+    // check if the token is valid
+    const tokenExists = await Tokens.findOne({ Value: token })
+    if (!tokenExists) {
+        return res.status(400).json({ message: 'Invalid token' })
+    }
+    if (!tokenExists.AssociatedStories.includes(storyId)) {
+        return res.status(400).json({
+            message: 'Token does not have access to this story',
+        })
+    }
+
+    try {
+        const updatedStory = await IndStories.findByIdAndUpdate(
+            storyId,
+            {
+                $set: { Approved: true, ...updates },
+            },
+            { new: true },
+        )
+        if (updatedStory) {
+            res.json(updatedStory)
+        } else {
+            res.status(404).json({ message: 'Story not found.' })
+        }
+    } catch (err) {
+        console.error('Error updating story:', err)
+        res.status(500).json({ message: err.message })
+    }
+})
+
 // DELETE route for admin to delete stories
 // Create the backend endpoint /deleteIndividualStory
 // Input: JSON with individualStoryId to delete, e.g., {"individualStoryId": "someId"}
