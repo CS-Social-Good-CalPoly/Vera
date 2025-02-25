@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
     StoryBanner,
     StoryTileGroup,
+    DropDownSelectForm,
     DropDownForm,
 } from '../../components/components.js'
 import URL_PATH from '../../links.js'
@@ -70,11 +71,19 @@ function StoriesPage({ setActiveLink }) {
                 imageUrl="https://images.unsplash.com/photo-1506962240359-bd03fbba0e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2065&q=80"
                 displayButton="true"
             />
-            <DropDownForm
+            <DropDownSelectForm
                 fieldTitle="All Categories"
-                myoptions={categoryNames}
+                myoptions={[
+                    { value: '', label: 'Show All' },
+                    ...categoryNames.map((major) => ({
+                        value: major,
+                        label: major,
+                    })),
+                ]}
                 handleChange={handleCategoryChange}
-                hasShowAll={true}
+                customStyles={{
+                    margin: '10px 5px 20px 5px',
+                }}
             />
             <StoryTileGroup
                 key="all-stories"
