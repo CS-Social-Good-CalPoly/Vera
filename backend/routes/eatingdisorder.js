@@ -3,117 +3,165 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 
 const router = express.Router()
-const TreatmentrecoverySchema = require('../models/Treatmentrecovery')
+const IndResources = require('../models/IndividualResources')
 
-// Major and Colleges
+// module.exports = router
 
-// global list of colleges
-// order matters since we use it to get the sub url for each college by index
-// this should reflect the order of colleges in the catalog (https://catalog.calpoly.edu/collegesanddepartments/)
-// const colleges = ['CAFES', 'CAED', 'OCOB', 'CENG', 'CLA', 'COSAM']
-
-router.get('/test', async (req, res) => {
-    res.json({ message: 'scraper is working' })
-})
-
-// PUT route for updating all the colleges
-// Use to sync all 6 colleges
-router.put('/eating_disorder_treatment', async (req, res) => {
-    try {
-        // Iterate over the colleges and update the database
-        for (const college of colleges) {
-            // call the college_majors route to update the college
-            await axios.put(
-                'http://localhost:3001/colleges_scraper/college_majors',
-                { college },
-            )
-        }
-        res.json({ message: 'Colleges synced successfully' })
-    } catch (error) {
-        console.error('Scrapping failed:', error)
-        res.status(500).send('Error syncing College data')
+const convertToShortDay = (day) => {
+    const daysMap = {
+        Monday: 'Mon',
+        Tuesday: 'Tue',
+        Wednesday: 'Wed',
+        Thursday: 'Thu',
+        Friday: 'Fri',
+        Saturday: 'Sat',
+        Sunday: 'Sun',
     }
-})
+    return daysMap[day] || day
+}
 
-// PUT route for updating colleges and majors
-// Scrape the data for a specific college (in the body)
-router.put('/college_majors', async (req, res) => {
+const formatHours = (text) => {
+    const daysTimePattern =
+        /(\w+)(?: to (\w+))? (\d{1,2}am|\d{1,2}pm) - (\d{1,2}am|\d{1,2}pm)/
+    const match = text.match(daysTimePattern)
+
+    if (match) {
+        let [_, startDay, endDay, startTime, endTime] = match
+
+       
+        startDay = convertToShortDay(startDay)
+        endDay = endDay ? convertToShortDay(endDay) : startDay 
+
+        const daysRange =
+            startDay === endDay ? startDay : `${startDay}-${endDay}`
+        return `${daysRange} ${startTime}-${endTime}`
+    }
+
+    return ''
+}
+
+// GET route for all individual resources
+router.put('/eating-disorder-treatment', async (req, res) => {
     try {
-        // Extract the college and majors from the request body
-        const { college } = req.body
+        const response = await axios.get('https://chw.calpoly.edu/counseling/eating-disorder-treatment')
+        const $ = cheerio.load(response.data)
+        // For now we are going to hardcode the eating-disorder_id
+        let eating_disorder_id = '67988afa0813b31428b7e80d'
 
-        // Load sub urls for each college in colleges list
-        const parent_url = 'https://catalog.calpoly.edu/collegesanddepartments/'
-        const parentResponse = await axios.get(parent_url)
-        let $ = cheerio.load(parentResponse.data)
-        let urlSuffixes = {}
-        $('p')
-            .find('a')
+        // Extract header information
+        const title =
+            $('meta[property="og:title"]').attr('content') ||
+            $('title').text() ||
+            $('meta[name="title"]').attr('content')
+        const url = $('meta[property="og:url"]').attr('content')
+
+        // Extract image information
+        const image = $('a[class="Header-branding"]')
+            .children('img')
+            .attr('src')
+        const image_alt = $('a[class="Header-branding"]')
+            .children('img')
+            .attr('alt')
+
+        // Regex for extracting phone numbers, emails, and days of the week
+        const daysRegex =
+            /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/
+
+        const phoneRegex =
+            /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
+        // Note: modified so that first character cannot be a number (specific to Cal Fresh)
+        const emailRegex =
+            /[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+
+        // Extract footer information
+        const widget_info = []
+        const list_of_hours = []
+        let phoneNum
+        let email // extracted but not used (can add)
+        $('widgets')
+            .find('p')
             .each((_index, element) => {
-                const $collegeUrl = $(element).attr('href')
-                const collegeName = colleges[_index]
-                if (collegeName) {
-                    urlSuffixes[collegeName] = $collegeUrl
+                const $widget_info_text = $(element).text().trim()
+                // If a day of the week is found : (likely for list of hours)
+                if (daysRegex.test($widget_info_text)) {
+                    const formattedDate = $widget_info_text
+                        .split('\n') // Split by newline for multiple ranges
+                        .map(formatHours) // Format each part
+                        .join(' \n') // Join them back with a newline
+                    list_of_hours.push(formattedDate)
+                    // Check if phone number or email is found
+                } else if (
+                    phoneRegex.test($widget_info_text) ||
+                    emailRegex.test($widget_info_text)
+                ) {
+                    phoneNum = $widget_info_text.match(phoneRegex)[0]
+                    email = $widget_info_text.match(emailRegex)[0]
+                    // Any other footer info we can put extract
+                } else {
+                    widget_info.push($(element).text().trim())
                 }
             })
 
-        // Check if the college in the body is valid
-        if (!(college in urlSuffixes)) {
-            return res.status(400).send('Invalid college')
-        }
-
-        // Get the complete url to scrape for majors
-        const scrapping_url =
-            'https://catalog.calpoly.edu' + urlSuffixes[college]
-
-        const response = await axios.get(scrapping_url)
-        $ = cheerio.load(response.data)
-
-        // Extract the majors from the page
-        const BSMSregex =
-            /(?:^|\s*,\s*)(BS|MS|MBA|BA|BLA|BArch)\S*(?:$|\s*,\s*)/i
-        const majorsList = []
-
-        // Select only the first table with the summary of "Program Names"
-        $('table[summary="Program Names"]')
-            .first()
-            .find('td')
+        // Extract main text information
+        const mainText = []
+        $('section[class="Index-page"]')
+            .find('p')
             .each((_index, element) => {
-                if (_index % 2 == 0) {
-                    // check if the second element (program descripition) contains "BS" or "MS"
-                    // if we want minors, or specializations then we can remove this check
-                    const $major = $(element).text().trim()
-                    const $degreeCell = $(element).next() // Get the next sibling <td>
-                    if ($degreeCell.length > 0) {
-                        const degree = $degreeCell.text().trim().toUpperCase()
-                        if (
-                            BSMSregex.test(degree) &&
-                            !degree.includes('-MS') &&
-                            !degree.includes('-BS')
-                        ) {
-                            majorsList.push($major)
-                        }
-                    }
-                }
+                const $paragraphText = $(element).text().trim()
+                mainText.push($paragraphText)
             })
 
-        // Upsert the data into the database
-        const updatedCollegeMajors = await CollegeMajors.updateOne(
-            { College: college },
-            { $set: { Majors: majorsList } },
-            { upsert: true, new: true },
+        // Extract extra information
+        const extraInfo = []
+        const applyLink = $('div[id="dropdown-1"]').find('a').attr('href')
+        const proof = $('div[id="dropdown-2"]')
+            .children('ul')
+            .text()
+            .split('\n')
+            .map((line) => line.trim())
+            .filter((line) => line !== '') // Remove any empty lines
+            .join('\n') // Join the lines back together into a single string
+        // const refsheet =
+        //     'https://images.squarespace-cdn.com/content/v1/5d23bd3e183a68000117b01d/ce8382f3-1224-4036-9d63-5035c81bf0c4/updated+what+is+calfresh+web.jpg'
+        // extraInfo.push(applyLink)
+        // extraInfo.push(proof)
+        // extraInfo.push(refsheet)
+
+        // Calculate current time
+        const currentTime = new Date()
+
+        // Store the resourceData into the database
+        const newResource = new IndResources({
+            _id: eating_disorder_id,
+            ImageURL: image,
+            ImageAltText: image_alt,
+            Title: title,
+            // Address: footer_info[0],
+            // ParagraphText: mainText[0],
+            // PhoneNumber: phoneNum,
+            // ResourceURL: url,
+            // LastUpdate: currentTime,
+            // Category: 'Food Resources',
+            // ListOfHours: list_of_hours,
+            // ExtraInfo: extraInfo,
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: eating_disorder_id },
+            newResource,
+            { new: true },
         )
 
-        if (!updatedCollegeMajors) {
+        if (!updatedResource) {
             return res.status(404).send('Resource not found')
         }
 
         // Respond with the updated resource
-        res.json(updatedCollegeMajors)
+        res.json(newResource)
     } catch (error) {
         console.error('Scrapping failed:', error)
-        res.status(500).send('Error fetching College data')
+        res.status(500).send('Error fetching Eating Disorder data')
     }
 })
 
-module.exports = router
+// model.express = router
