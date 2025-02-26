@@ -37,6 +37,7 @@
     padding-right: 50px;
     text-align: left;
     margin-left: 50px;
+    
 }
 @media only screen and (max-width: 768px) {
     .column1{
@@ -50,6 +51,11 @@
     display: flex; 
     flex-direction: row; 
     flex-wrap: wrap; 
+    color: white;
+}
+
+a:hover {
+    color: white;  
 }
 
 .inline-container {
