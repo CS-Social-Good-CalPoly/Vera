@@ -4,6 +4,7 @@ import {
     DropDownOptionalForm,
     StorySubmissionPopUp,
     StoryBanner,
+    DropDownSelectForm,
 } from '../components.js'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -133,7 +134,9 @@ function StorySubmission() {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_names_lst = res.data.map((item, index) => item.Title)
+                const category_names_lst = res.data.map(
+                    (item, index) => item.Title,
+                )
                 const category_lst = res.data.map((item, index) => item)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
@@ -154,6 +157,11 @@ function StorySubmission() {
         '4th Year',
         '5th+ Year',
     ]
+
+    const yearOptions = yearList.map((year, index) => ({
+        value: year,
+        label: year,
+    }))
 
     function verifySubmission(e) {
         // if an option is selected, the value is stored as 1 at the moment
@@ -345,26 +353,23 @@ function StorySubmission() {
     }
 
     const customStyles = {
-        control: (provided) => ({
-            ...provided,
-            padding: '3px',
-            paddingLeft: '20px',
-            fontFamily: 'Poppins',
-            fontStyle: 'normal',
-            fontWeight: 600,
-            fontSize: '16px',
-            letterSpacing: '0.05em',
-            textTransform: 'uppercase',
-            width: '100%',
-            color: '#534D49',
-            borderColor: 'white',
-            margin: '0px 0px 7% 0px',
-            background: 'white',
-            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-            borderRadius: '20px',
-            border: '.5px solid rgba(0, 0, 0, 0.25)',
-            textOverflow: 'ellipsis',
-        }),
+        padding: '3px',
+        paddingLeft: '20px',
+        fontFamily: 'Poppins',
+        fontStyle: 'normal',
+        fontWeight: 600,
+        fontSize: '16px',
+        letterSpacing: '0.05em',
+        textTransform: 'uppercase',
+        width: '100%',
+        color: '#534D49',
+        borderColor: 'white',
+        margin: '0px 0px 7% 0px',
+        background: 'white',
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        borderRadius: '20px',
+        border: '.5px solid rgba(0, 0, 0, 0.25)',
+        textOverflow: 'ellipsis',
     }
 
     return (
@@ -383,47 +388,44 @@ function StorySubmission() {
                     <div class="input-outer-container">
                         <div class="inner-container-box">
                             <div>
-                                <DropDownForm
+                                <DropDownSelectForm
                                     fieldTitle="Year"
-                                    myoptions={yearList}
+                                    myoptions={yearOptions}
+                                    customStyles={customStyles}
                                     handleChange={handleYearChange}
                                 />
                             </div>
                             <div>
-                                <DropDownForm
-                                    key={major}
+                                <DropDownSelectForm
                                     fieldTitle={college ? college : 'College'}
                                     myoptions={[
                                         ...new Set(Object.values(collegeDict)),
                                     ]}
                                     handleChange={handleCollegeChange}
+                                    customStyles={customStyles}
                                     disabled={isCollegeDropdownDisabled}
                                 />
                             </div>
                         </div>
                         <div class="inner-container-box">
-                            <DropDownOptionalForm
+                            {/* <DropDownOptionalForm
                                 fieldTitle="Major (optional)"
                                 myoptions={Object.keys(collegeDict).sort()}
                                 handleChange={handleMajorChange}
+                            /> */}
+                            <DropDownSelectForm
+                                fieldTitle="Major"
+                                myoptions={Object.keys(collegeDict).sort()}
+                                handleChange={handleMajorChange}
+                                customStyles={customStyles}
                             />
                             <div>
-                                {/* <DropDownForm
-                                    fieldTitle="Category"
-                                    myoptions={categoryNamesList}
+                                <DropDownSelectForm
+                                    fieldTitle="Categories"
+                                    myoptions={categoryOptions}
                                     handleChange={handleCategoryChange}
-                                /> */}
-                                <Select
-                                    styles={customStyles}
-                                    options={categoryOptions}
-                                    placeholder="Categories"
                                     isMulti
-                                    onChange={(selectedOptions) => {
-                                        const selectedIds = selectedOptions.map(
-                                            (option, index) => option.value,
-                                        )
-                                        handleCategoryChange(selectedOptions)
-                                    }}
+                                    customStyles={customStyles}
                                 />
                             </div>
                         </div>

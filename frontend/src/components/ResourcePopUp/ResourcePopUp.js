@@ -22,7 +22,7 @@ function ResourcePopUp({ id }) {
                 )
             })
             .catch((error) => console.error(error))
-    }, [])
+    }, [id])
 
     useEffect(() => {
         if (!currResource || !currResource.ResourceIDList) return

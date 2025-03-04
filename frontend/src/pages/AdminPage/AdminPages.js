@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
-import { DropDownForm, Modal } from '../../components/components.js'
+import {
+    DropDownForm,
+    DropDownSelectForm,
+    Modal,
+} from '../../components/components.js'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
@@ -155,11 +159,19 @@ function AdminPages({ setActiveLink }) {
             )}
             <div className="dropdown-container">
                 {/* Drop down for filtering by major*/}
-                <DropDownForm
+                <DropDownSelectForm
                     fieldTitle="All Majors"
-                    myoptions={categoryNames}
+                    myoptions={[
+                        { value: '', label: 'Show All' },
+                        ...categoryNames.map((major) => ({
+                            value: major,
+                            label: major,
+                        })),
+                    ]} // Convert the major to an object with a value and label
                     handleChange={handleFilter}
-                    hasShowAll={true}
+                    customStyles={{
+                        width: '400px',
+                    }}
                 />
                 {/* Buttons for reviewing */}
 
@@ -179,7 +191,7 @@ function AdminPages({ setActiveLink }) {
                 </button>
             </div>
 
-            <div>
+            <div className="mt-4">
                 {stories
                     .filter((story) => {
                         const isOther =

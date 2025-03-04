@@ -11,6 +11,7 @@ export { default as CategoryDescription } from './CategoryDescription/CategoryDe
 export { default as StorySubmission } from './StorySubmission/StorySubmission.js'
 export { default as DropDownForm } from './DropDownForm/DropDownForm.js'
 export { default as DropDownOptionalForm } from './DropDownOptionalForm/DropDownOptionalForm.js'
+export { default as DropDownSelectForm } from './DropDownSelectForm/DropDownSelectForm.js'
 export { default as StoryTileGroup } from './StoryTileGroup/StoryTileGroup.js'
 export { default as IndividualResourceTileGroup } from './IndividualResourceTileGroup/IndividualResourceTileGroup.js'
 export { default as StoryPopUp } from './StoryPopUp/StoryPopUp.js'
