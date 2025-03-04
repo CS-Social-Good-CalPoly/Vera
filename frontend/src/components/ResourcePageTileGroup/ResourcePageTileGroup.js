@@ -19,6 +19,11 @@ function ResourcePageTileGroup({ id, title, resources }) {
                 {resources.map((resource, index) => (
                     <ResourcePageTile
                         key={index}
+                        id={
+                            resource && resource._id
+                                ? resource._id
+                                : 'resource_id_was_not_found'
+                        }
                         infoText={resource.LongDescription}
                         title={resource.Title}
                         imageUrl={resource.ImageURL}

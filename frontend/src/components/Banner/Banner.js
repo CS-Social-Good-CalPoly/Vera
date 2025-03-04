@@ -9,6 +9,7 @@ function Banner(props) {
                 backgroundImage: `url(${props.imageUrl})`,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
             }}
         >
             <div className="textCol">
@@ -16,7 +17,8 @@ function Banner(props) {
                 <h2 className="header2">{props.tagline1}</h2>
                 <h2 className="header3">{props.tagline2}</h2>
             </div>
-            <img className="logo" src={props.logo} alt="logo" />
+            {/* Only render the logo if props.logo exists */}
+            {props.logo && <img className="logo" src={props.logo} alt="" />}
         </div>
     )
 }

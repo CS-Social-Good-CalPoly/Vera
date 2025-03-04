@@ -1,9 +1,10 @@
 import './App.css'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Footer, NavBar } from './components/components.js'
 import { useState } from 'react'
 import {
-    HomePage,
+    ResourcePage,
     IndividualResourcePage,
     StoriesPage,
     StorySubmissionPage,
@@ -20,18 +21,24 @@ function App() {
             <NavBar activeLink={activeLink} />
             <div id="page">
                 <Switch>
-                    <Route exact path="/" component={() => <LandingPage />} />
                     <Route
                         exact
-                        path="/resources"
+                        path="/"
                         component={() => (
-                            <HomePage setActiveLink={setActiveLink} />
+                            <LandingPage setActiveLink={setActiveLink} />
                         )}
                     />
                     <Route
                         exact
-                        path="/individualResource"
+                        path="/resources"
                         component={() => (
+                            <ResourcePage setActiveLink={setActiveLink} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/individualResource/:id"
+                        render={() => (
                             <IndividualResourcePage
                                 setActiveLink={setActiveLink}
                             />
@@ -71,7 +78,7 @@ function App() {
                     />
                 </Switch>
             </div>
-            <Footer />
+            <Footer activeLink={activeLink} />
         </div>
     )
 }

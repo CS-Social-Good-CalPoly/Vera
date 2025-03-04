@@ -133,10 +133,8 @@ function StorySubmission() {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_names_lst = res.data.map((item) => item.Title)
-                const category_lst = res.data.map((item) => item)
-                console.log(category_names_lst)
-                console.log(category_lst)
+                const category_names_lst = res.data.map((item, index) => item.Title)
+                const category_lst = res.data.map((item, index) => item)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
@@ -144,7 +142,7 @@ function StorySubmission() {
     }, [])
 
     // react-select Select takes value and label objects as category options
-    const categoryOptions = categoryList.map((category) => ({
+    const categoryOptions = categoryList.map((category, index) => ({
         value: category._id,
         label: category.Name,
     }))
@@ -162,9 +160,12 @@ function StorySubmission() {
     }
 
     async function handlePopUp(e) {
+        // NOTE: TEMPORARY FIX UNTIL ISSUES #336 AND #337 ARE COMPLETE
+        // Temporarily removes college requirement
+        // remove these comments and restore college requirement when working on ISSUE #337
         if (
             year === '' ||
-            college === '' ||
+            // college === '' ||
             quillValue === '' ||
             title === ''
         ) {
@@ -419,7 +420,7 @@ function StorySubmission() {
                                     isMulti
                                     onChange={(selectedOptions) => {
                                         const selectedIds = selectedOptions.map(
-                                            (option) => option.value,
+                                            (option, index) => option.value,
                                         )
                                         handleCategoryChange(selectedOptions)
                                     }}

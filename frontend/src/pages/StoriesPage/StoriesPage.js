@@ -42,10 +42,9 @@ function StoriesPage({ setActiveLink }) {
                 const allStories = json.map((story) => ({
                     ...story,
                     RelevantCategoryList: story.RelevantCategoryList.map(
-                        (catId) => idToName[catId] || catId,
+                        (catId, index) => idToName[catId] || catId,
                     ),
                 }))
-                console.log('all stories', allStories)
                 setStories(allStories)
             })
             .catch((error) => console.error(error))
@@ -65,6 +64,37 @@ function StoriesPage({ setActiveLink }) {
           )
         : stories
 
+    /* function to get stories for a specific token - not in use yet */
+    const getStoriesByToken = () => {
+            const tokenValue = '' // make into state when we have an input for this
+            const params = new URLSearchParams({
+                token: tokenValue
+            })
+
+            // URL_PATH imported from frontend/src/links.js
+            // combined with subdirectory to make the full URL
+            const subdirectory = '/stories/stories-by-token'
+            fetch(`${URL_PATH}${subdirectory}?${params}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    // Create a list of all stories
+                    const allStories = json.map((story) => ({
+                        ...story,
+                        RelevantCategoryList: story.RelevantCategoryList.map(
+                            (catId, index) => idToName[catId] || catId,
+                        ),
+                    }))
+                    console.log(allStories)
+                    // eventually, set state to this result
+                })
+                .catch((error) => console.error(error))
+        }
+
     return (
         <div>
             <StoryBanner
@@ -72,9 +102,10 @@ function StoriesPage({ setActiveLink }) {
                 displayButton="true"
             />
             <DropDownForm
-                fieldTitle="Categories"
+                fieldTitle="All Categories"
                 myoptions={categoryNames}
                 handleChange={handleCategoryChange}
+                hasShowAll={true}
             />
             <StoryTileGroup
                 key="all-stories"

@@ -2,7 +2,7 @@ import React from 'react'
 import './Footer.css'
 import { Link } from 'react-router-dom'
 
-function Footer() {
+function Footer({ activeLink }) {
     return (
         <footer className="main-footer">
             <div className="column5">
@@ -27,7 +27,7 @@ function Footer() {
                     onClick={() => {
                         window.scroll(0, 0)
                     }}
-                    className="footer-links"
+                    className={`footer-links ${activeLink === '/Resources' ? 'active' : ''}`}
                     to="/Resources"
                 >
                     {' '}
@@ -37,7 +37,7 @@ function Footer() {
                     onClick={() => {
                         window.scroll(0, 0)
                     }}
-                    className="footer-links"
+                    className={`footer-links ${activeLink === '/Stories' ? 'active' : ''}`}
                     to="/Stories"
                 >
                     {' '}
@@ -47,7 +47,7 @@ function Footer() {
                     onClick={() => {
                         window.scroll(0, 0)
                     }}
-                    className="footer-links"
+                    className={`footer-links ${activeLink === '/StorySubmission' ? 'active' : ''}`}
                     to="/StorySubmission"
                 >
                     {' '}

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './LandingPage.css'
 import cp from '../../components/LandingBanner/calpoly.jpg'
 import resource_img from '../../components/PhotoBanner/plant_hand.jpg'
@@ -10,7 +11,10 @@ import {
 } from '../../components/components.js'
 import '../../links.js'
 
-function LandingPage(){
+function LandingPage({ setActiveLink }){
+  useEffect(() => {
+    setActiveLink('/');
+  }, []);
 
   return (
     <div className='landing-page'>
