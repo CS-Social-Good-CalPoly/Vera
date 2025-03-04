@@ -20,15 +20,50 @@
     font-size: 16px;
     height: 153px;
     padding-left: 40px;
-    padding-left: 20px;
+    /* padding-left: 20px; */
 }
 
+.column5 {
+    align-content: center;
+    display: flex;
+    /* flex-direction: column; */
+    flex-direction: column;
+    flex-wrap: wrap; 
+    float: left;
+    font-size: 22px;
+    height: 180px;
+    justify-content: center;
+    line-height: 33px;
+    padding-right: 50px;
+    text-align: left;
+    margin-left: 50px;
+    
+}
 @media only screen and (max-width: 768px) {
     .column1 {
         font-size: 8px;
         height: 60px;
         padding-left: 20px;
     }
+}
+
+.inline-text, a {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    color: white;
+}
+
+a:hover {
+    color: white;  
+}
+
+.inline-container {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    align-items: center;
+    gap: 10px;
 }
 
 .column3 {
@@ -65,9 +100,9 @@
     color: white;
 }
 
-/* .footer-links:after {
-    color: white;
-} */
+.footer-links:after{
+    color:white;
+}
 
 @media only screen and (max-width: 768px) {
     a:-webkit-any-link {
