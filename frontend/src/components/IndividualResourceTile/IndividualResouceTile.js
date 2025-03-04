@@ -3,6 +3,7 @@ import IndividualResourceTileCollapsed from './IndividualResourceTileCollapsed.j
 import IndividualResourceTileExpanded from './IndividualResourceTileExpanded.jsx'
 
 function IndividualResourceTile(props) {
+    console.log(props.title, props.extraInfo)
     const [expanded, setExpanded] = useState(false)
 
     const handleChange = () => setExpanded(!expanded)
@@ -15,7 +16,7 @@ function IndividualResourceTile(props) {
             buildingName={props.buildingName}
             address={props.address}
             description={props.description}
-            toExpect={props.toExpect}
+            extraInfo ={props.extraInfo}
             phone={props.phone}
             hours={props.hours}
             link={props.link}

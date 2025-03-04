@@ -21,7 +21,7 @@ function IndividualResourceTileGroup({ id, title, resources }) {
                         description={resource.ParagraphText}
                         buildingName={resource.Building}
                         address={resource.Address}
-                        toExpect={resource.WhatToExpect}
+                        extraInfo={resource.ExtraInfo}
                         phone={resource.PhoneNumber}
                         hours={resource.ListOfHours}
                         link={resource.ResourceURL}

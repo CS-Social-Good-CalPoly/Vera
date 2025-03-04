@@ -8,14 +8,14 @@ import { Container, Row, Col } from 'react-bootstrap';
  * buildingName: STRING = The resource's building name
  * address: STRING = The resource's address
  * description: STRING = it's description
- * toExpect: LIST OF STRING = A list of string of what to expect
+ * extraInfo: LIST OF STRING = A list of string of extra info
  * phone: STRING = Phone number
  * hours: LIST of string = resource's open hours
  * link: STRING = Link to the resource
  * imgUrl: STRING = Image source
  */
 
-function ResourceTile(props) {
+function ResourceTile(props) { // props: title, buildingName, address, description, extraInfo, phone, hours, link, imgUrl
 
     return (
         <Container className="resource-tile-expanded">
@@ -28,12 +28,12 @@ function ResourceTile(props) {
                             <p>{props.address}</p>
                         </div>
                         <p className="resource-tile-expanded-text-description">{props.description}</p>
-                        <Row className="resource-tile-expanded-text-group-toExpect-phone-hour">
+                        <Row className="resource-tile-expanded-text-group-extraInfo-phone-hour">
                             <Col xs={12} md={5} className="resource-tile-expanded-text-group-phone-hour">
                                 <p className="resource-tile-expanded-text-phone"><strong>Phone: </strong> {props.phone}</p>
                                 <Hours hours={props.hours} />
                             </Col>
-                            <WhatToExpect toExpect={props.toExpect} />
+                            <ExtraInfo extraInfo={props.extraInfo} />
                         </Row>
                         <a href={props.link} target="_blank" rel="noreferrer" className="resource-tile-expanded-button">Visit Resource Site</a>
                     </div>
@@ -55,20 +55,22 @@ function Hours(props){
         <div className="resource-tile-expanded-text-hours"><strong>Hours: </strong> 
             <div className="resource-tile-expanded-text-hours-item-container">
                 {props.hours.map((item, i) => (
-                    <p className="resource-tile-expanded-text-hours-item">{item}</p>
+                    <p className="resource-tile-expanded-text-hours-item" key = {i}>{item}</p>
                 ))}
             </div>
         </div>
     )
 }
 
-function WhatToExpect(props){
+function ExtraInfo(props){
+    console.log("ExtraInfo props:", props.extraInfo)
+    if (!props.extraInfo) return null;
     return (
-        <Col xs={12} md={7} className="resource-tile-expanded-text-group-toExpect">
-            <p className="resource-tile-expanded-to-expect"><strong>What To Expect:</strong></p>
-            <ul className="resource-tile-expanded-to-expect">
-                {props.toExpect.map((item, i) => (
-                <li className="resource-tile-expanded-to-expect-item" key={"resource-tile-expanded-to-expect-item-" + i.toString()}>
+        <Col xs={12} md={7} className="resource-tile-expanded-text-group-extraInfo">
+            <p className="resource-tile-expanded-extra-info"><strong>Extra Info:</strong></p>
+            <ul className="resource-tile-expanded-extra-info">
+                {props.extraInfo.map((item, i) => (
+                <li className="resource-tile-expanded-extra-info-item" key={"resource-tile-expanded-extra-info-item-" + i.toString()}>
                     <div>{item}</div>
                 </li>
                 ))}
