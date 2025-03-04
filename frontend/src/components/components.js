@@ -1,7 +1,6 @@
 export { default as Footer } from './Footer/Footer.js'
 export { default as StoryBanner } from './StoryBanner/storyBanner.jsx'
 export { default as NavBar } from './Navbar/Navbar.js'
-export { default as ResourceTile } from './ResourceTile/ResourceTile.jsx'
 export { default as Banner } from './Banner/Banner.js'
 export { default as CategoryButton } from './CategoryButton/CategoryButton.js'
 export { default as ResourcePageTile } from './ResourcePageTile/ResourcePageTile.js'
