@@ -63,7 +63,6 @@ function Hours(props){
 }
 
 function ExtraInfo(props){
-    console.log("ExtraInfo props:", props.extraInfo)
     if (!props.extraInfo) return null;
     return (
         <Col xs={12} md={7} className="resource-tile-expanded-text-group-extraInfo">
