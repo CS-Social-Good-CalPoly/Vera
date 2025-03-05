@@ -23,7 +23,7 @@ function Footer({ activeLink }) {
             </div>
             <div className="column1">&copy; 2024 VERA</div>
             <div className="column3">
-            <Link
+                <Link
                     onClick={() => {
                         window.scroll(0, 0)
                     }}

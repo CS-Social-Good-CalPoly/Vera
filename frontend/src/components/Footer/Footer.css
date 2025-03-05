@@ -2,7 +2,7 @@
     background-color: #4a6e82;
     color: white;
     font-family: poppins;
-    height: 180px;
+    height: 220px;
     position: relative;
     width: 100%;
 }
@@ -18,7 +18,7 @@
     display: flex;
     float: left;
     font-size: 16px;
-    height: 153px;
+    height: 85%;
     padding-left: 40px;
     /* padding-left: 20px; */
 }
@@ -31,7 +31,7 @@
     flex-wrap: wrap; 
     float: left;
     font-size: 22px;
-    height: 180px;
+    height: 100%;
     justify-content: center;
     line-height: 33px;
     padding-right: 50px;
@@ -72,7 +72,7 @@ a:hover {
     flex-direction: column;
     float: right;
     font-size: 22px;
-    height: 180px;
+    height: 100%;
     justify-content: center;
     line-height: 33px;
     padding-right: 50px;
