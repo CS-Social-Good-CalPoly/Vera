@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: inherit;
+    padding: 20% 0% 10% 0%;
 }
 
 .home-search {
@@ -17,4 +19,5 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-top: 1%;
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import './HomeIcon.css'
 
-function HomeIcon({image, title}) {
+function HomeIcon({title}) {
     return (
         <div className='icon-container'>
-            <img src={image} alt={'Icon representing ' + title} />
+            <img className='icon-image' src={'/icon_images/'+title+'_Icon.png'} alt={'Icon representing ' + title} />
             {title}
         </div>
     )
