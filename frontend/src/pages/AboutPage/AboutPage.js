@@ -13,7 +13,7 @@ import '../../links.js'
 
 function AboutPage({ setActiveLink }){
   useEffect(() => {
-    setActiveLink('/');
+    setActiveLink('/About');
   }, []);
 
   return (
