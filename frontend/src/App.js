@@ -11,6 +11,7 @@ import {
     IndividualStoryPage,
     AdminPages,
     AboutPage,
+    HomePage
 } from './pages/pages.js'
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
                         exact
                         path="/"
                         component={() => (
-                            <AboutPage setActiveLink={setActiveLink} />
+                            <HomePage setActiveLink={setActiveLink} />
                         )}
                     />
                     <Route

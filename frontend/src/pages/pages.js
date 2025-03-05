@@ -5,3 +5,4 @@ export { default as IndividualStoryPage } from './IndividualStoryPage/Individual
 export { default as StorySubmissionPage } from './StorySubmissionPage/StorySubmissionPage.js'
 export { default as AdminPages } from './AdminPage/AdminPages.js'
 export { default as AboutPage } from './AboutPage/AboutPage.js'
+export { default as HomePage } from './HomePage/HomePage.js'
