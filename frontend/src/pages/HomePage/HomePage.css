@@ -1,1 +1,14 @@
+.home-page {
+    background-color: #B9C7CA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.home-search {
+    background-color: #F9F9F9;
+    border-radius: 15px;
+    border: #B9C7CA;
+    padding: 10px;
+    width: 33%;
+}
