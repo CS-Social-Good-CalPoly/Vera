@@ -18,7 +18,7 @@
     display: flex;
     float: left;
     font-size: 16px;
-    height: 85%;
+    height: 95%;
     padding-left: 40px;
     /* padding-left: 20px; */
 }
@@ -26,7 +26,6 @@
 .column5 {
     align-content: center;
     display: flex;
-    /* flex-direction: column; */
     flex-direction: column;
     flex-wrap: wrap; 
     float: left;
@@ -37,7 +36,6 @@
     padding-right: 50px;
     text-align: left;
     margin-left: 50px;
-    
 }
 @media only screen and (max-width: 768px) {
     .column1 {
