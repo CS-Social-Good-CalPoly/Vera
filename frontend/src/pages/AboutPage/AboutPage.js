@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import './LandingPage.css'
+import './AboutPage.css'
 import cp from '../../components/LandingBanner/calpoly.jpg'
 import resource_img from '../../components/PhotoBanner/plant_hand.jpg'
 import stories from '../../components/PhotoBanner/stories.jpg'
@@ -11,7 +11,7 @@ import {
 } from '../../components/components.js'
 import '../../links.js'
 
-function LandingPage({ setActiveLink }){
+function AboutPage({ setActiveLink }){
   useEffect(() => {
     setActiveLink('/');
   }, []);
@@ -60,4 +60,4 @@ function LandingPage({ setActiveLink }){
   )
 }
 
-export default LandingPage
+export default AboutPage

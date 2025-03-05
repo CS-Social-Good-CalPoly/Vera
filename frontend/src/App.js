@@ -10,7 +10,7 @@ import {
     StorySubmissionPage,
     IndividualStoryPage,
     AdminPages,
-    LandingPage,
+    AboutPage,
 } from './pages/pages.js'
 
 function App() {
@@ -25,7 +25,14 @@ function App() {
                         exact
                         path="/"
                         component={() => (
-                            <LandingPage setActiveLink={setActiveLink} />
+                            <AboutPage setActiveLink={setActiveLink} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/about"
+                        component={() => (
+                            <AboutPage setActiveLink={setActiveLink} />
                         )}
                     />
                     <Route
