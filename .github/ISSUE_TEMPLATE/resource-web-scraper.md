@@ -36,9 +36,9 @@ URL: [INSERT URL HERE]
         - [ ] info1
         - [ ] info2
 - [ ] Use Postman (or something similar) to manually make a POST request. Verify that the new resource appears in MongoDB (include a screenshot in your PR)
-- [ ] Copy the new individual resource ObjectId and add it to the "Dev-Resources" document under "general-resource-category" in MongoDB. Verify that your individual resource appears on the website now (include a screenshot in your PR)
+- [ ] Copy the new individual resource ObjectId and add it to the "Web-Scraped-Resources" document under "resource-sub-category" in MongoDB. Verify that your individual resource appears on the website now (include a screenshot in your PR)
 
 ### Notes
-Use the `router.get('/colleges-and-majors'...` in `backend/routes/stories.js` API request as a reference for using axios and cheerio for web scraping. Note, this specific function is a GET request, but we want a POST request. Use other POST requests in the same page (`stories.js`) as a reference if you're unfamiliar with making POST requests in Express.
+Use the `router.get('/colleges-and-majors'...` in `backend/routes/stories.js` API request as a reference for using axios and cheerio for web scraping. Note, this specific function is a GET request, but we want a POST request. Use other POST requests in the same page (`stories.js`) as a reference if you're unfamiliar with making POST requests in Express. Please include this issue number in your PR
 
 Make sure you `git pull` every time you start working on Vera to avoid merge conflicts! You should also be working on a different branch (do NOT work in main!)
