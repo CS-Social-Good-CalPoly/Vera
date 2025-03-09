@@ -15,7 +15,7 @@ function IndividualResourceTile(props) {
             buildingName={props.buildingName}
             address={props.address}
             description={props.description}
-            toExpect={props.toExpect}
+            extraInfo ={props.extraInfo}
             phone={props.phone}
             hours={props.hours}
             link={props.link}

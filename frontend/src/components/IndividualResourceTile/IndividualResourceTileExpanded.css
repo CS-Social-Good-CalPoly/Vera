@@ -87,13 +87,13 @@
     color: #4a6e82;
 }
 
-p.resource-tile-expanded-to-expect {
+p.resource-tile-expanded-extra-info {
     font-size: 14px;
     margin-top: 1rem;
     margin-bottom: 5px;
 }
 
-.resource-tile-expanded-to-expect {
+.resource-tile-expanded-extra-info {
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -101,7 +101,7 @@ p.resource-tile-expanded-to-expect {
     letter-spacing: 0.05em;
     text-transform: capitalize;
 }
-.resource-tile-expanded-to-expect-item {
+.resource-tile-expanded-extra-info-item {
     margin-bottom: 5px;
 }
 
@@ -172,7 +172,7 @@ p.resource-tile-expanded-to-expect {
         justify-self: center;
     }
 
-    .resource-tile-expanded-text-group-toExpect-phone-hour {
+    .resource-tile-expanded-text-group-extraInfo-phone-hour {
         display: flex;
         flex-direction: row-reverse;
         white-space: break-spaces;
