@@ -27,6 +27,26 @@ function Footer({ activeLink }) {
                     onClick={() => {
                         window.scroll(0, 0)
                     }}
+                    className={`footer-links ${activeLink === '/' ? 'active' : ''}`}
+                    to="/"
+                >
+                    {' '}
+                    Home{' '}
+                </Link>
+                <Link
+                    onClick={() => {
+                        window.scroll(0, 0)
+                    }}
+                    className={`footer-links ${activeLink === '/About' ? 'active' : ''}`}
+                    to="/About"
+                >
+                    {' '}
+                    About{' '}
+                </Link>
+                <Link
+                    onClick={() => {
+                        window.scroll(0, 0)
+                    }}
                     className={`footer-links ${activeLink === '/Resources' ? 'active' : ''}`}
                     to="/Resources"
                 >

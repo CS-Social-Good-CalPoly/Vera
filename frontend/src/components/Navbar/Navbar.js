@@ -32,6 +32,15 @@ function NavBar({ activeLink }) {
                     </NavLink>
                     <NavLink
                         className="navbar-links"
+                        to="/About"
+                        activeClassName={
+                            activeLink === '/About' ? 'active' : ''
+                        }
+                    >
+                        About
+                    </NavLink>
+                    <NavLink
+                        className="navbar-links"
                         to="/Resources"
                         activeClassName={
                             activeLink === '/Resources' ? 'active' : ''

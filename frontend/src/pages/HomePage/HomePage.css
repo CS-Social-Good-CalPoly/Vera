@@ -1,0 +1,23 @@
+.home-page {
+    background-color: #B9C7CA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: inherit;
+    padding: 20% 0% 10% 0%;
+}
+
+.home-search {
+    background-color: #F9F9F9;
+    border-radius: 15px;
+    border: #B9C7CA;
+    padding: 10px;
+    width: 33%;
+}
+
+.icon-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 1%;
+}
