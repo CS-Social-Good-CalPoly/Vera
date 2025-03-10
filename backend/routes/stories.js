@@ -373,7 +373,7 @@ router.put('/updateStory', async (req, res) => {
         const updatedStory = await IndStories.findByIdAndUpdate(
             storyId,
             {
-                $set: { Approved: true, ...updates },
+                $set: { ...updates },
             },
             { new: true },
         )
