@@ -1,71 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import URL_PATH from '../../links.js'
-import Select from 'react-select'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
-import { DropDownForm, DropDownOptionalForm } from '../components.js'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import URL_PATH from '../../links.js';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import Select from 'react-select';
+import { DropDownForm, DropDownOptionalForm } from '../components.js';
+import axios from 'axios';
+import '../StorySubmission/StorySubmission.css';
 
-function EditStoryPopUp({ onClose, onPost, makeToken, story }) {
-    const [radioOption, setRadioOption] = useState(
-        story?.Token ? 'existing-token' : '',
-    )
-    const [tokenInput, setTokenInput] = useState(story?.Token || '')
-    const [newToken, setNewToken] = useState('')
-    const [allTokens, setAllTokens] = useState({})
-    const [showError, setShowError] = useState(false)
+function EditStoryPopUp({ onClose, onPost, story }) {
+    const [title, setTitle] = useState((story?.Title || '').toUpperCase());
+    const [quillValue, setQuillValue] = useState(story?.ParagraphText || '');
+    const [year, setYear] = useState(story?.StudentYear || '');
+    const [college, setCollege] = useState(story?.StudentCollege || '');
+    const [major, setMajor] = useState(story?.StudentMajor || '');
+    const [categories, setCategories] = useState([]);
+    const [collegeDict, setCollegeDict] = useState({});
+    const [categoryList, setCategoryList] = useState([]);
 
-    // Dropdown options
-    const yearList = [
-        '1st Year',
-        '2nd Year',
-        '3rd Year',
-        '4th Year',
-        '5th+ Year',
-    ]
-
-    // State for college/major dictionary
-    const [collegeDict, setCollegeDict] = useState({})
-    const [categoryList, setCategoryList] = useState([])
-
-    // Story fields (pre-fill if editing)
-    const [title, setTitle] = useState((story?.Title || '').toUpperCase())
-    const [quillValue, setQuillValue] = useState(story?.ParagraphText || '')
-    const [year, setYear] = useState(story?.StudentYear || '')
-    const [college, setCollege] = useState(story?.StudentCollege || '')
-    const [major, setMajor] = useState(story?.StudentMajor || '')
-    const [categories, setCategories] = useState(
-        story?.GeneralCategory
-            ? [{ value: story.GeneralCategory, label: story.GeneralCategory }]
-            : [],
-    )
-
-    // Fetch college/major data and categories on component mount
+    // Fetch college/major and category data on mount
     useEffect(() => {
         axios
             .get(URL_PATH + '/stories/colleges-and-majors')
-            .then((res) => {
-                setCollegeDict(res.data)
-            })
-            .catch((err) => console.error(err))
+            .then((res) => setCollegeDict(res.data))
+            .catch((err) => console.error(err));
 
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                setCategoryList(res.data)
+                setCategoryList(res.data);
+                // Map existing story categories to react-select format
+                if (story?.RelevantCategoryList?.length > 0) {
+                    const selectedCategories = res.data
+                        .filter((cat) =>
+                            story.RelevantCategoryList.includes(cat._id)
+                        )
+                        .map((cat) => ({ value: cat._id, label: cat.Title }));
+                    setCategories(selectedCategories);
+                }
             })
-            .catch((err) => console.error(err))
-    }, [])
+            .catch((err) => console.error(err));
+    }, [story]);
 
-    // Derive options from fetched data
-    const collegeOptions = [...new Set(Object.values(collegeDict))]
-    const majorOptions = Object.keys(collegeDict).sort()
+    // Dropdown options
+    const yearList = ['1st Year', '2nd Year', '3rd Year', '4th Year', '5th+ Year'];
+    const collegeOptions = [...new Set(Object.values(collegeDict))];
+    const majorOptions = Object.keys(collegeDict).sort();
     const categoryOptions = categoryList.map((category) => ({
-        value: category.Name,
-        label: category.Name,
-    }))
+        value: category._id,
+        label: category.Title,
+    }));
 
-    // Custom styles to match StorySubmission
+    // Custom styles matching StorySubmission
     const customStyles = {
         control: (provided) => ({
             ...provided,
@@ -87,137 +72,97 @@ function EditStoryPopUp({ onClose, onPost, makeToken, story }) {
             border: '.5px solid rgba(0, 0, 0, 0.25)',
             textOverflow: 'ellipsis',
         }),
-    }
-
-    // Ensures that dropdown values are updated when `story` changes
-    useEffect(() => {
-        if (story) {
-            setTitle(story.Title || '')
-            setQuillValue(story.ParagraphText || '')
-            setYear(story.StudentYear || '')
-            setCollege(story.StudentCollege || '')
-            setMajor(story.StudentMajor || '')
-            setCategories(
-                story.GeneralCategory
-                    ? [
-                          {
-                              value: story.GeneralCategory,
-                              label: story.GeneralCategory,
-                          },
-                      ]
-                    : [],
-            )
-        }
-    }, [story])
-
-    // Fetches existing tokens and generates a new one if needed
-    useEffect(() => {
-        async function fetchTokenData() {
-            if (radioOption === 'no-token' && newToken === '') {
-                setNewToken(await makeToken())
-            }
-            if (Object.keys(allTokens).length === 0) {
-                await fetchAllTokens()
-            }
-            setShowError(false)
-        }
-        fetchTokenData()
-    }, [radioOption])
-
-    async function fetchAllTokens() {
-        try {
-            const response = await fetch(URL_PATH + '/stories/tokens')
-            const json = await response.json()
-            const tempDict = json.reduce((acc, obj) => {
-                acc[obj.Value] = obj
-                return acc
-            }, {})
-            setAllTokens(tempDict)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    const handleCategoryChange = (selectedOptions) => {
-        setCategories(selectedOptions)
-    }
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-
-        const updatedStory = {
-            title,
-            content: quillValue,
-            year,
-            college,
-            major,
-            categories: categories.map((cat) => cat.label),
-            token: radioOption === 'existing-token' ? tokenInput : newToken,
+        e.preventDefault();
+        if (!title || !quillValue) {
+            alert('Title and story content are required.');
+            return;
         }
+        const updatedStory = {
+            Title: title,
+            ParagraphText: quillValue,
+            StudentYear: year,
+            StudentCollege: college,
+            StudentMajor: major,
+            RelevantCategoryList: categories.map((cat) => cat.value),
+            Token: story.Token, // Preserve existing token
+        };
+        onPost(updatedStory);
+    };
 
-        onPost(updatedStory)
-    }
-
-    // Ensure title stays capitalized on change
     const handleTitleChange = (e) => {
-        setTitle(e.target.value.toUpperCase())
-    }
+        setTitle(e.target.value.toUpperCase());
+    };
 
     return (
         <div
-            className="popup-container"
+            className="popup-overlay"
             style={{
-                position: 'center',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                zIndex: 1000,
-                padding: '30px',
-                borderRadius: '10px',
-                maxHeight: '80vh',
-                width: '90vw',
-                maxWidth: '1200px',
-                minWidth: '300px',
-                margin: 'auto',
+                position: 'fixed',  // Ensures the blur covers the full screen
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                backdropFilter: 'blur(3px)',  // Stronger blur
+                backgroundColor: 'rgba(255, 255, 255, 0.7)', // Lighter white
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
             }}
         >
-            <form className="form" onSubmit={handleSubmit}>
-                <div className="input-outer-container">
-                    <div className="inner-container-box">
-                        <DropDownForm
-                            fieldTitle="Year"
-                            myoptions={yearList}
-                            handleChange={setYear}
-                            value={year}
-                        />
-                        <DropDownForm
-                            fieldTitle="College"
-                            myoptions={collegeOptions}
-                            handleChange={setCollege}
-                            value={college}
-                        />
+            <div
+                className="popup-container story-submission-box"
+                style={{
+                    borderRadius: '20px',
+                    maxHeight: '80vh',
+                    width: '90vw',
+                    maxWidth: '1200px',
+                    minWidth: '300px',
+                    padding: '30px',
+                    overflowY: 'auto',
+                    position: 'relative',
+                }}
+            >
+                <form className="form" onSubmit={handleSubmit}>
+                    <div className="input-outer-container">
+                        <div className="inner-container-box">
+                            <DropDownForm
+                                fieldTitle="Year"
+                                myoptions={yearList}
+                                handleChange={setYear}
+                                value={year}
+                                disabled={true} // Read-only
+                            />
+                            <DropDownForm
+                                fieldTitle="College"
+                                myoptions={collegeOptions}
+                                handleChange={setCollege}
+                                value={college}
+                                disabled={true} // Read-only
+                            />
+                        </div>
+                        <div className="inner-container-box">
+                            <DropDownOptionalForm
+                                fieldTitle="Major (optional)"
+                                myoptions={majorOptions}
+                                handleChange={setMajor}
+                                value={major}
+                                disabled={true} // Read-only
+                            />
+                            <Select
+                                styles={customStyles}
+                                options={categoryOptions}
+                                placeholder="Categories"
+                                isMulti
+                                value={categories}
+                                isDisabled={true} // Read-only
+                            />
+                        </div>
                     </div>
-                    <div className="inner-container-box">
-                        <DropDownOptionalForm
-                            fieldTitle="Major (optional)"
-                            myoptions={majorOptions}
-                            handleChange={setMajor}
-                            value={major}
-                        />
-                        <Select
-                            styles={customStyles}
-                            options={categoryOptions}
-                            placeholder="Categories"
-                            isMulti
-                            value={categories}
-                            onChange={handleCategoryChange}
-                        />
-                    </div>
-                </div>
 
-                {/* Story Title and Content */}
-                <div className="description-box">
-                    <div className="title-text">
+                    <div className="description-box">
                         <input
                             className="inputBar"
                             placeholder="Enter title"
@@ -225,60 +170,32 @@ function EditStoryPopUp({ onClose, onPost, makeToken, story }) {
                             value={title}
                             onChange={handleTitleChange}
                         />
+                        <ReactQuill
+                            theme="snow"
+                            value={quillValue}
+                            onChange={setQuillValue}
+                        />
+                        <div className="button-wrapper">
+                            <button
+                                type="button"
+                                className="button"
+                                onClick={onClose}
+                                style={{
+                                    backgroundColor: '#B7CAD4',
+                                    marginRight: '10px',
+                                }}
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" className="button">
+                                Submit
+                            </button>
+                        </div>
                     </div>
-                    <ReactQuill
-                        theme="snow"
-                        value={quillValue}
-                        onChange={setQuillValue}
-                    />
-                </div>
-
-                {/* Token Selection and Submission */}
-                <div className="formButtons">
-                    <button
-                        id="cancelButton"
-                        className="cancelButton"
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        id="submitButton"
-                        className={`submitButton ${
-                            radioOption === '' || showError
-                                ? 'inactiveButton'
-                                : ''
-                        }`}
-                        disabled={radioOption === '' || showError}
-                        onClick={
-                            radioOption === 'existing-token'
-                                ? (e) => {
-                                      e.preventDefault()
-                                      if (allTokens[tokenInput]) {
-                                          onPost({
-                                              title,
-                                              content: quillValue,
-                                              year,
-                                              college,
-                                              major,
-                                              categories: categories.map(
-                                                  (cat) => cat.label,
-                                              ),
-                                              token: tokenInput,
-                                          })
-                                      } else {
-                                          setShowError(true)
-                                      }
-                                  }
-                                : handleSubmit
-                        }
-                    >
-                        Submit
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    )
+    );
 }
 
-export default EditStoryPopUp
+export default EditStoryPopUp;
