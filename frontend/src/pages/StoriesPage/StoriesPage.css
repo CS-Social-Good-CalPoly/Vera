@@ -36,7 +36,7 @@
     letter-spacing: 0.05em; /* tracking-wide */
     color: #534d49;
     background-color: white;
-    text-align: center;
+    text-align: left;
     align-items: center;
     justify-content: center;
     text-overflow: ellipsis; /* truncate */

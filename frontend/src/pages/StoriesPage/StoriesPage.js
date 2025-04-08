@@ -27,8 +27,6 @@ const fuseOptions = {
     keys: ['Title', 'GeneralCategory', 'StudentMajor', 'ParagraphText'],
 }
 
-// const fuse = new Fuse(list, fuseOptions)
-
 function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
     const [idToName, setIdToName] = useState({})
