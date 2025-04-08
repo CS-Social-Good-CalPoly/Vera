@@ -5,7 +5,6 @@ import { Footer, NavBar } from './components/components.js'
 import { useState } from 'react'
 import {
     ResourcePage,
-    IndividualResourcePage,
     StoriesPage,
     StorySubmissionPage,
     IndividualStoryPage,
@@ -33,15 +32,6 @@ function App() {
                         path="/resources"
                         component={() => (
                             <ResourcePage setActiveLink={setActiveLink} />
-                        )}
-                    />
-                    <Route
-                        exact
-                        path="/individualResource/:id"
-                        render={() => (
-                            <IndividualResourcePage
-                                setActiveLink={setActiveLink}
-                            />
                         )}
                     />
                     <Route

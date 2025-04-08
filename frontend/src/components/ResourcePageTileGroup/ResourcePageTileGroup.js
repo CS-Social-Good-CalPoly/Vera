@@ -1,13 +1,11 @@
 import React from 'react'
-
 import {
     TileGroupDiv,
     TitleContainer,
     Heading,
     TileGroup,
 } from '../Shared/TileGroup.js'
-
-import { ResourcePageTile } from '../components.js'
+import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile.js'
 
 function ResourcePageTileGroup({ id, title, resources }) {
     return (
@@ -17,17 +15,17 @@ function ResourcePageTileGroup({ id, title, resources }) {
             </TitleContainer>
             <TileGroup>
                 {resources.map((resource, index) => (
-                    <ResourcePageTile
+                    <IndividualResourceTile
                         key={index}
-                        id={
-                            resource && resource._id
-                                ? resource._id
-                                : 'resource_id_was_not_found'
-                        }
-                        infoText={resource.LongDescription}
+                        imgUrl={resource.ImageURL}
                         title={resource.Title}
-                        imageUrl={resource.ImageURL}
-                        individualIDs={resource.ResourceIDList}
+                        description={resource.ParagraphText}
+                        buildingName={resource.Building}
+                        address={resource.Address}
+                        extraInfo={resource.ExtraInfo}
+                        phone={resource.PhoneNumber}
+                        hours={resource.ListOfHours}
+                        link={resource.ResourceURL}
                     />
                 ))}
             </TileGroup>
