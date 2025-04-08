@@ -48,8 +48,7 @@ function ResourcePage({ setActiveLink }) {
     // Only runs upon first render of the website
     useEffect(() => {
         const subdirectory = '/resources/individualResources'
-        // fetch(URL_PATH + subdirectory)
-        fetch('http://localhost:3001' + subdirectory)
+        fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
                 for (const resource in json) {
