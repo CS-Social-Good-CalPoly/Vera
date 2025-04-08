@@ -30,8 +30,16 @@ router.get('/subrsrcs', async (req, res) => {
 router.get('/individualResources', async (req, res) => {
     try {
         const { listOfResourceIDs } = req.query
-        const resourceIDs = JSON.parse(listOfResourceIDs)
-        const resources = await IndResources.find({ _id: { $in: resourceIDs } })
+        let resources
+
+        if (listOfResourceIDs && listOfResourceIDs !== undefined) {
+            // route includes specific resource to GET
+            const resourceIDs = JSON.parse(listOfResourceIDs)
+            resources = await IndResources.find({ _id: { $in: resourceIDs } })
+        } else {
+            // no specification, GET ALL resources
+            resources = await IndResources.find()
+        }
         res.json(resources)
     } catch (err) {
         res.status(500).json({ message: err.message })
