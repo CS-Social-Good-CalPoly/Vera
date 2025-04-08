@@ -5,7 +5,6 @@ import {
     Heading,
     TileGroup,
 } from '../Shared/TileGroup.js'
-
 import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile.js'
 
 function ResourcePageTileGroup({ id, title, resources }) {
