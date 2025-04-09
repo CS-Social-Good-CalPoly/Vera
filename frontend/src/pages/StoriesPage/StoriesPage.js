@@ -63,9 +63,11 @@ function StoriesPage({ setActiveLink }) {
                 // Create a list of all stories
                 const allStories = json.map((story) => ({
                     ...story,
-                    RelevantCategoryList: story.RelevantCategoryList.map(
-                        (catId, index) => idToName[catId] || catId,
-                    ),
+                    RelevantCategoryList: story.RelevantCategoryList
+                        ? story.RelevantCategoryList.map(
+                              (catId, index) => idToName[catId] || catId,
+                          )
+                        : [],
                 }))
                 setStories(allStories)
             })
@@ -116,9 +118,11 @@ function StoriesPage({ setActiveLink }) {
                 // Create a list of all stories
                 const allStories = json.map((story) => ({
                     ...story,
-                    RelevantCategoryList: story.RelevantCategoryList.map(
-                        (catId, index) => idToName[catId] || catId,
-                    ),
+                    RelevantCategoryList: story.RelevantCategoryList
+                        ? story.RelevantCategoryList.map(
+                              (catId, index) => idToName[catId] || catId,
+                          )
+                        : [],
                 }))
                 console.log(allStories)
                 // eventually, set state to this result
