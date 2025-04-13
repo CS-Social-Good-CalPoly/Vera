@@ -48,7 +48,7 @@ function HomePage({ setActiveLink }) {
         shouldSort: true,
         includeMatches: false,
         findAllMatches: false,
-        minMatchCharLength: 2,
+        minMatchCharLength: 1,
         location: 0,
         threshold: 0.6,
         distance: 100,
