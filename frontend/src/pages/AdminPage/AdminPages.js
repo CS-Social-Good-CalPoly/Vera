@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
 import {
-    DropDownForm,
     DropDownSelectForm,
     Modal,
 } from '../../components/components.js'
@@ -208,7 +207,7 @@ function AdminPages({ setActiveLink }) {
                         )
                     })
                     .map((story, index) => (
-                        <div key={index}>
+                        <div key={index} className='mb-4 p-3 border rounded'>
                             <div>
                                 <Link
                                     to={{

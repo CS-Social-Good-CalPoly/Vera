@@ -9,8 +9,9 @@ import {
     StorySubmissionPage,
     IndividualStoryPage,
     AdminPages,
+    AdminResourcesPage,
     AboutPage,
-    HomePage
+    HomePage,
 } from './pages/pages.js'
 
 function App() {
@@ -72,6 +73,13 @@ function App() {
                         path="/AdminPages"
                         component={() => (
                             <AdminPages setActiveLink={setActiveLink} />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path="/AdminPages/resources"
+                        component={() => (
+                            <AdminResourcesPage setActiveLink={setActiveLink} />
                         )}
                     />
                 </Switch>
