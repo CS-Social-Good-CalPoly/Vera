@@ -1,21 +1,24 @@
-import React from 'react'
-import { Component } from 'react'
-import './DropDownOptionalForm.css'
+import React, { Component } from 'react';
+import './DropDownOptionalForm.css';
 
 class DropDownOptionalForm extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            selectValue: '',
+            selectValue: props.value || '',
+        };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.value !== this.props.value) {
+            this.setState({ selectValue: this.props.value });
         }
-
-        this.handleDropdownChange = this.handleDropdownChange.bind(this)
     }
 
-    handleDropdownChange(e) {
-        this.setState({ selectValue: e.target.value })
-        this.props.handleChange(e.target.value)
-    }
+    handleDropdownChange = (e) => {
+        this.setState({ selectValue: e.target.value });
+        this.props.handleChange(e.target.value);
+    };
 
     render() {
         return (
@@ -23,19 +26,18 @@ class DropDownOptionalForm extends Component {
                 <select
                     id="dropdown-optional"
                     onChange={this.handleDropdownChange}
+                    value={this.state.selectValue}
                 >
-                    <option value="N/A" id="options">
-                        {this.props.fieldTitle}
-                    </option>
-                    {this.props.myoptions.map((optionTitle, index) => (
-                        <option value={optionTitle} id="options">
+                    <option value="">{this.props.fieldTitle}</option>
+                    {this.props.myoptions.map((optionTitle) => (
+                        <option key={optionTitle} value={optionTitle}>
                             {optionTitle}
                         </option>
                     ))}
                 </select>
             </div>
-        )
+        );
     }
 }
 
-export default DropDownOptionalForm
+export default DropDownOptionalForm;
