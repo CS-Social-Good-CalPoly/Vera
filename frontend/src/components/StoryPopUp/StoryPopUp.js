@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card } from 'react-bootstrap'
-import { ResourcePageTileGroup, Banner } from '../components.js'
+import { Banner, EditStoryPopUp } from '../components.js'
 import styled from 'styled-components'
-import mockRelevantResourceData from './mockRelevantData.json'
 import moment from 'moment'
 import URL_PATH from '../../links.js'
 
@@ -94,7 +93,7 @@ const CardWrapper = styled(Card)`
     font-family: 'Poppins';
     color: #4a6e82;
     max-width: 80%;
-    margin: 5vh auto auto;
+    margin: 5vh auto;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
     letter-spacing: 0.05em;
@@ -118,8 +117,6 @@ const Text = styled(Card.Text)`
 
 function StoryPopUp(props) {
     const [size, setSize] = useState(false)
-    const relevantResourceData = mockRelevantResourceData
-    const [subResource, setSubResource] = useState([])
 
     function change() {
         setSize(true)
@@ -132,6 +129,7 @@ function StoryPopUp(props) {
     ]
 
     const [individualStory, setindividualStory] = useState([])
+    const [showEditPopup, setShowEditPopup] = useState(false)
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -145,28 +143,13 @@ function StoryPopUp(props) {
             .catch((error) => console.error(error))
     }, [props.id])
 
-    useEffect(() => {
-        // URL_PATH imported from frontend/src/links.js
-        // combined with subdirectory to make the full URL
-        const subdirectory = '/resources/subrsrcs'
-        fetch(URL_PATH + subdirectory)
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.length > 0) {
-                    const subList = data.slice(0, 3)
-                    setSubResource(subList)
-                }
-            })
-            .catch((error) => console.error(error))
-    }, [])
-
     let currentStory = individualStory.find((story) => story._id === props.id)
 
     const date = moment(currentStory?.Date)
     const formattedDate = date.format('MMM DD, YYYY')
 
     return (
-        <test>
+        <>
             <Banner imageUrl={currentStory?.ImageUrl} />
             <CardWrapper hidden={size}>
                 <Body>
@@ -191,15 +174,20 @@ function StoryPopUp(props) {
                         <Text>{currentStory?.ParagraphText}</Text>
                     </Cardstory>
                 </Body>
+                <button onClick={() => setShowEditPopup(true)}>Edit</button>
             </CardWrapper>
             <PopupResources>
-                <ResourcePageTileGroup
-                    id="RelevantResources"
-                    title="Relevant Resources"
-                    resources={subResource}
-                />
+                {/* TODO: put related stories here */}
             </PopupResources>
-        </test>
+            {/* TODO: used for testing; will be replaced when token params are implemented */}
+            {showEditPopup && (
+                <EditStoryPopUp
+                    story={currentStory}
+                    onClose={() => setShowEditPopup(false)}
+                    onPost={() => setShowEditPopup(false)} // TODO: to be replaced with backend
+                />
+            )}
+        </>
     )
 }
 
