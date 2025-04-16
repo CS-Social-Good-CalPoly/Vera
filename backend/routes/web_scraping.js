@@ -426,11 +426,10 @@ router.put('/eating-disorder-treatment', async (req, res) => {
             'https://chw.calpoly.edu/counseling/eating-disorder-treatment',
         )
         const $ = cheerio.load(response.data)
-        // For now we are going to hardcode an id?
-        let eating_disorder_id = '60a5a5661d9811d718c3d997'
+        // For now we are going to hardcode an id
+        let eating_disorder_id = '67b38ea0cd6ae1f04cf826d2'
 
         // Extract header information
-        // Specifically for this site, take the first part of title since it's repetittive
         const title =
             $('meta[property="og:title"]')
                 .attr('content')
@@ -536,16 +535,13 @@ router.put('/eating-disorder-treatment', async (req, res) => {
                     extraInfo.push(combinedText)
                 }
             })
-        // Hard coded extra info
-        extraInfo.push(
-            "For more information on specific items to purchase, visit the Cal Poly Health Center's website",
-        )
+     
 
         const currentTime = new Date()
 
         // Store the resourceData into the database
         const newResource = new IndResources({
-            // _id: cal_fresh_id,
+            _id: eating_disorder_id,
             Title: title,
             ImageURL: image,
             ImageAltText: image_alt,
@@ -562,7 +558,7 @@ router.put('/eating-disorder-treatment', async (req, res) => {
         })
 
         const updatedResource = await IndResources.findByIdAndUpdate(
-            { _id: pharmacy_id },
+            { _id: eating_disorder_id },
             newResource,
             { new: true },
         )
@@ -575,7 +571,7 @@ router.put('/eating-disorder-treatment', async (req, res) => {
         res.json(newResource)
     } catch (error) {
         console.error('Scrapping failed:', error)
-        res.status(500).send('Error fetching Pharmacy data')
+        res.status(500).send('Error fetching Eating Disorder Treatment data')
     }
 })
 

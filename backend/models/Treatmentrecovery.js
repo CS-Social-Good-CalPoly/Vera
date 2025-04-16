@@ -1,25 +1,19 @@
 const { model, Schema } = require('mongoose')
 
-const TreatmentrecoverySchema = new Schema({
-    Title: String,
-    ImageUrl: String,
+const TreatementrecoverySchema = new Schema({
+    // _id: Schema.Types.ObjectId,
+    ImageURL: String,
     ImageAltText: String,
-    // RelevantCategoryList: [
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: 'general-story-category',
-    //     },
-    // ],
+    Title: String,
+    Address: String,
+    BuildingName: String,
     ParagraphText: String,
-    Date: Date,
-    // StudentMajor: String,
-    // StudentCollege: String,
-    // StudentYear: String,
-    // GeneralCategory: String,
-    // Token: String,
-    // Approved: { type: Boolean, default: false },
-    // Status: { type: String, default: 'review' },
-    // RejectionReasonList: { type: [String], default: [] },
+    PhoneNumber: String,
+    ResourceURL: String,
+    LastUpdate: Date,
+    Category: String,
+    ExtraInfo: [String],
+    ListOfHours: [String],
 })
 
 module.exports = model('treatment', TreatmentrecoverySchema, 'treatment')
