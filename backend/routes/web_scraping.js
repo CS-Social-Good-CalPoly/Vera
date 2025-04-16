@@ -890,14 +890,13 @@ router.put('/welltrack-boost', async (req, res) => {
             $('div.field-item.even p:first-child img:eq(1)')
                 .attr('alt')
                 .trim() || 'Welltrack Boost Logo'
-        console.log('Image URL:', imageURL)
-        console.log('Image Alt:', imageAltText)
 
-        const paragraphText = []
+        const paragraphTexts = []
         $('div.field-item.even p:gt(0):lt(2)').each((index, element) => {
             const text = $(element).text().trim()
-            paragraphText.push(text)
+            paragraphTexts.push(text)
         })
+        const paragraphText = paragraphTexts.join('\n')
 
         let resourceUrl = $('div.field-item.even p:eq(3) a').attr('href') || ''
 
@@ -909,14 +908,14 @@ router.put('/welltrack-boost', async (req, res) => {
             Title: title,
             ImageURL: imageURL,
             ImageAltText: imageAltText,
-            BuildingName: buildingName,
+            BuildingName: '',
             ParagraphText: paragraphText,
             PhoneNumber: '',
             ListOfHours: [],
-            ExtraInfo: extraInfo,
+            ExtraInfo: '',
             ResourceURL: resourceUrl,
             LastUpdate: currentTime,
-            Category: 'Self Help',
+            Category: 'Self-Help',
         }
 
         const updatedResource = await IndResources.findOneAndUpdate(
