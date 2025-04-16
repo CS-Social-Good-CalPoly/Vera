@@ -5,7 +5,6 @@ import {
     Heading,
     TileGroup,
 } from '../Shared/TileGroup.js'
-
 import { StoryTile } from '../components.js'
 
 function StoryTileGroup({ id, title, stories }) {
@@ -26,16 +25,16 @@ function StoryTileGroup({ id, title, stories }) {
                                     ? story.ParagraphText
                                     : ''
                             }
-                            studentYear={
-                                story && story.StudentYear
-                                    ? story.StudentYear
-                                    : ''
-                            }
-                            studentMajor={
-                                story && story.StudentMajor
-                                    ? story.StudentMajor
-                                    : ''
-                            }
+                            // studentYear={
+                            //     story && story.StudentYear
+                            //         ? story.StudentYear
+                            //         : ''
+                            // }
+                            // studentMajor={
+                            //     story && story.StudentMajor
+                            //         ? story.StudentMajor
+                            //         : ''
+                            // }
                             categories={story.RelevantCategoryList}
                             // buildingName={story.building}
                             // address={story.address}

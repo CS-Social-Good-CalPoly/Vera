@@ -140,10 +140,43 @@ function StoriesPage({ setActiveLink }) {
 
     return (
         <div>
-            <StoryBanner
+            {/* <StoryBanner
                 imageUrl="https://images.unsplash.com/photo-1506962240359-bd03fbba0e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2065&q=80"
                 displayButton="true"
+            /> */}
+            <div className="header-row">
+    <div className="header-text">
+        <h1>Student</h1>
+        <h1>Stories</h1>
+    </div>
+    <div className="dropdown-container">
+        <div className="dropdown-style">
+            <Search />
+            <input
+                className="custom-input"
+                placeholder="Search for stories..."
+                onInput={(e) => filterStoriesBySearch(e)}
             />
+            <DropDownSelectForm
+                fieldTitle="All Categories"
+                myoptions={[
+                    { value: '', label: 'All Categories' },
+                    ...categoryNames.map((major) => ({
+                        value: major,
+                        label: major,
+                    })),
+                ]}
+                handleChange={handleCategoryChange}
+                customStyles={{
+                    margin: '2px 2px 2px 2px',
+                }}
+            />
+        </div>
+    </div>
+</div>
+
+            {/* <h1>Student</h1>
+            <h1>Stories</h1>
             <div className="dropdown-container">
                 <div className="dropdown-style mt-4 mx-4 justify-content-between">
                     <Search />
@@ -169,14 +202,15 @@ function StoriesPage({ setActiveLink }) {
                         }}
                     />
                 </div>
-            </div>
-
+            </div> */}
+            <div className="story-grid">
             <StoryTileGroup
                 key="all-stories"
                 id="all-stories"
                 title="All Stories"
                 stories={filteredStories}
             />
+        </div>
         </div>
     )
 }
