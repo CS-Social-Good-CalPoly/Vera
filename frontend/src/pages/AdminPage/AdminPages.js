@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
 import {
-    DropDownForm,
     DropDownSelectForm,
     Modal,
 } from '../../components/components.js'
@@ -15,6 +14,7 @@ function AdminPages({ setActiveLink }) {
     const [showModal, setShowModal] = useState(false)
     const [selectedStoryId, setSelectedStoryId] = useState('')
     const [categoryNames, setCategoryNames] = useState([])
+    const history = useHistory();
 
     useEffect(() => {
         let isMounted = true
@@ -148,6 +148,10 @@ function AdminPages({ setActiveLink }) {
         }
     }
 
+    const handleResourceAdminNavigation = () => {
+        history.push('/AdminPages/resources')
+    }
+
     return (
         <div className="admin-container">
             {showModal && (
@@ -189,6 +193,13 @@ function AdminPages({ setActiveLink }) {
                 >
                     Sync Colleges
                 </button>
+
+                <button
+                    className="dropdown-style"
+                    onClick={() => handleResourceAdminNavigation()}
+                >
+                    Resource Administration
+                </button>
             </div>
 
             <div className="mt-4">
@@ -208,7 +219,7 @@ function AdminPages({ setActiveLink }) {
                         )
                     })
                     .map((story, index) => (
-                        <div key={index}>
+                        <div key={index} className="mb-4 p-3 border rounded">
                             <div>
                                 <Link
                                     to={{
