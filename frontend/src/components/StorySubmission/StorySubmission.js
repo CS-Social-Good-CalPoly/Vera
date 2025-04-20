@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import {
-    DropDownForm,
-    DropDownOptionalForm,
     StorySubmissionPopUp,
     StoryBanner,
     DropDownSelectForm,
@@ -11,31 +9,24 @@ import 'react-quill/dist/quill.snow.css'
 import './StorySubmission.css'
 import axios from 'axios'
 import URL_PATH from '../../links.js'
-import Select from 'react-select'
 
 function StorySubmission() {
     const [year, setYear] = useState('')
     const [college, setCollege] = useState('')
     const [major, setMajor] = useState('')
-    const [selectedCategories, setSelectedCategories] = useState([])
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [token, setTokenValue] = useState('')
     const [majorsToCollege, setMajorsToCollege] = useState({})
     const [collegeList, setCollegeList] = useState([])
     const [majorsList, setMajorsList] = useState([])
-    const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
     const [showPopUp, setShowPopUp] = useState(false)
-    //use for put
-    const [storyId, setStoryId] = useState('')
-    const collegeTest = ['a', 'b', 'c']
 
-    //use for Token POST: check if token already in database
+    // use for Token POST: check if token already in database
     const [allTokens, setAllTokens] = useState([])
 
-    //const [selectedCategory, setSelectedCategory] = useState([]);
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
         useState(false)
 
@@ -45,27 +36,9 @@ function StorySubmission() {
         Major: major,
         Description: quillValue,
         Title: title,
-        Category: selectedCategories,
         CategoryIds: categoryIds,
         Token: token,
     }
-
-    const categoryValues = [
-        'School',
-        'Family',
-        'Clubs',
-        'Work',
-        'Home',
-        'Friends',
-        'Sports',
-        'Eating',
-        'Alcohol',
-        'Drugs',
-        'Financial',
-        'Anxiety',
-        'Stress',
-        'Depression',
-    ]
 
     const handleTitleKeyPress = (e) => {
         setTitleValue(e.target.value)
@@ -80,12 +53,11 @@ function StorySubmission() {
     }
 
     const handleCategoryChange = (e) => {
-        setCategoryIds([...selectedCategories, e])
+        setCategoryIds(e)
     }
 
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
-        console.log('selected:', categoryIds)
     }
 
     const handleMajorChange = (e) => {
@@ -97,8 +69,7 @@ function StorySubmission() {
     // Fetch colleges
     useEffect(() => {
         axios
-            // .get(URL_PATH + '/stories/colleges')
-            .get('http://localhost:3001/stories/colleges')
+            .get(URL_PATH + '/stories/colleges')
             .then((res) => {
                 const collegeMap = {}
                 res.data.forEach((item, _) => {
@@ -108,6 +79,7 @@ function StorySubmission() {
                 })
                 setMajorsToCollege(collegeMap)
                 const collegeNames = res.data.map((item, _) => item.College)
+                collegeNames.sort((a, b) => a.localeCompare(b))
                 setCollegeList(collegeNames)
             })
             .catch((err) => console.error(err))
@@ -116,33 +88,24 @@ function StorySubmission() {
     // Fetch majors
     useEffect(() => {
         axios
-            // .get(URL_PATH + '/stories/colleges')
-            .get('http://localhost:3001/stories/majors')
+            .get(URL_PATH + '/stories/colleges')
             .then((res) => {
-                setMajorsList(res.data)
+                const majorNames = res.data.sort((a, b) => a.localeCompare(b))
+                setMajorsList(majorNames)
             })
             .catch((err) => console.error(err))
     }, [])
 
+    // Fetch story categories
     useEffect(() => {
         axios
             .get(URL_PATH + '/stories/generalstorycat')
             .then((res) => {
-                const category_names_lst = res.data.map(
-                    (item, index) => item.Title,
-                )
                 const category_lst = res.data.map((item, _) => item)
-                setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
             .catch((err) => console.error(err))
     }, [])
-
-    // react-select Select takes value and label objects as category options
-    const categoryOptions = categoryList.map((category, index) => ({
-        value: category._id,
-        label: category.Name,
-    }))
 
     const yearList = [
         '1st Year',
@@ -170,7 +133,6 @@ function StorySubmission() {
         ) {
             alert('Complete missing fields')
             e.preventDefault()
-            console.log('Missing info')
         } else {
             e.preventDefault()
             setShowPopUp(true)
@@ -185,12 +147,10 @@ function StorySubmission() {
 
     async function generateToken() {
         // gets all tokens from database into allTokens state
-        console.log('generating...')
         await fetchAllTokens()
         let numAttempts = 0
         while (numAttempts < 10) {
             try {
-                console.log('looking for new token')
                 // Create token if the story successfully submits
                 const response = await axios.get(
                     URL_PATH + '/stories/generate-token',
@@ -212,7 +172,7 @@ function StorySubmission() {
             }
         }
         if (numAttempts === 10) {
-            console.log('error, no valid token found')
+            console.error('error, no valid token found')
         }
     }
 
@@ -226,16 +186,16 @@ function StorySubmission() {
             StudentMajor: values.Major,
             StudentCollege: values.College,
             StudentYear: values.Year,
-            RelevantCategoryList: values.CategoryIds,
+            RelevantCategoryList: values.CategoryIds.map(
+                (categoryItems, _) => categoryItems.value,
+            ),
             ImageUrl: '',
             ImageAltText: '',
             GeneralCategory: '',
         }
-        console.log(postData)
 
         if (submittedToken) {
             // user inputted a token, connect old token to new story
-            console.log('updating old token')
             postData['Token'] = submittedToken
             const storyID = await fetchStoryPost(postData)
             const tokenPutData = {
@@ -248,7 +208,6 @@ function StorySubmission() {
             postData['Token'] = token
             const storyID = await fetchStoryPost(postData)
             await fetchTokenPost(token, storyID)
-            console.log('unique token found')
         }
     }
 
@@ -290,7 +249,6 @@ function StorySubmission() {
                     categoryId: catId,
                     storyId: storyID,
                 }
-                console.log(putData)
                 fetch(URL_PATH + '/stories/generalstorycat', {
                     method: 'PUT',
                     headers: {
@@ -392,10 +350,12 @@ function StorySubmission() {
                                     value={college}
                                     myoptions={[
                                         { value: '', label: 'College' },
-                                        ...collegeList.map((collegeName) => ({
-                                            value: collegeName,
-                                            label: collegeName,
-                                        })),
+                                        ...collegeList.map(
+                                            (collegeName, _) => ({
+                                                value: collegeName,
+                                                label: collegeName,
+                                            }),
+                                        ),
                                     ]} // Convert the college to an object with a value and label
                                     handleChange={handleCollegeChange}
                                     customStyles={customStyles}
@@ -409,7 +369,7 @@ function StorySubmission() {
                                 value={major}
                                 myoptions={[
                                     { value: '', label: 'Major' },
-                                    ...majorsList.map((majorName) => ({
+                                    ...majorsList.map((majorName, _) => ({
                                         value: majorName,
                                         label: majorName,
                                     })),
@@ -420,7 +380,12 @@ function StorySubmission() {
                             <div>
                                 <DropDownSelectForm
                                     fieldTitle="Categories"
-                                    myoptions={categoryOptions}
+                                    myoptions={categoryList.map(
+                                        (category, _) => ({
+                                            value: category._id,
+                                            label: category.Name,
+                                        }),
+                                    )}
                                     handleChange={handleCategoryChange}
                                     isMulti={true}
                                     customStyles={customStyles}
