@@ -103,18 +103,12 @@ router.put('/scrape-covid19-resource', async (req, res) => {
         const { data } = await axios.get(url)
         const $ = cheerio.load(data)
 
-        // Debugging: Check if page loaded
-        console.log('Page loaded successfully')
-
         // Extract Title
         const Title = $('h1.page-title').text().trim()
-        console.log('Title:', Title)
 
         // Extract Image URL
         let ImageURL = $('div.field-item.even img').attr('src') || ''
         let ImageAltText = $('div.field-item.even img').attr('alt').trim() || ''
-        console.log('Image URL:', ImageURL)
-        console.log('Image Alt:', ImageAltText)
 
         // Extracting the building name under "Location" h3
         const BuildingName = $('h3:contains("Location")')
@@ -122,15 +116,12 @@ router.put('/scrape-covid19-resource', async (req, res) => {
             .find('a')
             .text()
             .trim()
-        console.log('Building Name:', BuildingName)
 
         // Extract Paragraph
         const ParagraphText = $('div.clear').first().text().trim()
-        console.log('Paragraph Text:', ParagraphText)
 
         // Extract Phone Number
         const PhoneNumber = $('a[href^="tel"]').first().text().trim()
-        console.log('Phone Number:', PhoneNumber)
 
         // Extract List of Hours
         const ListOfHours = []
@@ -142,7 +133,6 @@ router.put('/scrape-covid19-resource', async (req, res) => {
                 .split('Building')[0]
             if (text) ListOfHours.push(text)
         })
-        console.log('List of Hours:', ListOfHours)
 
         // Extract extra info as an array of objects { text, url }
         const ExtraInfo = []
@@ -153,8 +143,6 @@ router.put('/scrape-covid19-resource', async (req, res) => {
                 const fullText = $(element).text().trim() // Extract only text
                 ExtraInfo.push(fullText) // Push only the text, no links
             })
-
-        console.log('Extra Info:', ExtraInfo)
 
         // Upsert into MongoDB
         const updatedCovidResource = await IndResources.findOneAndUpdate(
@@ -705,15 +693,12 @@ router.put('/emotional-wellbeing', async (req, res) => {
 
         // Extract Title
         const Title = $('h1.page-title').text().trim()
-        console.log(Title)
 
         // Extract Image URL
         let ImageURL = $('div.field-item.even img').attr('src') || ''
         let ImageAltText =
             $('div.field-item.even img').attr('alt').trim() ||
             'Emotional Wellbeing Page Header'
-        console.log('Image URL:', ImageURL)
-        console.log('Image Alt:', ImageAltText)
 
         // Extracting the building name under "Location" h3
         const BuildingName = $('h3:contains("Location")')
@@ -721,18 +706,15 @@ router.put('/emotional-wellbeing', async (req, res) => {
             .find('a')
             .text()
             .trim()
-        console.log('Building Name:', BuildingName)
 
         // Extract Paragraph
         const ParagraphText = $('.field-item[property="content:encoded"] p')
             .eq(1)
             .text()
             .trim()
-        console.log('Paragraph Text:', ParagraphText)
 
         // Extract Phone Number
         const PhoneNumber = $('p a[href^="tel:"]').first().text().trim()
-        console.log('Phone Number:', PhoneNumber)
 
         // Extract List of Hours
         const ListOfHours = []
@@ -752,7 +734,6 @@ router.put('/emotional-wellbeing', async (req, res) => {
         ExtraInfo.push(rioParagraph)
         ExtraInfo.push(gettingUnstuckParagraph)
         ExtraInfo.push(bridgeParagraph)
-        console.log('Extra Info:', ExtraInfo)
 
         // Upsert into MongoDB
         const updatedEmotionalWellbeingResource =
@@ -934,6 +915,193 @@ router.put('/welltrack-boost', async (req, res) => {
         res.status(500).json({
             error: 'An error occurred while scraping the resource.',
         })
+    }
+})
+
+/* -------------------- SUICIDE PREVENTION -------------------- */
+router.put('/suicide-prevention', async (req, res) => {
+    try {
+        const response = await axios.get(
+            'https://chw.calpoly.edu/counseling/suicide-prevention',
+        )
+        const $ = cheerio.load(response.data)
+        // For now we are going to hardcode the suicide_prevention_id
+        let suicide_prevention_id = '6804992335e3fe0a7c60b7c6'
+
+        // Extract header information
+        // Specifically for this site, take the first part of title since it's repetittive
+        const title =
+            $('meta[property="og:title"]')
+                .attr('content')
+                .split('|')[0]
+                .trim()
+                .substring(1) ||
+            $('title').text().trim() ||
+            $('meta[name="title"]').attr('content')
+        const url = $('meta[property="og:url"]').attr('content')
+
+        // Extract image information
+        const image = $('h2[id="If_You_Are_Having_Thoughts_of_Suicide"]')
+            .children('img')
+            .attr('src')
+        const image_alt =
+            $('h2[id="If_You_Are_Having_Thoughts_of_Suicide"]')
+                .children('img')
+                .attr('alt') || 'Suicide Prevention Image' // Hardcode alt text since banner has none
+
+        // Regex for extracting phone numbers, emails, and days of the week
+        const daysRegex =
+            /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/
+
+        const phoneRegex =
+            /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
+        // Note: modified so that first character cannot be a number (specific to Cal Fresh)
+        const emailRegex =
+            /[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+
+        // Regex for extracting building
+        const buildingRegex = /(Building\b) (\w+)/
+        // Regex for extracting hours
+        const hoursRegex =
+            /(\d{1,2}(:\d{2})?\s?(AM|PM))\s?-\s?(\d{1,2}(:\d{2})?\s?(AM|PM))\s?\|\s?([A-Za-z,-]+)/i
+
+        // Extract info bar information
+        let column_info = []
+        let phoneNum = ''
+        let email = ''
+        let list_of_hours = []
+        let location = ''
+
+        $('div[id="rightCol"]')
+            .children('div[id="block-block-13"]')
+            .children('p')
+            .each((_index, element) => {
+                let $column_info_text = $(element).text().trim()
+                if (buildingRegex.test($column_info_text)) {
+                    location = $column_info_text.match(buildingRegex)[0]
+                    // We know the rest of the information is hours info
+                    // extract this and put into the list_of_hours array
+                    $column_info_text = $column_info_text
+                        .replace(location, '')
+                        .trim()
+                    const formattedDate = formatHours1(
+                        $column_info_text.match(hoursRegex)[0],
+                    )
+
+                    list_of_hours.push(formattedDate)
+                } else if (daysRegex.test($column_info_text)) {
+                    // If a day of the week is found : (likely for list of hours)
+                    const formattedDate = $column_info_text
+                        .split('\n') // Split by newline for multiple ranges
+                        .map(formatHours) // Format each part
+                        .join(' \n') // Join them back with a newline
+                    list_of_hours.push(formattedDate)
+                }
+                if (
+                    phoneRegex.test($column_info_text) ||
+                    emailRegex.test($column_info_text)
+                ) {
+                    // Check if phone number or email is found
+                    phoneNum = $column_info_text.match(phoneRegex)[0]
+                    email = $column_info_text.match(emailRegex)[0]
+                } else {
+                    // Any other footer info we can put extract
+                    column_info.push($(element).text().trim())
+                }
+            })
+
+        // Extract main text information
+        const mainText = []
+        const extraInfo = []
+
+        $('div[class="field-item even"]')
+            .find('p')
+            .each((_index, element) => {
+                const $paragraphText = $(element)
+                // Finds the paragraph that starts with the respective title
+                if (
+                    $paragraphText.find('strong') &&
+                    $paragraphText
+                        .find('strong')
+                        .text()
+                        .trim()
+                        .startsWith('Contact someone who can help NOW. Call ')
+                ) {
+                    // This is the paragraphText
+                    mainText.push('If You Are Having Thoughts of Suicide ')
+                    mainText.push($paragraphText.text().trim())
+                } else if (
+                    $paragraphText
+                        .text()
+                        .trim()
+                        .startsWith('Students often face challenges')
+                ) {
+                    mainText.push($paragraphText.text().trim())
+                }
+                // Conditions for finding ExtraInfo text
+                else if (
+                    // hard-code the section header
+                    $paragraphText.find('img') &&
+                    $paragraphText.find('img').attr('src') ==
+                        'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/7_1.png'
+                ) {
+                    const $ul = $paragraphText.next('ul')
+                    $ul.find('li').each((_i, li) => {
+                        extraInfo.push($(li).text().trim())
+                    })
+                } else if (
+                    // hard-code the section header
+                    $paragraphText.find('img') &&
+                    $paragraphText.find('img').attr('src') ==
+                        'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/7_2.png'
+                ) {
+                    const $nextP = $paragraphText.nextAll('p')
+                    $nextP.each((_i, p) => {
+                        const $nextA = $(p).find('a').first()
+                        const text = $nextA.text().trim()
+
+                        // Filter out empty links or phone numbers
+                        if (text) {
+                            extraInfo.push(text)
+                        }
+                    })
+                }
+            })
+
+        const currentTime = new Date()
+
+        // Store the resourceData into the database
+        const newResource = new IndResources({
+            _id: suicide_prevention_id,
+            Title: title,
+            ImageURL: image,
+            ImageAltText: image_alt,
+            Address: location,
+            BuildingName: location,
+            ParagraphText: mainText.join('\n'),
+            PhoneNumber: phoneNum,
+            ResourceURL: url,
+            LastUpdate: currentTime,
+            Category: 'Self-Help',
+            ListOfHours: list_of_hours,
+            ExtraInfo: extraInfo,
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: suicide_prevention_id },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.json(newResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Suicide Prevention data')
     }
 })
 
