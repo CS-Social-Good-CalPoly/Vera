@@ -18,7 +18,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 function ResourceTile(props) { // props: title, buildingName, address, description, extraInfo, phone, hours, link, imgUrl
 
     return (
-        <Container className="resource-tile-expanded">
+        <Container className="resource-tile-expanded" id={props.id}>
             <Row className="resource-tile-expanded-row">
                 <Col xs={12} md={9} className="resource-tile-expanded-text-col">
                     <div className="resource-tile-expanded-text">

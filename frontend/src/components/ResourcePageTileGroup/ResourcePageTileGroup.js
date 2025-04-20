@@ -26,6 +26,7 @@ function ResourcePageTileGroup({ id, title, resources }) {
                         phone={resource.PhoneNumber}
                         hours={resource.ListOfHours}
                         link={resource.ResourceURL}
+                        id={resource._id}
                     />
                 ))}
             </TileGroup>

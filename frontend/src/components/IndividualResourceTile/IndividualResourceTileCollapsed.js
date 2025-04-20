@@ -64,7 +64,7 @@ function IndividualResourceTileCollapsed(props) {
     })
 
     return (
-        <Tile onClick={props.handleChange}>
+        <Tile onClick={props.handleChange} id={props.id}>
             <TileBanner src={props.imageUrl} alt={props.title} />
             <TileTitle>{props.title}</TileTitle>
             <InfoText>

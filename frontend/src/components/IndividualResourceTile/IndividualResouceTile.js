@@ -21,6 +21,7 @@ function IndividualResourceTile(props) {
             link={props.link}
             imgUrl={props.imgUrl}
             handleChange={handleChange}
+            id={props.id}
         />
     ) : (
         <IndividualResourceTileCollapsed
@@ -28,6 +29,7 @@ function IndividualResourceTile(props) {
             infoText={props.description}
             imageUrl={props.imgUrl}
             handleChange={handleChange}
+            id={props.id}
         />
     )
 }
