@@ -3,6 +3,7 @@ const router = express.Router()
 const GenStories = require('../models/GenStories')
 const IndStories = require('../models/IndividualStories')
 const Tokens = require('../models/Tokens')
+const CollegeMajors = require('../models/CollegeMajors')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const AnimalList = [
@@ -492,6 +493,32 @@ router.get('/colleges-and-majors', async (req, res) => {
     }
 })
 
+// GET route for all colleges
+router.get('/colleges', async (req, res) => {
+    try {
+        const colleges = await CollegeMajors.find({})
+        if (colleges === null) {
+            throw Error('Colleges could not be found')
+        }
+        res.status(200).json(colleges)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
+router.get('/majors', async (req, res) => {
+    try {
+        const colleges = await CollegeMajors.find({})
+        if (colleges === null) {
+            throw Error('Colleges and majors could not be found')
+        }
+        const majors = colleges.flatMap((college) => college.Majors)
+        res.status(200).json(majors)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 // GET route for all stories associated with a specific token
 router.get('/stories-by-token', async (req, res) => {
     try {
@@ -503,9 +530,11 @@ router.get('/stories-by-token', async (req, res) => {
         }
 
         // get stories with IDs that belong to that token
-        const stories = await IndStories.find({ _id: { $in: token.AssociatedStories } })
+        const stories = await IndStories.find({
+            _id: { $in: token.AssociatedStories },
+        })
         res.status(200).json(stories)
-    } catch(err) {
+    } catch (err) {
         res.status(500).json({ message: err.message })
     }
 })
