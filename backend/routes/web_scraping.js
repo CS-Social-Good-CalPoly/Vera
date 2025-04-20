@@ -103,18 +103,12 @@ router.put('/scrape-covid19-resource', async (req, res) => {
         const { data } = await axios.get(url)
         const $ = cheerio.load(data)
 
-        // Debugging: Check if page loaded
-        console.log('Page loaded successfully')
-
         // Extract Title
         const Title = $('h1.page-title').text().trim()
-        console.log('Title:', Title)
 
         // Extract Image URL
         let ImageURL = $('div.field-item.even img').attr('src') || ''
         let ImageAltText = $('div.field-item.even img').attr('alt').trim() || ''
-        console.log('Image URL:', ImageURL)
-        console.log('Image Alt:', ImageAltText)
 
         // Extracting the building name under "Location" h3
         const BuildingName = $('h3:contains("Location")')
@@ -122,15 +116,12 @@ router.put('/scrape-covid19-resource', async (req, res) => {
             .find('a')
             .text()
             .trim()
-        console.log('Building Name:', BuildingName)
 
         // Extract Paragraph
         const ParagraphText = $('div.clear').first().text().trim()
-        console.log('Paragraph Text:', ParagraphText)
 
         // Extract Phone Number
         const PhoneNumber = $('a[href^="tel"]').first().text().trim()
-        console.log('Phone Number:', PhoneNumber)
 
         // Extract List of Hours
         const ListOfHours = []
@@ -142,7 +133,6 @@ router.put('/scrape-covid19-resource', async (req, res) => {
                 .split('Building')[0]
             if (text) ListOfHours.push(text)
         })
-        console.log('List of Hours:', ListOfHours)
 
         // Extract extra info as an array of objects { text, url }
         const ExtraInfo = []
@@ -153,8 +143,6 @@ router.put('/scrape-covid19-resource', async (req, res) => {
                 const fullText = $(element).text().trim() // Extract only text
                 ExtraInfo.push(fullText) // Push only the text, no links
             })
-
-        console.log('Extra Info:', ExtraInfo)
 
         // Upsert into MongoDB
         const updatedCovidResource = await IndResources.findOneAndUpdate(
@@ -705,15 +693,12 @@ router.put('/emotional-wellbeing', async (req, res) => {
 
         // Extract Title
         const Title = $('h1.page-title').text().trim()
-        console.log(Title)
 
         // Extract Image URL
         let ImageURL = $('div.field-item.even img').attr('src') || ''
         let ImageAltText =
             $('div.field-item.even img').attr('alt').trim() ||
             'Emotional Wellbeing Page Header'
-        console.log('Image URL:', ImageURL)
-        console.log('Image Alt:', ImageAltText)
 
         // Extracting the building name under "Location" h3
         const BuildingName = $('h3:contains("Location")')
@@ -721,18 +706,15 @@ router.put('/emotional-wellbeing', async (req, res) => {
             .find('a')
             .text()
             .trim()
-        console.log('Building Name:', BuildingName)
 
         // Extract Paragraph
         const ParagraphText = $('.field-item[property="content:encoded"] p')
             .eq(1)
             .text()
             .trim()
-        console.log('Paragraph Text:', ParagraphText)
 
         // Extract Phone Number
         const PhoneNumber = $('p a[href^="tel:"]').first().text().trim()
-        console.log('Phone Number:', PhoneNumber)
 
         // Extract List of Hours
         const ListOfHours = []
@@ -752,7 +734,6 @@ router.put('/emotional-wellbeing', async (req, res) => {
         ExtraInfo.push(rioParagraph)
         ExtraInfo.push(gettingUnstuckParagraph)
         ExtraInfo.push(bridgeParagraph)
-        console.log('Extra Info:', ExtraInfo)
 
         // Upsert into MongoDB
         const updatedEmotionalWellbeingResource =
@@ -945,7 +926,7 @@ router.put('/suicide-prevention', async (req, res) => {
         )
         const $ = cheerio.load(response.data)
         // For now we are going to hardcode the suicide_prevention_id
-        let suicide_prevention_id = '60f5a5661d9811d718c9d011'
+        let suicide_prevention_id = '6804992335e3fe0a7c60b7c6'
 
         // Extract header information
         // Specifically for this site, take the first part of title since it's repetittive
@@ -1065,7 +1046,6 @@ router.put('/suicide-prevention', async (req, res) => {
                         'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/7_1.png'
                 ) {
                     const $ul = $paragraphText.next('ul')
-                    console.log('found img')
                     $ul.find('li').each((_i, li) => {
                         extraInfo.push($(li).text().trim())
                     })
@@ -1079,7 +1059,6 @@ router.put('/suicide-prevention', async (req, res) => {
                     $nextP.each((_i, p) => {
                         const $nextA = $(p).find('a').first()
                         const text = $nextA.text().trim()
-                        console.log(text)
 
                         // Filter out empty links or phone numbers
                         if (text) {
@@ -1090,28 +1069,16 @@ router.put('/suicide-prevention', async (req, res) => {
             })
 
         const currentTime = new Date()
-        console.log('title:', title)
-        console.log('url:', url)
-        console.log('image:', image)
-        console.log('image_alt:', image_alt)
-        console.log('phoneNum:', phoneNum)
-        console.log('email:', email)
-        console.log('column_info:', column_info)
-        console.log('list_of_hours:', list_of_hours)
-        console.log('location:', location)
-        console.log('mainText:', mainText)
-        console.log('extraInfo:', extraInfo)
-        console.log('currentTime:', currentTime)
 
         // Store the resourceData into the database
         const newResource = new IndResources({
-            // _id: cal_fresh_id,
+            _id: suicide_prevention_id,
             Title: title,
             ImageURL: image,
             ImageAltText: image_alt,
             Address: location,
             BuildingName: location,
-            ParagraphText: mainText[0],
+            ParagraphText: mainText.join('\n'),
             PhoneNumber: phoneNum,
             ResourceURL: url,
             LastUpdate: currentTime,
@@ -1120,14 +1087,11 @@ router.put('/suicide-prevention', async (req, res) => {
             ExtraInfo: extraInfo,
         })
 
-        // const updatedResource = await IndResources.findByIdAndUpdate(
-        //     { _id: suicide_prevention_id },
-        //     newResource,
-        //     { new: true },
-        // )
-        const updatedResource = await IndResources.up(newResource, {
-            new: true,
-        })
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: suicide_prevention_id },
+            newResource,
+            { new: true, upsert: true },
+        )
 
         if (!updatedResource) {
             return res.status(404).send('Resource not found')
