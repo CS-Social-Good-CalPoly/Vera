@@ -88,7 +88,7 @@ function StorySubmission() {
     // Fetch majors
     useEffect(() => {
         axios
-            .get(URL_PATH + '/stories/colleges')
+            .get(URL_PATH + '/stories/majors')
             .then((res) => {
                 const majorNames = res.data.sort((a, b) => a.localeCompare(b))
                 setMajorsList(majorNames)
