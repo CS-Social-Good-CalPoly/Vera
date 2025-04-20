@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation } from "react-router-dom";
 import './ResourcePage.css'
 import bg from '../../components/Banner/bannerBackground.jpg'
 import veraLogo from '../../components/Banner/draftLogo.png'
@@ -18,6 +19,12 @@ function ResourcePage({ setActiveLink }) {
     // categoryToResource is a dictionary mapping the category names to
     // the corresponding array of resource objects
     const [categoryToResources, setCategoryToResources] = useState({})
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const scrollToResourceId = queryParams.get("resourceId");
+
+    const [loading, setLoading] = useState(true);
 
     // Hook which executes fetch (GET) to the database and is only
     // run upon the very first render of the website.
@@ -40,6 +47,7 @@ function ResourcePage({ setActiveLink }) {
                     }))
                 }
                 setCategorNames(tempArray)
+                setLoading(false);
             })
             .catch((error) => console.error(error))
     }, [])
@@ -70,6 +78,18 @@ function ResourcePage({ setActiveLink }) {
     useEffect(() => {
         setActiveLink('/Resources')
     }, [])
+
+    // scroll to the item when data is loaded and ID exists
+    useEffect(() => {
+        if (!loading && scrollToResourceId) {
+        const element = document.getElementById(`${scrollToResourceId}`);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        } else {
+            console.warn("Item not found:", scrollToResourceId);
+        }
+        }
+    }, [loading, scrollToResourceId]);
 
     return (
         <div>
