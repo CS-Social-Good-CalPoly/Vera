@@ -21,13 +21,16 @@ function StorySubmission() {
     const [quillValue, setQuillValue] = useState('')
     const [title, setTitleValue] = useState('')
     const [token, setTokenValue] = useState('')
-    const [collegeDict, setCollegeDict] = useState({})
+    const [majorsToCollege, setMajorsToCollege] = useState({})
+    const [collegeList, setCollegeList] = useState([])
+    const [majorsList, setMajorsList] = useState([])
     const [categoryNamesList, setCategoryNamesList] = useState([])
     const [categoryList, setCategoryList] = useState([])
     const [categoryIds, setCategoryIds] = useState([])
     const [showPopUp, setShowPopUp] = useState(false)
     //use for put
     const [storyId, setStoryId] = useState('')
+    const collegeTest = ['a', 'b', 'c']
 
     //use for Token POST: check if token already in database
     const [allTokens, setAllTokens] = useState([])
@@ -80,35 +83,6 @@ function StorySubmission() {
         setCategoryIds([...selectedCategories, e])
     }
 
-    // const getCategoryId = (categories, categoryName) => {
-    //     // console.log(categories)
-    //     const cat = categories.filter((c) => c.Name === categoryName)[0]
-    //     // console.log(cat)
-    //     return cat._id
-    // }
-
-    const getCategoryId = (categories, categoryName) => {
-        const cat = categories.find((c) => c.Title === categoryName)
-        return cat ? cat._id : null
-    }
-
-    // //change the id list to include the selected category
-    // useEffect(() => {
-    //     console.log(selectedCategoryName)
-    //     if (selectedCategoryName) {
-    //         const id = getCategoryId(categoryList, selectedCategoryName)
-    //         console.log(id)
-    //         setCategoryIds((prev) => [...prev, id])
-    //     }
-    // }, [selectedCategories])
-
-    // useEffect(() => {
-    //     const ids = selectedCategories.map((category) =>
-    //         getCategoryId(categoryList, category.value)
-    //     );
-    //     setCategoryIds(ids);
-    // }, [selectedCategories, categoryList]);
-
     const handleTitleChange = (e) => {
         setTitleValue(e.target.value)
         console.log('selected:', categoryIds)
@@ -116,16 +90,36 @@ function StorySubmission() {
 
     const handleMajorChange = (e) => {
         setMajor(e)
-        setCollege(collegeDict[e])
-        console.log(e + ': ' + collegeDict[e])
+        setCollege(majorsToCollege[e])
         setIsCollegeDropdownDisabled(e !== 'N/A') // Assuming "N/A" represents "MAJOR (OPTIONAL)"
     }
 
+    // Fetch colleges
     useEffect(() => {
         axios
-            .get(URL_PATH + '/stories/colleges-and-majors')
+            // .get(URL_PATH + '/stories/colleges')
+            .get('http://localhost:3001/stories/colleges')
             .then((res) => {
-                setCollegeDict(res.data)
+                const collegeMap = {}
+                res.data.forEach((item, _) => {
+                    item.Majors.forEach((major, _) => {
+                        collegeMap[major] = item.College
+                    })
+                })
+                setMajorsToCollege(collegeMap)
+                const collegeNames = res.data.map((item, _) => item.College)
+                setCollegeList(collegeNames)
+            })
+            .catch((err) => console.error(err))
+    }, [])
+
+    // Fetch majors
+    useEffect(() => {
+        axios
+            // .get(URL_PATH + '/stories/colleges')
+            .get('http://localhost:3001/stories/majors')
+            .then((res) => {
+                setMajorsList(res.data)
             })
             .catch((err) => console.error(err))
     }, [])
@@ -137,7 +131,7 @@ function StorySubmission() {
                 const category_names_lst = res.data.map(
                     (item, index) => item.Title,
                 )
-                const category_lst = res.data.map((item, index) => item)
+                const category_lst = res.data.map((item, _) => item)
                 setCategoryNamesList(category_names_lst)
                 setCategoryList(category_lst)
             })
@@ -168,12 +162,9 @@ function StorySubmission() {
     }
 
     async function handlePopUp(e) {
-        // NOTE: TEMPORARY FIX UNTIL ISSUES #336 AND #337 ARE COMPLETE
-        // Temporarily removes college requirement
-        // remove these comments and restore college requirement when working on ISSUE #337
         if (
             year === '' ||
-            // college === '' ||
+            college === '' ||
             quillValue === '' ||
             title === ''
         ) {
@@ -397,10 +388,15 @@ function StorySubmission() {
                             </div>
                             <div>
                                 <DropDownSelectForm
-                                    fieldTitle={college ? college : 'College'}
+                                    fieldTitle="College"
+                                    value={college}
                                     myoptions={[
-                                        ...new Set(Object.values(collegeDict)),
-                                    ]}
+                                        { value: '', label: 'College' },
+                                        ...collegeList.map((collegeName) => ({
+                                            value: collegeName,
+                                            label: collegeName,
+                                        })),
+                                    ]} // Convert the college to an object with a value and label
                                     handleChange={handleCollegeChange}
                                     customStyles={customStyles}
                                     disabled={isCollegeDropdownDisabled}
@@ -408,14 +404,16 @@ function StorySubmission() {
                             </div>
                         </div>
                         <div class="inner-container-box">
-                            {/* <DropDownOptionalForm
-                                fieldTitle="Major (optional)"
-                                myoptions={Object.keys(collegeDict).sort()}
-                                handleChange={handleMajorChange}
-                            /> */}
                             <DropDownSelectForm
                                 fieldTitle="Major"
-                                myoptions={Object.keys(collegeDict).sort()}
+                                value={major}
+                                myoptions={[
+                                    { value: '', label: 'Major' },
+                                    ...majorsList.map((majorName) => ({
+                                        value: majorName,
+                                        label: majorName,
+                                    })),
+                                ]} // Convert the major to an object with a value and label
                                 handleChange={handleMajorChange}
                                 customStyles={customStyles}
                             />
@@ -424,7 +422,7 @@ function StorySubmission() {
                                     fieldTitle="Categories"
                                     myoptions={categoryOptions}
                                     handleChange={handleCategoryChange}
-                                    isMulti
+                                    isMulti={true}
                                     customStyles={customStyles}
                                 />
                             </div>

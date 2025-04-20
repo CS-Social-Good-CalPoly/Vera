@@ -66,6 +66,15 @@ class DropDownSelectForm extends Component {
                 placeholder={this.props.fieldTitle}
                 onChange={this.handleDropdownChange}
                 isMulti={this.props.isMulti}
+                value={
+                    this.props.isMulti
+                        ? this.props.value || this.state.selectedValues
+                        : this.props.myoptions.find(
+                              (option) =>
+                                  option.value ===
+                                  (this.props.value ?? this.state.selectValue),
+                          )
+                }
             />
         )
     }
