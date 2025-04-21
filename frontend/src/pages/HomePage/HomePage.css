@@ -12,21 +12,51 @@
     border-radius: 15px;
     border: #b9c7ca;
     padding: 10px;
-    width: 33%;
+    width: 50%;
+    display: flex;
+    padding: 6px 12px;
+    text-align: left;
+    align-items: center;
+    justify-content: left;
+    border: none;
+    outline: none;
+}
+
+.home-search-input {
+    background-color: #f9f9f9;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    padding: 6px 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* font-semibold */
+    font-size: 16px;
+    letter-spacing: 0.05em; /* tracking-wide */
+    color: #534d49;
+    text-align: left;
+    align-items: center;
+    justify-content: left;
+    text-overflow: ellipsis; /* truncate */
+    transition: border 0.3s ease;
+    border: none;
+    outline: none;
 }
 
 .icon-row {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
     padding-top: 1%;
+    gap: 5%;
+    width: 50%;
 }
 
 .search-dropdown {
     position: absolute;
     z-index: 10;
     margin-top: 50px;
-    width: 33%;
+    width: 50%;
     background-color: white;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
@@ -38,10 +68,54 @@
 }
 
 .search-dropdown-item {
-    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    padding: 0.7rem 1rem;
     cursor: pointer;
 }
 
 .search-dropdown-item.selected {
     background-color: #e5e7eb;
+}
+
+.maintext {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500; /* font-semibold */
+    font-size: 16px;
+    letter-spacing: 0.05em; /* tracking-wide */
+    color: black;
+    text-align: left;
+    align-items: center;
+    justify-content: left;
+    text-overflow: ellipsis; /* truncate */
+    max-width: 70%;
+    text-overflow: ellipsis; /* truncate */
+    white-space: nowrap; /* truncate */
+    overflow: hidden;
+}
+
+.subtext {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* font-semibold */
+    font-size: 14px;
+    letter-spacing: 0.05em; /* tracking-wide */
+    color: #534d49;
+    text-align: left;
+    align-items: center;
+    justify-content: left;
+    text-overflow: ellipsis; /* truncate */
+    white-space: nowrap; /* truncate */
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 703px) {
+    .home-search {
+        width: 75%;
+    }
+    .icon-row {
+        width: 75%;
+    }
 }
