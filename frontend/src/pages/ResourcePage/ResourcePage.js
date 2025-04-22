@@ -50,7 +50,6 @@ function ResourcePage({ setActiveLink }) {
                     }))
                 }
                 setCategorNames(tempArray)
-                setLoading(false);
             })
             .catch((error) => console.error(error))
     }, [])
@@ -75,6 +74,7 @@ function ResourcePage({ setActiveLink }) {
                         ],
                     }))
                 }
+                setLoading(false)
             })
     }, [])
 
