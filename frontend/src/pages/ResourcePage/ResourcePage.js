@@ -82,12 +82,12 @@ function ResourcePage({ setActiveLink }) {
     // scroll to the item when data is loaded and ID exists
     useEffect(() => {
         if (!loading && scrollToResourceId) {
-        const element = document.getElementById(`${scrollToResourceId}`);
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-        } else {
-            console.warn("Item not found:", scrollToResourceId);
-        }
+            const element = document.getElementById(`${scrollToResourceId}`);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            } else {
+                console.warn("Item not found:", scrollToResourceId);
+            }
         }
     }, [loading, scrollToResourceId]);
 
