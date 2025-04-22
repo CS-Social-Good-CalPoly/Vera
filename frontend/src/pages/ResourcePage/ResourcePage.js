@@ -22,7 +22,10 @@ function ResourcePage({ setActiveLink }) {
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const scrollToResourceId = queryParams.get("resourceId");
+
+    // this can be used for specific IDs from Mongo (for individual tiles)
+    // or for section headers (the section title with no spaces)
+    const scrollToResourceId = queryParams.get("resource");
 
     const [loading, setLoading] = useState(true);
 
@@ -118,7 +121,8 @@ function ResourcePage({ setActiveLink }) {
                     return (
                         <ResourcePageTileGroup
                             key={name}
-                            id={name}
+                            // id is title with no spaces
+                            id={name.replaceAll(' ', '')}
                             title={name}
                             resources={results}
                         />
