@@ -9,7 +9,6 @@ function HomePage({ setActiveLink }) {
     const [resources, setResources] = useState([]) // all the resources
     const [searchFilteredResources, setSearchFilteredResources] = useState([]) // search results
     const [selectedIndex, setSelectedIndex] = useState(0) // selected index for search results
-    const [iconIds, setIconIds] = useState([])
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -34,11 +33,11 @@ function HomePage({ setActiveLink }) {
         setActiveLink('/')
     }, [setActiveLink])
 
-    const icon_data = [
-        'Mental Health',
-        'Food Insecurity',
-        'Self Help',
-        'Financial Insecurity'
+    const iconData = [
+        {title: 'Mental Health', id: 'Counseling-and-Psychological-Services'},
+        {title: 'Food Insecurity', id: 'Food-Resources'},
+        {title: 'Self Help', id: 'Self-Help'},
+        {title: 'Financial Insecurity', id: 'Financial-Resources-and-Education'}
     ]
 
     const fuseOptions = {
@@ -105,8 +104,8 @@ function HomePage({ setActiveLink }) {
                 </div>
             )}
             <div className="icon-row">
-                {icon_data.map((item) => (
-                    <HomeIcon key={item} title={item} link={'/Resources'} />
+                {iconData.map((item) => (
+                    <HomeIcon key={item.title} title={item.title} link={`/Resources?resource=${item.id}`} />
                 ))}
             </div>
             <br />

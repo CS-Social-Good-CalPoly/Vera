@@ -121,8 +121,8 @@ function ResourcePage({ setActiveLink }) {
                     return (
                         <ResourcePageTileGroup
                             key={name}
-                            // id is title with no spaces
-                            id={name.replaceAll(' ', '')}
+                            // id is title with no spaces or apostrophes
+                            id={name.replaceAll(' ', '-').replaceAll('\'', '-')}
                             title={name}
                             resources={results}
                         />
