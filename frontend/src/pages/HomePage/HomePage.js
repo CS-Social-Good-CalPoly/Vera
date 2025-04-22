@@ -106,7 +106,7 @@ function HomePage({ setActiveLink }) {
             )}
             <div className="icon-row">
                 {icon_data.map((item) => (
-                    <HomeIcon key={item} title={item} />
+                    <HomeIcon key={item} title={item} link={'/Resources'} />
                 ))}
             </div>
             <br />
