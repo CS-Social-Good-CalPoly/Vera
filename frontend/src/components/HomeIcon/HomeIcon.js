@@ -1,12 +1,13 @@
 import React from 'react'
 import './HomeIcon.css'
+import { LinkButton } from '../components.js'
 
-function HomeIcon({title}) {
+function HomeIcon({title, link}) {
     return (
-        <div className='icon-container'>
+        <LinkButton className='icon-container' link={link}>
             <img className='icon-image' src={'/icon_images/'+title+'_Icon.png'} alt={'Icon representing ' + title} />
             {title}
-        </div>
+        </LinkButton>
     )
 }
 
