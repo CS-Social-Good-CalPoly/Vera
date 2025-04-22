@@ -35,6 +35,7 @@ URL: [INSERT URL HERE]
     - [ ] `ExtraInfo`: include the following:
         - [ ] info1
         - [ ] info2
+    - [ ] `Tags`: [List of appropriate tags here. If none, specify that this should be set to an empty list]
 - [ ] Use Postman (or something similar) to manually make a POST request. Verify that the new resource appears in MongoDB (include a screenshot in your PR)
 
 ### Notes
