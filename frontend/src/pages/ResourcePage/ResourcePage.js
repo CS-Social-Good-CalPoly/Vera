@@ -199,7 +199,10 @@ function ResourcePage({ setActiveLink }) {
                         value={selectedCategory}
                     />
                     {selectedCategory && (
-                        <button onClick={() => handleCategoryChange('')}>
+                        <button
+                            className="clear-button"
+                            onClick={() => handleCategoryChange('')}
+                        >
                             Clear
                         </button>
                     )}
