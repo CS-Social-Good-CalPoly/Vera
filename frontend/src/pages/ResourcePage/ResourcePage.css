@@ -1,0 +1,54 @@
+.dropdown-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.dropdown-style {
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #534d49;
+    border-color: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    border: 0.5px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+    background-color: white;
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.custom-input {
+    display: flex;
+    padding: 6px 12px; /* Equivalent to px-3 py-1.5 */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* font-semibold */
+    font-size: 16px;
+    letter-spacing: 0.05em; /* tracking-wide */
+    color: #534d49;
+    background-color: white;
+    text-align: left;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis; /* truncate */
+    transition: border 0.3s ease;
+    border: none;
+    outline: none;
+}
+
+/* Add border when input is focused */
+.custom-input:focus {
+    border-radius: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.5); /* Show border only when active */
+}
