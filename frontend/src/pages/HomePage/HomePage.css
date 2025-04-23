@@ -137,9 +137,9 @@
     }
     .icon-row {
         width: 75%;
-        font-size: 10px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        font-size: 12px;
+        /* display: grid;
+        grid-template-columns: repeat(3, 1fr); */
     }
     .header-container {
         width: 75%;
