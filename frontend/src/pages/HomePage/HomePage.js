@@ -5,12 +5,14 @@ import URL_PATH from '../../links.js'
 import HomeIcon from '../../components/HomeIcon/HomeIcon.js'
 import Fuse from 'fuse.js'
 import { Search, BookText, Hammer } from 'lucide-react'
+import Typewriter from '../../components/TypeWriter/TypeWriter.js'
 
 function HomePage({ setActiveLink }) {
     const [references, setReferences] = useState([]) // all the references (resources and stories)
     const [searchFilteredReferences, setSearchFilteredReferences] = useState([]) // search results
     const [searchTerm, setSearchTerm] = useState('') // search term
     const [selectedIndex, setSelectedIndex] = useState(0) // selected index for search results
+    const [randomPhrase, setRandomPhrase] = useState('') // random phrase for the header
 
     useEffect(() => {
         const fetchResourcesAndStories = async () => {
@@ -43,6 +45,12 @@ function HomePage({ setActiveLink }) {
 
                 // Combine both and update state
                 setReferences([...allResources, ...allStories])
+
+                // Set a random phrase for the header
+                const randomIndex = Math.floor(
+                    Math.random() * helpPhrases.length,
+                )
+                setRandomPhrase(helpPhrases[randomIndex])
             } catch (error) {
                 console.error(error)
             }
@@ -61,6 +69,25 @@ function HomePage({ setActiveLink }) {
         'Basic Needs',
         'Academic Health',
         'Sexual Health',
+    ]
+
+    const helpPhrases = [
+        'What can I do for you?',
+        'Need a hand with anything?',
+        'Anything I can help out with?',
+        'How can I support you?',
+        'What’s up? How can I help?',
+        'Is there anything you need right now?',
+        'I’m here if you need anything.',
+        'How can I best support you today?',
+        'What would be most helpful to you right now?',
+        'How may I assist you?',
+        'Is there something I can help you with?',
+        'Please let me know how I can be of assistance.',
+        'What do you need help with today?',
+        "I'm available to support — what do you need?",
+        "What's on your mind?",
+        'How can I help you today?',
     ]
 
     const fuseOptions = {
@@ -142,6 +169,9 @@ function HomePage({ setActiveLink }) {
 
     return (
         <div className="home-page">
+            <div className="header-container">
+                <Typewriter text={randomPhrase} speed={70} font_size={'1em'} />
+            </div>
             <div className="home-search">
                 <Search />
                 <input
@@ -158,68 +188,40 @@ function HomePage({ setActiveLink }) {
                         }
                     }}
                 />
-            </div>
-            {searchFilteredReferences.length > 0 && (
-                <div className="search-dropdown">
-                    {searchFilteredReferences.map((ref, index) => (
-                        <div
-                            className={`search-dropdown-item ${index === selectedIndex ? 'selected' : ''}`}
-                            key={ref.item.Id}
-                            onMouseEnter={setSelectedIndex.bind(null, index)}
-                            onMouseLeave={setSelectedIndex.bind(null, 0)}
-                            onClick={() => handleRedirect(ref.item)}
-                        >
-                            {ref.item.Type === 'Resource' ? (
-                                <Hammer />
-                            ) : (
-                                <BookText />
-                            )}
-                            <div className="ml-2 maintext">
-                                {ref.item.Title}
-                            </div>
+                {searchFilteredReferences.length > 0 && (
+                    <div className="search-dropdown">
+                        {searchFilteredReferences.map((ref, index) => (
+                            <div
+                                className={`search-dropdown-item ${index === selectedIndex ? 'selected' : ''}`}
+                                key={ref.item.Id}
+                                onMouseEnter={setSelectedIndex.bind(
+                                    null,
+                                    index,
+                                )}
+                                onMouseLeave={setSelectedIndex.bind(null, 0)}
+                                onClick={() => handleRedirect(ref.item)}
+                            >
+                                {ref.item.Type === 'Resource' ? (
+                                    <Hammer />
+                                ) : (
+                                    <BookText />
+                                )}
+                                <div className="ml-2 maintext">
+                                    {ref.item.Title}
+                                </div>
 
-                            <div className="subtext">{ref.snippet}</div>
-                        </div>
-                    ))}
-                </div>
-            )}
+                                <div className="subtext">{ref.snippet}</div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
             <div className="icon-row">
                 {icon_data.map((item) => (
                     <HomeIcon key={item} title={item} />
                 ))}
             </div>
-            <br />
-            Attributions:
-            <a
-                href="https://www.flaticon.com/free-icons/wellness"
-                title="wellness icons"
-            >
-                Wellness icons created by Freepik - Flaticon
-            </a>
-            <a
-                href="https://www.flaticon.com/free-icons/mental-health"
-                title="mental health icons"
-            >
-                Mental health icons created by Freepik - Flaticon
-            </a>
-            <a
-                href="https://www.flaticon.com/free-icons/basic-needs"
-                title="basic needs icons"
-            >
-                Basic needs icons created by nawicon - Flaticon
-            </a>
-            <a
-                href="https://www.flaticon.com/free-icons/academic"
-                title="academic icons"
-            >
-                Academic icons created by kerismaker - Flaticon
-            </a>
-            <a
-                href="https://www.flaticon.com/free-icons/relationship"
-                title="relationship icons"
-            >
-                Relationship icons created by BomSymbols - Flaticon
-            </a>
         </div>
     )
 }
