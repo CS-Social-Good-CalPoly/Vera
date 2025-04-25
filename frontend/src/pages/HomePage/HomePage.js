@@ -45,7 +45,6 @@ function HomePage({ setActiveLink }) {
 
                 // Combine both and update state
                 setReferences([...allResources, ...allStories])
-
                 // Set a random phrase for the header
                 const randomIndex = Math.floor(
                     Math.random() * helpPhrases.length,
@@ -216,7 +215,6 @@ function HomePage({ setActiveLink }) {
                     </div>
                 )}
             </div>
-
             <div className="icon-row">
                 {icon_data.map((item) => (
                     <HomeIcon key={item} title={item} />
