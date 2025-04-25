@@ -1,0 +1,35 @@
+.typewriter-container {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+    white-space: pre-wrap;
+    line-height: 1;
+    position: relative;
+    display: inline-block;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: white;
+    animation: blink 0.8s step-end infinite;
+    margin-left: 2px;
+    height: 1.2em;
+    vertical-align: bottom;
+}
+
+.cursor.done {
+    animation: none; /* ✅ Stops blinking */
+    background-color: transparent; /* Optional: hide after typing */
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
