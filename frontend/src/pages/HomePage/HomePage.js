@@ -63,10 +63,17 @@ function HomePage({ setActiveLink }) {
     }, [setActiveLink])
 
     const iconData = [
-        {title: 'Mental Health', id: 'Counseling-and-Psychological-Services'},
-        {title: 'Food Insecurity', id: 'Food-Resources'},
-        {title: 'Self Help', id: 'Self-Help'},
-        {title: 'Financial Insecurity', id: 'Financial-Resources-and-Education'}
+        { title: 'Mental Health', id: 'Counseling-and-Psychological-Services' },
+        { title: 'Food Insecurity', id: 'Food-Resources' },
+        { title: 'Self Help', id: 'Self-Help' },
+        {
+            title: 'Financial Insecurity',
+            id: 'Financial-Resources-and-Education',
+        },
+        {
+            title: 'Counseling Services',
+            id: 'Counseling-and-Psychological-Services',
+        },
     ]
 
     const helpPhrases = [
@@ -216,7 +223,11 @@ function HomePage({ setActiveLink }) {
             </div>
             <div className="icon-row">
                 {iconData.map((item) => (
-                    <HomeIcon key={item.title} title={item.title} link={`/Resources#${item.id}`} />
+                    <HomeIcon
+                        key={item.title}
+                        title={item.title}
+                        link={`/Resources#${item.id}`}
+                    />
                 ))}
             </div>
         </div>
