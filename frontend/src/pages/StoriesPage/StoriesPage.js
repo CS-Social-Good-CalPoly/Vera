@@ -145,10 +145,10 @@ function StoriesPage({ setActiveLink }) {
                 displayButton="true"
             />
             <div className="dropdown-container">
-                <div className="dropdown-style mt-4 mx-4 justify-content-between">
+                <div className="dropdown-style justify-content-between">
                     <Search />
                     <input
-                        className="custom-input mx-2 "
+                        className="custom-input mx-2"
                         placeholder="Search for stories..."
                         onInput={(e) => {
                             filterStoriesBySearch(e)
@@ -166,6 +166,7 @@ function StoriesPage({ setActiveLink }) {
                         handleChange={handleCategoryChange}
                         customStyles={{
                             margin: '2px 2px 2px 2px',
+                            width: '250px',
                         }}
                     />
                 </div>

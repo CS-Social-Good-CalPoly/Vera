@@ -14,6 +14,7 @@ const IndResSchema = new Schema({
     Category: String,
     ExtraInfo: [String],
     ListOfHours: [String],
+    Tags: { type: [String], default: [] },
 })
 
 module.exports = model(

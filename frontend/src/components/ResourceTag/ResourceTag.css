@@ -1,0 +1,38 @@
+/* Resource tag styling */
+.resource-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #e6f0f5;
+    color: #4a6e82;
+    padding: 5px 15px;
+    margin: 5px 5px 0;
+    border-radius: 30px; /* make it rounded */
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.resource-tag:hover {
+    background-color: #d0e1ea;
+}
+
+.resource-tag-delete {
+    display: none;
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    width: 18px;
+    height: 18px;
+    line-height: 16px; /* 1px on top, 1px on bottom */
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.resource-tag:hover .resource-tag-delete {
+    display: inline-block;
+}
+
+.resource-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+}

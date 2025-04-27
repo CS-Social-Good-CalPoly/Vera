@@ -334,8 +334,8 @@ function StorySubmission() {
                     }`}
                     onSubmit={verifySubmission}
                 >
-                    <div class="input-outer-container">
-                        <div class="inner-container-box">
+                    <div className="input-outer-container">
+                        <div className="inner-container-box">
                             <div>
                                 <DropDownSelectForm
                                     fieldTitle="Year"
@@ -363,7 +363,7 @@ function StorySubmission() {
                                 />
                             </div>
                         </div>
-                        <div class="inner-container-box">
+                        <div className="inner-container-box">
                             <DropDownSelectForm
                                 fieldTitle="Major"
                                 value={major}

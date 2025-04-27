@@ -9,7 +9,11 @@ function HomeIcon({title, link}) {
             to={link}
             className='icon-container'
         >
-            <img className='icon-image' src={'/icon_images/'+title+'_Icon.png'} alt={'Icon representing ' + title} />
+            <img
+                className="icon-image"
+                src={'/icon_images/' + title + '_Icon.png'}
+                alt={'Icon representing ' + title}
+            />
             {title}
         </HashLink>
     )
