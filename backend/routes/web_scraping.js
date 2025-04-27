@@ -1105,4 +1105,177 @@ router.put('/suicide-prevention', async (req, res) => {
     }
 })
 
+/* -------------------- EATING DISORDER AND TREATMENT -------------------- */
+router.put('/eating-disorder-treatment', async (req, res) => {
+    try {
+        const response = await axios.get(
+            'https://chw.calpoly.edu/counseling/eating-disorder-treatment',
+        )
+        const $ = cheerio.load(response.data)
+        const eating_disorder_id = '680dc31e35e3fe0a7c60f2a1'
+
+        // Extract header information
+        const title =
+            $('meta[property="og:title"]')
+                .attr('content')
+                .split('|')[0]
+                .trim()
+                .substring(1) ||
+            $('title').text().trim() ||
+            $('meta[name="title"]').attr('content')
+        const url = $('meta[property="og:url"]').attr('content')
+
+        // // Extract image information
+        const image = $('div[class="field-item even"]')
+            .children('p')
+            .children('img')
+            .attr('src')
+        const image_alt =
+            $('h2[id="header-1"]').children('img').attr('alt') ||
+            'Treatment Image' // Hardcode alt text since banner has none
+
+        // Regex for extracting phone numbers, emails, and days of the week
+        const daysRegex =
+            /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/
+
+        const phoneRegex =
+            /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
+        // Note: modified so that first character cannot be a number (specific to Cal Fresh)
+        const emailRegex =
+            /[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+
+        // Regex for extracting building
+        const buildingRegex = /(Building\b) (\w+)/
+        // Regex for extracting hours
+        const hoursRegex =
+            /(\d{1,2}(:\d{2})?\s?(AM|PM))\s?-\s?(\d{1,2}(:\d{2})?\s?(AM|PM))\s?\|\s?([A-Za-z,-]+)/i
+
+        // Extract info bar information
+        let phoneNum = ''
+        let email = ''
+        let column_info = []
+        let list_of_hours = []
+        let location = ''
+
+        $('div[id="rightCol"]')
+            .children('div[id="block-block-13"]')
+            .children('p')
+            .each((_index, element) => {
+                let $column_info_text = $(element).text().trim()
+                if (buildingRegex.test($column_info_text)) {
+                    location = $column_info_text.match(buildingRegex)[0]
+                    // We know the rest of the information is hours info
+                    // extract this and put into the list_of_hours array
+                    $column_info_text = $column_info_text
+                        .replace(location, '')
+                        .trim()
+                    const formattedDate = formatHours1(
+                        $column_info_text.match(hoursRegex)[0],
+                    )
+
+                    list_of_hours.push(formattedDate)
+                } else if (daysRegex.test($column_info_text)) {
+                    // If a day of the week is found : (likely for list of hours)
+                    const formattedDate = $column_info_text
+                        .split('\n') // Split by newline for multiple ranges
+                        .map(formatHours) // Format each part
+                        .join(' \n') // Join them back with a newline
+                    list_of_hours.push(formattedDate)
+                }
+                if (
+                    phoneRegex.test($column_info_text) ||
+                    emailRegex.test($column_info_text)
+                ) {
+                    // Check if phone number or email is found
+                    phoneNum = $column_info_text.match(phoneRegex)[0]
+                    email = $column_info_text.match(emailRegex)[0]
+                } else {
+                    // Any other footer info we can put extract
+                    column_info.push($(element).text().trim())
+                }
+            })
+
+        // Extract main text information
+        const mainText = []
+        const extraInfo = []
+
+        // Sections for ExtraInfo are headed with an image. Use this for
+        // finding the start of each section
+        const sectionImageHeadings = new Set([
+            'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/nutrition_1.png',
+            'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/Counseling.png',
+            'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/medical.png',
+        ])
+
+        $('div[class="field-item even"]')
+            .find('p')
+            .each((_index, element) => {
+                const $paragraphText = $(element)
+                // Finds the paragraph that starts with the respective title
+                if (
+                    $paragraphText.find('img') &&
+                    $paragraphText
+                        .text()
+                        .trim()
+                        .startsWith('Campus Health & Wellbeing')
+                ) {
+                    // This is the paragraphText
+                    mainText.push($paragraphText.text().trim())
+                } else if (
+                    // Check if image src is in set of hard-coded section headers
+                    $paragraphText.find('img') &&
+                    $paragraphText.find('img').attr('src') ==
+                        'https://content-calpoly-edu.s3.amazonaws.com/chw/1/images/nutrition_1.png'
+                ) {
+                    const $nextElem = $paragraphText.next()
+                    extraInfo.push($nextElem.text().trim())
+                } else if (
+                    $paragraphText.find('img') &&
+                    sectionImageHeadings.has(
+                        $paragraphText.find('img').attr('src'),
+                    )
+                ) {
+                    const $nextElem = $paragraphText.next()
+                    extraInfo.push($nextElem.text().trim())
+                }
+            })
+
+        const currentTime = new Date()
+
+        // Store the resourceData into the database
+        const newResource = new IndResources({
+            _id: eating_disorder_id,
+            Title: title,
+            ImageURL: image,
+            ImageAltText: image_alt,
+            Address: location,
+            BuildingName: location,
+            ParagraphText: mainText.join('\n'),
+            PhoneNumber: phoneNum,
+            ResourceURL: url,
+            LastUpdate: currentTime,
+            Category: 'Counseling-and-Psychological-Services',
+            ListOfHours: list_of_hours,
+            ExtraInfo: extraInfo,
+            Tags: [],
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: eating_disorder_id },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.json(newResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Eating Disorder Treatment data')
+    }
+})
+
 module.exports = router
