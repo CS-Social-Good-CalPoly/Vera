@@ -63,8 +63,8 @@ function ResourcePage({ setActiveLink }) {
 
                 // Map each resource into the correct category
                 for (const resource of resourcesJson) {
-                    const cat = resource['Category']
-                    if (!catMap[cat]) {
+                    const cat = resource['Category'].replaceAll('-', ' ')
+                    if (!catMap.hasOwnProperty(cat)) {
                         // skip for now - these are the old entries
                         continue
                         catMap[cat] = []
