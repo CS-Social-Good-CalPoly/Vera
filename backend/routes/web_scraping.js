@@ -1278,4 +1278,156 @@ router.put('/eating-disorder-treatment', async (req, res) => {
     }
 })
 
+/* -------------------- Let's Talk -------------------- */
+router.put('/lets-talk', async (req, res) => {
+    try {
+        const response = await axios.get(
+            'https://chw.calpoly.edu/counseling/lets-talk',
+        )
+        const $ = cheerio.load(response.data)
+
+        const lets_talk_id = '67b38f4ccd6ae1f04cf826d7'
+
+        const title = "Let's Talk" // The title of the page is an image
+
+        const url = $('meta[property="og:url"]').attr('content')
+
+        const image = $('div[class="field-item even"]')
+            .children('p')
+            .children('img')
+            .attr('src')
+
+        const imageAlt = $('div[class="field-item even"]')
+            .children('p')
+            .children('img')
+            .attr('alt')
+            .trim()
+
+        let paragraphText = ''
+        const extraInfo = []
+
+        // Iterate through the div to get data for paragraph text, extra info, hours, and zoom meeting link
+        $('div[class="field-item even"]')
+            .find('p')
+            .each((_index, element) => {
+                const $paragraphText = $(element)
+                // Finds the paragraph that starts with the respective title
+
+                if (
+                    $paragraphText
+                        .text()
+                        .trim()
+                        .startsWith('A free, confidential, one-on-one')
+                ) {
+                    // This is the main paragraph text
+                    paragraphText = $paragraphText.text().trim()
+                } else if (
+                    $paragraphText
+                        .text()
+                        .trim()
+                        .startsWith(
+                            'If you have any questions about Let’s Talk',
+                        )
+                ) {
+                    // This is the extra info
+                    extraInfo.push($paragraphText.text().trim())
+                }
+            })
+
+        // For now there's no way to display the table on the page
+        extraInfo.push(
+            'To find out about which providers are available on each day, click the link below.',
+        )
+
+        const $hours_and_zoom = $('div[class="field-item even"]')
+            .find('h2[id="Lets_Talk"]')
+            .next('p')
+
+        // Extract the meeting link
+        const meetingLink = $hours_and_zoom.find('a').attr('href')
+
+        // Extract the full string containing days, hours, and the Zoom link
+        const fullText = $hours_and_zoom.text().trim()
+
+        // Slice the string up to "PM"
+        const hoursText = fullText.split('via')[0].trim().replace(',', '') // This will extract up to "PM"
+
+        // Inline logic to handle "and" and commas in the days
+        const daysTimePattern =
+            /([\w\s,]+?)\s+(\d{1,2}(:\d{2})?(\s?(AM|PM))?)\s*-\s*(\d{1,2}(:\d{2})?\s?(AM|PM))/i
+        const match = hoursText.match(daysTimePattern)
+
+        let formattedHours = ''
+        if (match) {
+            let [
+                _,
+                days,
+                startTimeFull,
+                startTimeNum,
+                ,
+                startTimeAmPm,
+                endTimeFull, // Capture the full end time string
+                endTimeNum,
+                ,
+                endTimeAmPm, // Capture the AM/PM part of the end time
+            ] = match
+
+            const startTime = startTimeFull.trim()
+
+            // Normalize days by replacing "and" and splitting by commas
+            days = days
+                .replace(/\sand\s/g, ',') // Replace "and" with a comma
+                .split(',')
+                .map((day) => day.trim()) // Split by commas and trim whitespace
+                .map((day) => day.replace(/s$/, '')) // Remove trailing 's'
+                .map(convertToShortDay) // Convert to short day format
+                .join(', ') // Join back into a string
+
+            // Format the end time: remove space and lowercase AM/PM
+            let formattedEndTime = endTimeFull.trim()
+            if (endTimeAmPm) {
+                formattedEndTime = formattedEndTime
+                    .replace(/\s+(AM|PM)$/i, '$1')
+                    .toLowerCase()
+            }
+
+            formattedHours = `${days} ${startTime}-${formattedEndTime}`
+        }
+
+        // Add the formatted hours to the list_of_hours array
+        const listOfHours = []
+        listOfHours.push(formattedHours)
+
+        const newResource = new IndResources({
+            Title: title,
+            ImageURL: image,
+            ImageAltText: imageAlt,
+            ParagraphText: paragraphText,
+            ResourceURL: url,
+            LastUpdate: new Date(),
+            Category: "Let's Talk",
+            ListOfHours: listOfHours,
+            ExtraInfo: extraInfo,
+            Address: meetingLink,
+            Tags: ['Counseling', 'Mental Health', 'Wellness'],
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: lets_talk_id },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.json(newResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send("Error fetching Let's Talk data")
+    }
+})
+
 module.exports = router
