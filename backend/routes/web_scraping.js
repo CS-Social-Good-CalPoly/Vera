@@ -1355,8 +1355,8 @@ router.put('/cares-grant', async (req, res) => {
             ExtraInfo: extraInfo,
             ResourceURL: url,
             LastUpdate: currentTime,
-            Category: 'Financial Resources and Educational',
-            Tags: ['finance', 'money', 'grant'],
+            Category: 'Financial Resources and Education',
+            Tags: ['Finance', 'Money', 'Grant'],
         }
 
         const updatedResource = await IndResources.findOneAndUpdate(
