@@ -15,7 +15,8 @@ export const Tile = styled.div`
     justify-content: flex-start;
 
     @media only screen and (max-width: 768px) {
-        width: 150px;
+        // width: 150px;
+        width: 30000px;
         height: 125px;
         background: #ffffff;
         box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
