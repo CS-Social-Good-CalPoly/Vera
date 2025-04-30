@@ -63,11 +63,10 @@ function ResourcePage({ setActiveLink }) {
 
                 // Map each resource into the correct category
                 for (const resource of resourcesJson) {
-                    const cat = resource['Category'].replaceAll('-', ' ')
+                    const cat = resource['Category']
                     if (!catMap.hasOwnProperty(cat)) {
                         // skip for now - these are the old entries
                         continue
-                        catMap[cat] = []
                     }
                     catMap[cat].push(resource)
                     tempRsrcs.push(resource)
@@ -115,13 +114,10 @@ function ResourcePage({ setActiveLink }) {
     }
 
     const scrollIntoView = (category) => {
-        console.log(category)
-
         const element = document.getElementById(category)
 
         if (element) {
             // Scroll to the element with a smooth behavior
-            console.log('scrolling to', category)
             element.scrollIntoView({ behavior: 'smooth' })
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -147,7 +143,6 @@ function ResourcePage({ setActiveLink }) {
                   ? categoryToResources[selectedCategory]
                   : resources
 
-        console.log(filteredResources)
         setSearchFilteredResources(filteredResources)
     }
 
@@ -186,9 +181,9 @@ function ResourcePage({ setActiveLink }) {
                         fieldTitle="All Categories"
                         myoptions={[
                             { value: '', label: 'All Categories' },
-                            ...categorNames.map((major) => ({
-                                value: major,
-                                label: major,
+                            ...categorNames.map((cat) => ({
+                                value: cat,
+                                label: cat,
                             })),
                         ]}
                         handleChange={handleCategoryChange}
@@ -208,7 +203,7 @@ function ResourcePage({ setActiveLink }) {
                     )}
                 </div>
             </div>
-            {categorNames.map((name, index) => {
+            {categorNames.map((name, _) => {
                 // Get an array of the resources
                 let results = categoryToResources[name]
 
@@ -228,7 +223,7 @@ function ResourcePage({ setActiveLink }) {
                         <ResourcePageTileGroup
                             key={name}
                             // id is title with no spaces or apostrophes
-                            id={name.replaceAll(' ', '-').replaceAll('\'', '-')}
+                            id={name}
                             title={name}
                             resources={results}
                         />
