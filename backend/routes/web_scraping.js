@@ -854,7 +854,7 @@ router.put('/scrapefoodpantry', async (req, res) => {
     }
 })
 
-/* -----------------------Welltrack Boost----------------------- */
+/* ----------------------- Welltrack Boost ----------------------- */
 router.put('/welltrack-boost', async (req, res) => {
     try {
         // Step 1: Fetch the HTML
@@ -872,6 +872,8 @@ router.put('/welltrack-boost', async (req, res) => {
                 .attr('alt')
                 .trim() || 'Welltrack Boost Logo'
 
+        // Extracting the first two paragraphs
+        // We are using :gt(0) to skip the first paragraph and :lt(2) to get the next two paragraphs
         const paragraphTexts = []
         $('div.field-item.even p:gt(0):lt(2)').each((index, element) => {
             const text = $(element).text().trim()
@@ -1275,6 +1277,104 @@ router.put('/eating-disorder-treatment', async (req, res) => {
     } catch (error) {
         console.error('Scrapping failed:', error)
         res.status(500).send('Error fetching Eating Disorder Treatment data')
+    }
+})
+
+/* ----------------------- CARES GRANT ----------------------- */
+router.put('/cares-grant', async (req, res) => {
+    try {
+        // Step 1: Fetch the HTML
+        const url = 'https://basicneeds.calpoly.edu/calpolycares'
+        const { data } = await axios.get(url)
+        const $ = cheerio.load(data)
+
+        // Step 2: Extracting Data with Cheerio
+        const title = $('h1.page-title').text().trim()
+
+        const image = $('div[class="field-item even"]')
+            .children('h1[id="header-1"]')
+            .children('img')
+            .attr('src')
+
+        console.log('Image URL:', image) // Debugging line
+
+        const imageAlt =
+            $('div[class="field-item even"]')
+                .children('h1[id="header-1"]')
+                .children('img')
+                .attr('alt') || 'Cal Poly Students Image'
+
+        // Extracting the main paragraph without the link
+        const paragraphText = $('div.field-item.even p span span')
+            .first()
+            .text()
+            .trim()
+
+        const extraInfo = []
+
+        // Start extracting the apply link with the title
+        const applyTitle = $('div.field-item.even p').eq(2).text().trim()
+
+        const applyLink = $('div.field-item.even h2#header-2')
+            .find('a')
+            .attr('href')
+            .trim()
+
+        extraInfo.push(`${applyTitle} ${applyLink}`)
+
+        // We also want the "types of expenses covered" information
+        $('div.field-item.even div.accordion').each((index, element) => {
+            const text = $(element)
+                .text()
+                .trim()
+                .replace(/\n{2,}/g, '\n')
+            if (text) {
+                extraInfo.push(text)
+            }
+        })
+
+        // Finally we want the email contact information
+        const contact = extraInfo.slice(-1)[0] // Get the last element
+
+        // Extracting the phone number from the contact information
+        const phoneNumberMatch = contact.match(/\(\d{3}\)\s?\d{3}-\d{4}/)
+        const phoneNumber = phoneNumberMatch ? phoneNumberMatch[0] : ''
+
+        // Current timestamp
+        const currentTime = new Date()
+
+        // Step 3: Save or update data in MongoDB
+        const resourceData = {
+            Title: title,
+            ImageURL: image,
+            ImageAltText: imageAlt,
+            BuildingName: '',
+            ParagraphText: paragraphText,
+            PhoneNumber: phoneNumber,
+            ListOfHours: [],
+            ExtraInfo: extraInfo,
+            ResourceURL: url,
+            LastUpdate: currentTime,
+            Category: 'Financial Resources and Educational',
+            Tags: ['finance', 'money', 'grant'],
+        }
+
+        const updatedResource = await IndResources.findOneAndUpdate(
+            { ResourceURL: url }, // unique field for updating
+            resourceData,
+            { new: true, upsert: true }, // create or update
+        )
+
+        // Send success response
+        res.status(200).json({
+            message: 'Scraped data successfully stored in MongoDB',
+            data: updatedResource,
+        })
+    } catch (error) {
+        console.error('Scraping error:', error)
+        res.status(500).json({
+            error: 'An error occurred while scraping the resource.',
+        })
     }
 })
 
