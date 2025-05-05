@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, use } from 'react'
+import { useHistory } from 'react-router'
 import './ResourcePage.css'
 import bg from '../../components/Banner/bannerBackground.jpg'
 import veraLogo from '../../components/Banner/draftLogo.png'
@@ -39,6 +40,67 @@ function ResourcePage({ setActiveLink }) {
     const [searchFilteredResources, setSearchFilteredResources] = useState([])
     const [resources, setResources] = useState([])
     const [searchTerm, setSearchTerm] = useState('')
+    const [anchor, setAnchor] = useState('')
+
+    const history = useHistory()
+
+    const nameToId = (name) => {
+        // replace spaces with dashes and remove apostrophes
+        return name.replace(/\s+/g, '-').replace(/'/g, '')
+    }
+
+    const scrollIntoView = (category, offset = 100) => {
+        // replace spaces name with dashes and remove apostrophes
+        // category = nameToId(category)
+        const element = document.getElementById(category)
+        console.log('element', element)
+        if (element) {
+            const y =
+                element.getBoundingClientRect().top + window.scrollY - offset
+            // Scroll to the element with a smooth behavior and offset
+            window.scrollTo({ top: y, behavior: 'smooth' })
+
+            // element.scrollIntoView({ behavior: 'smooth' })
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            return
+        }
+    }
+
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category) // global state update
+        // Reset the fuse search to only use results from the selected category
+        // We also have to recompute the filtered resources to reflect the new category
+        const resSet =
+            category === '' ? resources : categoryToResources[category]
+        if (resSet === undefined) {
+            return
+        }
+        setResourceSet(resSet)
+        fuse = new Fuse(resSet, fuseOptions)
+        // // set the search term to empty string
+        const potentialResources = fuse.search(searchTerm)
+        const searchFilteredResources = potentialResources.map(
+            (resource) => resource.item,
+        )
+        const minNumResults = 1
+        let filteredResources =
+            searchFilteredResources.length >= minNumResults
+                ? searchFilteredResources
+                : category
+                  ? categoryToResources[category]
+                  : resources
+        setSearchFilteredResources(filteredResources)
+        setAnchor(category)
+        scrollIntoView(category)
+    }
+
+    const expandResource = (rsrc) => {
+        const element = document.getElementById(rsrc)
+        if (element) {
+            element.click()
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -58,17 +120,17 @@ function ResourcePage({ setActiveLink }) {
                 for (const object of categoriesJson) {
                     const name = object['Title']
                     tempArray.push(name)
-                    catMap[name] = []
+                    catMap[nameToId(name)] = []
                 }
 
                 // Map each resource into the correct category
                 for (const resource of resourcesJson) {
-                    const cat = resource['Category']
-                    if (!catMap.hasOwnProperty(cat)) {
+                    const id = nameToId(resource['Category'])
+                    if (!catMap.hasOwnProperty(id)) {
                         // skip for now - these are the old entries
                         continue
                     }
-                    catMap[cat].push(resource)
+                    catMap[id].push(resource)
                     tempRsrcs.push(resource)
                 }
 
@@ -76,6 +138,25 @@ function ResourcePage({ setActiveLink }) {
                 setCategoryToResources(catMap)
                 setResources(tempRsrcs)
                 setResourceSet(tempRsrcs)
+
+                // check the query parameter for the selected category
+                const anchor = window.location.hash // e.g. "#Counseling-and-Psychological-Services"
+                const cleanAnchor = anchor.replace('#', '') // "Counseling and Psychological Services"
+                if (cleanAnchor) {
+                    setAnchor(cleanAnchor)
+                    const category = catMap[cleanAnchor]
+                    if (category) {
+                        // browser api to wait till browser is ready to scroll
+                        requestAnimationFrame(() => {
+                            handleCategoryChange(cleanAnchor)
+                        })
+                    } else {
+                        requestAnimationFrame(() => {
+                            expandResource(cleanAnchor)
+                            scrollIntoView(cleanAnchor)
+                        })
+                    }
+                }
             } catch (error) {
                 console.error(error)
             }
@@ -88,42 +169,16 @@ function ResourcePage({ setActiveLink }) {
         setActiveLink('/Resources')
     }, [])
 
-    const handleCategoryChange = (category) => {
-        setSelectedCategory(category) // global state update
-        // Reset the fuse search to only use results from the selected category
-        // We also have to recompute the filtered resources to reflect the new category
-        const resSet =
-            category === '' ? resources : categoryToResources[category]
-        setResourceSet(resSet)
-        fuse = new Fuse(resSet, fuseOptions)
-        // // set the search term to empty string
-        const potentialResources = fuse.search(searchTerm)
-        const searchFilteredResources = potentialResources.map(
-            (resource) => resource.item,
-        )
-        const minNumResults = 1
-        let filteredResources =
-            searchFilteredResources.length >= minNumResults
-                ? searchFilteredResources
-                : category
-                  ? categoryToResources[category]
-                  : resources
-        setSearchFilteredResources(filteredResources)
-
-        scrollIntoView(category)
-    }
-
-    const scrollIntoView = (category) => {
-        const element = document.getElementById(category)
-
-        if (element) {
-            // Scroll to the element with a smooth behavior
-            element.scrollIntoView({ behavior: 'smooth' })
-        } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-            return
+    useEffect(() => {
+        // Check if the anchor is not empty and scroll to it
+        if (anchor) {
+            const element = document.getElementById(anchor)
+            if (element) {
+                scrollIntoView(anchor)
+            }
+            window.history.replaceState({}, '', `#${anchor}`) // ✅ replaces current URL (no push)
         }
-    }
+    }, [anchor, setAnchor])
 
     // use fuse to search against the already filtered stories
     let fuse = new Fuse(resourceSet, fuseOptions)
@@ -182,7 +237,7 @@ function ResourcePage({ setActiveLink }) {
                         myoptions={[
                             { value: '', label: 'All Categories' },
                             ...categorNames.map((cat) => ({
-                                value: cat,
+                                value: nameToId(cat),
                                 label: cat,
                             })),
                         ]}
@@ -205,12 +260,21 @@ function ResourcePage({ setActiveLink }) {
             </div>
             {categorNames.map((name, _) => {
                 // Get an array of the resources
-                let results = categoryToResources[name]
+                const id = nameToId(name)
+                let results = categoryToResources[id]
 
                 // If something is selected we can order the resources
                 // by the selected category, otherwise we just show all resources
-                if (selectedCategory == name) {
-                    results = searchFilteredResources
+
+                if (selectedCategory === id && searchFilteredResources) {
+                    const filteredSet = new Set(searchFilteredResources)
+                    const matching = results.filter((item) =>
+                        filteredSet.has(item),
+                    )
+                    const nonMatching = results.filter(
+                        (item) => !filteredSet.has(item),
+                    )
+                    results = [...matching, ...nonMatching]
                 }
 
                 // Check to prevent render if resource info is not ready yet from request
@@ -222,10 +286,17 @@ function ResourcePage({ setActiveLink }) {
                     return (
                         <ResourcePageTileGroup
                             key={name}
-                            // id is title with no spaces or apostrophes
-                            id={name}
+                            // id is title with no spaces
+                            id={id}
                             title={name}
                             resources={results}
+                            handleChange={(expanded, id) => {
+                                if (expanded) {
+                                    setAnchor(undefined)
+                                } else {
+                                    setAnchor(id)
+                                }
+                            }}
                         />
                     )
                 } else {
