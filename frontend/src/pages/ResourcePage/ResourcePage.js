@@ -229,7 +229,10 @@ function ResourcePage({ setActiveLink }) {
                                 const category =
                                     selectedCategory ||
                                     (searchFilteredResources &&
-                                        searchFilteredResources[0]?.Category) ||
+                                        nameToId(
+                                            searchFilteredResources[0]
+                                                ?.Category,
+                                        )) ||
                                     ''
                                 scrollIntoView(category)
                             }
