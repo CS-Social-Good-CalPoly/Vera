@@ -1,5 +1,4 @@
 import React, { useState, useEffect, use } from 'react'
-import { useHistory } from 'react-router'
 import './ResourcePage.css'
 import bg from '../../components/Banner/bannerBackground.jpg'
 import veraLogo from '../../components/Banner/draftLogo.png'
@@ -33,25 +32,22 @@ const fuseOptions = {
 }
 
 function ResourcePage({ setActiveLink }) {
-    const [categorNames, setCategorNames] = useState([])
-    const [resourceSet, setResourceSet] = useState([])
-    const [categoryToResources, setCategoryToResources] = useState({})
-    const [selectedCategory, setSelectedCategory] = useState('')
-    const [searchFilteredResources, setSearchFilteredResources] = useState([])
-    const [resources, setResources] = useState([])
-    const [searchTerm, setSearchTerm] = useState('')
-    const [anchor, setAnchor] = useState('')
-
-    const history = useHistory()
+    const [categorNames, setCategorNames] = useState([]) // list of category names
+    const [resourceSet, setResourceSet] = useState([]) // resourceSet to choose for filterning
+    const [categoryToResources, setCategoryToResources] = useState({}) // map a category_name to resources
+    const [selectedCategory, setSelectedCategory] = useState('') // the selected category from dropdown
+    const [searchFilteredResources, setSearchFilteredResources] = useState([]) // the filtered resources from fuse
+    const [resources, setResources] = useState([]) // all the resources for db
+    const [searchTerm, setSearchTerm] = useState('') // search term for the input
+    const [anchor, setAnchor] = useState('') // the anchor for the URL
 
     const nameToId = (name) => {
         // replace spaces with dashes and remove apostrophes
         return name.replace(/\s+/g, '-').replace(/'/g, '')
     }
 
+    // function to scroll to the element with the given id
     const scrollIntoView = (category, offset = 100) => {
-        // replace spaces name with dashes and remove apostrophes
-        // category = nameToId(category)
         const element = document.getElementById(category)
         console.log('element', element)
         if (element) {
@@ -59,7 +55,7 @@ function ResourcePage({ setActiveLink }) {
                 element.getBoundingClientRect().top + window.scrollY - offset
             // Scroll to the element with a smooth behavior and offset
             window.scrollTo({ top: y, behavior: 'smooth' })
-
+            // No offset for the code below
             // element.scrollIntoView({ behavior: 'smooth' })
         } else {
             window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -67,18 +63,20 @@ function ResourcePage({ setActiveLink }) {
         }
     }
 
+    // handle the category change when the user selects a new category from the dropdown
     const handleCategoryChange = (category) => {
         setSelectedCategory(category) // global state update
         // Reset the fuse search to only use results from the selected category
         // We also have to recompute the filtered resources to reflect the new category
         const resSet =
             category === '' ? resources : categoryToResources[category]
+        // check if we have a valid resource set
         if (resSet === undefined) {
             return
         }
         setResourceSet(resSet)
         fuse = new Fuse(resSet, fuseOptions)
-        // // set the search term to empty string
+        // set the search term to empty string
         const potentialResources = fuse.search(searchTerm)
         const searchFilteredResources = potentialResources.map(
             (resource) => resource.item,
@@ -95,6 +93,7 @@ function ResourcePage({ setActiveLink }) {
         scrollIntoView(category)
     }
 
+    // use this to click on the tile resource based on id
     const expandResource = (rsrc) => {
         const element = document.getElementById(rsrc)
         if (element) {
@@ -102,6 +101,8 @@ function ResourcePage({ setActiveLink }) {
         }
     }
 
+    // useEffect to fetch the data from the server and set the state
+    // this is only called once when the component mounts
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -169,6 +170,8 @@ function ResourcePage({ setActiveLink }) {
         setActiveLink('/Resources')
     }, [])
 
+    // for changing the URL
+    // we are replacing the URL state so no history is created
     useEffect(() => {
         // Check if the anchor is not empty and scroll to it
         if (anchor) {
@@ -265,7 +268,6 @@ function ResourcePage({ setActiveLink }) {
 
                 // If something is selected we can order the resources
                 // by the selected category, otherwise we just show all resources
-
                 if (selectedCategory === id && searchFilteredResources) {
                     const filteredSet = new Set(searchFilteredResources)
                     const matching = results.filter((item) =>
