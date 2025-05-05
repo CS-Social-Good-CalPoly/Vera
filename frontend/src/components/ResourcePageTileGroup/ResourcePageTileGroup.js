@@ -7,7 +7,7 @@ import {
 } from '../Shared/TileGroup.js'
 import IndividualResourceTile from '../IndividualResourceTile/IndividualResouceTile.js'
 
-function ResourcePageTileGroup({ id, title, resources }) {
+function ResourcePageTileGroup({ id, title, resources, handleChange }) {
     return (
         <TileGroupDiv>
             <TitleContainer>
@@ -27,6 +27,7 @@ function ResourcePageTileGroup({ id, title, resources }) {
                         hours={resource.ListOfHours}
                         link={resource.ResourceURL}
                         id={resource._id}
+                        handleChange={handleChange}
                     />
                 ))}
             </TileGroup>
