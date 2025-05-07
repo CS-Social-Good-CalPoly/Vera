@@ -6,16 +6,15 @@ import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile.js'
 import '../Shared/Tile.css'
 
 const Info = styled.div`
-    padding-left: 23px;
-    padding-right: 50px;
-    position: relative;
-    bottom: 5px;
+    padding: 0 20px;  /* Changed: removed top/bottom padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* Changed: align from top */
+    flex: 1;  /* Added: take available space */
 
     @media only screen and (max-width: 768px) {
-        padding-left: 10px;
-        padding-right: 15px;
-        position: relative;
-        bottom: 4px;
+        padding: 0 10px 10px 10px;
+        width: 100%;
     }
 `
 
@@ -63,21 +62,30 @@ function StoryTile(props) {
                     pathname: `/individualStory/${props.id}`,
                 }}
                 className="tile-link"
+                style={{ 
+                    display: 'flex',  // Added: make link a flex container
+                    width: '100%',    // Added: take full width
+                    height: '100%',   // Added: take full height
+                    position: 'relative' // Added: for absolute positioning of icon
+                }}
             >
                 <TileBanner src={props.imgUrl} alt={props.title} />
-                <TileTitle>{props.title}</TileTitle>
-                <Info>
-                    <InfoText>{props.studentYear}</InfoText>
-                    <InfoText>{props.studentMajor} Major</InfoText>
-                    {/* {props.categories.map((category, index) => (
-                            <InfoText key={index}>{category}</InfoText>
-                        ))} */}
-                    <Categories>
-                        {props.categories.map((category, index) => (
-                            <CategoryTag key={index}>{category}</CategoryTag>
-                        ))}
-                    </Categories>
-                </Info>
+                <div style={{ 
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    width: '55%' 
+                }}>
+                    <TileTitle>{props.title}</TileTitle>
+                    <Info>
+                        <InfoText>{props.studentYear}</InfoText>
+                        <InfoText>{props.studentMajor} Major</InfoText>
+                        <Categories>
+                            {props.categories.map((category, index) => (
+                                <CategoryTag key={index}>{category}</CategoryTag>
+                            ))}
+                        </Categories>
+                    </Info>
+                </div>
                 <TileIcon src={arrow} />
             </Link>
         </Tile>
