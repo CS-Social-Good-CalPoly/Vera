@@ -4,7 +4,7 @@ import {
     StoryTileGroup,
     DropDownSelectForm,
 } from '../../components/components.js'
-import { Search } from 'lucide-react'
+import { Search, Coins } from 'lucide-react'
 import Fuse from 'fuse.js'
 import URL_PATH from '../../links.js'
 import './StoriesPage.css'
@@ -29,10 +29,13 @@ const fuseOptions = {
 
 function StoriesPage({ setActiveLink }) {
     const [stories, setStories] = useState([])
+    const [tokenInput, setTokenInput] = useState('')
     const [idToName, setIdToName] = useState({})
     const [categoryNames, setCategoryNames] = useState([])
     const [selectedCategory, setSelectedCategory] = useState('')
     const [searchFilteredStories, setSearchFilteredStories] = useState([])
+    const [tokenStories, setTokenStories] = useState([])
+    const [showTokenInput, setShowTokenInput] = useState(false)
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -82,24 +85,34 @@ function StoriesPage({ setActiveLink }) {
         setSelectedCategory(category)
     }
 
-    // filter based on selected and search filtered stories
+    // changed logic to keep all results on page, but sort them based on the selected category
+    // this way, we can see all results, but the ones that match the category are at the top
     // we can add logic here to change only if the length is above a certain threshold
     const minNumResults = 1
-    let filteredStories =
+    const allStories =
         searchFilteredStories.length >= minNumResults
             ? searchFilteredStories
-            : selectedCategory
-              ? stories.filter((story) =>
-                    story.RelevantCategoryList.includes(selectedCategory),
-                )
-              : stories
+            : stories
+    let filteredStories = [...allStories].sort((a, b) => {
+        if (!selectedCategory) return 0 // No sorting needed
+
+        const aHasCategory = a.RelevantCategoryList.includes(selectedCategory)
+            ? 0
+            : 1
+        const bHasCategory = b.RelevantCategoryList.includes(selectedCategory)
+            ? 0
+            : 1
+
+        return aHasCategory - bHasCategory // Category matches come first
+    })
 
     // use fuse to search against the already filtered stories
     const fuse = new Fuse(filteredStories, fuseOptions)
 
     /* function to get stories for a specific token - not in use yet */
-    let getStoriesByToken = () => {
-        const tokenValue = '' // make into state when we have an input for this
+    const getStoriesByToken = () => {
+        const tokenValue = tokenInput
+        console.log(tokenValue)
         const params = new URLSearchParams({
             token: tokenValue,
         })
@@ -113,9 +126,17 @@ function StoriesPage({ setActiveLink }) {
                 'Content-Type': 'application/json',
             },
         })
-            .then((response) => response.json())
+            .then((response) => {
+                // check if the response is ok (status code 200)
+                if (!response.ok) {
+                    throw new Error(response.message)
+                }
+                return response.json()
+            })
             .then((json) => {
                 // Create a list of all stories
+
+                console.log(json)
                 const allStories = json.map((story) => ({
                     ...story,
                     RelevantCategoryList: story.RelevantCategoryList
@@ -126,6 +147,7 @@ function StoriesPage({ setActiveLink }) {
                 }))
                 console.log(allStories)
                 // eventually, set state to this result
+                setTokenStories(allStories)
             })
             .catch((error) => console.error(error))
     }
@@ -135,7 +157,26 @@ function StoriesPage({ setActiveLink }) {
         const searchFilteredStories = potentialStories.map(
             (story) => story.item,
         )
-        setSearchFilteredStories(searchFilteredStories)
+        const searchOrder = new Map(
+            searchFilteredStories.map((story, index) => [story._id, index]),
+        )
+
+        const potStories = [...stories].sort((a, b) => {
+            const aRank = searchOrder.get(String(a._id)) ?? Infinity
+            const bRank = searchOrder.get(String(b._id)) ?? Infinity
+            return aRank - bRank
+        })
+
+        setSearchFilteredStories(potStories)
+
+        // Then sort tokenStories based on search relevance
+        const potTokenStories = [...tokenStories].sort((a, b) => {
+            const aRank = searchOrder.get(String(a._id)) ?? Infinity
+            const bRank = searchOrder.get(String(b._id)) ?? Infinity
+            return aRank - bRank
+        })
+
+        setTokenStories(potTokenStories)
     }
 
     return (
@@ -169,14 +210,61 @@ function StoriesPage({ setActiveLink }) {
                             width: '250px',
                         }}
                     />
+
+                    <button
+                        className="tooltip-btn submit-button"
+                        onClick={() => setShowTokenInput(!showTokenInput)}
+                    >
+                        <Coins />
+                    </button>
+                    {showTokenInput && (
+                        <>
+                            <input
+                                className="custom-input mx-2"
+                                placeholder="token1234"
+                                value={tokenInput}
+                                onChange={(e) => setTokenInput(e.target.value)}
+                            />
+                            <button
+                                className="submit-button"
+                                type="submit"
+                                onClick={() => {
+                                    getStoriesByToken()
+                                }}
+                            >
+                                Enter
+                            </button>
+                            {tokenInput && (
+                                <button
+                                    className="submit-button"
+                                    onClick={() => {
+                                        setTokenInput('')
+                                        setTokenStories([])
+                                    }}
+                                >
+                                    Clear
+                                </button>
+                            )}
+                        </>
+                    )}
                 </div>
             </div>
 
+            {tokenStories.length > 0 && (
+                <StoryTileGroup
+                    key="your-stories"
+                    id="your-stories"
+                    title="Your Stories"
+                    stories={tokenStories}
+                    tokenStories={tokenStories.map((story) => story._id)}
+                />
+            )}
             <StoryTileGroup
                 key="all-stories"
                 id="all-stories"
                 title="All Stories"
                 stories={filteredStories}
+                tokenStories={tokenStories.map((story) => story._id)}
             />
         </div>
     )

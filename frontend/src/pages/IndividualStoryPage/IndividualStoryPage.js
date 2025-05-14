@@ -6,14 +6,15 @@ function IndividualStoryPage({ setActiveLink }) {
     const location = useLocation()
     const pathSegments = location.pathname.split('/')
     const id = pathSegments[pathSegments.length - 1]
-
+    const { editable } = location.state || { editable: false }
+    console.log(location.state)
     useEffect(() => {
         setActiveLink('/Stories')
     }, [])
 
     return (
         <div>
-            <StoryPopUp id={id} />
+            <StoryPopUp id={id} editable={editable} />
         </div>
     )
 }
