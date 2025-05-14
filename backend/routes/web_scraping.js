@@ -1536,7 +1536,7 @@ router.put('/sti-testing', async (req, res) => {
         const response = await axios.get('https://chw.calpoly.edu/sti-testing')
         const $ = cheerio.load(response.data)
         // For now we are going to hardcode the suicide_prevention_id
-        const suicide_prevention_id = '6823e7b999f0f8a3c5c5dc69'
+        const sti_testing_id = '6823e7b999f0f8a3c5c5dc69'
 
         // Extract header information
         // Specifically for this site, take the first part of title since it's repetittive
@@ -1654,7 +1654,7 @@ router.put('/sti-testing', async (req, res) => {
 
         // Store the resourceData into the database
         const newResource = new IndResources({
-            _id: suicide_prevention_id,
+            _id: sti_testing_id,
             Title: title,
             ImageURL: image,
             ImageAltText: image_alt,
