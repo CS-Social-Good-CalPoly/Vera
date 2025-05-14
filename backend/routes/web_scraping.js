@@ -1670,7 +1670,7 @@ router.put('/sti-testing', async (req, res) => {
         })
 
         const updatedResource = await IndResources.findByIdAndUpdate(
-            { _id: suicide_prevention_id },
+            { _id: sti_testing_id },
             newResource,
             { new: true, upsert: true },
         )
