@@ -76,10 +76,10 @@ function HomePage({ setActiveLink }) {
             title: 'Financial Insecurity',
             id: 'Financial-Resources-and-Education',
         },
-        // {
-        //     title: 'Counseling Services',
-        //     id: 'Counseling-and-Psychological-Services',
-        // },
+        {
+            title: 'Health Services',
+            id: 'Health-Services',
+        },
     ]
 
     const helpPhrases = [
