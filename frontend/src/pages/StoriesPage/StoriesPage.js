@@ -256,7 +256,7 @@ function StoriesPage({ setActiveLink }) {
                     id="your-stories"
                     title="Your Stories"
                     stories={tokenStories}
-                    token={tokenInput}
+                    tokenStories={tokenStories.map((story) => story._id)}
                 />
             )}
             <StoryTileGroup
@@ -264,6 +264,7 @@ function StoriesPage({ setActiveLink }) {
                 id="all-stories"
                 title="All Stories"
                 stories={filteredStories}
+                tokenStories={tokenStories.map((story) => story._id)}
             />
         </div>
     )

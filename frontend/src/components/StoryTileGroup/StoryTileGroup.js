@@ -8,7 +8,7 @@ import {
 
 import { StoryTile } from '../components.js'
 
-function StoryTileGroup({ id, title, stories, token }) {
+function StoryTileGroup({ id, title, stories, tokenStories }) {
     return (
         <TileGroupDiv>
             <TitleContainer>
@@ -16,6 +16,8 @@ function StoryTileGroup({ id, title, stories, token }) {
             </TitleContainer>
             <TileGroup>
                 {stories.map((story, index) => {
+                    console.log(tokenStories)
+                    console.log(tokenStories.includes(story._id))
                     return (
                         <StoryTile
                             key={index}
@@ -40,6 +42,7 @@ function StoryTileGroup({ id, title, stories, token }) {
                                     : ''
                             }
                             categories={story.RelevantCategoryList}
+                            editable={tokenStories.includes(story._id)}
                             // buildingName={story.building}
                             // address={story.address}
                             // toExpect={story.whatToExpectList}

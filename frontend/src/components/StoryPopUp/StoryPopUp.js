@@ -174,7 +174,9 @@ function StoryPopUp(props) {
                         <Text>{currentStory?.ParagraphText}</Text>
                     </Cardstory>
                 </Body>
-                <button onClick={() => setShowEditPopup(true)}>Edit</button>
+                {props.editable && (
+                    <button onClick={() => setShowEditPopup(true)}>Edit</button>
+                )}
             </CardWrapper>
             <PopupResources>
                 {/* TODO: put related stories here */}
