@@ -5,7 +5,10 @@ import IndividualResourceTileExpanded from './IndividualResourceTileExpanded.jsx
 function IndividualResourceTile(props) {
     const [expanded, setExpanded] = useState(false)
 
-    const handleChange = () => setExpanded(!expanded)
+    const handleChange = () => {
+        props.handleChange(expanded, props.id)
+        setExpanded(!expanded)
+    }
 
     // if expanded == true, return the expanded tile
     // else, return the collapsed tile
@@ -15,7 +18,7 @@ function IndividualResourceTile(props) {
             buildingName={props.buildingName}
             address={props.address}
             description={props.description}
-            extraInfo ={props.extraInfo}
+            extraInfo={props.extraInfo}
             phone={props.phone}
             hours={props.hours}
             link={props.link}

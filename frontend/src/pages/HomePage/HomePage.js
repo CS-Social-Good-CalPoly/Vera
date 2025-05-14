@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import './HomePage.css'
 import '../../links.js'
 import URL_PATH from '../../links.js'
@@ -13,6 +14,7 @@ function HomePage({ setActiveLink }) {
     const [searchTerm, setSearchTerm] = useState('') // search term
     const [selectedIndex, setSelectedIndex] = useState(0) // selected index for search results
     const [randomPhrase, setRandomPhrase] = useState('') // random phrase for the header
+    const history = useHistory()
 
     useEffect(() => {
         const fetchResourcesAndStories = async () => {
@@ -21,7 +23,11 @@ function HomePage({ setActiveLink }) {
                 const resResources = await fetch(
                     URL_PATH + '/resources/individualresources',
                 )
-                const jsonResources = await resResources.json()
+                let jsonResources = await resResources.json()
+                // Filter out the old resources
+                jsonResources = jsonResources.filter(
+                    (resource) => resource.WhatToExpect === undefined,
+                )
                 const allResources = jsonResources.map((resource) => ({
                     Id: resource._id,
                     Title: resource.Title,
@@ -71,8 +77,8 @@ function HomePage({ setActiveLink }) {
             id: 'Financial-Resources-and-Education',
         },
         {
-            title: 'Counseling Services',
-            id: 'Counseling-and-Psychological-Services',
+            title: 'Health Services',
+            id: 'Health-Services',
         },
     ]
 
@@ -160,14 +166,16 @@ function HomePage({ setActiveLink }) {
     const handleRedirect = (reference) => {
         // Redirect to the resource page
         console.log(reference)
+        history.push(referenceToLink(reference))
+    }
+
+    const referenceToLink = (reference) => {
+        // Redirect to the resource page
         if (reference) {
-            console.log(reference.Id)
-            console.log(reference.Type)
             if (reference.Type === 'Resource') {
-                window.location.href = `/Resources/#`
+                return `/Resources/#${reference.Id}`
             } else if (reference.Type === 'Story') {
-                console.log(reference.Id)
-                window.location.href = `/individualStory/${reference.Id}`
+                return `/individualStory/${reference.Id}`
             }
         }
     }
@@ -197,19 +205,19 @@ function HomePage({ setActiveLink }) {
                     <div className="search-dropdown">
                         {searchFilteredReferences.map((ref, index) => (
                             <div
-                                className={`search-dropdown-item ${index === selectedIndex ? 'selected' : ''}`}
                                 key={ref.item.Id}
+                                onClick={() => handleRedirect(ref.item)}
+                                className={`search-dropdown-item ${index === selectedIndex ? 'selected' : ''}`}
                                 onMouseEnter={setSelectedIndex.bind(
                                     null,
                                     index,
                                 )}
                                 onMouseLeave={setSelectedIndex.bind(null, 0)}
-                                onClick={() => handleRedirect(ref.item)}
                             >
                                 {ref.item.Type === 'Resource' ? (
-                                    <Hammer />
+                                    <Hammer color="black" />
                                 ) : (
-                                    <BookText />
+                                    <BookText color="black" />
                                 )}
                                 <div className="ml-2 maintext">
                                     {ref.item.Title}
