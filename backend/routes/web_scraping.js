@@ -1530,4 +1530,161 @@ router.put('/lets-talk', async (req, res) => {
     }
 })
 
+/* -------------------- STI TESTING -------------------- */
+router.put('/sti-testing', async (req, res) => {
+    try {
+        const response = await axios.get('https://chw.calpoly.edu/sti-testing')
+        const $ = cheerio.load(response.data)
+        // For now we are going to hardcode the suicide_prevention_id
+        const sti_testing_id = '6823e7b999f0f8a3c5c5dc69'
+
+        // Extract header information
+        // Specifically for this site, take the first part of title since it's repetittive
+        const title =
+            $('meta[property="og:title"]')
+                .attr('content')
+                .split('|')[0]
+                .trim() ||
+            $('title').text().trim() ||
+            $('meta[name="title"]').attr('content')
+        const url = $('meta[property="og:url"]').attr('content')
+
+        // Extract image information
+        const image = $('div[class="field-item even"]')
+            .children()
+            .find('img')
+            .first()
+            .attr('src')
+        const image_alt =
+            $('div[class="field-item even"]')
+                .children()
+                .find('img')
+                .first()
+                .attr('alt') || 'STI Testing Image' // Hardcode alt text since banner has none
+
+        // Regex for extracting phone numbers and days of the week
+        const daysRegex =
+            /\b(Monday|Mon|Tuesday|Tues|Wednesday|Wed|Thursday|Thurs|Friday|Fri|Saturday|Sat|Sunday|Sun)\b/
+
+        const phoneRegex =
+            /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
+
+        // Regex for extracting building
+        const buildingRegex = /(Building\b) (\w+)/
+
+        // Extract info bar information
+        let column_info = []
+        let phoneNum = ''
+        let list_of_hours = []
+        let location = ''
+
+        // extract about us
+        const aboutUs = []
+        $('div[class="widget"] ul.cluster li p').each((_index, element) => {
+            aboutUs.push($(element).text().trim())
+        })
+
+        aboutUs.forEach((element, _index) => {
+            const column_info_text = element.trim()
+            if (buildingRegex.test(column_info_text)) {
+                // Found Building Location
+                location = column_info_text.match(buildingRegex)[0]
+            } else if (daysRegex.test(column_info_text)) {
+                // If a day of the week is found : (likely for list of hours)
+                const formattedDate = column_info_text
+                    .split('\n') // Split by newline for multiple ranges
+                    .map(formatHours1) // Format each part
+                    .join(' \n') // Join them back with a newline
+                list_of_hours.push(formattedDate)
+            }
+            if (phoneRegex.test(column_info_text)) {
+                // Check if phone number is found
+                phoneNum = column_info_text.match(phoneRegex)[0]
+            } else {
+                // Any other footer info we can put extract
+                column_info.push(element.trim())
+            }
+        })
+
+        // Extract main text information
+        const mainText = []
+        const extraInfo = []
+
+        // Main text under banner
+        mainText.push(
+            $('div[class="field-item even"]')
+                .find('h1')
+                .find('strong')
+                .text()
+                .trim(),
+        )
+
+        // Main text bullet points
+        $('div[class="field-item even"]')
+            .find('p')
+            .each((_index, element) => {
+                const $paragraphText = $(element)
+                if (
+                    $paragraphText
+                        .filter((_i, el) => $(el).attr('id') === 'subH1')
+                        .text()
+                        .trim()
+                ) {
+                    mainText.push($paragraphText.text().trim())
+                }
+            })
+
+        // ExtraInfo
+        extraInfo.push('Learn more about these:') // hard-code for the scraped ExtraInfo questions
+        $('tr')
+            .find('td')
+            .each((_index, element) => {
+                const $tableElement = $(element)
+                const bannerText = $tableElement
+                    .find('a')
+                    .find('img')
+                    .attr('alt')
+                    .trim()
+                const textSplit = bannerText.split('"')
+                extraInfo.push(
+                    textSplit.length > 1 ? textSplit[1] : textSplit[0],
+                )
+            })
+        const currentTime = new Date()
+
+        // Store the resourceData into the database
+        const newResource = new IndResources({
+            _id: sti_testing_id,
+            Title: title,
+            ImageURL: image,
+            ImageAltText: image_alt,
+            Address: location,
+            BuildingName: location,
+            ParagraphText: mainText.join('\n'),
+            PhoneNumber: phoneNum,
+            ResourceURL: url,
+            LastUpdate: currentTime,
+            Category: 'Health Services',
+            ListOfHours: list_of_hours,
+            ExtraInfo: extraInfo,
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: sti_testing_id },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.json(newResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Suicide Prevention data')
+    }
+})
+
 module.exports = router
