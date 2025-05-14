@@ -8,9 +8,12 @@ import {
 
 import { StoryTile } from '../components.js'
 
-function StoryTileGroup({ id, title, stories }) {
+function StoryTileGroup({ id, title, stories, token }) {
     return (
         <TileGroupDiv>
+            <TitleContainer>
+                <Heading id={id}>{title}</Heading>
+            </TitleContainer>
             <TileGroup>
                 {stories.map((story, index) => {
                     return (
