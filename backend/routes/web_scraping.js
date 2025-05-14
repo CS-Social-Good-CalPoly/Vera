@@ -749,7 +749,7 @@ router.put('/emotional-wellbeing', async (req, res) => {
                     ListOfHours,
                     ExtraInfo,
                     ResourceURL: url,
-                    Category: 'Counseling & Psychological Services',
+                    Category: 'Counseling and Psychological Services',
                 },
                 { new: true, upsert: true }, // Create if doesn't exist, update if it does
             )
