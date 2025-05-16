@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './ResourceTag.css'
 import { Modal } from '../../components/components.js'
 
-const ResourceTag = ({ tag }) => {
+const ResourceTag = ({tag, onDelete }) => {
     const [showModal, setShowModal] = useState(false)
 
     const handleDelete = () => {
@@ -10,7 +10,7 @@ const ResourceTag = ({ tag }) => {
     }
 
     const handleConfirmDelete = () => {
-        // For now, we're just closing the modal
+        onDelete(tag)
         setShowModal(false)
     }
 

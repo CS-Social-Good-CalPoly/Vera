@@ -3,10 +3,25 @@ import URL_PATH from '../../links.js'
 import './AdminPages.css'
 import { Modal, ResourceTag } from '../../components/components.js'
 
+// Predefined list of tags
+const predefinedTags = [
+    'Food',
+    'Mental Health',
+    'Counseling',
+    'Therapy',
+    'Housing',
+    'Financial',
+    'Academic',
+    'Other'
+]
+
 function AdminResourcesPage({ setActiveLink }) {
     const [resources, setResources] = useState([])
     const [showModal, setShowModal] = useState(false)
-    // const [selectedResourceId, setSelectedResourceId] = useState('') // keeping for later implementation
+    const [selectedResourceId, setSelectedResourceId] = useState('')
+    const [showTagInput, setShowTagInput] = useState(null) // Track which resource's tag input is shown
+    const [newTag, setNewTag] = useState('') // Store the new tag text
+    const [showTagDropdown, setShowTagDropdown] = useState(null) // Track which resource's tag dropdown is shown
 
     useEffect(() => {
         setActiveLink('/AdminPages')
@@ -18,32 +33,7 @@ function AdminResourcesPage({ setActiveLink }) {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                // Add sample tags for display if no tags exist
-                const resourcesWithTags = json.map((resource) => {
-                    if (!resource.Tags || resource.Tags.length === 0) {
-                        // Add sample tags based on resource category
-                        const sampleTags = []
-                        if (resource.Category) {
-                            sampleTags.push(resource.Category)
-                        }
-
-                        // Add additional tags based on title keywords
-                        const titleLower = resource.Title
-                            ? resource.Title.toLowerCase()
-                            : ''
-                        if (titleLower.includes('health'))
-                            sampleTags.push('Health')
-                        if (titleLower.includes('food')) sampleTags.push('Food')
-                        if (titleLower.includes('counseling'))
-                            sampleTags.push('Mental Health')
-                        if (titleLower.includes('pharmacy'))
-                            sampleTags.push('Medication')
-
-                        return { ...resource, Tags: sampleTags }
-                    }
-                    return resource
-                })
-                setResources(resourcesWithTags)
+                setResources(json)
             })
             .catch((error) => console.error(error))
 
@@ -62,6 +52,77 @@ function AdminResourcesPage({ setActiveLink }) {
 
     const handleCancelDelete = () => {
         setShowModal(false)
+    }
+
+    const handleAddTagClick = (resourceId) => {
+        if (showTagInput === resourceId) {
+            setShowTagInput(null) // Hide the input field if it's already shown
+            setShowTagDropdown(null) // Hide the dropdown if it's already shown
+        } else {
+            setShowTagInput(resourceId)
+            setShowTagDropdown(resourceId) // Show the dropdown for this resource
+        }
+    }
+
+    const handleTagChange = (e) => {
+        setNewTag(e.target.value)
+    }
+
+    const handleTagKeyDown = (e, resourceId) => {
+        if (e.key === 'Enter' && newTag.trim() !== '') {                
+            // Add the new tag to the resource
+            const updatedResources = resources.map((resource) => {
+                if (resource._id === resourceId) {
+                    if (resource.Tags && resource.Tags.includes(newTag.trim())) {
+                        return resource
+                    } else {
+                        return {
+                            ...resource,
+                            Tags: [...(resource.Tags || []), newTag.trim()],
+                        }
+                    }
+                }
+                return resource
+            })
+            setResources(updatedResources)
+            setNewTag('') // Clear the input
+            setShowTagInput(null) // Hide the input field
+            setShowTagDropdown(null) // Hide the dropdown
+        }
+    }
+
+    const handleTagSelect = (tag, resourceId) => {
+        // Add the selected predefined tag to the resource
+        const updatedResources = resources.map((resource) => {
+            if (resource._id === resourceId) {
+                if (resource.Tags && resource.Tags.includes(tag)) {
+                    return resource
+                } else {
+                    return {
+                        ...resource,
+                        Tags: [...(resource.Tags || []), tag],
+                    }
+                }
+            }
+            return resource
+        })
+        setResources(updatedResources)
+        setShowTagDropdown(null) // Hide the dropdown
+        setShowTagInput(null) // Hide the input field
+    }
+
+    const handleTagDelete = (tag, resourceId) => {
+        // Remove the tag from the resource
+        const updatedResources = resources.map((resource) => {
+            if (resource._id === resourceId) {
+                return {
+                    ...resource,
+                    Tags: (resource.Tags).filter(t => t !== tag)
+                }
+            }
+            return resource
+        })
+        setResources(updatedResources)
     }
 
     return (
@@ -129,10 +190,47 @@ function AdminResourcesPage({ setActiveLink }) {
                             <div className="resource-tag-container">
                                 {resource.Tags && resource.Tags.length > 0 ? (
                                     resource.Tags.map((tag) => (
-                                        <ResourceTag tag={tag} />
+                                        <ResourceTag 
+                                            tag={tag} 
+                                            onDelete={() => handleTagDelete(tag, resource._id)} 
+                                        />
                                     ))
                                 ) : (
-                                    <p>No tags</p>
+                                    <span className="no-tags-text">No tags</span>
+                                )}
+                                <button
+                                    className="add-tag-button"
+                                    onClick={() =>handleAddTagClick(resource._id)}
+                                >
+                                    + Add Tag
+                                </button>
+                                {showTagInput === resource._id && (
+                                    <div>
+                                        <input
+                                            type="text"
+                                            value={newTag}
+                                            onChange={handleTagChange} // onChange automatically passes in the event
+                                            onKeyDown={(e) =>
+                                                handleTagKeyDown(e, resource._id)
+                                            }
+                                            placeholder="Enter new tag"
+                                            className="new-tag-input"
+                                        />
+                                        {showTagDropdown === resource._id && (
+                                            <div className="tag-dropdown">
+                                                {predefinedTags.map((tag) => (
+                                                    <div
+                                                        className="tag-option"
+                                                        onClick={() =>
+                                                            handleTagSelect(tag, resource._id)
+                                                        }
+                                                    >
+                                                        {tag}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </div>
