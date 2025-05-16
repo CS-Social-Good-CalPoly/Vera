@@ -1312,16 +1312,6 @@ router.put('/cares-grant', async (req, res) => {
 
         const extraInfo = []
 
-        // Start extracting the apply link with the title
-        const applyTitle = $('div.field-item.even p').eq(2).text().trim()
-
-        const applyLink = $('div.field-item.even h2#header-2')
-            .find('a')
-            .attr('href')
-            .trim()
-
-        extraInfo.push(`${applyTitle} ${applyLink}`)
-
         // We also want the "types of expenses covered" information
         $('div.field-item.even div.accordion').each((index, element) => {
             const text = $(element)

@@ -127,6 +127,16 @@ p.resource-tile-expanded-extra-info {
     color: white;
 }
 
+.resource-tile-extra-info-inline-text,
+a {
+    color: black;
+}
+
+.resource-tile-extra-info-inline-text:hover,
+a:hover {
+    color: blue;
+}
+
 /* Mobile specific setting */
 @media only screen and (max-width: 768px) {
     img.resource-tile-expanded-img {
