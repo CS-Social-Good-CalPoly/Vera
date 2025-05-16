@@ -1296,8 +1296,6 @@ router.put('/cares-grant', async (req, res) => {
             .children('img')
             .attr('src')
 
-        console.log('Image URL:', image) // Debugging line
-
         const imageAlt =
             $('div[class="field-item even"]')
                 .children('h1[id="header-1"]')
