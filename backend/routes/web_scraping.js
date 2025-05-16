@@ -1296,8 +1296,6 @@ router.put('/cares-grant', async (req, res) => {
             .children('img')
             .attr('src')
 
-        console.log('Image URL:', image) // Debugging line
-
         const imageAlt =
             $('div[class="field-item even"]')
                 .children('h1[id="header-1"]')
@@ -1311,16 +1309,6 @@ router.put('/cares-grant', async (req, res) => {
             .trim()
 
         const extraInfo = []
-
-        // Start extracting the apply link with the title
-        const applyTitle = $('div.field-item.even p').eq(2).text().trim()
-
-        const applyLink = $('div.field-item.even h2#header-2')
-            .find('a')
-            .attr('href')
-            .trim()
-
-        extraInfo.push(`${applyTitle} ${applyLink}`)
 
         // We also want the "types of expenses covered" information
         $('div.field-item.even div.accordion').each((index, element) => {

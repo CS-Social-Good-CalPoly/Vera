@@ -9,21 +9,26 @@ function Footer({ activeLink }) {
                 Call or Text
                 <br></br>
                 <div className="inline-container">
-                    <span className="inline-text">
+                    <span className="inline-text-footer">
                         National Sucide Hotline:
                     </span>
-                    <a href="tel:+18002738255">+1(800)-273-8255</a>or
-                    <a href="tel:+988">988</a>
+                    <a href="tel:+18002738255" className="inline-text-footer">
+                        +1(800)-273-8255
+                    </a>
+                    or
+                    <a href="tel:+988" className="inline-text-footer">
+                        988
+                    </a>
                 </div>
                 <div className="inline-container">
-                    <span className="inline-text">Cal Poly Health:</span>
-                    <a className="inline-text" href="tel:+18057562511">
+                    <span className="inline-text-footer">Cal Poly Health:</span>
+                    <a className="inline-text-footer" href="tel:+18057562511">
                         +1 (805)-756-2511
                     </a>
                 </div>
                 <div className="inline-container">
-                    <span className="inline-text">Cal Poly Police:</span>
-                    <a className="inline-text" href="tel:+18057562281">
+                    <span className="inline-text-footer">Cal Poly Police:</span>
+                    <a className="inline-text-footer" href="tel:+18057562281">
                         +1 (805)-756-2281
                     </a>
                 </div>
