@@ -630,7 +630,7 @@ router.put('/sexual-reproductive-health', async (req, res) => {
             .children('ul')
             .children('li')
             .each((i, elem) => {
-                extraInfo.push($(elem).text())
+                extraInfo.push($(elem).text().trim())
             })
 
         // extract info from About Us widget
@@ -1681,6 +1681,193 @@ router.put('/sti-testing', async (req, res) => {
 
         // Respond with the updated resource
         res.json(newResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Suicide Prevention data')
+    }
+})
+
+/* -------------------- FIND A THERAPIST -------------------- */
+router.put('/find-a-therapist', async (req, res) => {
+    try {
+        const response = await axios.get(
+            'https://chw.calpoly.edu/counseling/community-referrals',
+        )
+        const $ = cheerio.load(response.data)
+        // find_a_therapist_id references the existing resource object for this website
+        let find_a_therapist_id = '67b38f41cd6ae1f04cf826d5'
+
+        // Extract header information
+        // Hard-coded title specifically for this site since we're using a different name
+        // const title =
+        //     $('meta[property="og:title"]')
+        //         .attr('content')
+        //         .split('|')[0]
+        //         .trim() ||
+        //     $('title').text().trim() ||
+        //     $('meta[name="title"]').attr('content')
+        const title = 'Find a Therapist'
+        const url = $('meta[property="og:url"]').attr('content')
+
+        // Extract image information
+        const image = $('div[class="field-item even"]')
+            .children()
+            .find('img')
+            .first()
+            .attr('src')
+        const image_alt =
+            $('div[class="field-item even"]')
+                .children()
+                .find('img')
+                .first()
+                .attr('alt') || 'Find a Therapist Image' // Hardcode alt text since banner has none
+
+        // Regex for extracting phone numbers, emails, and days of the week
+        const daysRegex =
+            /\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b/
+
+        const phoneRegex =
+            /(\+?\d{1,3}[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g
+        // Note: modified so that first character cannot be a number (specific to Cal Fresh)
+        const emailRegex =
+            /[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g
+
+        // Regex for extracting building
+        const buildingRegex = /(Building\b) (\w+)/
+        // Regex for extracting hours
+        const hoursRegex =
+            /(\d{1,2}(:\d{2})?\s?(AM|PM))\s?-\s?(\d{1,2}(:\d{2})?\s?(AM|PM))\s?\|\s?([A-Za-z,-]+)/i
+
+        // Extract info bar information
+        let column_info = []
+        let phoneNum = ''
+        let email = ''
+        let list_of_hours = []
+        let location = ''
+
+        $('div[id="rightCol"]')
+            .children('div[id="block-block-13"]')
+            .children('p')
+            .each((_index, element) => {
+                let $column_info_text = $(element).text().trim()
+                if (buildingRegex.test($column_info_text)) {
+                    location = $column_info_text.match(buildingRegex)[0]
+                    // We know the rest of the information is hours info
+                    // extract this and put into the list_of_hours array
+                    $column_info_text = $column_info_text
+                        .replace(location, '')
+                        .trim()
+                    const formattedDate = formatHours1(
+                        $column_info_text.match(hoursRegex)[0],
+                    )
+
+                    list_of_hours.push(formattedDate)
+                } else if (daysRegex.test($column_info_text)) {
+                    // If a day of the week is found : (likely for list of hours)
+                    const formattedDate = $column_info_text
+                        .split('\n') // Split by newline for multiple ranges
+                        .map(formatHours) // Format each part
+                        .join(' \n') // Join them back with a newline
+                    list_of_hours.push(formattedDate)
+                }
+                if (
+                    phoneRegex.test($column_info_text) ||
+                    emailRegex.test($column_info_text)
+                ) {
+                    // Check if phone number or email is found
+                    phoneNum = $column_info_text.match(phoneRegex)[0]
+                    email = $column_info_text.match(emailRegex)[0]
+                } else {
+                    // Any other footer info we can put extract
+                    column_info.push($(element).text().trim())
+                }
+            })
+
+        // Extract main text information
+        const mainText = []
+        const extraInfo = []
+
+        let mainTextP = $('div[class="field-item even"]').find('p').first()
+        console.log('Starting:', mainTextP.text().trim())
+
+        // Get the first 2 <p> elements after the image containing some text
+        let i = 0 // Safety to break potential infinite loop
+        while (mainTextP && mainText.length < 2 && i < 10) {
+            if (mainTextP.text().trim().length > 0) {
+                // Only add <p>'s with text
+                mainText.push($(mainTextP).text().trim())
+            }
+            mainTextP = $(mainTextP).next()
+            i++
+        }
+
+        extraInfo.push('Check out the website for information about these:')
+        $('div[class="field-item even"]')
+            .find('p')
+            .each((_index, element) => {
+                const $paragraphText = $(element)
+                // Conditions for finding ExtraInfo text
+                if (
+                    // Section header is an image with a non-empty alt
+                    $paragraphText.find('img') &&
+                    $paragraphText.find('img').attr('src') &&
+                    $paragraphText
+                        .find('img')
+                        .attr('src')
+                        .includes('amazonaws') &&
+                    $paragraphText.find('img').attr('alt') != '' &&
+                    $paragraphText.find('img').attr('src') != image
+                ) {
+                    extraInfo.push(
+                        $paragraphText.find('img').attr('alt').trim(),
+                    )
+                }
+            })
+
+        const currentTime = new Date()
+
+        // Store the resourceData into the database
+        const newResource = new IndResources({
+            _id: find_a_therapist_id,
+            Title: title,
+            ImageURL: image,
+            ImageAltText: image_alt,
+            Address: location,
+            BuildingName: location,
+            ParagraphText: mainText.join('\n'),
+            PhoneNumber: phoneNum,
+            ResourceURL: url,
+            LastUpdate: currentTime,
+            Category: 'Mental Health and Academic Resources',
+            ListOfHours: list_of_hours,
+            ExtraInfo: extraInfo,
+            Tags: ['Mental Health', 'Therapy', 'Self Help'],
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: find_a_therapist_id },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.json(newResource)
+
+        console.log(title)
+        console.log(url)
+        console.log(image)
+        console.log(image_alt)
+        console.log(column_info)
+        console.log(phoneNum)
+        console.log(email)
+        console.log(list_of_hours)
+        console.log(location)
+        console.log(mainText)
+        console.log(extraInfo)
     } catch (error) {
         console.error('Scrapping failed:', error)
         res.status(500).send('Error fetching Suicide Prevention data')
