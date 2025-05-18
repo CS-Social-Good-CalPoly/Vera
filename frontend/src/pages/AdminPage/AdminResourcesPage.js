@@ -1,13 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
-import { Modal, ResourceTag } from '../../components/components.js'
+import { Modal, ResourceTag } from '../../components/components.js'    
+import Fuse from 'fuse.js' 
+
+const predefinedTags = [ // Predefined list of tags
+    'Food',
+    'Mental Health',
+    'Counseling',
+    'Therapy',
+    'Housing',
+    'Financial',
+    'Academic',
+    'Other'
+]
+
+const fuseOptions = {
+    isCaseSensitive: false,
+    includeScore: false,
+    ignoreDiacritics: false,
+    shouldSort: true,
+    includeMatches: false,
+    findAllMatches: false,
+    minMatchCharLength: 1,
+    location: 0,
+    threshold: 0.6,
+    distance: 100,
+    useExtendedSearch: false,
+    ignoreLocation: false,
+    ignoreFieldNorm: false,
+    fieldNormWeight: 1,
+    keys: ['Title', 'Category', 'ParagraphText'],
+}
 
 function AdminResourcesPage({ setActiveLink }) {
-    const [resources, setResources] = useState([])
-    const [showModal, setShowModal] = useState(false)
-    // const [selectedResourceId, setSelectedResourceId] = useState('') // keeping for later implementation
+    const [resources, setResources] = useState([]) // Store all resources
+    const [showModal, setShowModal] = useState(false) // Track if the delete modal is shown
+    const [showTagInput, setShowTagInput] = useState(null) // Track which resource's tag input is shown
+    const [newTag, setNewTag] = useState('') // Stores the new tag text
+    const [showTagDropdown, setShowTagDropdown] = useState(null) // Track which resource's tag dropdown is shown
+    const [tagError, setTagError] = useState(null) // Track tag error messages with resourceId
 
+    // Set the active link for the admin page
     useEffect(() => {
         setActiveLink('/AdminPages')
     }, [setActiveLink])
@@ -18,53 +52,165 @@ function AdminResourcesPage({ setActiveLink }) {
         fetch(URL_PATH + subdirectory)
             .then((response) => response.json())
             .then((json) => {
-                // Add sample tags for display if no tags exist
-                const resourcesWithTags = json.map((resource) => {
-                    if (!resource.Tags || resource.Tags.length === 0) {
-                        // Add sample tags based on resource category
-                        const sampleTags = []
-                        if (resource.Category) {
-                            sampleTags.push(resource.Category)
-                        }
-
-                        // Add additional tags based on title keywords
-                        const titleLower = resource.Title
-                            ? resource.Title.toLowerCase()
-                            : ''
-                        if (titleLower.includes('health'))
-                            sampleTags.push('Health')
-                        if (titleLower.includes('food')) sampleTags.push('Food')
-                        if (titleLower.includes('counseling'))
-                            sampleTags.push('Mental Health')
-                        if (titleLower.includes('pharmacy'))
-                            sampleTags.push('Medication')
-
-                        return { ...resource, Tags: sampleTags }
-                    }
-                    return resource
-                })
-                setResources(resourcesWithTags)
+                setResources(json) // Store fetched resources in state
             })
             .catch((error) => console.error(error))
 
         return () => {}
     }, [])
 
+    // Delete resource function
     const handleDelete = (id) => {
-        // setSelectedResourceId(id)
         setShowModal(true)
     }
 
+    // Confirm delete function
     const handleConfirmDelete = () => {
-        // deleteResource(selectedResourceId)
         setShowModal(false)
     }
-
+    
+    // Cancel delete function
     const handleCancelDelete = () => {
         setShowModal(false)
     }
 
+    // Called when add tag button is clicked
+    const handleAddTagClick = (resourceId) => {
+        if (showTagInput === resourceId) {
+            setShowTagInput(null) // Hide the input field if it's already shown
+            setShowTagDropdown(null) // Hide the dropdown if it's already shown
+        } else {
+            setShowTagInput(resourceId)
+            setShowTagDropdown(resourceId) // Show the dropdown for this resource
+            setTagError(null) // Clear any error message
+        }
+    }
+
+    // Called when the user types in the tag input
+    const handleTagChange = (e) => {
+        setNewTag(e.target.value) // Update the new tag state
+        // Clear error when the user starts typing again
+        if (tagError) {
+            setTagError(null)
+        }
+    }
+
+    // Called when the user presses a key in the tag input
+    const handleTagKeyDown = async (e, resourceId) => {
+        if (e.key === 'Enter' && newTag.trim() !== '') {
+            try {
+                // Reset error messages
+                setTagError(null); 
+                
+                // Call backend API to add the tag
+                const response = await fetch(`${URL_PATH}/tags/add`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        resourceId: resourceId,
+                        tag: newTag.trim()
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Check if there was an error (status code 409 for duplicate)
+                if (response.status === 409) {
+                    setTagError({ resourceId, message: data.message });
+                    return;
+                }
+                
+                // Update the resources state with the response
+                const updatedResources = resources.map(resource => {
+                    // Check if the resource ID matches the one we are updating
+                    if (resource._id === resourceId) {
+                        return data.resource;
+                    }
+                    return resource;
+                });
+                
+                setResources(updatedResources); // Update the resources state to reflect the new tag
+                setNewTag(''); // Clear the input
+                setShowTagInput(null); // Hide the input field
+                setShowTagDropdown(null); // Hide the dropdown
+            } catch (error) {
+                console.error('Error adding tag:', error);
+            }
+        }
+    }
+
+    // Called when a predefined tag is selected from the dropdown
+    const handleTagSelect = async (tag, resourceId) => {        
+        try {
+            // Reset any previous error messages
+            setTagError(null);
+            
+            // Call backend API to add the tag
+            const response = await fetch(`${URL_PATH}/tags/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    resourceId: resourceId,
+                    tag: tag
+                })
+            });
+            
+            const data = await response.json();
+            
+            // Check if there was an error (status code 409 for duplicate)
+            if (response.status === 409) {
+                setTagError({ resourceId, message: data.message });
+                return;
+            }
+            
+            // Update the resources state with the response
+            const updatedResources = resources.map(resource => {
+                // Check if the resource ID matches the one we are updating
+                if (resource._id === resourceId) {
+                    return data.resource;
+                }
+                return resource;
+            });
+            
+            setResources(updatedResources); // Update the resources state to reflect the new tag
+            setShowTagDropdown(null); // Hide the dropdown
+            setShowTagInput(null); // Hide the input field
+        } catch (error) {
+            console.error('Error adding tag:', error);
+        } 
+    }
+
+    // Called when a tag is deleted
+    const handleTagDelete = async (tag, resourceId) => {
+        try {
+            // Call backend API to remove the tag
+            const response = await fetch(`${URL_PATH}/tags/remove/${resourceId}/${encodeURIComponent(tag)}`, {
+                method: 'DELETE'  // Explicitly set the HTTP method to DELETE
+            });
+
+            const data = await response.json();
+            
+            // Update the resources state with the response
+            const updatedResources = resources.map(resource => {
+                // Check if the resource ID matches the one we are updating
+                if (resource._id === resourceId) {
+                    return data.resource;
+                }
+                return resource;
+            });
+            
+            setResources(updatedResources); // Update the resources state to reflect the removed tag
+        } catch (error) {
+            console.error('Error deleting tag:', error);
+        }
+    }
+
     return (
+        // Modal to confirm deletion of RESOURCE
         <div className="admin-container">
             {showModal && (
                 <Modal
@@ -128,11 +274,61 @@ function AdminResourcesPage({ setActiveLink }) {
                             <strong>Tags:</strong>
                             <div className="resource-tag-container">
                                 {resource.Tags && resource.Tags.length > 0 ? (
-                                    resource.Tags.map((tag) => (
-                                        <ResourceTag tag={tag} />
+                                    resource.Tags.map((tag, tagIndex) => (
+                                        // Create ResourceTag component for each tag
+                                        <ResourceTag 
+                                            key={tagIndex} 
+                                            tag={tag}
+                                            resourceId={resource._id}
+                                            onDelete={() => handleTagDelete(tag, resource._id)} 
+                                        />
                                     ))
                                 ) : (
-                                    <p>No tags</p>
+                                    <span className="no-tags-text">No tags</span>
+                                )}
+                                <button // Button to add a new tag
+                                    className="add-tag-button"
+                                    onClick={() =>handleAddTagClick(resource._id)} // Call function and pass resource ID
+                                >
+                                    + Add Tag
+                                </button>
+                                {showTagInput === resource._id && (
+                                    <div>
+                                        <input // Input field to enter new tag 
+                                            type="text"
+                                            value={newTag}
+                                            onChange={handleTagChange} // onChange automatically passes in the event
+                                            onKeyDown={(e) =>
+                                                handleTagKeyDown(e, resource._id)
+                                            }
+                                            placeholder="Enter new tag"
+                                            className="new-tag-input"
+                                        />
+                                        {tagError && tagError.resourceId === resource._id && ( // Show error message if tag is already added
+                                                <span className="tag-error-message">{tagError.message}</span>
+                                            )}
+                                        {showTagDropdown === resource._id && (() => { // Show dropdown with predefined tags
+                                            const fuse = new Fuse(predefinedTags, fuseOptions);
+                                            const results = fuse.search(newTag);
+                                            const sortedTags = results.map(result => result.item);
+                                            const isSorted = sortedTags.length === 0 ? predefinedTags : sortedTags;
+                                            return (
+                                                <div className="tag-dropdown">
+                                                    {isSorted.map((tag, idx) => (
+                                                        <div
+                                                            key={idx}
+                                                            className="tag-option"
+                                                            onClick={() =>
+                                                                handleTagSelect(tag, resource._id)
+                                                            }
+                                                        >
+                                                            {tag}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            );
+                                        })()}
+                                    </div>
                                 )}
                             </div>
                         </div>

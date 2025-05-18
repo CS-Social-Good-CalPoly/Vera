@@ -75,3 +75,65 @@
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     transform: scale(0.98);
 }
+
+.resource-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.add-tag-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 4px 8px;    
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.add-tag-button:hover {
+    background-color: #0069d9;
+}
+
+.new-tag-input {
+    padding: 4px 8px;
+    border: 1px solid;
+    border-radius: 100px;
+    font-size: 14px;
+    min-width: 120px;
+}
+
+.tag-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 20px;
+    margin-top: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 150px;
+}
+
+.tag-option {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.tag-option:hover {
+    background-color: #2374c57e;
+}
+
+.no-tags-text {
+    font-size: 14px;
+    padding: 4px 8px;
+}
+
+.tag-error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-left: 10px;
+    white-space: nowrap;
+}
