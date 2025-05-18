@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
 import { Modal, ResourceTag } from '../../components/components.js'    
+import Fuse from 'fuse.js' 
 
 const predefinedTags = [ // Predefined list of tags
     'Food',
@@ -13,6 +14,24 @@ const predefinedTags = [ // Predefined list of tags
     'Academic',
     'Other'
 ]
+
+const fuseOptions = {
+    isCaseSensitive: false,
+    includeScore: false,
+    ignoreDiacritics: false,
+    shouldSort: true,
+    includeMatches: false,
+    findAllMatches: false,
+    minMatchCharLength: 1,
+    location: 0,
+    threshold: 0.6,
+    distance: 100,
+    useExtendedSearch: false,
+    ignoreLocation: false,
+    ignoreFieldNorm: false,
+    fieldNormWeight: 1,
+    keys: ['Title', 'Category', 'ParagraphText'],
+}
 
 function AdminResourcesPage({ setActiveLink }) {
     const [resources, setResources] = useState([]) // Store all resources
@@ -288,21 +307,27 @@ function AdminResourcesPage({ setActiveLink }) {
                                         {tagError && tagError.resourceId === resource._id && ( // Show error message if tag is already added
                                                 <span className="tag-error-message">{tagError.message}</span>
                                             )}
-                                        {showTagDropdown === resource._id && ( // Show dropdown with predefined tags
-                                            <div className="tag-dropdown">
-                                                {predefinedTags.map((tag, idx) => (
-                                                    <div
-                                                        key={idx}
-                                                        className="tag-option"
-                                                        onClick={() =>
-                                                            handleTagSelect(tag, resource._id)
-                                                        }
-                                                    >
-                                                        {tag}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
+                                        {showTagDropdown === resource._id && (() => { // Show dropdown with predefined tags
+                                            const fuse = new Fuse(predefinedTags, fuseOptions);
+                                            const results = fuse.search(newTag);
+                                            const sortedTags = results.map(result => result.item);
+                                            const isSorted = sortedTags.length === 0 ? predefinedTags : sortedTags;
+                                            return (
+                                                <div className="tag-dropdown">
+                                                    {isSorted.map((tag, idx) => (
+                                                        <div
+                                                            key={idx}
+                                                            className="tag-option"
+                                                            onClick={() =>
+                                                                handleTagSelect(tag, resource._id)
+                                                            }
+                                                        >
+                                                            {tag}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            );
+                                        })()}
                                     </div>
                                 )}
                             </div>
