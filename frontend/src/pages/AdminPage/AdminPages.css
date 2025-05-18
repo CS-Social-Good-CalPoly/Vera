@@ -130,3 +130,10 @@
     font-size: 14px;
     padding: 4px 8px;
 }
+
+.tag-error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-left: 10px;
+    white-space: nowrap;
+}

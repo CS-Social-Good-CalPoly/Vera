@@ -18,6 +18,7 @@ const resourceRoutes = require('./routes/resources')
 const storyRoutes = require('./routes/stories')
 const web_scraping = require('./routes/web_scraping')
 const colleges_scraper = require('./routes/colleges_scraper')
+const tagsRoutes = require('./routes/tags')
 
 // Middleware || routes
 app.use(bodyparser.json())
@@ -28,6 +29,7 @@ app.use('/resources', resourceRoutes)
 app.use('/stories', storyRoutes)
 app.use('/web_scraping', web_scraping)
 app.use('/colleges_scraper', colleges_scraper)
+app.use('/tags', tagsRoutes)
 
 // home page route
 app.get('/', (req, res) => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './ResourceTag.css'
 import { Modal } from '../../components/components.js'
 
-const ResourceTag = ({tag, onDelete }) => {
+const ResourceTag = ({tag, resourceId, onDelete }) => {
     const [showModal, setShowModal] = useState(false)
 
     const handleDelete = () => {
@@ -10,7 +10,7 @@ const ResourceTag = ({tag, onDelete }) => {
     }
 
     const handleConfirmDelete = () => {
-        onDelete(tag)
+        onDelete(tag, resourceId)
         setShowModal(false)
     }
 
@@ -22,7 +22,7 @@ const ResourceTag = ({tag, onDelete }) => {
         <>
         {showModal && (
             <Modal
-                message={`Delete tag "${tag}"? (This action cannot be undone!)`}
+                message={`Delete tag "${tag}"?`}
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
             />
