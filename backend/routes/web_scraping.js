@@ -1676,7 +1676,7 @@ router.put('/sti-testing', async (req, res) => {
 })
 
 /* -------------------- Off Campus Housing -------------------- */
-router.put('/housing-off-campus', async (req, res) => {
+router.put('/off-campus-housing', async (req, res) => {
     try {
         const response = await axios.get(
             'https://deanofstudents.calpoly.edu/offcampushousing',
@@ -1685,7 +1685,7 @@ router.put('/housing-off-campus', async (req, res) => {
 
         const offCampusHousingId = '67b38f58cd6ae1f04cf826d9'
 
-        const title = 'Off Campus Housing' // The title of the page is an image
+        const title = 'Off-Campus Housing' // The title of the page is an image
 
         const url = $('meta[property="og:url"]').attr('content')
 
@@ -1699,7 +1699,7 @@ router.put('/housing-off-campus', async (req, res) => {
                 .children('p')
                 .children('img')
                 .attr('alt')
-                .trim() || 'Off Campus Housing Program Banner'
+                .trim() || 'Off-Campus Housing Program Banner'
 
         // Main paragraph with generic info
         const paragraphText = $('div[class="field-item even"]')
@@ -1761,7 +1761,16 @@ router.put('/housing-off-campus', async (req, res) => {
         $('div[class="field-item even"]')
             .eq(0)
             .children()
-            .slice(4, 9)
+            .slice(4, 6)
+            .each((_index, element) => {
+                const $paragraphText = $(element).text().trim()
+                extraInfo.push($paragraphText)
+            })
+
+        $('div[class="field-item even"]')
+            .eq(0)
+            .children()
+            .slice(7, 9)
             .each((_index, element) => {
                 const $paragraphText = $(element).text().trim()
                 extraInfo.push($paragraphText)
@@ -1778,7 +1787,7 @@ router.put('/housing-off-campus', async (req, res) => {
             ExtraInfo: extraInfo,
             Address: location,
             ListOfHours: hours,
-            Tags: ['Housing', 'Off Campus', 'Money', 'Roommate'],
+            Tags: ['Housing', 'Off Campus', 'Roommate'],
         })
 
         const updatedResource = await IndResources.findByIdAndUpdate(
