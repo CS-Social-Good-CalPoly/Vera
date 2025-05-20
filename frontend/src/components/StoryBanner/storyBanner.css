@@ -3,28 +3,29 @@
     max-width: none;
     width: 100vw;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
+}
 
 .container#story-banner {
     margin: 0;
     width: -webkit-fill-available;
     padding: 0;
-    max-width:100%;
-    
+    max-width: 100%;
 }
 
-div#story-banner-img-col, div#story-banner-text-col {
+div#story-banner-img-col,
+div#story-banner-text-col {
     padding: 0;
 }
 
 @media only screen and (min-width: 768px) {
-    #story-banner-img-col, #story-banner-text-col{
-        height: 500px; 
+    #story-banner-img-col,
+    #story-banner-text-col {
+        height: 500px;
     }
 }
 
 @media only screen and (max-width: 767px) {
-    #story-banner-img-col{
+    #story-banner-img-col {
         height: 200px;
     }
 }
@@ -40,20 +41,20 @@ h1#story-banner-text-title {
     font-size: 30px;
     line-height: 45px;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 p#story-banner-text-paragraph {
     font-weight: 300;
     font-size: 20px;
-    line-height: 1.2em; 
+    line-height: 1.2em;
     letter-spacing: 0.05em;
     margin: 0.5%;
     display: block;
 }
 
 div#story-banner-text {
-    background-color: #DCE3E7;
+    background-color: #dce3e7;
     padding: 25px;
     letter-spacing: 0.7px;
     display: flex;
@@ -68,9 +69,9 @@ button#story-banner-button {
     font-size: 18px;
     line-height: 27px;
     letter-spacing: 0.01em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     padding: 17px 12px;
-    color: #728D95;
+    color: #728d95;
     border: none;
     border-radius: 15px;
     width: -moz-fit-content;

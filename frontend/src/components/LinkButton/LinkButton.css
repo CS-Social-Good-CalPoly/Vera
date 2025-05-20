@@ -1,31 +1,31 @@
 .bannerButton {
-  box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
-  border-radius: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 10px 3px;
-  
-  margin: 15px 20px;
-  justify-content: center;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.3);
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px 3px;
+
+    margin: 15px 20px;
+    justify-content: center;
 }
 
 .banner-button-text {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0 17px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    padding: 0 17px;
 }
 
 @media only screen and (max-width: 768px) {
-  .bannerButton {
-      border-radius: 5px;
-      box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
-      margin: 6px 12px;
-  }
+    .bannerButton {
+        border-radius: 5px;
+        box-shadow: 1.5px 1.5px 6px rgba(114, 141, 149, 0.3);
+        margin: 6px 12px;
+    }
 
-  .banner-button-text {
-      font-size: 14px;
-      padding: 0 7px;
-  }
+    .banner-button-text {
+        font-size: 14px;
+        padding: 0 7px;
+    }
 }

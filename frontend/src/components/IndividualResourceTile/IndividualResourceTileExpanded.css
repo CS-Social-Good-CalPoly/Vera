@@ -22,7 +22,7 @@
     font-size: 18px;
 
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
 
     color: #0d2020;
 }
@@ -30,7 +30,6 @@
 .resource-tile-expanded-text-location {
     font-weight: normal;
     letter-spacing: 0.05em;
-    text-transform: capitalize;
     color: #0d2020;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
@@ -83,7 +82,6 @@
     margin-bottom: 0;
 
     letter-spacing: 0.05em;
-    text-transform: capitalize;
     color: #4a6e82;
 }
 
@@ -99,7 +97,6 @@ p.resource-tile-expanded-extra-info {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.05em;
-    text-transform: capitalize;
 }
 .resource-tile-expanded-extra-info-item {
     margin-bottom: 5px;
@@ -115,7 +112,7 @@ p.resource-tile-expanded-extra-info {
     margin: 0.5rem 0 1rem 0;
 
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: white;
 
     width: fit-content;

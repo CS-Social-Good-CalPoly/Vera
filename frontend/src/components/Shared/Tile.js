@@ -62,7 +62,7 @@ export const TileTitle = styled.h1`
     letter-spacing: 0.05em;
     line-height: 30px;
     text-align: left;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: black;
     overflow: hidden;
     display: -webkit-box;

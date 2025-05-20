@@ -26,7 +26,7 @@ const InfoText = styled.div`
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: #4a6e82;
 
     @media only screen and (max-width: 768px) {

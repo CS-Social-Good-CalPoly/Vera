@@ -1,11 +1,9 @@
 .cat-button-group {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: center;
 
     flex-wrap: wrap;
-
-    
 }
 
 .cat-button-group-title {
@@ -16,7 +14,7 @@
     line-height: 72px;
     text-align: center;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     padding: 30px 20px 0px 20px;
 }
 
@@ -29,7 +27,7 @@
         line-height: 30px;
         text-align: center;
         letter-spacing: 0.05em;
-        text-transform: uppercase;
+        text-transform: capitalize;
 
         margin-top: 12px;
     }
