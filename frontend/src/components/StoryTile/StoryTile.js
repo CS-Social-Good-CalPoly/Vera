@@ -79,7 +79,7 @@ function StoryTile(props) {
                     <TileTitle>{props.title}</TileTitle>
                     <Info>
                         <InfoText>{props.studentYear}</InfoText>
-                       <InfoText>{props.ParagraphText}</InfoText>
+                       <InfoText>{props.paragraphText} description</InfoText>
                        {/* <InfoText>{story.ParagraphText}</InfoText> */}
                         {/* <InfoText>{props.studentMajor} Major</InfoText> */}
                         {/* <Categories>
