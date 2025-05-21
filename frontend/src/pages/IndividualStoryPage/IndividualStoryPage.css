@@ -1,0 +1,17 @@
+.individual-story-page {
+    background-color: #b9c7ca;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    min-height: inherit;
+}
+
+.hear-from-other-students {
+    color: #4a6e82;
+    font-size: 36px;
+    font-weight: bold;
+    text-decoration: underline;
+    align-self: flex-start;
+    margin-left: 7.5%;
+}
