@@ -357,22 +357,11 @@ router.put('/generalstorycat', async (req, res) => {
 })
 
 router.put('/updateStory', async (req, res) => {
-    const { storyId, token, ...updates } = req.body
-
-    // check if the token is valid
-    const tokenExists = await Tokens.findOne({ Value: token })
-    if (!tokenExists) {
-        return res.status(400).json({ message: 'Invalid token' })
-    }
-    if (!tokenExists.AssociatedStories.includes(storyId)) {
-        return res.status(400).json({
-            message: 'Token does not have access to this story',
-        })
-    }
-
+    const { _id, ...updates } = req.body
+    // note: we are not checking if its a valid token (done in frontend)
     try {
         const updatedStory = await IndStories.findByIdAndUpdate(
-            storyId,
+            _id,
             {
                 $set: { ...updates },
             },
@@ -397,11 +386,20 @@ router.put('/updateStory', async (req, res) => {
 
 router.delete('/deleteIndividualStory', async (req, res) => {
     const { individualStoryId } = req.body
-    console.log(req.body)
     try {
         const deletedStory =
             await IndStories.findByIdAndDelete(individualStoryId)
         if (deletedStory) {
+            // Remove from the token as well
+            const token = await Tokens.findOne({
+                AssociatedStories: individualStoryId,
+            })
+            if (token) {
+                token.AssociatedStories = token.AssociatedStories.filter(
+                    (storyId) => storyId.toString() !== individualStoryId,
+                )
+                await token.save()
+            }
             res.json({ message: 'Story successfully deleted.' })
         } else {
             res.status(404).json({ message: 'Story not found.' })
