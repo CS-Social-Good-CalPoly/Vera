@@ -121,23 +121,27 @@ const Text = styled(Card.Text)`
 function StoryPopUp(props) {
     const [size, setSize] = useState(false)
     const [deleteModal, showDeleteModal] = useState(false)
+    const [individualStory, setindividualStory] = useState([])
+    const [showEditPopup, setShowEditPopup] = useState(false)
 
     // Confirm delete function
     const handleConfirmDelete = () => {
         // call the backend to delete the story
         console.log('Deleting story')
-        // const path = `${URL_PATH}/stories/deleteStory`
-        const path = `http://localhost:3001/stories/deleteStory`
+        // const path = `${URL_PATH}/stories/deleteIndividualStory`
+        const path = `http://localhost:3001/stories/deleteIndividualStory`
         fetch(path, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ individualStoryId: props.story._id }),
+            body: JSON.stringify({ individualStoryId: props.id }),
         })
             .then((response) => {
                 if (!response.ok) {
                     console.error('Error deleting story')
+                } else {
+                    window.location.href = '/Stories'
                 }
             })
             .catch((error) => {
@@ -161,9 +165,6 @@ function StoryPopUp(props) {
         { id: '', title: '', imageUrl: '' },
         { id: '', title: '', imageUrl: '' },
     ]
-
-    const [individualStory, setindividualStory] = useState([])
-    const [showEditPopup, setShowEditPopup] = useState(false)
 
     const editStory = (story) => {
         // sends a request to the backend
