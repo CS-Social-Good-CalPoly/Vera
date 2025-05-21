@@ -5,6 +5,7 @@ import React from 'react'
 import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile.js'
 import '../Shared/Tile.css'
 
+
 const Info = styled.div`
     padding: 0 20px;  /* Changed: removed top/bottom padding */
     display: flex;
@@ -78,16 +79,26 @@ function StoryTile(props) {
                     <TileTitle>{props.title}</TileTitle>
                     <Info>
                         <InfoText>{props.studentYear}</InfoText>
-                        <InfoText>{props.studentMajor} Major</InfoText>
-                        <Categories>
+                       <InfoText>{props.ParagraphText}</InfoText>
+                       {/* <InfoText>{story.ParagraphText}</InfoText> */}
+                        {/* <InfoText>{props.studentMajor} Major</InfoText> */}
+                        {/* <Categories>
                             {props.categories.map((category, index) => (
                                 <CategoryTag key={index}>{category}</CategoryTag>
                             ))}
-                        </Categories>
+                        </Categories> */}
                     </Info>
+                     <div className="button-container">
+                        <Link to={`/individualStory/${props.id}`} className="view-more-button">
+                            View More
+                            <img src={arrow} alt="arrow icon" />
+                        </Link>
+                    </div>
                 </div>
-                <TileIcon src={arrow} />
+                
+            {/* <TileIcon src={arrow} /> */}
             </Link>
+             
         </Tile>
     )
 }

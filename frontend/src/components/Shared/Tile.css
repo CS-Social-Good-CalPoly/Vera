@@ -58,3 +58,42 @@
     }
   }
   
+  .view-more-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+    color: black;
+    padding: 25px 30px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+    margin-top: auto;
+}
+
+.view-more-button:hover {
+    background-color: #3a5a6b;
+}
+
+.view-more-button img {
+    width: 16px;
+    height: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+    .view-more-button {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+
+    .view-more-button img {
+        width: 30px;
+        height: 30px;
+    }
+}

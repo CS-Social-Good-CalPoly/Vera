@@ -67,13 +67,13 @@ export const TileIcon = styled.img`
 export const TileTitle = styled.h1`
     padding: 0 14px;
     font-family: Poppins;
-    font-size: 20px;
+    font-size: 30px;
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: black;
-    line-height: 1.2em;
+    line-height: 2.5em;
     margin-bottom: 10px;
 
     @media only screen and (max-width: 768px) {

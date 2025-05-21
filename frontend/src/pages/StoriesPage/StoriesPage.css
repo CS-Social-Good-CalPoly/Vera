@@ -52,7 +52,7 @@
     max-width: 1200px;
     margin: 0 auto;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 300px)); 
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 300px));  */
 }
 
 @media (max-width: 767px) {
@@ -66,10 +66,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* this helps on smaller screens */
-    padding: 0 1rem;
-    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    padding: 0 20px; /* Remove fixed 4rem and use padding similar to grid gap */
+    margin: 0 auto 1rem auto;
+    width: 100%;
+    max-width: 1200px; /* Match story-grid max-width */
+    box-sizing: border-box; /* Ensures padding doesn't expand total width */
 }
+
 
 .header-text h1 {
     margin: 0;
