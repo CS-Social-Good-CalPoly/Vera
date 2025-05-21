@@ -19,7 +19,7 @@
     font-weight: 600;
     font-size: 16px;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     width: 100%;
     color: #534d49;
     border-color: white;

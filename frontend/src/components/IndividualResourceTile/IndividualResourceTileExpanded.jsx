@@ -43,7 +43,23 @@ function ResourceTile(props) {
                                 <strong>Location: </strong>
                                 {props.buildingName}
                             </p>
-                            <p>{props.address}</p>
+                            {isValidUrl(props.address) ? (
+                                <p>
+                                    <a
+                                        href={
+                                            props.address.startsWith('http')
+                                                ? props.address
+                                                : `https://${props.address}`
+                                        }
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {props.address}
+                                    </a>
+                                </p>
+                            ) : (
+                                <p>{props.address}</p>
+                            )}
                         </div>
                         <p className="resource-tile-expanded-text-description">
                             {props.description}

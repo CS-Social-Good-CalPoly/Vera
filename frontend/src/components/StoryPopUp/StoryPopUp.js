@@ -24,7 +24,7 @@ const StoryCategory = styled(Card.Title)`
     font-weight: 600;
     font-size: 48px;
     line-height: 72px;
-    text-transform: uppercase;
+    text-transform: capitalize;
 
     @media only screen and (max-width: 768px) {
         font-size: 32px;
@@ -71,7 +71,7 @@ const Cardstory = styled(Card.Body)`
 const Storytitle = styled(Card.Title)`
     font-size: 36px;
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: capitalize;
 
     @media only screen and (max-width: 768px) {
         font-size: 24px;

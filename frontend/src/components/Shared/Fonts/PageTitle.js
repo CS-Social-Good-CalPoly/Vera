@@ -7,7 +7,7 @@ export const PageTitle = styled.h1`
     font-size: 48px;
     line-height: 72px;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
 
     @media only screen and (max-width: 768px) {
         font-size: 20px;

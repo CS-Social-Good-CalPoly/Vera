@@ -29,7 +29,7 @@
     font-size: 36px;
     line-height: 54px;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: black;
 }
 
@@ -72,7 +72,7 @@ input[type='radio'] {
     justify-content: center;
 
     font-weight: 600;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 20px;
     letter-spacing: 0.04em;
     color: white;

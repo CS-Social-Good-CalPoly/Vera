@@ -71,7 +71,7 @@ export const Heading = styled.h1`
     font-size: 36px;
     line-height: 30px;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     padding-top: 15px;
 
     @media only screen and (max-width: 768px) {

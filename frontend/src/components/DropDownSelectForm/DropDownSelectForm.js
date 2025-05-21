@@ -42,7 +42,7 @@ class DropDownSelectForm extends Component {
                 fontWeight: 600,
                 fontSize: '16px',
                 letterSpacing: '0.05em',
-                textTransform: 'uppercase',
+                textTransform: 'capitalize',
                 color: '#534D49',
                 borderColor: 'white',
                 background: 'white',
