@@ -128,8 +128,7 @@ function StoryPopUp(props) {
     const handleConfirmDelete = () => {
         // call the backend to delete the story
         console.log('Deleting story')
-        // const path = `${URL_PATH}/stories/deleteIndividualStory`
-        const path = `http://localhost:3001/stories/deleteIndividualStory`
+        const path = `${URL_PATH}/stories/deleteIndividualStory`
         fetch(path, {
             method: 'DELETE',
             headers: {
@@ -168,8 +167,7 @@ function StoryPopUp(props) {
 
     const editStory = (story) => {
         // sends a request to the backend
-        // const path = `${URL_PATH}/stories/updateStory`
-        const path = `http://localhost:3001/stories/updateStory`
+        const path = `${URL_PATH}/stories/updateStory`
         fetch(path, {
             method: 'PUT',
             headers: {
