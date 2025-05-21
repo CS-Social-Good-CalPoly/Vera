@@ -1,0 +1,49 @@
+.button-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin: 0.5rem 1.25rem;
+    gap: 1rem;
+}
+
+.edit-button {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
+    background-color: #4c7085;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.edit-button:hover {
+    background-color: #3d4e58; /* Tailwind's blue-700 */
+}
+
+.delete-button {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
+    background-color: #e63946;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.delete-button:hover {
+    background-color: #d62839; /* Tailwind's red-700 */
+}

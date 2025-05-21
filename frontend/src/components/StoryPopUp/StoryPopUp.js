@@ -4,6 +4,9 @@ import { Banner, EditStoryPopUp } from '../components.js'
 import styled from 'styled-components'
 import moment from 'moment'
 import URL_PATH from '../../links.js'
+import { Modal } from '../../components/components.js'
+
+import './StoryPopUp.css'
 
 const Header = styled.div`
     font-size: 32px;
@@ -117,6 +120,37 @@ const Text = styled(Card.Text)`
 
 function StoryPopUp(props) {
     const [size, setSize] = useState(false)
+    const [deleteModal, showDeleteModal] = useState(false)
+
+    // Confirm delete function
+    const handleConfirmDelete = () => {
+        // call the backend to delete the story
+        console.log('Deleting story')
+        // const path = `${URL_PATH}/stories/deleteStory`
+        const path = `http://localhost:3001/stories/deleteStory`
+        fetch(path, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ individualStoryId: props.story._id }),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    console.error('Error deleting story')
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error)
+            })
+
+        showDeleteModal(false)
+    }
+
+    // Cancel delete function
+    const handleCancelDelete = () => {
+        showDeleteModal(false)
+    }
 
     function change() {
         setSize(true)
@@ -130,6 +164,30 @@ function StoryPopUp(props) {
 
     const [individualStory, setindividualStory] = useState([])
     const [showEditPopup, setShowEditPopup] = useState(false)
+
+    const editStory = (story) => {
+        // sends a request to the backend
+        // const path = `${URL_PATH}/stories/updateStory`
+        const path = `http://localhost:3001/stories/updateStory`
+        fetch(path, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(story),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    console.error('Error updating story')
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error)
+            })
+
+        // do a page refresh
+        window.location.reload()
+    }
 
     useEffect(() => {
         // URL_PATH imported from frontend/src/links.js
@@ -149,7 +207,7 @@ function StoryPopUp(props) {
     const formattedDate = date.format('MMM DD, YYYY')
 
     return (
-        <>
+        <div>
             <Banner imageUrl={currentStory?.ImageUrl} />
             <CardWrapper hidden={size}>
                 <Body>
@@ -175,7 +233,20 @@ function StoryPopUp(props) {
                     </Cardstory>
                 </Body>
                 {props.editable && (
-                    <button onClick={() => setShowEditPopup(true)}>Edit</button>
+                    <div className="button-container">
+                        <button
+                            className="edit-button"
+                            onClick={() => setShowEditPopup(true)}
+                        >
+                            Edit
+                        </button>
+                        <button
+                            className="delete-button"
+                            onClick={() => showDeleteModal(true)}
+                        >
+                            Delete
+                        </button>
+                    </div>
                 )}
             </CardWrapper>
             <PopupResources>
@@ -186,10 +257,20 @@ function StoryPopUp(props) {
                 <EditStoryPopUp
                     story={currentStory}
                     onClose={() => setShowEditPopup(false)}
-                    onPost={() => setShowEditPopup(false)} // TODO: to be replaced with backend
+                    onPost={(story) => {
+                        editStory(story)
+                        setShowEditPopup(false)
+                    }}
                 />
             )}
-        </>
+            {deleteModal && (
+                <Modal
+                    message="Delete this resource? (This action cannot be undone!)"
+                    onConfirm={handleConfirmDelete}
+                    onCancel={handleCancelDelete}
+                />
+            )}
+        </div>
     )
 }
 

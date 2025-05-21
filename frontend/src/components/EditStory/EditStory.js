@@ -13,6 +13,12 @@ function EditStoryPopUp({ onClose, onPost, story }) {
     const [major, setMajor] = useState(story?.StudentMajor || '')
     const [categories, setCategories] = useState([])
 
+    const htmlToText = (html) => {
+        const temp = document.createElement('div')
+        temp.innerHTML = html
+        return temp.textContent || temp.innerText || ''
+    }
+
     // Fetch college/major and category data on mount
     useEffect(() => {
         axios
@@ -35,20 +41,33 @@ function EditStoryPopUp({ onClose, onPost, story }) {
             .catch((err) => console.error(err))
     }, [story])
 
+    useEffect(() => {
+        // Disable scroll when modal opens
+        document.body.style.overflow = 'hidden'
+
+        // Re-enable scroll when modal unmounts
+        return () => {
+            document.body.style.overflow = ''
+        }
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!title || !quillValue) {
             alert('Title and story content are required.')
             return
         }
+
+        // dealing with quillValue so we need to extract the text
+        const quillText = htmlToText(quillValue)
         const updatedStory = {
+            _id: story._id,
             Title: title,
-            ParagraphText: quillValue,
+            ParagraphText: quillText,
             StudentYear: year,
             StudentCollege: college,
             StudentMajor: major,
             RelevantCategoryList: categories.map((cat) => cat.value),
-            Token: story.Token, // Preserve existing token
         }
         onPost(updatedStory)
     }
@@ -59,7 +78,7 @@ function EditStoryPopUp({ onClose, onPost, story }) {
 
     return (
         <div
-            className="popup-overlay"
+            className="popup-overlay z-10000000"
             style={{
                 position: 'fixed', // Ensures the blur covers the full screen
                 top: 0,
@@ -71,6 +90,7 @@ function EditStoryPopUp({ onClose, onPost, story }) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                zIndex: 10000000, // Ensure it's on top of everything
             }}
         >
             <div
@@ -100,9 +120,9 @@ function EditStoryPopUp({ onClose, onPost, story }) {
                         onChange={setQuillValue}
                     />
                     <div
-                        className="button-wrapper"
+                        className="button-wrapper "
                         style={{
-                            marginTop: '6%',
+                            marginTop: '10%',
                             marginBottom: 0,
                             padding: 0,
                         }}
