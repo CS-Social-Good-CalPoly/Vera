@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Card } from 'react-bootstrap'
-import { Banner, EditStoryPopUp } from '../components.js'
+import { EditStoryPopUp } from '../components.js'
 import styled from 'styled-components'
 import moment from 'moment'
 import URL_PATH from '../../links.js'
@@ -60,7 +60,7 @@ const Date = styled(Card.Text)`
 
 const Cardstory = styled(Card.Body)`
     padding: 0;
-    margin-top: 80px;
+    margin-top: 2.5rem;
 
     @media only screen and (max-width: 768px) {
         margin-bottom: 0;
@@ -78,24 +78,13 @@ const Storytitle = styled(Card.Title)`
     }
 `
 
-const PopupResources = styled.div`
-    color: black;
-    max-width: 90%;
-    margin-left: 55px;
-
-    @media only screen and (max-width: 768px) {
-        margin-left: 10px;
-        max-width: 100%;
-    }
-`
-
 const CardWrapper = styled(Card)`
     font-family: 'Poppins';
     color: #4a6e82;
-    max-width: 80%;
+    width: 85%;
     margin: 5vh auto;
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
-    border-radius: 30px;
+    border-radius: 0px;
     letter-spacing: 0.05em;
 `
 const Body = styled(Card.Body)`
@@ -108,6 +97,7 @@ const Text = styled(Card.Text)`
     font-weight: 400;
     font-size: 20px;
     line-height: 42px;
+    color: black;
 
     @media only screen and (max-width: 768px) {
         font-size: 16px;
@@ -116,18 +106,6 @@ const Text = styled(Card.Text)`
 `
 
 function StoryPopUp(props) {
-    const [size, setSize] = useState(false)
-
-    function change() {
-        setSize(true)
-    }
-
-    const resources = [
-        { id: '', title: '', imageUrl: '' },
-        { id: '', title: '', imageUrl: '' },
-        { id: '', title: '', imageUrl: '' },
-    ]
-
     const [individualStory, setindividualStory] = useState([])
     const [showEditPopup, setShowEditPopup] = useState(false)
 
@@ -150,8 +128,7 @@ function StoryPopUp(props) {
 
     return (
         <>
-            <Banner imageUrl={currentStory?.ImageUrl} />
-            <CardWrapper hidden={size}>
+            <CardWrapper>
                 <Body>
                     <Header>
                         <div id="category">
@@ -178,9 +155,6 @@ function StoryPopUp(props) {
                     <button onClick={() => setShowEditPopup(true)}>Edit</button>
                 )}
             </CardWrapper>
-            <PopupResources>
-                {/* TODO: put related stories here */}
-            </PopupResources>
             {/* TODO: used for testing; will be replaced when token params are implemented */}
             {showEditPopup && (
                 <EditStoryPopUp
