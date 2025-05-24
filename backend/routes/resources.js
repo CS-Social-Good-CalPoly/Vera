@@ -5,7 +5,7 @@ const router = express.Router()
 const GenResources = require('../models/GenResources')
 const SubResources = require('../models/SubResources')
 const IndResources = require('../models/IndividualResources')
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId
 
 // GET route for all general resource categories
 router.get('/generalrsrcscat', async (req, res) => {
