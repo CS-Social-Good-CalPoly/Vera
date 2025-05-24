@@ -14,11 +14,15 @@ router.post('/add', async (req, res) => {
         const resource = await IndResources.findById(resourceId)
 
         // Check if the resource exists
-        const tagExists = resource.Tags.some(t => t.toLowerCase() === tag.toLowerCase())
+        const tagExists = resource.Tags.some(
+            (t) => t.toLowerCase() === tag.toLowerCase(),
+        )
 
         // Raise error if the tag already exists to avoid duplicates
         if (tagExists) {
-            return res.status(409).json({ message: 'Tag already exists for this resource' })
+            return res
+                .status(409)
+                .json({ message: 'Tag already exists for this resource' })
         }
 
         // Add the tag to the resource
@@ -32,11 +36,10 @@ router.post('/add', async (req, res) => {
         await resource.save()
 
         // Return the updated resource
-        return res.status(201).json({ 
+        return res.status(201).json({
             message: 'Tag added successfully',
-            resource: resource
+            resource: resource,
         })
-
     } catch (err) {
         console.error('Error adding tag:', err)
         return res.status(500).json({ message: err.message })
@@ -55,17 +58,16 @@ router.delete('/remove/:resourceId/:tag', async (req, res) => {
         const resource = await IndResources.findById(resourceId)
 
         // Remove the tag from the resource
-        resource.Tags = resource.Tags.filter(t => t !== tag)
+        resource.Tags = resource.Tags.filter((t) => t !== tag)
 
         // Save the updated resource
         await resource.save()
 
         // Return the updated resource
-        return res.status(200).json({ 
+        return res.status(200).json({
             message: 'Tag removed successfully',
-            resource: resource
+            resource: resource,
         })
-
     } catch (err) {
         console.error('Error removing tag:', err)
         return res.status(500).json({ message: err.message })
@@ -73,4 +75,3 @@ router.delete('/remove/:resourceId/:tag', async (req, res) => {
 })
 
 module.exports = router
-
