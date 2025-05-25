@@ -1,3 +1,10 @@
+.tile-link {
+    @media only screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 .tile-link:hover {
     text-decoration: none;
 }
