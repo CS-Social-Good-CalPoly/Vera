@@ -2100,7 +2100,7 @@ router.put('/safer', async (req, res) => {
             PhoneNumber: phoneNum,
             ResourceURL: url,
             LastUpdate: currentTime,
-            Category: 'Health Services',
+            Category: 'Student-Lead Programs',
             ListOfHours: list_of_hours,
             ExtraInfo: extraInfo,
             Tags: [
