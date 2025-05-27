@@ -539,4 +539,23 @@ router.get('/stories-by-token', async (req, res) => {
     }
 })
 
+// GET route for all stories associated with a category
+router.get('/stories-by-category', async (req, res) => {
+    try {
+        // grab category from request
+        const categories = Array.isArray(req.query.category)
+            ? req.query.category
+            : [req.query.category]
+
+        // get stories with categories that match
+        const stories = await IndStories.find({
+            RelevantCategoryList: { $in: categories },
+        })
+
+        res.status(200).json(stories)
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
+})
+
 module.exports = router

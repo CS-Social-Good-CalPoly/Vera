@@ -1,4 +1,4 @@
-import arrow from './arrow-icon.svg'
+import arrow from '../StoryTile/arrow-icon.svg'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import React from 'react'
@@ -55,23 +55,19 @@ const CategoryTag = styled.span`
     }
 `
 
-function StoryTile(props) {
+function RelatedStoriesTile(props) {
     return (
         <Tile onClick={props.handleClick} className="tile">
             <Link
                 to={{
                     pathname: `/individualStory/${props.id}`,
-                    state: {
-                        editable: props.editable,
-                        category: props.category,
-                    },
+                    state: { editable: props.editable },
                 }}
                 className="tile-link"
             >
-                <TileBanner src={props.imgUrl} alt={props.title} />
                 <TileTitle>{props.title}</TileTitle>
                 <Info>
-                    <InfoText>{props.studentYear}</InfoText>
+                    <InfoText>{props.description}</InfoText>
                     <InfoText>{props.studentMajor} Major</InfoText>
                     {/* {props.categories.map((category, index) => (
                             <InfoText key={index}>{category}</InfoText>
@@ -88,4 +84,4 @@ function StoryTile(props) {
     )
 }
 
-export default StoryTile
+export default RelatedStoriesTile
