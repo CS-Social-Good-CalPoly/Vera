@@ -539,20 +539,27 @@ router.get('/stories-by-token', async (req, res) => {
     }
 })
 
-// GET route for all stories associated with a category
-router.get('/stories-by-category', async (req, res) => {
+/* GET route to get categories attached to stories
+    (this seems pointless at first, but individual stories
+    depends off it to retain story categories even when page reloads) 
+*/
+router.get('/story-categories/:id', async (req, res) => {
     try {
-        // grab category from request
-        const categories = Array.isArray(req.query.category)
-            ? req.query.category
-            : [req.query.category]
+        const storyId = req.params.id
+        const story = await IndStories.findById(storyId)
 
-        // get stories with categories that match
-        const stories = await IndStories.find({
-            RelevantCategoryList: { $in: categories },
+        if (!story) {
+            return res.status(404).json({ message: 'Story not found' })
+        }
+
+        // If you need the category names instead of IDs
+        const categories = await GenStories.find({
+            _id: { $in: story.RelevantCategoryList },
         })
 
-        res.status(200).json(stories)
+        res.status(200).json({
+            categories: categories.map((cat) => cat.StoryIDList),
+        })
     } catch (err) {
         res.status(500).json({ message: err.message })
     }

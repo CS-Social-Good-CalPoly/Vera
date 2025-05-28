@@ -63,7 +63,6 @@ function StoryTile(props) {
                     pathname: `/individualStory/${props.id}`,
                     state: {
                         editable: props.editable,
-                        category: props.category,
                     },
                 }}
                 className="tile-link"

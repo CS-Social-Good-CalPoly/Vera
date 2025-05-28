@@ -1,0 +1,4 @@
+.tile {
+    display: flex;
+    flex-direction: vertical;
+}

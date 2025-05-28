@@ -16,8 +16,6 @@ function StoryTileGroup({ id, title, stories, tokenStories }) {
             </TitleContainer>
             <TileGroup>
                 {stories.map((story, index) => {
-                    console.log(tokenStories)
-                    console.log(tokenStories.includes(story._id))
                     return (
                         <StoryTile
                             key={index}

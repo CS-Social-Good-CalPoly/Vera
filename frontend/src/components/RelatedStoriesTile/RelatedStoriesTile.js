@@ -1,8 +1,7 @@
 import arrow from '../StoryTile/arrow-icon.svg'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import React from 'react'
-import { Tile, TileIcon, TileTitle, TileBanner } from '../Shared/Tile.js'
+import { Tile, TileIcon, TileTitle } from '../Shared/Tile.js'
 import '../Shared/Tile.css'
 
 const Info = styled.div`
@@ -36,28 +35,9 @@ const InfoText = styled.div`
     }
 `
 
-const Categories = styled.div`
-    margin-top: 10px;
-`
-
-const CategoryTag = styled.span`
-    display: inline-block;
-    background-color: #4a6e82;
-    color: white;
-    padding: 2px 8px;
-    margin-right: 5px;
-    border-radius: 3px;
-    font-size: 12px;
-
-    @media only screen and (max-width: 768px) {
-        font-size: 8px;
-        padding: 1px 4px;
-    }
-`
-
 function RelatedStoriesTile(props) {
     return (
-        <Tile onClick={props.handleClick} className="tile">
+        <Tile onClick={props.handleClick} className="tile padding-5">
             <Link
                 to={{
                     pathname: `/individualStory/${props.id}`,
@@ -68,15 +48,6 @@ function RelatedStoriesTile(props) {
                 <TileTitle>{props.title}</TileTitle>
                 <Info>
                     <InfoText>{props.description}</InfoText>
-                    <InfoText>{props.studentMajor} Major</InfoText>
-                    {/* {props.categories.map((category, index) => (
-                            <InfoText key={index}>{category}</InfoText>
-                        ))} */}
-                    <Categories>
-                        {props.categories.map((category, index) => (
-                            <CategoryTag key={index}>{category}</CategoryTag>
-                        ))}
-                    </Categories>
                 </Info>
                 <TileIcon src={arrow} />
             </Link>

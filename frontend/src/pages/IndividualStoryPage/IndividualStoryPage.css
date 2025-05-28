@@ -15,3 +15,10 @@
     align-self: flex-start;
     margin-left: 7.5%;
 }
+
+.related-stories {
+    display: flex;
+    flex-direction: row;
+    width: 88%;
+    justify-content: flex-start;
+}
