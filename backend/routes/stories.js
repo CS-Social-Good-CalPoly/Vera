@@ -328,7 +328,6 @@ router.put('/tokens', async (req, res) => {
 router.put('/generalstorycat', async (req, res) => {
     try {
         const { categoryId, storyId } = req.body
-        console.log('categoryId:', categoryId)
         const category = await GenStories.findById(categoryId)
 
         if (!category) {

@@ -19,6 +19,14 @@
 .related-stories {
     display: flex;
     flex-direction: row;
-    width: 88%;
-    justify-content: flex-start;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+
+    @media only screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        margin-inline: 2.5rem;
+    }
 }

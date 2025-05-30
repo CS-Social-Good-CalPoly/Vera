@@ -148,7 +148,13 @@ function StoryPopUp(props) {
                     </Header>
                     <Cardstory>
                         <Storytitle>{currentStory?.Title}</Storytitle>
-                        <Text>{currentStory?.ParagraphText}</Text>
+                        {/* This is to prevent from showing HTML tags in story!!! 
+                            Don't remove unless you have a better solution */}
+                        <Text
+                            dangerouslySetInnerHTML={{
+                                __html: currentStory?.ParagraphText,
+                            }}
+                        />
                     </Cardstory>
                 </Body>
                 {props.editable && (

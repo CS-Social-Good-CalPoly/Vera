@@ -1,4 +1,88 @@
 .tile {
     display: flex;
-    flex-direction: vertical;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #ffffff;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 30px;
+    margin: 20px;
+    padding-block: 1rem;
+    width: 280px;
+    height: 290px;
+    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+    flex-shrink: 0;
+
+    @media only screen and (max-width: 768px) {
+        width: 100%;
+        height: 125px;
+        background: #ffffff;
+        box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
+        border-radius: 10px;
+        margin-block: 8px;
+        margin-left: 0;
+        padding-block: 0.5rem;
+    }
+}
+
+.tile:hover .tile-link .tile-icon {
+    opacity: 1;
+}
+
+.tile-title {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding-inline: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    color: black;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+
+    @media only screen and (max-width: 768px) {
+        height: 1rem;
+        padding-inline: 0.5rem;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 1em;
+        max-height: 2em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 85%;
+    }
+}
+
+.tile-details {
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    line-clamp: 9;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+
+    padding-inline: 1.5rem;
+    font-family: Poppins;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.05em;
+    color: #4a6e82;
+    text-align: left;
+
+    @media only screen and (max-width: 768px) {
+        padding-inline: 0.5rem;
+        bottom: 4px;
+        font-weight: normal;
+        font-size: 8px;
+        line-height: 10px;
+    }
 }

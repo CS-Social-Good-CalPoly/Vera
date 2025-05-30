@@ -45,7 +45,7 @@ function IndividualStoryPage({ setActiveLink }) {
                             const shuffled = [...filteredStories].sort(
                                 () => 0.5 - Math.random(),
                             )
-                            filteredStories = shuffled.slice(0, 3)
+                            filteredStories = shuffled.slice(0, 4)
                             setRelatedStories(filteredStories)
                         }
                         // If we have fewer than 3 related stories, get some random ones to fill in
@@ -67,7 +67,7 @@ function IndividualStoryPage({ setActiveLink }) {
                             const randomStories = shuffled.slice(
                                 0,
                                 Math.min(
-                                    3 - filteredStories.length,
+                                    4 - filteredStories.length,
                                     shuffled.length,
                                 ),
                             )
@@ -113,7 +113,7 @@ function IndividualStoryPage({ setActiveLink }) {
                 )
                 const randomStories = shuffled.slice(
                     0,
-                    Math.min(3, shuffled.length),
+                    Math.min(4, shuffled.length),
                 )
 
                 setRelatedStories(randomStories)

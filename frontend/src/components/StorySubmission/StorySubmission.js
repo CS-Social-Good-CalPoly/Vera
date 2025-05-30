@@ -60,6 +60,10 @@ function StorySubmission() {
         setTitleValue(e.target.value)
     }
 
+    const handleQuillChange = (content) => {
+        setQuillValue(content)
+    }
+
     const handleMajorChange = (e) => {
         setMajor(e)
         setCollege(majorsToCollege[e])
@@ -401,14 +405,14 @@ function StorySubmission() {
                                 placeholder="Enter title"
                                 type="text"
                                 value={title}
-                                onKeyPress={handleTitleKeyPress}
+                                onKeyDown={handleTitleKeyPress}
                                 onChange={handleTitleChange}
                             />
                         </div>
                         <ReactQuill
                             theme="snow"
                             value={quillValue}
-                            onChange={setQuillValue}
+                            onChange={handleQuillChange}
                         />
                         <div className="button-wrapper">
                             <button
