@@ -25,7 +25,7 @@
     }
 }
 
-.tile:hover .tile-link .tile-icon {
+.tile-link:hover .tile-icon {
     opacity: 1;
 }
 
