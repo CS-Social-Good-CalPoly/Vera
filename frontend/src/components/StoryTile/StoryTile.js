@@ -203,7 +203,7 @@ function StoryTile(props) {
                     state: { editable: props.editable },
                 }}
                 className="tile-link"
-                style={{ height: '100%', padding: '0' }}
+                style={{ height: '100%', padding: '0', width: '100%' }}
             >
                 <TileBanner src={props.imgUrl} alt={props.title} />
                 <TileInfo>
