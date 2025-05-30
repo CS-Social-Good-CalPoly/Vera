@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const IndResources = require('../models/IndividualResources')
+const ResourceTag = require('../models/ResourceTag')
 
 /**
  * POST route to add a tag to a resource
@@ -72,5 +73,37 @@ router.delete('/remove/:resourceId/:tag', async (req, res) => {
     }
 })
 
+/**
+ * POST route to add a single tag to the resource-tag collection
+ * Requires: tagName in the request body
+ */
+router.post('/create', async (req, res) => {
+    try {
+        const { tagName } = req.body
+        const trimmedTagName = tagName.trim()
+
+        // Create new tag
+        const newTag = new ResourceTag({ name: trimmedTagName })
+        await newTag.save()
+
+        res.status(201).json({
+            message: 'Tag created successfully',
+            tag: newTag
+        })
+    } catch (error) {
+        console.error('Error creating tag:', error)
+        res.status(500).json({ message: 'Error creating tag' })
+    }
+})
+
 module.exports = router
 
+router.get('/all', async (req, res) => {
+    try {
+        const tags = await ResourceTag.find()
+        return res.status(200).json(tags.map(tag => tag.name))
+    } catch (error) {
+        console.error('Error fetching tags:', error)
+        return res.status(500).json({ message: 'Error fetching tags' })
+    }
+})

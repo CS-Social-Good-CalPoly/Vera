@@ -4,17 +4,6 @@ import './AdminPages.css'
 import { Modal, ResourceTag } from '../../components/components.js'    
 import Fuse from 'fuse.js' 
 
-const predefinedTags = [ // Predefined list of tags
-    'Food',
-    'Mental Health',
-    'Counseling',
-    'Therapy',
-    'Housing',
-    'Financial',
-    'Academic',
-    'Other'
-]
-
 const fuseOptions = {
     isCaseSensitive: false,
     includeScore: false,
@@ -40,6 +29,7 @@ function AdminResourcesPage({ setActiveLink }) {
     const [newTag, setNewTag] = useState('') // Stores the new tag text
     const [showTagDropdown, setShowTagDropdown] = useState(null) // Track which resource's tag dropdown is shown
     const [tagError, setTagError] = useState(null) // Track tag error messages with resourceId
+    const [allTags, setAllTags] = useState([]) // Store all tags fetched from the backend
 
     // Set the active link for the admin page
     useEffect(() => {
@@ -56,8 +46,60 @@ function AdminResourcesPage({ setActiveLink }) {
             })
             .catch((error) => console.error(error))
 
+        // Fetch all tags from the backend
+        const fetchTags = async () => {
+            const tags = await getAllTags()
+            setAllTags(tags)
+        }
+        fetchTags()
+
         return () => {}
     }, [])
+
+    // Helper function to add a single tag to the resource-tag collection
+    const addTagToCollection = async (tagName) => {
+        try {
+            const response = await fetch(`${URL_PATH}/tags/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tagName: tagName
+                })
+            })
+            
+        } catch (error) {
+            return { success: false, message: `Network error: ${error.message}` }
+        }
+    }
+
+    // const migratePredefinedTags = async () => {
+    //     try {            
+    //         // Loop through each predefined tag and add it individually
+    //         for (let i = 0; i < predefinedTags.length; i++) {
+    //             const tagName = predefinedTags[i]
+    //             addTagToCollection(tagName)
+    //         }
+    //     } catch (error) {
+    //         console.error('Error during migration:', error)
+    //         alert('Error during migration: ' + error.message)
+    //     }
+    // }
+
+    const getAllTags = async () => {
+        try {
+            const response = await fetch(`${URL_PATH}/tags/all`)
+            if (response.status !== 200) {
+                throw new Error('Failed to fetch tags')
+            }
+            const data = await response.json()
+            return data
+        } catch (error) {
+            console.error('Error fetching tags:', error)
+            return []
+        }
+    }
 
     // Delete resource function
     const handleDelete = (id) => {
@@ -102,7 +144,7 @@ function AdminResourcesPage({ setActiveLink }) {
                 // Reset error messages
                 setTagError(null); 
                 
-                // Call backend API to add the tag
+                // Call backend API to add the to the resource
                 const response = await fetch(`${URL_PATH}/tags/add`, {
                     method: 'POST',
                     headers: {
@@ -113,7 +155,13 @@ function AdminResourcesPage({ setActiveLink }) {
                         tag: newTag.trim()
                     })
                 });
-                
+
+                // If the tag is not in the predefined list, add it to the collection
+                if (!allTags.some(tag => tag.toLowerCase() === newTag.trim().toLowerCase())) {
+                    await addTagToCollection(newTag.trim());
+                    setAllTags(prev => [...prev, newTag.trim()]);
+                }
+
                 const data = await response.json();
                 
                 // Check if there was an error (status code 409 for duplicate)
@@ -219,6 +267,17 @@ function AdminResourcesPage({ setActiveLink }) {
                     onCancel={handleCancelDelete}
                 />
             )}
+            
+            {/* Migration Section
+            <div>
+                <p>Click the button to migrate predefined tags to the MongoDB database. This is a one-time operation.</p>
+                <button 
+                    onClick={migratePredefinedTags}
+                >
+                    Migrate Predefined Tags to Database
+                </button>
+            </div> */}
+            
             <div className="mt-4">
                 <h1>Resource Administration</h1>
                 {resources.map((resource, index) => (
@@ -308,10 +367,10 @@ function AdminResourcesPage({ setActiveLink }) {
                                                 <span className="tag-error-message">{tagError.message}</span>
                                             )}
                                         {showTagDropdown === resource._id && (() => { // Show dropdown with predefined tags
-                                            const fuse = new Fuse(predefinedTags, fuseOptions);
+                                            const fuse = new Fuse(allTags, fuseOptions);
                                             const results = fuse.search(newTag);
                                             const sortedTags = results.map(result => result.item);
-                                            const isSorted = sortedTags.length === 0 ? predefinedTags : sortedTags;
+                                            const isSorted = sortedTags.length === 0 ? allTags : sortedTags;
                                             return (
                                                 <div className="tag-dropdown">
                                                     {isSorted.map((tag, idx) => (
