@@ -202,7 +202,7 @@ function ResourcePage({ setActiveLink }) {
     }
 
     return (
-        <div>
+        <div className="resource-page">
             <div className="dropdown-container">
                 <div className="dropdown-style justify-content-between">
                     <Search />
