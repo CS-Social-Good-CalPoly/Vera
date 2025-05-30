@@ -22,14 +22,14 @@ const TileIcon = styled.img`
 
 function RelatedStoriesTile(props) {
     return (
-        <div onClick={props.handleClick} className="tile">
-            <Link
-                to={{
-                    pathname: `/individualStory/${props.id}`,
-                    state: { editable: props.editable },
-                }}
-                className="tile-link"
-            >
+        <Link
+            to={{
+                pathname: `/individualStory/${props.id}`,
+                state: { editable: props.editable },
+            }}
+            className="tile-link"
+        >
+            <div className="tile">
                 <div className="tile-title">{props.title}</div>
                 {/* This is to prevent from showing HTML tags in story!!! 
                     Don't remove unless you have a better solution */}
@@ -40,8 +40,8 @@ function RelatedStoriesTile(props) {
                     }}
                 />
                 <TileIcon src={arrow} className="tile-icon" />
-            </Link>
-        </div>
+            </div>
+        </Link>
     )
 }
 

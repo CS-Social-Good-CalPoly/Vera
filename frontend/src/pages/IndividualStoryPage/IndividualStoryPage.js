@@ -149,6 +149,7 @@ function IndividualStoryPage({ setActiveLink }) {
     }, [id])
 
     useEffect(() => {
+        window.scrollTo(0, 0)
         if (!loading) {
             setActiveLink('/Stories')
             getStoriesByCategory()
