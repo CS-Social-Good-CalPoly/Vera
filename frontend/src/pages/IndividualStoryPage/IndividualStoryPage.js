@@ -41,15 +41,15 @@ function IndividualStoryPage({ setActiveLink }) {
                         )
 
                         // If we have too many stories, take a random subset
-                        if (filteredStories.length > 3) {
+                        if (filteredStories.length > 4) {
                             const shuffled = [...filteredStories].sort(
                                 () => 0.5 - Math.random(),
                             )
                             filteredStories = shuffled.slice(0, 4)
                             setRelatedStories(filteredStories)
                         }
-                        // If we have fewer than 3 related stories, get some random ones to fill in
-                        else if (filteredStories.length < 3) {
+                        // If we have fewer than 4 related stories, get some random ones to fill in
+                        else if (filteredStories.length < 4) {
                             // Filter out stories we already have and the current story
                             const alreadySelectedIds = new Set(
                                 filteredStories.map((story) => story._id),
@@ -60,7 +60,7 @@ function IndividualStoryPage({ setActiveLink }) {
                                 (story) => !alreadySelectedIds.has(story._id),
                             )
 
-                            // Shuffle and take just enough to reach 3 total
+                            // Shuffle and take just enough to reach 4 total
                             const shuffled = [...otherStories].sort(
                                 () => 0.5 - Math.random(),
                             )
@@ -79,7 +79,7 @@ function IndividualStoryPage({ setActiveLink }) {
                             ]
                             setRelatedStories(combinedStories)
                         }
-                        // If we have exactly 3, just use those
+                        // If we have exactly 4, just use those
                         else {
                             setRelatedStories(filteredStories)
                         }
@@ -107,7 +107,7 @@ function IndividualStoryPage({ setActiveLink }) {
                     (story) => story._id !== id,
                 )
 
-                // Shuffle and take first 3
+                // Shuffle and take first 4
                 const shuffled = [...otherStories].sort(
                     () => 0.5 - Math.random(),
                 )
