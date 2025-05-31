@@ -74,19 +74,6 @@ function AdminResourcesPage({ setActiveLink }) {
         }
     }
 
-    // const migratePredefinedTags = async () => {
-    //     try {            
-    //         // Loop through each predefined tag and add it individually
-    //         for (let i = 0; i < predefinedTags.length; i++) {
-    //             const tagName = predefinedTags[i]
-    //             addTagToCollection(tagName)
-    //         }
-    //     } catch (error) {
-    //         console.error('Error during migration:', error)
-    //         alert('Error during migration: ' + error.message)
-    //     }
-    // }
-
     const getAllTags = async () => {
         try {
             const response = await fetch(`${URL_PATH}/tags/all`)
@@ -267,16 +254,6 @@ function AdminResourcesPage({ setActiveLink }) {
                     onCancel={handleCancelDelete}
                 />
             )}
-            
-            {/* Migration Section
-            <div>
-                <p>Click the button to migrate predefined tags to the MongoDB database. This is a one-time operation.</p>
-                <button 
-                    onClick={migratePredefinedTags}
-                >
-                    Migrate Predefined Tags to Database
-                </button>
-            </div> */}
             
             <div className="mt-4">
                 <h1>Resource Administration</h1>
