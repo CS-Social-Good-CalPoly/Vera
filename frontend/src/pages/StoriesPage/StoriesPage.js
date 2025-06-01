@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import {
-    StoryBanner,
     StoryTileGroup,
     DropDownSelectForm,
 } from '../../components/components.js'
@@ -181,10 +180,6 @@ function StoriesPage({ setActiveLink }) {
 
     return (
         <div>
-            <StoryBanner
-                imageUrl="https://images.unsplash.com/photo-1506962240359-bd03fbba0e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2065&q=80"
-                displayButton="true"
-            />
             <div className="dropdown-container">
                 <div className="dropdown-style justify-content-between">
                     <Search />

@@ -1,9 +1,6 @@
 import React, { useState, useEffect, use } from 'react'
 import './ResourcePage.css'
-import bg from '../../components/Banner/bannerBackground.jpg'
-import veraLogo from '../../components/Banner/draftLogo.png'
 import {
-    Banner,
     CategoryButtonGroup,
     ResourcePageTileGroup,
 } from '../../components/components.js'
@@ -205,14 +202,7 @@ function ResourcePage({ setActiveLink }) {
     }
 
     return (
-        <div>
-            <Banner
-                imageUrl={bg}
-                pageTitle="Resources"
-                tagline1="Created by Calpoly students,"
-                tagline2="for Calpoly students"
-                logo={veraLogo}
-            />
+        <div className="resource-page">
             <div className="dropdown-container">
                 <div className="dropdown-style justify-content-between">
                     <Search />

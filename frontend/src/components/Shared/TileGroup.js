@@ -7,7 +7,7 @@ export const TileGroupDiv = styled.div`
 `
 
 export const TitleContainer = styled.div`
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid #2b3f4b;
     display: inline-block;
     min-width: 430px;
     align-self: flex-start;
@@ -73,6 +73,7 @@ export const Heading = styled.h1`
     letter-spacing: 0.05em;
     text-transform: capitalize;
     padding-top: 15px;
+    color: #2b3f4b;
 
     @media only screen and (max-width: 768px) {
         font-size: 20px;
