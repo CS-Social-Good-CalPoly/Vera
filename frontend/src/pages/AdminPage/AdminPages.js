@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
-import {
-    DropDownSelectForm,
-    Modal,
-} from '../../components/components.js'
+import { DropDownSelectForm, Modal } from '../../components/components.js'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
@@ -14,7 +11,7 @@ function AdminPages({ setActiveLink }) {
     const [showModal, setShowModal] = useState(false)
     const [selectedStoryId, setSelectedStoryId] = useState('')
     const [categoryNames, setCategoryNames] = useState([])
-    const history = useHistory();
+    const history = useHistory()
 
     useEffect(() => {
         let isMounted = true
@@ -267,7 +264,13 @@ function AdminPages({ setActiveLink }) {
                                 </div>
                             </div>
                             <p>Student Major: {story.StudentMajor}</p>
-                            <p>{story.ParagraphText}</p>
+                            {/* This is to prevent from showing HTML tags in story!!! 
+                                Don't remove unless you have a better solution */}
+                            <p
+                                dangerouslySetInnerHTML={{
+                                    __html: story.ParagraphText,
+                                }}
+                            />
                             <br />
                         </div>
                     ))}

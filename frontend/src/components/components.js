@@ -22,3 +22,4 @@ export { default as StorySubmissionPopUp } from './StorySubmissionPopUp/StorySub
 export { default as EditStoryPopUp } from './EditStory/EditStory.js'
 export { default as Modal } from './Modal/Modal.js'
 export { default as ResourceTag } from './ResourceTag/ResourceTag.js'
+export { default as RelatedStoriesTile } from './RelatedStoriesTile/RelatedStoriesTile.js'

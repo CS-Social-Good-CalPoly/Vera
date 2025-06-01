@@ -1,60 +1,67 @@
-.tile-link:hover{
+.tile-link:hover {
     text-decoration: none;
 }
 
-.tile:hover{
+.tile:hover {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
 }
 
-  .fade-out-container-text {
+.fade-out-container-text {
     position: relative;
     display: inline-block;
-  }
-  
-  .fade-out-container-text::after {
-    content: "";
+}
+
+.fade-out-container-text::after {
+    content: '';
     position: absolute;
     bottom: 9%;
     right: 13%;
-    width: 50%; 
-    height: 1.5em; 
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-    pointer-events: none; 
-  }
+    width: 50%;
+    height: 1.5em;
+    background-image: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+    );
+    pointer-events: none;
+}
 
-  @media screen and (max-width: 770px) {
+@media screen and (max-width: 770px) {
     .fade-out-container-text::after {
-        height: 1.3em; 
+        height: 1.3em;
         bottom: 0%;
         right: 0%;
         width: 100%;
     }
-  }
+}
 
-  .fade-out-container-title {
+.fade-out-container-title {
     position: relative;
     display: inline-block;
     margin-bottom: 2px;
-  }
-  
-  .fade-out-container-title::after {
-    content: "";
+}
+
+.fade-out-container-title::after {
+    content: '';
     position: absolute;
     bottom: 0%;
     right: 0%;
-    width: 100%; 
-    height: 1.5em; 
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-    pointer-events: none; 
-  }
+    width: 100%;
+    height: 1.5em;
+    background-image: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+    );
+    pointer-events: none;
+}
 
-  @media screen and (max-width: 770px) {
+@media screen and (max-width: 770px) {
     .fade-out-container-title::after {
-        height: 1.3em; 
+        height: 1.3em;
         bottom: 0%;
         right: 0%;
         width: 100%;
     }
-  }
-  
+}
