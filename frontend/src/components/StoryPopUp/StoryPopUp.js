@@ -196,7 +196,7 @@ function StoryPopUp(props) {
     const formattedDate = date.format('MMM DD, YYYY')
 
     return (
-        <div>
+        <>
             <CardWrapper hidden={size}>
                 <Body>
                     <Header>
@@ -261,7 +261,7 @@ function StoryPopUp(props) {
                     onCancel={handleCancelDelete}
                 />
             )}
-        </div>
+        </>
     )
 }
 
