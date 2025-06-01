@@ -12,7 +12,6 @@ export const Tile = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    box-shadow: 0 2px 4px #344d5b;
 
     /* Hover effect */
     transition: transform 0.3s ease;
