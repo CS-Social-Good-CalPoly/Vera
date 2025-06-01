@@ -49,6 +49,7 @@ const TileInfo = styled.div`
     width: 50%;
     height: 100%;
     padding: min(2.5%, 30px);
+    overflow: auto;
 
     @media only screen and (max-width: 768px) {
         display: flex;
@@ -60,6 +61,7 @@ const TileInfo = styled.div`
 `
 
 const TileTitle = styled.h1`
+    // height-min: 5vh;
     display: flex;
     flex: 7;
     position: relative;
@@ -67,10 +69,9 @@ const TileTitle = styled.h1`
     font-size: 2.5rem;
     font-style: normal;
     font-weight: 500;
-    // color: rgb(163, 163, 163);
     color: #000000;
     letter-spacing: 0.05em;
-    overflow: hidden;
+    // overflow: hidden;
     text-align: left;
     text-transform: capitalize;
     display: -webkit-box;
@@ -97,7 +98,6 @@ const InfoText = styled.div`
     font-size: 1rem;
     line-height: 24px;
     letter-spacing: 0.05em;
-    // color: #4a6e82;
     color: #000000;
 
     @media only screen and (max-width: 768px) {
@@ -172,12 +172,16 @@ const TileIcon = styled.img`
 
 function StoryTile(props) {
     const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
+    const [maxInfoLines, setMaxInfoLines] = useState(4)
+    const defaultImageUrl =
+        'https://faithlead.org/wp-content/uploads/2022/05/faithlead_digital_covenant_1200x628px.jpg'
 
     useEffect(() => {
         let width = 0
+        let height = 0
         const handleResize = () => {
             width = window.innerWidth
-            console.log('width:', width)
+            height = window.innerHeight
             if (width < 0) {
                 setMaxContainerWidthPx(0)
             } else if (width < 769) {
@@ -188,6 +192,16 @@ function StoryTile(props) {
                 setMaxContainerWidthPx(90)
             } else {
                 setMaxContainerWidthPx(2000)
+            }
+
+            if (height < 0) {
+                setMaxInfoLines(1)
+            } else if (height < 600) {
+                setMaxInfoLines(2)
+            } else if (height < 800) {
+                setMaxInfoLines(3)
+            } else {
+                setMaxInfoLines(4)
             }
         }
         window.addEventListener('resize', handleResize)
@@ -207,7 +221,10 @@ function StoryTile(props) {
                 className="tile-link"
                 style={{ height: '100%', padding: '0', width: '100%' }}
             >
-                <TileBanner src={props.imgUrl} alt={props.title} />
+                <TileBanner
+                    src={props.imgUrl ? props.imgUrl : defaultImageUrl}
+                    alt={props.title}
+                />
                 <TileInfo>
                     <TileTitle>{props.title}</TileTitle>
                     <InfoText>
@@ -215,7 +232,7 @@ function StoryTile(props) {
                             <TruncateText
                                 text={props.description}
                                 factor={1}
-                                maxLines={4}
+                                maxLines={maxInfoLines}
                                 containerWidth={maxContainerWidthPx}
                             />
                         </p>
