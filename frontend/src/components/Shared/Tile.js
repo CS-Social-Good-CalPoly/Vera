@@ -5,7 +5,6 @@ export const Tile = styled.div`
     width: 280px;
     height: 290px;
     background: #ffffff;
-    box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     border-radius: 30px;
     margin: 20px;
     overflow: hidden;
@@ -26,7 +25,6 @@ export const Tile = styled.div`
         width: 150px;
         height: 125px;
         background: #ffffff;
-        box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
         border-radius: 10px;
         margin: 8px;
     }
