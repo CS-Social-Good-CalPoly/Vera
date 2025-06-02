@@ -14,6 +14,7 @@ const Tile = styled.div`
     box-shadow: 4px 4px 15px rgba(114, 141, 149, 0.15);
     background: #fbfbfb;
     border-radius: 30px;
+    padding: 0;
     margin: 20px auto;
     overflow: hidden;
     cursor: pointer;
@@ -46,6 +47,7 @@ const TileInfo = styled.div`
     display: flex;
     flex: 1;
     flex-direction: column;
+    position: relative;
     width: 50%;
     height: 100%;
     padding: min(2.5%, 30px);
@@ -61,9 +63,7 @@ const TileInfo = styled.div`
 `
 
 const TileTitle = styled.h1`
-    // height-min: 5vh;
-    display: flex;
-    flex: 7;
+    display: -webkit-box;
     position: relative;
     font-family: Poppins;
     font-size: 2.5rem;
@@ -71,12 +71,12 @@ const TileTitle = styled.h1`
     font-weight: 500;
     color: #000000;
     letter-spacing: 0.05em;
-    // overflow: hidden;
+    overflow: hidden;
     text-align: left;
     text-transform: capitalize;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 
     @media only screen and (max-width: 768px) {
         font-weight: 600;
@@ -89,8 +89,7 @@ const TileTitle = styled.h1`
     }
 `
 const InfoText = styled.div`
-    display: flex;
-    flex: 12;
+    display: -webkit-box;
     margin: 0;
     padding: 0;
     font-style: normal;
@@ -99,6 +98,8 @@ const InfoText = styled.div`
     line-height: 24px;
     letter-spacing: 0.05em;
     color: #000000;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
 
     @media only screen and (max-width: 768px) {
         font-weight: normal;
@@ -109,12 +110,15 @@ const InfoText = styled.div`
 
 const BottomRow = styled.div`
     display: flex;
-    flex: 2;
+    position: absolute;
+    bottom: 5%;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
 `
 
 const Categories = styled.div`
     display: flex;
-    flex: 1;
 `
 
 const CategoryTag = styled.span`
@@ -194,14 +198,26 @@ function StoryTile(props) {
                 setMaxContainerWidthPx(2000)
             }
 
-            if (height < 0) {
+            if (height < 500) {
                 setMaxInfoLines(1)
-            } else if (height < 600) {
+            } else if (height < 550) {
                 setMaxInfoLines(2)
-            } else if (height < 800) {
+            } else if (height < 600) {
                 setMaxInfoLines(3)
-            } else {
+            } else if (height < 650) {
                 setMaxInfoLines(4)
+            } else if (height < 700) {
+                setMaxInfoLines(5)
+            } else if (height < 750) {
+                setMaxInfoLines(6)
+            } else if (height < 800) {
+                setMaxInfoLines(7)
+            } else if (height < 850) {
+                setMaxInfoLines(8)
+            } else if (height < 900) {
+                setMaxInfoLines(9)
+            } else {
+                setMaxInfoLines(10)
             }
         }
         window.addEventListener('resize', handleResize)
@@ -227,16 +243,12 @@ function StoryTile(props) {
                 />
                 <TileInfo>
                     <TileTitle>{props.title}</TileTitle>
-                    <InfoText>
-                        <p style={{ paddingTop: '3%' }}>
-                            <TruncateText
-                                text={props.description}
-                                factor={1}
-                                maxLines={maxInfoLines}
-                                containerWidth={maxContainerWidthPx}
-                            />
-                        </p>
-                    </InfoText>
+                    <InfoText
+                        dangerouslySetInnerHTML={{
+                            __html: props.description,
+                        }}
+                        style={{ WebkitLineClamp: maxInfoLines }}
+                    ></InfoText>
                     <BottomRow>
                         <Categories>
                             {props.categories.map((category, index) => (
