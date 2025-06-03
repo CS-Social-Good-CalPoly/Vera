@@ -3,6 +3,8 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { Footer, NavBar } from './components/components.js'
 import { useState } from 'react'
+import { ProtectedRoute } from './components/Clerk/ProtectedRoute.js'
+import { SignInPage } from './components/Clerk/SignInPage.js'
 import {
     ResourcePage,
     StoriesPage,
@@ -68,19 +70,24 @@ function App() {
                             />
                         )}
                     />
-                    <Route
+                    <ProtectedRoute
                         exact
                         path="/AdminPages"
                         component={() => (
                             <AdminPages setActiveLink={setActiveLink} />
                         )}
                     />
-                    <Route
+                    <ProtectedRoute
                         exact
                         path="/AdminPages/resources"
                         component={() => (
                             <AdminResourcesPage setActiveLink={setActiveLink} />
                         )}
+                    />
+                    <Route
+                        exact
+                        path="/sign-in"
+                        component={() => <SignInPage />}
                     />
                 </Switch>
             </div>
