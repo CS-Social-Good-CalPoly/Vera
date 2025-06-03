@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import URL_PATH from '../../links.js'
 import './AdminPages.css'
 import { DropDownSelectForm, Modal } from '../../components/components.js'
+import { useUser } from '@clerk/clerk-react'
 
 function AdminPages({ setActiveLink }) {
     const [stories, setStories] = useState([])
@@ -12,6 +13,10 @@ function AdminPages({ setActiveLink }) {
     const [selectedStoryId, setSelectedStoryId] = useState('')
     const [categoryNames, setCategoryNames] = useState([])
     const history = useHistory()
+
+    const { user } = useUser()
+    console.log(user)
+    const isAdmin = user.publicMetadata.admin === 'true'
 
     useEffect(() => {
         let isMounted = true
@@ -54,6 +59,14 @@ function AdminPages({ setActiveLink }) {
     useEffect(() => {
         setActiveLink('/AdminPages')
     }, [setActiveLink, toggleStatus])
+
+    if (!isAdmin) {
+        return (
+            <div className="text-center pt-4">
+                You are not authorized to view this page.
+            </div>
+        )
+    }
 
     const handleFilter = (discipline) => {
         setSelectedDiscipline(discipline)

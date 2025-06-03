@@ -9,6 +9,7 @@
     "@babel/plugin-transform-numeric-separator": "^7.24.7",
     "@babel/plugin-transform-optional-chaining": "^7.24.8",
     "@babel/plugin-transform-private-methods": "^7.25.4",
+    "@clerk/clerk-react": "^5.31.8",
     "@eslint/config-array": "^0.18.0",
     "@eslint/object-schema": "^2.1.4",
     "@rollup/plugin-terser": "^0.4.4",
