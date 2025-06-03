@@ -34,7 +34,10 @@ function HomePage({ setActiveLink }) {
                     Category: resource.Category,
                     Details: resource.ParagraphText,
                     Type: 'Resource',
+                    Tags: resource.Tags || [],
                 }))
+
+                console.log('allResources', allResources)
 
                 // Fetch stories
                 const resStories = await fetch(
@@ -116,7 +119,7 @@ function HomePage({ setActiveLink }) {
         ignoreLocation: false,
         ignoreFieldNorm: false,
         fieldNormWeight: 1,
-        keys: ['Title', 'Category', 'Details'],
+        keys: ['Tags', 'Title', 'Category', 'Details'],
     }
 
     // use fuse to search for resources
