@@ -2132,4 +2132,134 @@ router.put('/safer', async (req, res) => {
     }
 })
 
+/* -------------------- Mustangs for Recovery -------------------- */
+router.post('/mustangs-for-recovery', async (req, res) => {
+    try {
+        const response = await axios.get('https://chw.calpoly.edu/m4r')
+        const $ = cheerio.load(response.data)
+
+        // const offCampusHousingId = '67b38f58cd6ae1f04cf826d9'
+
+        const title = $('div[id="contentHeader"]').children('h1').text().trim()
+
+        const url = $('meta[property="og:url"]').attr('content')
+
+        const image = $('div[class="field-item even"]')
+            .children('h2')
+            .children('img')
+            .attr('src')
+
+        const imageAlt = $('div[class="field-item even"]')
+            .children('h2')
+            .children('img')
+            .attr('alt')
+            .trim()
+
+        // Main paragraph with generic info
+        const paragraphText = $('div[class="field-item even"]')
+            .find('p')
+            .eq(0)
+            .text()
+            .trim()
+
+        // Adding the zoom meeting link as address
+        const location = $('div[class="field-item even"]')
+            .eq(0)
+            .children()
+            .eq(18)
+            .text()
+            .trim()
+
+        // Meeting hours
+        const hours = []
+
+        const children = $('div[class="field-item even"]')
+            .eq(0)
+            .children()
+            .slice(10, 17)
+
+        let currentDay = null
+
+        children.each((_index, element) => {
+            const tag = $(element)[0].tagName
+            const text = $(element).text().trim()
+
+            if (tag === 'div') {
+                currentDay = convertToShortDay(text)
+            }
+
+            if (tag === 'ul' && currentDay) {
+                $(element)
+                    .find('li')
+                    .each((_i, li) => {
+                        const timeRange = $(li).text().trim()
+                        if (timeRange) {
+                            if (
+                                hours.length > 0 &&
+                                hours[hours.length - 1].split(': ')[0] ==
+                                    currentDay
+                            ) {
+                                // Check if previous list addition has the same day
+                                hours[hours.length - 1] += `, ${timeRange}`
+                            } else {
+                                hours.push(`${currentDay}: ${timeRange}`)
+                            }
+                        }
+                    })
+            }
+        })
+
+        // Start grabbing text for extra info
+        const extraInfo = []
+
+        $('div[class="field-item even"]')
+            .eq(0)
+            .children()
+            .slice(4, 6)
+            .each((_index, element) => {
+                const $paragraphText = $(element).text().trim()
+                extraInfo.push($paragraphText)
+            })
+
+        $('div[class="field-item even"]')
+            .eq(0)
+            .children()
+            .slice(7, 9)
+            .each((_index, element) => {
+                const $paragraphText = $(element).text().trim()
+                extraInfo.push($paragraphText)
+            })
+
+        const newResource = new IndResources({
+            Title: title,
+            ImageURL: image,
+            ImageAltText: imageAlt,
+            ParagraphText: paragraphText,
+            ResourceURL: url,
+            LastUpdate: new Date(),
+            Category: 'Housing Support',
+            ExtraInfo: extraInfo,
+            Address: location,
+            ListOfHours: hours,
+            Tags: ['Housing', 'Off Campus', 'Roommate'],
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: offCampusHousingId },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.json(newResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Off Campus Housing data')
+    }
+})
+
 module.exports = router
