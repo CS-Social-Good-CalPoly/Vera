@@ -2138,7 +2138,7 @@ router.post('/mustangs-for-recovery', async (req, res) => {
         const response = await axios.get('https://chw.calpoly.edu/m4r')
         const $ = cheerio.load(response.data)
 
-        // const offCampusHousingId = '67b38f58cd6ae1f04cf826d9'
+        // const mustangs4RecoveryID = ''
 
         const title = $('div[id="contentHeader"]').children('h1').text().trim()
 
@@ -2162,72 +2162,22 @@ router.post('/mustangs-for-recovery', async (req, res) => {
             .text()
             .trim()
 
-        // Adding the zoom meeting link as address
-        const location = $('div[class="field-item even"]')
-            .eq(0)
-            .children()
-            .eq(18)
-            .text()
-            .trim()
-
-        // Meeting hours
-        const hours = []
-
-        const children = $('div[class="field-item even"]')
-            .eq(0)
-            .children()
-            .slice(10, 17)
-
-        let currentDay = null
-
-        children.each((_index, element) => {
-            const tag = $(element)[0].tagName
-            const text = $(element).text().trim()
-
-            if (tag === 'div') {
-                currentDay = convertToShortDay(text)
-            }
-
-            if (tag === 'ul' && currentDay) {
-                $(element)
-                    .find('li')
-                    .each((_i, li) => {
-                        const timeRange = $(li).text().trim()
-                        if (timeRange) {
-                            if (
-                                hours.length > 0 &&
-                                hours[hours.length - 1].split(': ')[0] ==
-                                    currentDay
-                            ) {
-                                // Check if previous list addition has the same day
-                                hours[hours.length - 1] += `, ${timeRange}`
-                            } else {
-                                hours.push(`${currentDay}: ${timeRange}`)
-                            }
-                        }
-                    })
-            }
-        })
+        /* Hard code because there are 3 different meetings each quarter with
+            different locations and times */
+        const location = 'Varies to meeting'
+        const hours = ['Varies to meeting']
 
         // Start grabbing text for extra info
         const extraInfo = []
 
         $('div[class="field-item even"]')
             .eq(0)
+            .find('div[class="OutlineElement Ltr SCXW60035928 BCX2"]')
+            .next()
             .children()
-            .slice(4, 6)
+            .slice(2, 7)
             .each((_index, element) => {
-                const $paragraphText = $(element).text().trim()
-                extraInfo.push($paragraphText)
-            })
-
-        $('div[class="field-item even"]')
-            .eq(0)
-            .children()
-            .slice(7, 9)
-            .each((_index, element) => {
-                const $paragraphText = $(element).text().trim()
-                extraInfo.push($paragraphText)
+                extraInfo.push($(element).text().trim())
             })
 
         const newResource = new IndResources({
@@ -2237,22 +2187,30 @@ router.post('/mustangs-for-recovery', async (req, res) => {
             ParagraphText: paragraphText,
             ResourceURL: url,
             LastUpdate: new Date(),
-            Category: 'Housing Support',
+            Category: 'Student-Lead Programs',
             ExtraInfo: extraInfo,
             Address: location,
             ListOfHours: hours,
-            Tags: ['Housing', 'Off Campus', 'Roommate'],
+            Tags: [
+                'Mental Health',
+                'Addiction',
+                'Recovery',
+                'Group',
+                'Alcohol',
+                'Drugs',
+                'Nicotine',
+            ],
         })
 
-        const updatedResource = await IndResources.findByIdAndUpdate(
-            { _id: offCampusHousingId },
-            newResource,
-            { new: true, upsert: true },
-        )
+        // const updatedResource = await IndResources.findByIdAndUpdate(
+        //     { _id: offCampusHousingId },
+        //     newResource,
+        //     { new: true, upsert: true },
+        // )
 
-        if (!updatedResource) {
-            return res.status(404).send('Resource not found')
-        }
+        // if (!updatedResource) {
+        //     return res.status(404).send('Resource not found')
+        // }
 
         // Respond with the updated resource
         res.json(newResource)
