@@ -67,7 +67,7 @@ function StoriesPage({ setActiveLink }) {
                     ...story,
                     RelevantCategoryList: story.RelevantCategoryList
                         ? story.RelevantCategoryList.map(
-                              (catId, index) => idToName[catId] || catId,
+                              (catId, _) => idToName[catId] || catId,
                           )
                         : [],
                 }))
@@ -102,7 +102,7 @@ function StoriesPage({ setActiveLink }) {
             ? 0
             : 1
 
-        return aHasCategory - bHasCategory // Category matches come first
+        return bHasCategory - aHasCategory // Category matches come first
     })
 
     // use fuse to search against the already filtered stories
@@ -111,7 +111,6 @@ function StoriesPage({ setActiveLink }) {
     /* function to get stories for a specific token - not in use yet */
     const getStoriesByToken = () => {
         const tokenValue = tokenInput
-        console.log(tokenValue)
         const params = new URLSearchParams({
             token: tokenValue,
         })
@@ -135,16 +134,14 @@ function StoriesPage({ setActiveLink }) {
             .then((json) => {
                 // Create a list of all stories
 
-                console.log(json)
                 const allStories = json.map((story) => ({
                     ...story,
                     RelevantCategoryList: story.RelevantCategoryList
                         ? story.RelevantCategoryList.map(
-                              (catId, index) => idToName[catId] || catId,
+                              (catId, _) => idToName[catId] || catId,
                           )
                         : [],
                 }))
-                console.log(allStories)
                 // eventually, set state to this result
                 setTokenStories(allStories)
             })
@@ -163,7 +160,7 @@ function StoriesPage({ setActiveLink }) {
         const potStories = [...stories].sort((a, b) => {
             const aRank = searchOrder.get(String(a._id)) ?? Infinity
             const bRank = searchOrder.get(String(b._id)) ?? Infinity
-            return aRank - bRank
+            return bRank - aRank
         })
 
         setSearchFilteredStories(potStories)
@@ -172,7 +169,7 @@ function StoriesPage({ setActiveLink }) {
         const potTokenStories = [...tokenStories].sort((a, b) => {
             const aRank = searchOrder.get(String(a._id)) ?? Infinity
             const bRank = searchOrder.get(String(b._id)) ?? Infinity
-            return aRank - bRank
+            return bRank - aRank
         })
 
         setTokenStories(potTokenStories)
