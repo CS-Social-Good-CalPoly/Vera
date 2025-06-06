@@ -2211,9 +2211,10 @@ router.post('/mustangs-for-recovery', async (req, res) => {
         // if (!updatedResource) {
         //     return res.status(404).send('Resource not found')
         // }
+        const savedResource = await newResource.save()
 
         // Respond with the updated resource
-        res.json(newResource)
+        res.status(201).json(savedResource)
     } catch (error) {
         console.error('Scrapping failed:', error)
         res.status(500).send('Error fetching Off Campus Housing data')
