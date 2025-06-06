@@ -212,7 +212,7 @@ function AdminPages({ setActiveLink }) {
                             (!selectedDiscipline ||
                                 story.StudentMajor === selectedDiscipline ||
                                 isOther) &&
-                            (toggleStatus ? story.Status === 'review' : true)
+                            (toggleStatus ? !story.Approved : true)
                         )
                     })
                     .map((story, index) => (
