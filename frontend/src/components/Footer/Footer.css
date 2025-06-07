@@ -45,13 +45,12 @@
     display: flex;
     position: absolute;
     bottom: 7px;
-    left: 50%;
-    right: 50%;
-    width: max-content;
+    width: 100vw;
     height: fit-content;
     float: left;
     font-size: 16px;
     padding: 0;
+    justify-content: center;
 
     @media only screen and (max-width: 768px) {
         font-size: 10px;
@@ -79,6 +78,7 @@
         line-height: 14px;
         padding: 5%;
         padding-bottom: 7%;
+        margin: 0;
         justify-content: space-between;
     }
 }
