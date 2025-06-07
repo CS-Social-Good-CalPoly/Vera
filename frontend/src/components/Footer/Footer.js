@@ -33,7 +33,7 @@ function Footer({ activeLink }) {
                     </a>
                 </div>
             </div>
-            <div className="column1">&copy; 2024 VERA</div>
+            <div className="column1">&copy; 2025 VERA</div>
 
             <div className="column3">
                 <Link
