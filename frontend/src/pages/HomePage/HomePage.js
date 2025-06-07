@@ -126,7 +126,6 @@ function HomePage({ setActiveLink }) {
         const potRefs = fuse.search(e.target.value, {
             limit: 5,
         })
-        console.log('potRefs', potRefs)
         // sort by resources first, then stories
         potRefs.sort((a, b) => {
             if (a.item.Type === 'Resource' && b.item.Type === 'Story') {
@@ -158,14 +157,12 @@ function HomePage({ setActiveLink }) {
             }
         })
 
-        console.log(refsWithContext)
         // set the search term to the input value
         setSearchFilteredReferences(refsWithContext)
     }
 
     const handleRedirect = (reference) => {
         // Redirect to the resource page
-        console.log(reference)
         history.push(referenceToLink(reference))
     }
 

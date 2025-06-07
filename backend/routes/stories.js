@@ -294,8 +294,7 @@ router.post('/tokens', async (req, res) => {
         const savedToken = await newToken.save()
         res.status(201).json(savedToken)
     } catch (err) {
-        console.log('failed here')
-        console.log(newToken)
+        console.error('Failed to save new token: ', newToken)
         res.status(400).json({ message: err.message })
     }
 })

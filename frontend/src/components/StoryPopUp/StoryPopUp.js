@@ -117,7 +117,6 @@ function StoryPopUp(props) {
     // Confirm delete function
     const handleConfirmDelete = () => {
         // call the backend to delete the story
-        console.log('Deleting story')
         const path = `${URL_PATH}/stories/deleteIndividualStory`
         fetch(path, {
             method: 'DELETE',
