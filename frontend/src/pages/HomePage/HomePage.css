@@ -59,7 +59,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-top: 1%;
+    padding-top: max(1%, 15px);
     gap: 5%;
     width: 50%;
     font-family: 'Poppins', sans-serif;
