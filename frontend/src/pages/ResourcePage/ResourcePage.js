@@ -46,7 +46,6 @@ function ResourcePage({ setActiveLink }) {
     // function to scroll to the element with the given id
     const scrollIntoView = (category, offset = 100) => {
         const element = document.getElementById(category)
-        console.log('element', element)
         if (element) {
             const y =
                 element.getBoundingClientRect().top + window.scrollY - offset

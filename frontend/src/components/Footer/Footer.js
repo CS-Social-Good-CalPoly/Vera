@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 function Footer({ activeLink }) {
     return (
         <footer className="main-footer">
-            <div className="column5">
-                Call or Text
+            <div className="phone-numbers">
+                Call or Text:
                 <br></br>
                 <div className="inline-container">
                     <span className="inline-text-footer">
@@ -33,9 +33,9 @@ function Footer({ activeLink }) {
                     </a>
                 </div>
             </div>
-            <div className="column1">&copy; 2024 VERA</div>
+            <div className="copyright">&copy; 2025 VERA</div>
 
-            <div className="column3">
+            <div className="nav-links">
                 <Link
                     onClick={() => {
                         window.scroll(0, 0)
@@ -43,8 +43,7 @@ function Footer({ activeLink }) {
                     className={`footer-links ${activeLink === '/' ? 'active' : ''}`}
                     to="/"
                 >
-                    {' '}
-                    Home{' '}
+                    Home
                 </Link>
                 <Link
                     onClick={() => {
@@ -53,8 +52,7 @@ function Footer({ activeLink }) {
                     className={`footer-links ${activeLink === '/About' ? 'active' : ''}`}
                     to="/About"
                 >
-                    {' '}
-                    About{' '}
+                    About
                 </Link>
                 <Link
                     onClick={() => {
@@ -63,8 +61,7 @@ function Footer({ activeLink }) {
                     className={`footer-links ${activeLink === '/Resources' ? 'active' : ''}`}
                     to="/Resources"
                 >
-                    {' '}
-                    Resources{' '}
+                    Resources
                 </Link>
                 <Link
                     onClick={() => {
@@ -73,8 +70,7 @@ function Footer({ activeLink }) {
                     className={`footer-links ${activeLink === '/Stories' ? 'active' : ''}`}
                     to="/Stories"
                 >
-                    {' '}
-                    Stories{' '}
+                    Stories
                 </Link>
                 <Link
                     onClick={() => {
@@ -83,8 +79,7 @@ function Footer({ activeLink }) {
                     className={`footer-links ${activeLink === '/StorySubmission' ? 'active' : ''}`}
                     to="/StorySubmission"
                 >
-                    {' '}
-                    Share Your Story{' '}
+                    Share Your Story
                 </Link>
             </div>
         </footer>

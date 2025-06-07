@@ -25,7 +25,7 @@ function StorySubmission() {
     const [showPopUp, setShowPopUp] = useState(false)
 
     // use for Token POST: check if token already in database
-    const [allTokens, setAllTokens] = useState([])
+    const [allTokens, setAllTokens] = useState({})
 
     const [isCollegeDropdownDisabled, setIsCollegeDropdownDisabled] =
         useState(false)
@@ -164,10 +164,9 @@ function StorySubmission() {
                 // check if token already exists
                 if (allTokens[newToken]) {
                     // token already exists
-                    console.log('token already exists: ', newToken)
+                    console.error('token already exists: ', newToken)
                 } else {
                     setTokenValue(newToken)
-                    console.log('token found', response.data)
                     return newToken
                 }
                 numAttempts++
@@ -434,8 +433,6 @@ function StorySubmission() {
                     makeToken={generateToken}
                 />
             )}
-
-            {/* </div>   */}
         </div>
     )
 }
