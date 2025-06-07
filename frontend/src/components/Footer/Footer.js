@@ -13,7 +13,7 @@ function Footer({ activeLink }) {
                         National Sucide Hotline:
                     </span>
                     <a href="tel:+18002738255" className="inline-text-footer">
-                        +1(800)-273-8255
+                        +1 (800)-273-8255
                     </a>
                     or
                     <a href="tel:+988" className="inline-text-footer">
