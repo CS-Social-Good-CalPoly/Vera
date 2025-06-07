@@ -176,6 +176,9 @@ function ResourcePage({ setActiveLink }) {
                 scrollIntoView(anchor)
             }
             window.history.replaceState({}, '', `#${anchor}`) // ✅ replaces current URL (no push)
+        } else {
+            const { pathname, search } = window.location
+            window.history.replaceState({}, '', `${pathname}${search}`)
         }
     }, [anchor, setAnchor])
 
