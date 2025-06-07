@@ -434,8 +434,6 @@ function StorySubmission() {
                     makeToken={generateToken}
                 />
             )}
-
-            {/* </div>   */}
         </div>
     )
 }

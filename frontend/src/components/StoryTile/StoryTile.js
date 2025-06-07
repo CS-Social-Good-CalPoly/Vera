@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import React from 'react'
 import '../Shared/Tile.css'
-import TruncateText from '../Shared/TruncateText.jsx'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
@@ -175,8 +174,8 @@ const TileIcon = styled.img`
 `
 
 function StoryTile(props) {
-    const [maxContainerWidthPx, setMaxContainerWidthPx] = useState(0)
     const [maxInfoLines, setMaxInfoLines] = useState(4)
+    // Plant image
     const defaultImageUrl =
         'https://faithlead.org/wp-content/uploads/2022/05/faithlead_digital_covenant_1200x628px.jpg'
 
@@ -184,20 +183,7 @@ function StoryTile(props) {
         let width = 0
         let height = 0
         const handleResize = () => {
-            width = window.innerWidth
             height = window.innerHeight
-            if (width < 0) {
-                setMaxContainerWidthPx(0)
-            } else if (width < 769) {
-                setMaxContainerWidthPx(46)
-            } else if (width < 1000) {
-                setMaxContainerWidthPx(70)
-            } else if (width < 2000) {
-                setMaxContainerWidthPx(90)
-            } else {
-                setMaxContainerWidthPx(2000)
-            }
-
             if (height < 500) {
                 setMaxInfoLines(1)
             } else if (height < 550) {
