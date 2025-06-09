@@ -2133,12 +2133,12 @@ router.put('/safer', async (req, res) => {
 })
 
 /* -------------------- Mustangs for Recovery -------------------- */
-router.post('/mustangs-for-recovery', async (req, res) => {
+router.put('/mustangs-for-recovery', async (req, res) => {
     try {
         const response = await axios.get('https://chw.calpoly.edu/m4r')
         const $ = cheerio.load(response.data)
 
-        // const mustangs4RecoveryID = ''
+        const mustangs4RecoveryID = '68f3490c21b7e54d9fc02e3a'
 
         const title = $('div[id="contentHeader"]').children('h1').text().trim()
 
@@ -2173,11 +2173,15 @@ router.post('/mustangs-for-recovery', async (req, res) => {
         $('div[class="field-item even"]')
             .eq(0)
             .find('div[class="OutlineElement Ltr SCXW60035928 BCX2"]')
-            .next()
+            .eq(1)
+            .children() // get the first div inside the outer div
+            .eq(0)
+            .children() // here is where I'm grabbing the bullet point list
+            .eq(2)
             .children()
-            .slice(2, 7)
-            .each((_index, element) => {
-                extraInfo.push($(element).text().trim())
+            .each((i, child) => {
+                const text = $(child).text().trim()
+                extraInfo.push(text)
             })
 
         const newResource = new IndResources({
@@ -2202,22 +2206,21 @@ router.post('/mustangs-for-recovery', async (req, res) => {
             ],
         })
 
-        // const updatedResource = await IndResources.findByIdAndUpdate(
-        //     { _id: offCampusHousingId },
-        //     newResource,
-        //     { new: true, upsert: true },
-        // )
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: mustangs4RecoveryID },
+            newResource,
+            { new: true, upsert: true },
+        )
 
-        // if (!updatedResource) {
-        //     return res.status(404).send('Resource not found')
-        // }
-        const savedResource = await newResource.save()
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
 
         // Respond with the updated resource
-        res.status(201).json(savedResource)
+        res.status(201).json(updatedResource)
     } catch (error) {
         console.error('Scrapping failed:', error)
-        res.status(500).send('Error fetching Off Campus Housing data')
+        res.status(500).send('Error fetching Mustangs for Recovery data')
     }
 })
 
