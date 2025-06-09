@@ -143,18 +143,13 @@ function HomePage({ setActiveLink }) {
             if (!match) {
                 return {
                     item: item,
-                    snippet: '',
                 }
             }
 
             const indices = match.indices.flat()
-            const start = Math.max(indices[0] - 20, 0)
-            const end = Math.min(indices[1] + 20, item[match.key].length)
-            const snippet = item[match.key].slice(start, end)
 
             return {
                 item: item,
-                snippet: ` - ${snippet}...`,
             }
         })
 
