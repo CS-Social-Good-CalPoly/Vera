@@ -2132,4 +2132,96 @@ router.put('/safer', async (req, res) => {
     }
 })
 
+/* -------------------- Mustangs for Recovery -------------------- */
+router.put('/mustangs-for-recovery', async (req, res) => {
+    try {
+        const response = await axios.get('https://chw.calpoly.edu/m4r')
+        const $ = cheerio.load(response.data)
+
+        const mustangs4RecoveryID = '68f3490c21b7e54d9fc02e3a'
+
+        const title = $('div[id="contentHeader"]').children('h1').text().trim()
+
+        const url = $('meta[property="og:url"]').attr('content')
+
+        const image = $('div[class="field-item even"]')
+            .children('h2')
+            .children('img')
+            .attr('src')
+
+        const imageAlt = $('div[class="field-item even"]')
+            .children('h2')
+            .children('img')
+            .attr('alt')
+            .trim()
+
+        // Main paragraph with generic info
+        const paragraphText = $('div[class="field-item even"]')
+            .find('p')
+            .eq(0)
+            .text()
+            .trim()
+
+        /* Hard code because there are 3 different meetings each quarter with
+            different locations and times */
+        const location = 'Varies to meeting'
+        const hours = ['Varies to meeting']
+
+        // Start grabbing text for extra info
+        const extraInfo = []
+
+        $('div[class="field-item even"]')
+            .eq(0)
+            .find('div[class="OutlineElement Ltr SCXW60035928 BCX2"]')
+            .eq(1)
+            .children() // get the first div inside the outer div
+            .eq(0)
+            .children() // here is where I'm grabbing the bullet point list
+            .eq(2)
+            .children()
+            .each((i, child) => {
+                const text = $(child).text().trim()
+                extraInfo.push(text)
+            })
+
+        const newResource = new IndResources({
+            Title: title,
+            ImageURL: image,
+            ImageAltText: imageAlt,
+            ParagraphText: paragraphText,
+            ResourceURL: url,
+            LastUpdate: new Date(),
+            Category: 'Student-Lead Programs',
+            ExtraInfo: extraInfo,
+            Address: location,
+            ListOfHours: hours,
+            Tags: [
+                'Mental Health',
+                'Addiction',
+                'Recovery',
+                'Group',
+                'Alcohol',
+                'Drugs',
+                'Nicotine',
+            ],
+        })
+
+        const updatedResource = await IndResources.findByIdAndUpdate(
+            { _id: mustangs4RecoveryID },
+            newResource,
+            { new: true, upsert: true },
+        )
+
+        if (!updatedResource) {
+            return res.status(404).send('Resource not found')
+        }
+
+        // Respond with the updated resource
+        res.status(201).json(updatedResource)
+    } catch (error) {
+        console.error('Scrapping failed:', error)
+        res.status(500).send('Error fetching Mustangs for Recovery data')
+    }
+})
+
 module.exports = router
