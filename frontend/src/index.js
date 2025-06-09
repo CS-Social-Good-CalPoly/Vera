@@ -4,11 +4,21 @@ import './index.css'
 import App from './App.js'
 import reportWebVitals from './reportWebVitals.js'
 import { BrowserRouter } from 'react-router-dom'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+const PUBLISHABLE_KEY =
+    'pk_test_dmFsaWQtY2hpZ2dlci0zOC5jbGVyay5hY2NvdW50cy5kZXYk'
+
+if (!PUBLISHABLE_KEY) {
+    throw new Error('Missing Publishable Key')
+}
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App />
+            <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+                <App />
+            </ClerkProvider>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root'),

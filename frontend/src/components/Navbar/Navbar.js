@@ -2,6 +2,7 @@ import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
 import './Navbar.css'
+import { SignedIn, UserButton } from '@clerk/clerk-react'
 import logo from './VeraLogo.jpg'
 
 function NavBar({ activeLink }) {
@@ -24,9 +25,7 @@ function NavBar({ activeLink }) {
                     <NavLink
                         className="navbar-links"
                         to="/"
-                        activeClassName={
-                            activeLink === '/' ? 'active' : ''
-                        }
+                        activeClassName={activeLink === '/' ? 'active' : ''}
                     >
                         Home
                     </NavLink>
@@ -66,6 +65,11 @@ function NavBar({ activeLink }) {
                     >
                         Share Your Story
                     </NavLink>
+                    <div className="my-auto">
+                        <SignedIn>
+                            <UserButton />
+                        </SignedIn>
+                    </div>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
